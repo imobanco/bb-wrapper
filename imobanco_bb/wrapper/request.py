@@ -70,20 +70,20 @@ class RequestsWrapper:
         Returns:
             url completa para o request
         """
-        url = f"{self._base_url}/"
+        url = f"{self._base_url}"
         if action:
-            url += f"{action}/"
+            url += f"/{action}"
 
         if sub_action_before_identifier:
             if subaction:
-                url += f"{subaction}/"
+                url += f"/{subaction}"
             if identifier:
-                url += f"{identifier}/"
+                url += f"{identifier}"
         else:
             if identifier:
-                url += f"{identifier}/"
+                url += f"/{identifier}"
             if subaction:
-                url += f"{subaction}/"
+                url += f"/{subaction}"
 
         if search:
             url += "?"
