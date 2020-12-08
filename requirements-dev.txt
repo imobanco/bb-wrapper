@@ -1,0 +1,22 @@
+# Local development dependencies go here
+-r requirements.txt
+-r requirements-build.txt
+
+# Docs
+# ------------------------------------------------
+Sphinx==3.*
+sphinx-rtd-theme==0.4.3
+
+# Coverage
+# ------------------------------------------------
+coverage==5.0.*
+
+# Tests
+# ------------------------------------------------
+factory-boy==2.12.0
+pycpfcnpj==1.5.1
+
+# CI
+# ------------------------------------------------
+black
+flake8
