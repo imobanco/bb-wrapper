@@ -122,7 +122,9 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
-        response = requests.delete(url, headers=self._authorization_header_data, verify=False)
+        response = requests.delete(
+            url, headers=self._authorization_header_data, verify=False
+        )
         response = self._process_response(response)
         return response
 
@@ -136,7 +138,9 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
-        response = requests.get(url, headers=self._authorization_header_data, verify=False)
+        response = requests.get(
+            url, headers=self._authorization_header_data, verify=False
+        )
         response = self._process_response(response)
         return response
 
@@ -168,7 +172,9 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
-        response = requests.put(url, json=data, headers=self._authorization_header_data, verify=False)
+        response = requests.put(
+            url, json=data, headers=self._authorization_header_data, verify=False
+        )
         response = self._process_response(response)
         return response
 
