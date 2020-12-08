@@ -1,8 +1,8 @@
 pip.install:
-	pip install -U -r requirements-dev.txt
+	pip install --upgrade --recursive requirements-dev.txt
 
 pip.install.build:
-	pip install -U -r requirements-build.txt
+	pip install --upgrade --recursive requirements-build.txt
 
 config.env:
 	cp .env.sample .env
