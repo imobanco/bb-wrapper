@@ -1,0 +1,11 @@
+[flake8]
+ignore = D203
+exclude =
+    .git,
+    venv,
+    env,
+    versioneer.py,
+    _version.py,
+    build,
+max-complexity = 10
+max-line-length = 88
