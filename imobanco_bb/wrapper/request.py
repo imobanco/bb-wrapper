@@ -78,7 +78,7 @@ class RequestsWrapper:
             if subaction:
                 url += f"/{subaction}"
             if identifier:
-                url += f"{identifier}"
+                url += f"/{identifier}"
         else:
             if identifier:
                 url += f"/{identifier}"

@@ -10,7 +10,7 @@ class BaseBBWrapper(RequestsWrapper):
     """
 
     BASE_SCHEMA = "https://"
-    BASE_URL = "imopay.com.br"
+    BASE_DOMAIN = ".bb.com.br"
 
     def __init__(self, basic_token=None, is_sandbox=None, gw_app_key=None):
         if is_sandbox is None:
@@ -36,10 +36,7 @@ class BaseBBWrapper(RequestsWrapper):
         super().__init__(base_url=base_url)
 
     def _construct_base_url(self):
-        base_url = f"{self.BASE_SCHEMA}api"
-        if self._is_sandbox:
-            base_url += ".sandbox"
-        base_url += ".bb.com.br"
+        base_url = f'{self.BASE_SCHEMA}api{".sandbox" if self._is_sandbox else ""}{self.BASE_DOMAIN}'
         return base_url
 
     def _construct_url(
@@ -74,7 +71,7 @@ class BaseBBWrapper(RequestsWrapper):
         return f"{self.__token_type} {self.__access_token}"
 
     def authenticate(self):
-        url = 'https://oauth.sandbox.bb.com.br/oauth/token'
+        url = f'{self.BASE_SCHEMA}oauth{".sandbox" if self._is_sandbox else ""}{self.BASE_DOMAIN}/oauth/token'
         header = {"Authorization": f"Basic {self.__basic_token}"}
 
         data = {
