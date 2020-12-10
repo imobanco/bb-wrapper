@@ -8,6 +8,7 @@ class TipoRegistroEnum(IntEnum):
     1 - Pessoa Física
     2 - Pessoa Jurídica
     """
+
     cpf = 1
     cnpj = 2
 
