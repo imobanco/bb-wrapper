@@ -1,7 +1,7 @@
 import requests
 
 from .request import RequestsWrapper
-from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY
+from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY, CONVENIO_NUMBER
 
 
 class BaseBBWrapper(RequestsWrapper):
@@ -12,7 +12,7 @@ class BaseBBWrapper(RequestsWrapper):
     BASE_SCHEMA = "https://"
     BASE_DOMAIN = ".bb.com.br"
 
-    def __init__(self, basic_token=None, is_sandbox=None, gw_app_key=None):
+    def __init__(self, basic_token=None, is_sandbox=None, gw_app_key=None, convenio_number=None):
         if is_sandbox is None:
             is_sandbox = IS_SANDBOX
 
@@ -22,9 +22,13 @@ class BaseBBWrapper(RequestsWrapper):
         if gw_app_key is None:
             gw_app_key = GW_APP_KEY
 
+        if convenio_number is None:
+            convenio_number = CONVENIO_NUMBER
+
         self.__basic_token = basic_token
         self.__gw_app_key = gw_app_key
         self._is_sandbox = is_sandbox
+        self._convenio_number = convenio_number
         self.__access_token = None
         self.__token_type = None
 
@@ -61,6 +65,8 @@ class BaseBBWrapper(RequestsWrapper):
         )
         if not search:
             url += "?"
+        else:
+            url += '&'
         url += f"gw-dev-app-key={self.__gw_app_key}"
         return url
 
