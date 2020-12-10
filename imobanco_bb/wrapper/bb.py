@@ -36,10 +36,12 @@ class BaseBBWrapper(RequestsWrapper):
         super().__init__(base_url=base_url)
 
     def _construct_base_url(self):
-        base_url = f'{self.BASE_SCHEMA}' \
-                   f'api' \
-                   f'{".sandbox" if self._is_sandbox else ""}' \
-                   f'{self.BASE_DOMAIN}'
+        base_url = (
+            f"{self.BASE_SCHEMA}"
+            f"api"
+            f'{".sandbox" if self._is_sandbox else ""}'
+            f"{self.BASE_DOMAIN}"
+        )
         return base_url
 
     def _construct_url(
@@ -74,11 +76,13 @@ class BaseBBWrapper(RequestsWrapper):
         return f"{self.__token_type} {self.__access_token}"
 
     def authenticate(self):
-        url = f'{self.BASE_SCHEMA}' \
-              f'oauth' \
-              f'{".sandbox" if self._is_sandbox else ""}' \
-              f'{self.BASE_DOMAIN}' \
-              f'/oauth/token'
+        url = (
+            f"{self.BASE_SCHEMA}"
+            f"oauth"
+            f'{".sandbox" if self._is_sandbox else ""}'
+            f"{self.BASE_DOMAIN}"
+            f"/oauth/token"
+        )
         header = {"Authorization": f"Basic {self.__basic_token}"}
 
         data = {
