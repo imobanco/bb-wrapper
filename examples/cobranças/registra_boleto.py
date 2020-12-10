@@ -1,3 +1,7 @@
+import os
+
+from examples.utils import dump_response
+
 from imobanco_bb.wrapper.cobrancas import CobrancasBBWrapper
 
 wrapper = CobrancasBBWrapper()
@@ -20,15 +24,14 @@ data = {
     "indicadorPermissaoRecebimentoParcial": "N",
     "numeroTituloBeneficiario": "TESTE2",
     "textoCampoUtilizacaoBeneficiario": "TESTE3",
-    "codigoTipoContaCaucao": 0,
-    "numeroTituloCliente": "00031285571231230001",
+    "numeroTituloCliente": "00031285571231230009",
     "textoMensagemBloquetoOcorrencia": "TESTE5",
     "pagador": {
         "tipoRegistro": 1,
-        "numeroRegistro": 71128590182,
+        "numeroRegistro": "01688745475",
         "nome": "NOME",
         "endereco": "ENDERECO",
-        "cep": 70675727,
+        "cep": "70675727",
         "cidade": "SAO PAULO",
         "bairro": "CENTRO",
         "uf": "SP",
@@ -39,4 +42,4 @@ data = {
 
 response = wrapper.registra_boleto(data)
 
-print(response.data)
+dump_response(response, os.path.basename(__file__).split(".")[0])
