@@ -23,11 +23,11 @@ data = {
     "indicadorPermissaoRecebimentoParcial": "N",
     "numeroTituloBeneficiario": "TESTE2",
     "textoCampoUtilizacaoBeneficiario": "TESTE3",
-    "numeroTituloCliente": "00031285571231230009",
+    "numeroTituloCliente": "00031285571231230010",
     "textoMensagemBloquetoOcorrencia": "TESTE5",
     "pagador": {
         "tipoRegistro": 1,
-        "numeroRegistro": "01688745475",
+        "numeroRegistro": "71128590182",
         "nome": "NOME",
         "endereco": "ENDERECO",
         "cep": "70675727",
@@ -36,7 +36,11 @@ data = {
         "uf": "SP",
         "telefone": "999939669",
     },
-    "email": "cliente@email.com",
+    "avalista": {
+        "tipoRegistro": 1,
+        "numeroRegistro": "71128590182",
+        "nomeRegistro": "NOME"
+    },
 }
 
 response = wrapper.registra_boleto(data)

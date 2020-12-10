@@ -6,7 +6,7 @@ from imobanco_bb.wrapper.cobrancas import CobrancasBBWrapper
 
 wrapper = CobrancasBBWrapper()
 
-numero = "00031285571231230007"
+numero = "00031285571231230010"
 
 response = wrapper.consulta_boleto(numero)
 

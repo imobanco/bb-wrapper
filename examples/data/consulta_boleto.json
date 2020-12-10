@@ -29,7 +29,7 @@
     "quantidadeDiaPrazoLimiteRecebimento": 0,
     "dataLimiteRecebimentoTitulo": "07.12.2020",
     "indicadorPermissaoRecebimentoParcial": "N",
-    "textoCodigoBarrasTituloCobranca": "00193846200000100000000003128557123123000717",
+    "textoCodigoBarrasTituloCobranca": "00194846200000100000000003128557123123001017",
     "codigoOcorrenciaCartorio": 0,
     "indicadorDebitoCreditoTitulo": 0,
     "valorImpostoSobreOprFinanceirasRecebidoTitulo": 0,
@@ -47,7 +47,7 @@
     "codigoIndicadorEconomicoUtilizadoInadimplencia": 0,
     "sacado": {
         "codigoTipoInscricaoSacado": 1,
-        "numeroInscricaoSacadoCobranca": 1688745475,
+        "numeroInscricaoSacadoCobranca": 71128590182,
         "nomeSacadoCobranca": "NOME",
         "textoEnderecoSacadoCobranca": "ENDERECO",
         "nomeBairroSacadoCobranca": "CENTRO",
@@ -58,9 +58,9 @@
         "numeroIdentidadeSacadoTituloCobranca": ""
     },
     "sacador": {
-        "codigoTipoInscricaoSacador": 3,
-        "numeroInscricaoSacadorAvalista": 0,
-        "nomeSacadorAvalistaTitulo": ""
+        "codigoTipoInscricaoSacador": 1,
+        "numeroInscricaoSacadorAvalista": 71128590182,
+        "nomeSacadorAvalistaTitulo": "NOME"
     },
     "multa": {
         "percentualMultaTitulo": 0,
