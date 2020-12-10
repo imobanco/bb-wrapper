@@ -13,3 +13,10 @@ class CobrancasBBWrapper(BaseBBWrapper):
         url = self._construct_url()
         response = self._post(url, data)
         return response
+
+    def consulta_boleto(self, numero):
+        """"""
+        self.authenticate()
+        url = self._construct_url(identifier=numero, search={'numeroConvenio': self._convenio_number})
+        response = self._get(url)
+        return response
