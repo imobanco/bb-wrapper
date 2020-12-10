@@ -14,7 +14,6 @@ data = {
     "dataEmissao": "07.12.2020",
     "dataVencimento": "07.12.2020",
     "valorOriginal": 100.00,
-    "valorAbatimento": 0,
     "quantidadeDiasProtesto": 0,
     "indicadorNumeroDiasLimiteRecebimento": "N",
     "numeroDiasLimiteRecebimento": 0,

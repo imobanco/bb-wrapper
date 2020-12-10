@@ -1,4 +1,5 @@
 from .bb import BaseBBWrapper
+from ..models.boleto import Boleto
 
 
 class CobrancasBBWrapper(BaseBBWrapper):
@@ -9,6 +10,7 @@ class CobrancasBBWrapper(BaseBBWrapper):
 
     def registra_boleto(self, data):
         """"""
+        Boleto(**data)
         self.authenticate()
         url = self._construct_url()
         response = self._post(url, data)
@@ -17,6 +19,8 @@ class CobrancasBBWrapper(BaseBBWrapper):
     def consulta_boleto(self, numero):
         """"""
         self.authenticate()
-        url = self._construct_url(identifier=numero, search={'numeroConvenio': self._convenio_number})
+        url = self._construct_url(
+            identifier=numero, search={"numeroConvenio": self._convenio_number}
+        )
         response = self._get(url)
         return response

@@ -12,7 +12,9 @@ class BaseBBWrapper(RequestsWrapper):
     BASE_SCHEMA = "https://"
     BASE_DOMAIN = ".bb.com.br"
 
-    def __init__(self, basic_token=None, is_sandbox=None, gw_app_key=None, convenio_number=None):
+    def __init__(
+        self, basic_token=None, is_sandbox=None, gw_app_key=None, convenio_number=None
+    ):
         if is_sandbox is None:
             is_sandbox = IS_SANDBOX
 
@@ -66,7 +68,7 @@ class BaseBBWrapper(RequestsWrapper):
         if not search:
             url += "?"
         else:
-            url += '&'
+            url += "&"
         url += f"gw-dev-app-key={self.__gw_app_key}"
         return url
 
