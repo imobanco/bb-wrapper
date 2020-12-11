@@ -1,0 +1,23 @@
+{
+    "numero": "00031285571231230012",
+    "numeroCarteira": 17,
+    "numeroVariacaoCarteira": 35,
+    "codigoCliente": 704950857,
+    "linhaDigitavel": "00190000090312855712531230012176784620000010000",
+    "codigoBarraNumerico": "00197846200000100000000003128557123123001217",
+    "numeroContratoCobranca": 19581316,
+    "beneficiario": {
+        "agencia": 452,
+        "contaCorrente": 123873,
+        "tipoEndereco": 1,
+        "logradouro": "RUA 16 LOTE 1",
+        "bairro": "SUL (AGUAS CLARAS)",
+        "cidade": "BRASILIA",
+        "codigoCidade": 2000,
+        "uf": "DF",
+        "cep": 71940180,
+        "indicadorComprovacao": "S"
+    },
+    "quantidadeOcorrenciasNegativacao": "0",
+    "listaOcorrenciasNegativacao": []
+}

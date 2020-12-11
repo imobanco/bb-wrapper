@@ -8,7 +8,7 @@
     "codigoIndicadorEconomico": 9,
     "numeroTituloCedenteCobranca": "TESTE2",
     "dataEmissaoTituloCobranca": "07.12.2020",
-    "dataRegistroTituloCobranca": "10.12.2020",
+    "dataRegistroTituloCobranca": "11.12.2020",
     "dataVencimentoTituloCobranca": "07.12.2020",
     "valorOriginalTituloCobranca": 100,
     "valorAtualTituloCobranca": 100,
@@ -29,7 +29,7 @@
     "quantidadeDiaPrazoLimiteRecebimento": 0,
     "dataLimiteRecebimentoTitulo": "07.12.2020",
     "indicadorPermissaoRecebimentoParcial": "N",
-    "textoCodigoBarrasTituloCobranca": "00194846200000100000000003128557123123001017",
+    "textoCodigoBarrasTituloCobranca": "00197846200000100000000003128557123123001217",
     "codigoOcorrenciaCartorio": 0,
     "indicadorDebitoCreditoTitulo": 0,
     "valorImpostoSobreOprFinanceirasRecebidoTitulo": 0,
@@ -63,9 +63,9 @@
         "nomeSacadorAvalistaTitulo": "NOME"
     },
     "multa": {
-        "percentualMultaTitulo": 0,
+        "percentualMultaTitulo": 0.1,
         "valorMultaTituloCobranca": 0,
-        "dataMultaTitulo": "",
+        "dataMultaTitulo": "08.12.2020",
         "valorMultaRecebido": 0
     },
     "desconto": {
@@ -88,10 +88,10 @@
         }
     },
     "juroMora": {
-        "codigoTipoJuroMora": 0,
+        "codigoTipoJuroMora": 1,
         "percentualJuroMoraTitulo": 0,
-        "valorJuroMoraTitulo": 0,
-        "dataJuroMoraTitulo": "",
+        "valorJuroMoraTitulo": 0.1,
+        "dataJuroMoraTitulo": "08.12.2020",
         "valorJuroMoraRecebido": 0
     }
 }
