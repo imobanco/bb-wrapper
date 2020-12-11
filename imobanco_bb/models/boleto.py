@@ -18,6 +18,41 @@ class ModalidadeEnum(IntEnum):
     vinculada = 4
 
 
+class ConfiguracaoBaseTipoEnum(IntEnum):
+    valor_fixo = 1
+    porcentagem = 2
+
+
+class ConfiguracaoBase(BaseModel):
+    porcentagem: Optional[confloat(strict=True, gt=0.0)]
+    valor: Optional[confloat(strict=True, gt=0.0)]
+
+
+class BoletoConfiguracaoBase(ConfiguracaoBase):
+    """
+    Caso tipo seja 1: utilizar valor!
+
+    Caso tipo seja 2: utilizar porcentagem!
+    """
+    tipo: ConfiguracaoBaseTipoEnum
+
+
+class Multa(BoletoConfiguracaoBase):
+    data: str
+
+
+class DescontoBase(BaseModel):
+    dataExpiracao: str
+
+
+class PrimeiroDesconto(DescontoBase, BoletoConfiguracaoBase):
+    pass
+
+
+class SegundoOuTerceiroDesconto(DescontoBase, ConfiguracaoBase):
+    pass
+
+
 class Boleto(BaseModel):
     numeroConvenio: constr(max_length=7, min_length=7)
     numeroCarteira: str
@@ -39,6 +74,12 @@ class Boleto(BaseModel):
     numeroTituloCliente: constr(max_length=20)
     textoMensagemBloquetoOcorrencia: Optional[constr(max_length=30)]
     pagador: Pagador
-    avalista: Avalista
+    avalista: Optional[Avalista]
     email: Optional[str]
     quantidadeDiasNegativacao: Optional[conint(ge=0)]
+
+    jurosMora: Optional[BoletoConfiguracaoBase]
+    multa: Optional[BoletoConfiguracaoBase]
+    desconto: Optional[PrimeiroDesconto]
+    segundoDesconto: Optional[SegundoOuTerceiroDesconto]
+    terceiroDesconto: Optional[SegundoOuTerceiroDesconto]
