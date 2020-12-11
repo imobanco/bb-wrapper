@@ -39,7 +39,7 @@ data = {
     "avalista": {
         "tipoRegistro": 1,
         "numeroRegistro": "71128590182",
-        "nomeRegistro": "NOME"
+        "nomeRegistro": "NOME",
     },
 }
 
