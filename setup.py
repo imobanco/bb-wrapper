@@ -15,7 +15,7 @@ setup(
     author="Imobanco",
     description="Cliente não oficial da API do Banco do Brasil",
     long_description=long_description,
-    long_description_content_type="text/x-rst",
+    # long_description_content_type="text/x-rst",
     url="https://github.com/imobanco/bb-wrapper/",
     packages=["bb_wrapper", "bb_wrapper.wrapper", "bb_wrapper.models"],
     classifiers=[
