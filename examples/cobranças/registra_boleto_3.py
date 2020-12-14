@@ -41,10 +41,7 @@ data = {
         "numeroRegistro": "71128590182",
         "nomeRegistro": "NOME",
     },
-    "jurosMora": {
-        "tipo": 1,
-        "valor": 0.1
-      },
+    "jurosMora": {"tipo": 1, "valor": 0.1},
 }
 
 response = wrapper.registra_boleto(data)

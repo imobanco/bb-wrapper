@@ -8,7 +8,7 @@
     "codigoIndicadorEconomico": 9,
     "numeroTituloCedenteCobranca": "TESTE2",
     "dataEmissaoTituloCobranca": "07.12.2020",
-    "dataRegistroTituloCobranca": "11.12.2020",
+    "dataRegistroTituloCobranca": "14.12.2020",
     "dataVencimentoTituloCobranca": "07.12.2020",
     "valorOriginalTituloCobranca": 100,
     "valorAtualTituloCobranca": 100,
@@ -29,7 +29,7 @@
     "quantidadeDiaPrazoLimiteRecebimento": 0,
     "dataLimiteRecebimentoTitulo": "07.12.2020",
     "indicadorPermissaoRecebimentoParcial": "N",
-    "textoCodigoBarrasTituloCobranca": "00197846200000100000000003128557123123001217",
+    "textoCodigoBarrasTituloCobranca": "00193846200000100000000003128557123123001317",
     "codigoOcorrenciaCartorio": 0,
     "indicadorDebitoCreditoTitulo": 0,
     "valorImpostoSobreOprFinanceirasRecebidoTitulo": 0,
@@ -70,21 +70,21 @@
     },
     "desconto": {
         "percentualDescontoTitulo": 0,
-        "dataDescontoTitulo": "",
-        "valorDescontoTitulo": 0,
-        "codigoDescontoTitulo": 0,
+        "dataDescontoTitulo": "05.12.2020",
+        "valorDescontoTitulo": 0.3,
+        "codigoDescontoTitulo": 1,
         "valorDescontoUtilizado": 0,
         "segundoDesconto": {
             "percentualSegundoDescontoTitulo": 0,
-            "dataSegundoDescontoTitulo": "",
-            "valorSegundoDescontoTitulo": 0,
-            "codigoSegundoDescontoTitulo": 0
+            "dataSegundoDescontoTitulo": "06.12.2020",
+            "valorSegundoDescontoTitulo": 0.2,
+            "codigoSegundoDescontoTitulo": 1
         },
         "terceiroDesconto": {
             "percentualTerceiroDescontoTitulo": 0,
-            "dataTerceiroDescontoTitulo": "",
-            "valorTerceiroDescontoTitulo": 0,
-            "codigoTerceiroDescontoTitulo": 0
+            "dataTerceiroDescontoTitulo": "07.12.2020",
+            "valorTerceiroDescontoTitulo": 0.1,
+            "codigoTerceiroDescontoTitulo": 1
         }
     },
     "juroMora": {

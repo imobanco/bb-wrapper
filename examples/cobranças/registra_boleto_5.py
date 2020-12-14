@@ -23,7 +23,7 @@ data = {
     "indicadorPermissaoRecebimentoParcial": "N",
     "numeroTituloBeneficiario": "TESTE2",
     "textoCampoUtilizacaoBeneficiario": "TESTE3",
-    "numeroTituloCliente": "00031285571231230012",
+    "numeroTituloCliente": "00031285571231230013",
     "textoMensagemBloquetoOcorrencia": "TESTE5",
     "pagador": {
         "tipoRegistro": 1,
@@ -43,6 +43,9 @@ data = {
     },
     "jurosMora": {"tipo": 1, "valor": 0.1},
     "multa": {"tipo": 2, "porcentagem": 0.1, "data": "08.12.2020"},
+    "desconto": {"tipo": 1, "dataExpiracao": "05.12.2020", "valor": 0.3},
+    "segundoDesconto": {"dataExpiracao": "06.12.2020", "valor": 0.2},
+    "terceiroDesconto": {"dataExpiracao": "07.12.2020", "valor": 0.1},
 }
 
 response = wrapper.registra_boleto(data)

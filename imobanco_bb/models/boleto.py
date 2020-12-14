@@ -34,6 +34,7 @@ class BoletoConfiguracaoBase(ConfiguracaoBase):
 
     Caso tipo seja 2: utilizar porcentagem!
     """
+
     tipo: ConfiguracaoBaseTipoEnum
 
 
