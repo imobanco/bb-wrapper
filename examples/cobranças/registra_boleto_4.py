@@ -2,7 +2,7 @@ import os
 
 from examples.utils import dump_response
 
-from imobanco_bb.wrapper.cobrancas import CobrancasBBWrapper
+from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 wrapper = CobrancasBBWrapper()
 
