@@ -9,3 +9,6 @@ BASIC_TOKEN = config("IMOBANCO_BB_BASIC_TOKEN", default=True)
 
 GW_APP_KEY = config("IMOBANCO_BB_GW_APP_KEY", default=True)
 """developer_application_key"""
+
+CONVENIO_NUMBER = config("IMOBANCO_BB_CONVENIO_NUMBER", default=True)
+"""número do convênio"""

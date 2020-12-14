@@ -1,6 +1,6 @@
 # Local development dependencies go here
---recursive requirements.txt
---recursive requirements-build.txt
+--requirement requirements.txt
+--requirement requirements-build.txt
 
 # Docs
 # ------------------------------------------------
