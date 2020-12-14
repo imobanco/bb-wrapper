@@ -1,4 +1,4 @@
-from imobanco_bb.wrapper.bb import BaseBBWrapper
+from bb_wrapper.wrapper.bb import BaseBBWrapper
 
 
 wrapper = BaseBBWrapper()

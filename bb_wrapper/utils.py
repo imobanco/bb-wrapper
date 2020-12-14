@@ -9,6 +9,6 @@ def get_logger(name):
         name: nome para gerar o logger
 
     Returns:
-        novo logger para imobanco_bb.{name}
+        novo logger para bb_wrapper.{name}
     """
-    return logging.getLogger(f"imobanco_bb.{name}")
+    return logging.getLogger(f"bb_wrapper.{name}")
