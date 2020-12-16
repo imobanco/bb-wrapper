@@ -17,7 +17,7 @@ data = {
     "quantidadeDiasProtesto": 0,
     "indicadorNumeroDiasLimiteRecebimento": "N",
     "numeroDiasLimiteRecebimento": 0,
-    "codigoAceite": "A",
+    "codigoAceite": "N",
     "codigoTipoTitulo": 4,
     "descricaoTipoTitulo": "DS",
     "indicadorPermissaoRecebimentoParcial": "N",
