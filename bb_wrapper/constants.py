@@ -1,7 +1,7 @@
 from decouple import config
 
 
-IS_SANDBOX = config("IMOBANCO_BB_IS_SANDBOX", default=True)
+IS_SANDBOX = config("IMOBANCO_BB_IS_SANDBOX", default=True, cast=bool)
 """É ambiente de teste?"""
 
 BASIC_TOKEN = config("IMOBANCO_BB_BASIC_TOKEN", default=True)
