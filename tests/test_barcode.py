@@ -11,7 +11,7 @@ class BarcodeTestCase(TestCase):
         Quando:
             - for chamado generate_barcode_b64image(barcode_number)
         Então:
-            - o resultado do b64 deve ser ¯\_(ツ)_/¯
+            - o resultado deve ser ¯\_(ツ)_/¯
         """
         barcode_number = "00193846200000100000000003128557123123001317"
 
