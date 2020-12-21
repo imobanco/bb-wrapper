@@ -13,7 +13,7 @@ class OurNumberTestCase(TestCase):
         Então:
             - deve ser lançado `AssertionError`
             - a mensagem de erro deve ser 'O convênio não possui 7 dígitos!'
-        """    
+        """
         with self.assertRaises(AssertionError) as ctx:
             CobrancasBBWrapper(convenio="123")
 
@@ -69,11 +69,19 @@ class OurNumberTestCase(TestCase):
     def test_create_boleto_data_with_defaults_1(self):
         """
         Dado:
-            -
+            - um convenio "1234567"
+            - uma carteira "17"
+            - uma variacao_carteira = "35"
+            - um wrapper CobrancasBBWrapper com
+                convenio=convenio
+                carteira=carteira
+                variacao_carteira=variacao_carteira
+            - um dict de dados 'data'
+                {}
         Quando:
-            -
+            - for chamado wrapper.create_boleto_data_with_defaults(data)
         Então:
-            -
+            - o dict de resultado deve ser os valores padrões ¯\_(ツ)_/¯  # noqa
         """
         convenio = "1234567"
         carteira = "17"
@@ -96,6 +104,7 @@ class OurNumberTestCase(TestCase):
             "codigoAceite": "N",
             "codigoTipoTitulo": 4,
             "indicadorPermissaoRecebimentoParcial": "N",
+            "descricaoTipoTitulo": "DM",
         }
 
         result = wrapper.create_boleto_data_with_defaults(data)
@@ -105,11 +114,23 @@ class OurNumberTestCase(TestCase):
     def test_create_boleto_data_with_defaults_2(self):
         """
         Dado:
-            -
+            - um convenio "1234567"
+            - uma carteira "17"
+            - uma variacao_carteira = "35"
+            - um wrapper CobrancasBBWrapper com
+                convenio=convenio
+                carteira=carteira
+                variacao_carteira=variacao_carteira
+            - um dict de dados 'data'
+                {
+                    "numeroConvenio": "1",
+                    "numeroCarteira": "2",
+                    "numeroVariacaoCarteira": "3",
+                }
         Quando:
-            -
+            - for chamado wrapper.create_boleto_data_with_defaults(data)
         Então:
-            -
+            - o dict de resultado deve ter os valores do data sobreescritos ¯\_(ツ)_/¯  # noqa
         """
         convenio = "1234567"
         carteira = "17"
@@ -136,6 +157,7 @@ class OurNumberTestCase(TestCase):
             "codigoAceite": "N",
             "codigoTipoTitulo": 4,
             "indicadorPermissaoRecebimentoParcial": "N",
+            "descricaoTipoTitulo": "DM",
         }
 
         result = wrapper.create_boleto_data_with_defaults(data)

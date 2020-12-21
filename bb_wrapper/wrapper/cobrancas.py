@@ -77,6 +77,7 @@ class CobrancasBBWrapper(BaseBBWrapper):
             "codigoAceite": "N",  # Boleto não reconhecido pelo pagador
             "codigoTipoTitulo": 4,  # convênio tipo 4 (cliente numera, emite e expede)
             "indicadorPermissaoRecebimentoParcial": "N",  # sem recibimento parcial!
+            "descricaoTipoTitulo": "DM",  # tipo de cobrança, Duplicata Mercantil
         }
         default_data.update(data)
         return default_data

@@ -11,7 +11,6 @@ data = wrapper.create_boleto_data_with_defaults(
         "dataEmissao": "07.12.2020",
         "dataVencimento": "07.12.2020",
         "valorOriginal": 100.00,
-        "descricaoTipoTitulo": "DS",
         "numeroTituloBeneficiario": "TESTE2",
         "textoCampoUtilizacaoBeneficiario": "TESTE3",
         "numeroTituloCliente": "00031285571231230013",
