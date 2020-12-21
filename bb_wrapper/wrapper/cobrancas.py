@@ -58,7 +58,14 @@ class CobrancasBBWrapper(BaseBBWrapper):
         return f"000{self.__convenio}{number}"
 
     def create_boleto_data_with_defaults(self, data: dict):
-        """"""
+        """
+        Método para criar um dict com algumas infos padrões.
+
+        É uma função pura, retornando um novo dict!
+
+        Esse novo dict possui as infos padrões + dados do original,
+        dando prioridade às infos do dict original (sim, ele sobreescreve as padrões!)
+        """
         default_data = {
             "numeroConvenio": self.__convenio,
             "numeroCarteira": self.__carteira,
