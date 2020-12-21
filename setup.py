@@ -34,7 +34,12 @@ setup(
         "",
     ],
     python_requires=">=3.8",
-    install_requires=["requests>=2.23.0", "python-decouple>=3.3", "pydantic>=1.7.0", "python-barcode>=0.13.1"],
+    install_requires=[
+        "requests>=2.23.0",
+        "python-decouple>=3.3",
+        "pydantic>=1.7.0",
+        "python-barcode>=0.13.1",
+    ],
     keywords="API Banco Brasil BB client wrapper",
     project_urls={
         # "Documentation": "https://bb-wrapper.readthedocs.io",

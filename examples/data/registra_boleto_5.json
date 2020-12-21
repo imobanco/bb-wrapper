@@ -1,10 +1,10 @@
 {
-    "numero": "00031285571231230013",
+    "numero": "00031285571231230015",
     "numeroCarteira": 17,
     "numeroVariacaoCarteira": 35,
     "codigoCliente": 704950857,
-    "linhaDigitavel": "00190000090312855712531230013174384620000010000",
-    "codigoBarraNumerico": "00193846200000100000000003128557123123001317",
+    "linhaDigitavel": "00190000090312855712531230015179684620000010000",
+    "codigoBarraNumerico": "00196846200000100000000003128557123123001517",
     "numeroContratoCobranca": 19581316,
     "beneficiario": {
         "agencia": 452,
