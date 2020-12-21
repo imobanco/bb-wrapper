@@ -51,7 +51,7 @@ class CobrancasBBWrapper(BaseBBWrapper):
         Método para construir o 'Nosso Número'.
 
         20 dígitos, que deverá ser formatado da seguinte forma:
-            “000” + (número do convênio com 7 dígitos) + (10 algarismos)
+            '000' + (número do convênio com 7 dígitos) + (10 algarismos)
         """
         assert len(number) == 10, "O número não tem 10 dígitos!"
 
