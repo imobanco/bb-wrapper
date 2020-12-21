@@ -33,7 +33,7 @@ setup(
         "",
         "",
     ],
-    python_requires=">=3.7",
+    python_requires=">=3.8",
     install_requires=["requests>=2.23.0", "python-decouple>=3.3", "pydantic>=1.7.0"],
     keywords="API Banco Brasil BB client wrapper",
     project_urls={
