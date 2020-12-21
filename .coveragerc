@@ -1,0 +1,9 @@
+[report]
+omit =
+	*/env/*
+	*/venv/*
+	*/tests/*
+	*/examples/*
+	*/_version.py
+	*/__init__.py
+	
