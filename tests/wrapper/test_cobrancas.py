@@ -5,6 +5,15 @@ from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 class OurNumberTestCase(TestCase):
     def test_convenio_assert(self):
+        """
+        Dado:
+            - um número de convenio="123" (inválido pois não tem 7 dígitos)
+        Quando:
+            - for chamado CobrancasBBWrapper(convenio="123")
+        Então:
+            - deve ser lançado `AssertionError`
+            - a mensagem de erro deve ser 'O convênio não possui 7 dígitos!'
+        """    
         with self.assertRaises(AssertionError) as ctx:
             CobrancasBBWrapper(convenio="123")
 
