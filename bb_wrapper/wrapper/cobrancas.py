@@ -1,6 +1,7 @@
 from .bb import BaseBBWrapper
 from ..constants import CONVENIO, CARTEIRA, VARIACAO_CARTEIRA
 from ..models.boleto import Boleto
+from ..utils import parse_unicode_to_ascii
 
 
 class CobrancasBBWrapper(BaseBBWrapper):
@@ -69,6 +70,10 @@ class CobrancasBBWrapper(BaseBBWrapper):
         Esse novo dict possui as infos padrões + dados do original,
         dando prioridade às infos do dict original (sim, ele sobreescreve as padrões!)
         """
+        fields_to_transliterate = [
+            "textoCampoUtilizacaoBeneficiario", "textoMensagemBloquetoOcorrencia"
+        ]
+
         default_data = {
             "numeroConvenio": self.__convenio,
             "numeroCarteira": self.__carteira,
@@ -83,4 +88,10 @@ class CobrancasBBWrapper(BaseBBWrapper):
             "descricaoTipoTitulo": "DM",  # tipo de cobrança, Duplicata Mercantil
         }
         default_data.update(data)
+
+        for field in fields_to_transliterate:
+            try:
+                default_data[field] = parse_unicode_to_ascii(default_data[field])
+            except KeyError:
+                pass
         return default_data

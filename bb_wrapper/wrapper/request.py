@@ -2,10 +2,10 @@ from json.decoder import JSONDecodeError
 
 import requests
 
-from ..utils import get_logger
+from ..utils import _get_logger
 
 
-logger = get_logger("requests")
+logger = _get_logger("requests")
 
 
 class RequestsWrapper:
