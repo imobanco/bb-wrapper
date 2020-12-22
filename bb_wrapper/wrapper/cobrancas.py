@@ -71,7 +71,8 @@ class CobrancasBBWrapper(BaseBBWrapper):
         dando prioridade às infos do dict original (sim, ele sobreescreve as padrões!)
         """
         fields_to_transliterate = [
-            "textoCampoUtilizacaoBeneficiario", "textoMensagemBloquetoOcorrencia"
+            "textoCampoUtilizacaoBeneficiario",
+            "textoMensagemBloquetoOcorrencia",
         ]
 
         default_data = {

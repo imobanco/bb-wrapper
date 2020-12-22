@@ -221,7 +221,7 @@ class OurNumberTestCase(TestCase):
 
         data = {
             "textoCampoUtilizacaoBeneficiario": "Á'`ÑàÙçþíÍ1µŋß?°ŧŋ",
-            "textoMensagemBloquetoOcorrencia":  "Á'`ÑàÙçþíÍ1µŋß?°ŧŋ",
+            "textoMensagemBloquetoOcorrencia": "Á'`ÑàÙçþíÍ1µŋß?°ŧŋ",
         }
 
         expected = {
