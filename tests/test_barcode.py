@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from bb_wrapper.barcode_utils import generate_barcode_b64image
+from bb_wrapper.utils import generate_barcode_b64image
 
 
 class BarcodeTestCase(TestCase):

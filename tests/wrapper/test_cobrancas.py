@@ -4,6 +4,8 @@ from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 
 class OurNumberTestCase(TestCase):
+    maxDiff = None
+
     def test_convenio_assert(self):
         """
         Dado:
@@ -183,6 +185,59 @@ class OurNumberTestCase(TestCase):
             "codigoTipoTitulo": 4,
             "indicadorPermissaoRecebimentoParcial": "N",
             "descricaoTipoTitulo": "DM",
+        }
+
+        result = wrapper.create_boleto_data_with_defaults(data)
+
+        self.assertEqual(result, expected)
+
+    def test_create_boleto_data_with_defaults_3(self):
+        """
+        Dado:
+            - um convenio "1234567"
+            - uma carteira "17"
+            - uma variacao_carteira = "35"
+            - um wrapper CobrancasBBWrapper com
+                convenio=convenio
+                carteira=carteira
+                variacao_carteira=variacao_carteira
+            - um dict de dados 'data'
+                {
+                    "textoCampoUtilizacaoBeneficiario": "Á'`ÑàÙçþíÍ1µŋß?°ŧŋ",
+                    "textoMensagemBloquetoOcorrencia":  "Á'`ÑàÙçþíÍ1µŋß?°ŧŋ",
+                }
+        Quando:
+            - for chamado wrapper.create_boleto_data_with_defaults(data)
+        Então:
+            - o dict de resultado deve ter os textos não-ascii transliterados em ascii ¯\_(ツ)_/¯  # noqa
+        """
+        convenio = "1234567"
+        carteira = "17"
+        variacao_carteira = "35"
+
+        wrapper = CobrancasBBWrapper(
+            convenio=convenio, carteira=carteira, variacao_carteira=variacao_carteira
+        )
+
+        data = {
+            "textoCampoUtilizacaoBeneficiario": "Á'`ÑàÙçþíÍ1µŋß?°ŧŋ",
+            "textoMensagemBloquetoOcorrencia":  "Á'`ÑàÙçþíÍ1µŋß?°ŧŋ",
+        }
+
+        expected = {
+            "numeroConvenio": convenio,
+            "numeroCarteira": carteira,
+            "numeroVariacaoCarteira": variacao_carteira,
+            "codigoModalidade": 1,
+            "quantidadeDiasProtesto": 0,
+            "indicadorNumeroDiasLimiteRecebimento": "N",
+            "numeroDiasLimiteRecebimento": 0,
+            "codigoAceite": "N",
+            "codigoTipoTitulo": 4,
+            "indicadorPermissaoRecebimentoParcial": "N",
+            "descricaoTipoTitulo": "DM",
+            "textoCampoUtilizacaoBeneficiario": "A'`NAUCTHII1UNGSS?DEGTNG",
+            "textoMensagemBloquetoOcorrencia": "A'`NAUCTHII1UNGSS?DEGTNG",
         }
 
         result = wrapper.create_boleto_data_with_defaults(data)
