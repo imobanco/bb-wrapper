@@ -14,7 +14,6 @@ data = wrapper.create_boleto_data_with_defaults(
         "numeroTituloBeneficiario": "TESTE2",
         "textoCampoUtilizacaoBeneficiario": "TESTE3",
         "numeroTituloCliente": "00031285571231230012",
-        "textoMensagemBloquetoOcorrencia": "TESTE5",
         "pagador": {
             "tipoRegistro": 1,
             "numeroRegistro": "71128590182",
