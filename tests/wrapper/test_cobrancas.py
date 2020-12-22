@@ -29,7 +29,7 @@ class OurNumberTestCase(TestCase):
         Quando:
             - for chamado build_our_number(our_number)
         Então:
-            - o resultado deve ser f'000{convenio}{our_number}'
+            - o resultado deve ser f'000{convenio}000000000{number}'
         """
         convenio = "1234567"
 
@@ -53,7 +53,7 @@ class OurNumberTestCase(TestCase):
         Quando:
             - for chamado build_our_number(our_number)
         Então:
-            - o resultado deve ser f'000{convenio}{our_number}'
+            - o resultado deve ser f'000{convenio}0{number}'
         """
         convenio = "1234567"
 
@@ -77,7 +77,8 @@ class OurNumberTestCase(TestCase):
         Quando:
             - for chamado build_our_number(our_number)
         Então:
-            - o resultado deve ser f'000{convenio}{our_number}'
+            - deve ser lançado `AssertionError`
+            - a mensagem de erro deve ser "O número não tem 10 dígitos!"
         """
         convenio = "1234567"
 
