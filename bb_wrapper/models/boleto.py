@@ -19,13 +19,13 @@ class ModalidadeEnum(IntEnum):
 
 
 class ConfiguracaoBaseTipoEnum(IntEnum):
-    valor_fixo = 1
+    valor = 1
     porcentagem = 2
 
 
 class ConfiguracaoBase(BaseModel):
-    porcentagem: Optional[confloat(strict=True, gt=0.0)]
     valor: Optional[confloat(strict=True, gt=0.0)]
+    porcentagem: Optional[confloat(strict=True, gt=0.0)]
 
 
 class BoletoConfiguracaoBase(ConfiguracaoBase):

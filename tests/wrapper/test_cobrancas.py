@@ -23,23 +23,23 @@ class OurNumberTestCase(TestCase):
         """
         Dado:
             - convênio '1234567'
-            - um número '0123456789'
+            - um número '1'
             - um wrapper CobrancasBBWrapper com
                 convenio=convenio
         Quando:
             - for chamado build_our_number(our_number)
         Então:
-            - o resultado deve ser f'000{convenio}{our_number}'
+            - o resultado deve ser f'000{convenio}000000000{number}'
         """
         convenio = "1234567"
 
-        number = "0123456789"
+        number = "1"
 
         wrapper = CobrancasBBWrapper(convenio=convenio)
 
         result = wrapper.build_our_number(number)
 
-        expected = f"000{convenio}{number}"
+        expected = f"000{convenio}000000000{number}"
 
         self.assertEqual(result, expected)
 
@@ -47,17 +47,42 @@ class OurNumberTestCase(TestCase):
         """
         Dado:
             - convênio '1234567'
-            - um número '012345678'
+            - um número '123456789'
             - um wrapper CobrancasBBWrapper com
                 convenio=convenio
         Quando:
             - for chamado build_our_number(our_number)
         Então:
-            - o resultado deve ser f'000{convenio}{our_number}'
+            - o resultado deve ser f'000{convenio}0{number}'
         """
         convenio = "1234567"
 
-        number = "012345678"
+        number = "123456789"
+
+        wrapper = CobrancasBBWrapper(convenio=convenio)
+
+        result = wrapper.build_our_number(number)
+
+        expected = f"000{convenio}0{number}"
+
+        self.assertEqual(result, expected)
+
+    def test_build_our_number_3(self):
+        """
+        Dado:
+            - convênio '1234567'
+            - um número '01234567890'
+            - um wrapper CobrancasBBWrapper com
+                convenio=convenio
+        Quando:
+            - for chamado build_our_number(our_number)
+        Então:
+            - deve ser lançado `AssertionError`
+            - a mensagem de erro deve ser "O número não tem 10 dígitos!"
+        """
+        convenio = "1234567"
+
+        number = "01234567890"
 
         wrapper = CobrancasBBWrapper(convenio=convenio)
 
