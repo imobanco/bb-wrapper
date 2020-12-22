@@ -53,6 +53,9 @@ class CobrancasBBWrapper(BaseBBWrapper):
         20 dígitos, que deverá ser formatado da seguinte forma:
             '000' + (número do convênio com 7 dígitos) + (10 algarismos)
         """
+        number = str(number)
+        number = number.zfill(10)
+
         assert len(number) == 10, "O número não tem 10 dígitos!"
 
         return f"000{self.__convenio}{number}"
