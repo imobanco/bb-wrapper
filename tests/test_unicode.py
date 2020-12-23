@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from bb_wrapper.utils import parse_unicode_to_ascii
+from bb_wrapper.utils import parse_unicode_to_alphanumeric
 
 
 class ParseUnicodeToAsciiTestCase(TestCase):
@@ -11,12 +11,12 @@ class ParseUnicodeToAsciiTestCase(TestCase):
         Quando:
             - for chamado parse_unicode_to_ascii(text)
         Então:
-            - o resultado deve ser ¯\_(ツ)_/¯  # noqa
+            - o resultado deve ser "ANAUCTHII1UNGSSDEGTNG"
         """
-        text = "Á'`ÑàÙçþíÍ1µŋß?°ŧŋ"
+        text = "Á'`ÑàÙçþíÍ1µŋß?°ŧŋ_"
 
-        result = parse_unicode_to_ascii(text)
+        result = parse_unicode_to_alphanumeric(text)
 
-        expected = "A'`NAUCTHII1UNGSS?DEGTNG"
+        expected = "ANAUCTHII1UNGSSDEGTNG"
 
         self.assertEqual(result, expected)

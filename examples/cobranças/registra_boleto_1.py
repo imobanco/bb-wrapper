@@ -12,7 +12,7 @@ data = wrapper.create_boleto_data_with_defaults(
         "dataVencimento": "07.12.2020",
         "valorOriginal": 100.00,
         "numeroTituloBeneficiario": "0",
-        "textoCampoUtilizacaoBeneficiario": "UMA DÍVIDA QUALQUER",
+        "textoCampoUtilizacaoBeneficiario": "UMA DÍVIDA QUALQUER_",
         "numeroTituloCliente": "00031285571231230009",
         "pagador": {
             "tipoRegistro": 1,

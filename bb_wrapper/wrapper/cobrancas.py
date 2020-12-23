@@ -1,7 +1,7 @@
 from .bb import BaseBBWrapper
 from ..constants import CONVENIO, CARTEIRA, VARIACAO_CARTEIRA
 from ..models.boleto import Boleto
-from ..utils import parse_unicode_to_ascii
+from ..utils import parse_unicode_to_alphanumeric
 
 
 class CobrancasBBWrapper(BaseBBWrapper):
@@ -71,7 +71,8 @@ class CobrancasBBWrapper(BaseBBWrapper):
         dando prioridade às infos do dict original (sim, ele sobreescreve as padrões!)
         """
         fields_to_transliterate = [
-            "textoCampoUtilizacaoBeneficiario", "textoMensagemBloquetoOcorrencia"
+            "textoCampoUtilizacaoBeneficiario",
+            "textoMensagemBloquetoOcorrencia",
         ]
 
         default_data = {
@@ -91,7 +92,7 @@ class CobrancasBBWrapper(BaseBBWrapper):
 
         for field in fields_to_transliterate:
             try:
-                default_data[field] = parse_unicode_to_ascii(default_data[field])
+                default_data[field] = parse_unicode_to_alphanumeric(default_data[field])
             except KeyError:
                 pass
         return default_data

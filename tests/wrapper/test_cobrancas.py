@@ -221,7 +221,7 @@ class OurNumberTestCase(TestCase):
 
         data = {
             "textoCampoUtilizacaoBeneficiario": "Á'`ÑàÙçþíÍ1µŋß?°ŧŋ",
-            "textoMensagemBloquetoOcorrencia":  "Á'`ÑàÙçþíÍ1µŋß?°ŧŋ",
+            "textoMensagemBloquetoOcorrencia": "Á'`ÑàÙçþíÍ1µŋß?°ŧŋ",
         }
 
         expected = {
@@ -236,8 +236,8 @@ class OurNumberTestCase(TestCase):
             "codigoTipoTitulo": 4,
             "indicadorPermissaoRecebimentoParcial": "N",
             "descricaoTipoTitulo": "DM",
-            "textoCampoUtilizacaoBeneficiario": "A'`NAUCTHII1UNGSS?DEGTNG",
-            "textoMensagemBloquetoOcorrencia": "A'`NAUCTHII1UNGSS?DEGTNG",
+            "textoCampoUtilizacaoBeneficiario": "ANAUCTHII1UNGSSDEGTNG",
+            "textoMensagemBloquetoOcorrencia": "ANAUCTHII1UNGSSDEGTNG",
         }
 
         result = wrapper.create_boleto_data_with_defaults(data)
