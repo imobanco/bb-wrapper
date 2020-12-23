@@ -14,7 +14,7 @@ def generate_barcode_b64image(barcode_number, text=None):
     buffer = io.BytesIO()
     generate(name="itf", code=barcode_number, output=buffer, text=text)
     base64_img = base64.b64encode(buffer.getvalue())
-    return base64_img
+    return base64_img.decode("utf-8")
 
 
 def parse_unicode_to_alphanumeric(string):
