@@ -6,7 +6,7 @@ from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 wrapper = CobrancasBBWrapper()
 
-numero = "00031285571231230015"
+numero = "00031285571231230017"
 
 response = wrapper.consulta_boleto(numero)
 
