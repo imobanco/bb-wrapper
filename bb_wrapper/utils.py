@@ -7,7 +7,7 @@ from barcode import generate
 import unidecode
 
 
-def generate_barcode_b64image(barcode_number, text=''):
+def generate_barcode_b64image(barcode_number, text=""):
     """
     Método para gerar uma imagem base46 a partir de um código de barras numérico.
     """
