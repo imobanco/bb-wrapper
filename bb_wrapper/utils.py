@@ -7,14 +7,14 @@ from barcode import generate
 import unidecode
 
 
-def generate_barcode_b64image(barcode_number, text=None):
+def generate_barcode_b64image(barcode_number, text=""):
     """
     Método para gerar uma imagem base46 a partir de um código de barras numérico.
     """
     buffer = io.BytesIO()
     generate(name="itf", code=barcode_number, output=buffer, text=text)
     base64_img = base64.b64encode(buffer.getvalue())
-    base64_string = f"data:image/svg;base64,{base64_img.decode('utf-8')}"
+    base64_string = f"data:image/svg+xml;base64,{base64_img.decode('utf-8')}"
     return base64_string
 
 
