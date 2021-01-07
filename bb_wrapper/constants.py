@@ -18,3 +18,9 @@ CARTEIRA = config("IMOBANCO_BB_CARTEIRA", default="")
 
 VARIACAO_CARTEIRA = config("IMOBANCO_BB_VARIACAO_CARTEIRA", default="")
 """número da variação da carteira"""
+
+AGENCIA = config("IMOBANCO_BB_AGENCIA", default="")
+"""número da agência"""
+
+CONTA = config("IMOBANCO_BB_CONTA", default="")
+"""número da conta"""

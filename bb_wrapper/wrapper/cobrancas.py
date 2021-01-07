@@ -1,11 +1,11 @@
 from .bb import BaseBBWrapper
-from ..constants import CONVENIO, CARTEIRA, VARIACAO_CARTEIRA
+from ..constants import CONVENIO, CARTEIRA, VARIACAO_CARTEIRA, AGENCIA, CONTA
 from ..models.boleto import Boleto
 from ..utils import parse_unicode_to_alphanumeric
 
 
 class CobrancasBBWrapper(BaseBBWrapper):
-    def __init__(self, convenio=None, carteira=None, variacao_carteira=None, **kwargs):
+    def __init__(self, convenio=None, carteira=None, variacao_carteira=None, agencia=None, conta=None, **kwargs):
         super().__init__(**kwargs)
 
         if convenio is None:
@@ -17,10 +17,21 @@ class CobrancasBBWrapper(BaseBBWrapper):
         if variacao_carteira is None:
             variacao_carteira = VARIACAO_CARTEIRA
 
+        if carteira is None:
+            carteira = CARTEIRA
+
+        if agencia is None:
+            agencia = AGENCIA
+
+        if conta is None:
+            conta = CONTA
+
         assert len(convenio) == 7, "O convênio não possui 7 dígitos!"
         self.__convenio = convenio
         self.__carteira = carteira
         self.__variacao_carteira = variacao_carteira
+        self.__agencia = agencia
+        self.__conta = conta
 
     def _construct_base_url(self):
         base_url = super()._construct_base_url()
