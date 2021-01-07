@@ -58,6 +58,21 @@ class CobrancasBBWrapper(BaseBBWrapper):
         response = self._get(url)
         return response
 
+    def lista_boletos(self, query=None, liquidados_flag=True):
+        """"""
+        indicadorSituacao = "B" if liquidados_flag else 'A'
+        query_data = {
+            'indicadorSituacao': indicadorSituacao,
+            'agenciaBeneficiario': self.__agencia,
+            'contaBeneficiario': self.__conta
+        }
+        if query is not None:
+            query_data.update(query)
+        self.authenticate()
+        url = self._construct_url(search=query_data)
+        response = self._get(url)
+        return response
+
     def baixa_boleto(self, our_number):
         """"""
         self.authenticate()
