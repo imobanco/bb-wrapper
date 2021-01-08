@@ -3,13 +3,13 @@
     "codigoEstadoTituloCobranca": 1,
     "codigoTipoTituloCobranca": 4,
     "codigoModalidadeTitulo": 1,
-    "codigoAceiteTituloCobranca": "N",
+    "codigoAceiteTituloCobranca": "A",
     "codigoPrefixoDependenciaCobrador": 3477,
     "codigoIndicadorEconomico": 9,
-    "numeroTituloCedenteCobranca": "TESTE2",
-    "dataEmissaoTituloCobranca": "07.12.2020",
-    "dataRegistroTituloCobranca": "23.12.2020",
-    "dataVencimentoTituloCobranca": "07.12.2020",
+    "numeroTituloCedenteCobranca": "TESTE01",
+    "dataEmissaoTituloCobranca": "21.12.2020",
+    "dataRegistroTituloCobranca": "21.12.2020",
+    "dataVencimentoTituloCobranca": "10.01.2021",
     "valorOriginalTituloCobranca": 100,
     "valorAtualTituloCobranca": 100,
     "valorPagamentoParcialTitulo": 0,
@@ -18,8 +18,8 @@
     "valorImpostoSobreOprFinanceirasTituloCobranca": 0,
     "valorMoedaTituloCobranca": 0,
     "quantidadeParcelaTituloCobranca": 0,
-    "dataBaixaAutomaticoTitulo": "12.12.2020",
-    "textoCampoUtilizacaoCedente": "",
+    "dataBaixaAutomaticoTitulo": "15.01.2021",
+    "textoCampoUtilizacaoCedente": "TESTE01",
     "indicadorCobrancaPartilhadoTitulo": "N",
     "valorMoedaAbatimentoTitulo": 0,
     "dataProtestoTituloCobranca": "",
@@ -27,9 +27,9 @@
     "numeroVariacaoCarteiraCobranca": 35,
     "quantidadeDiaProtesto": 0,
     "quantidadeDiaPrazoLimiteRecebimento": 0,
-    "dataLimiteRecebimentoTitulo": "07.12.2020",
+    "dataLimiteRecebimentoTitulo": "10.01.2021",
     "indicadorPermissaoRecebimentoParcial": "N",
-    "textoCodigoBarrasTituloCobranca": "00199846200000100000000003128557123123001717",
+    "textoCodigoBarrasTituloCobranca": "00191849600000100000000003128557999999999917",
     "codigoOcorrenciaCartorio": 0,
     "indicadorDebitoCreditoTitulo": 0,
     "valorImpostoSobreOprFinanceirasRecebidoTitulo": 0,
@@ -47,7 +47,7 @@
     "codigoIndicadorEconomicoUtilizadoInadimplencia": 0,
     "sacado": {
         "codigoTipoInscricaoSacado": 1,
-        "numeroInscricaoSacadoCobranca": 71128590182,
+        "numeroInscricaoSacadoCobranca": 29089787844,
         "nomeSacadoCobranca": "NOME",
         "textoEnderecoSacadoCobranca": "ENDERECO",
         "nomeBairroSacadoCobranca": "CENTRO",
@@ -58,40 +58,40 @@
         "numeroIdentidadeSacadoTituloCobranca": ""
     },
     "sacador": {
-        "codigoTipoInscricaoSacador": 1,
-        "numeroInscricaoSacadorAvalista": 71128590182,
-        "nomeSacadorAvalistaTitulo": "NOME"
+        "codigoTipoInscricaoSacador": 3,
+        "numeroInscricaoSacadorAvalista": 0,
+        "nomeSacadorAvalistaTitulo": ""
     },
     "multa": {
-        "percentualMultaTitulo": 0.1,
+        "percentualMultaTitulo": 0,
         "valorMultaTituloCobranca": 0,
-        "dataMultaTitulo": "08.12.2020",
+        "dataMultaTitulo": "",
         "valorMultaRecebido": 0
     },
     "desconto": {
         "percentualDescontoTitulo": 0,
-        "dataDescontoTitulo": "05.12.2020",
-        "valorDescontoTitulo": 0.3,
-        "codigoDescontoTitulo": 1,
+        "dataDescontoTitulo": "",
+        "valorDescontoTitulo": 0,
+        "codigoDescontoTitulo": 0,
         "valorDescontoUtilizado": 0,
         "segundoDesconto": {
             "percentualSegundoDescontoTitulo": 0,
-            "dataSegundoDescontoTitulo": "06.12.2020",
-            "valorSegundoDescontoTitulo": 0.2,
-            "codigoSegundoDescontoTitulo": 1
+            "dataSegundoDescontoTitulo": "",
+            "valorSegundoDescontoTitulo": 0,
+            "codigoSegundoDescontoTitulo": 0
         },
         "terceiroDesconto": {
             "percentualTerceiroDescontoTitulo": 0,
-            "dataTerceiroDescontoTitulo": "07.12.2020",
-            "valorTerceiroDescontoTitulo": 0.1,
-            "codigoTerceiroDescontoTitulo": 1
+            "dataTerceiroDescontoTitulo": "",
+            "valorTerceiroDescontoTitulo": 0,
+            "codigoTerceiroDescontoTitulo": 0
         }
     },
     "juroMora": {
-        "codigoTipoJuroMora": 1,
+        "codigoTipoJuroMora": 0,
         "percentualJuroMoraTitulo": 0,
-        "valorJuroMoraTitulo": 0.1,
-        "dataJuroMoraTitulo": "08.12.2020",
+        "valorJuroMoraTitulo": 0,
+        "dataJuroMoraTitulo": "",
         "valorJuroMoraRecebido": 0
     }
 }
