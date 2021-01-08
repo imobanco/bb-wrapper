@@ -8,6 +8,6 @@ wrapper = CobrancasBBWrapper()
 
 number = "9999999999"
 
-response = wrapper.consulta_boleto(wrapper.build_our_number(number))
+response = wrapper.baixa_boleto(wrapper.build_our_number(number))
 
 dump_response(response, os.path.basename(__file__).split(".")[0])

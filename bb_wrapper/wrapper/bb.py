@@ -44,22 +44,9 @@ class BaseBBWrapper(RequestsWrapper):
         )
         return base_url
 
-    def _construct_url(
-        self,
-        action=None,
-        identifier=None,
-        subaction=None,
-        search=None,
-        sub_action_before_identifier=False,
-    ):
-        url = super()._construct_url(
-            action=action,
-            identifier=identifier,
-            subaction=subaction,
-            search=search,
-            sub_action_before_identifier=sub_action_before_identifier,
-        )
-        if not search:
+    def _construct_url(self, *args, search=None):
+        url = super()._construct_url(*args, search=search)
+        if search is None:
             url += "?"
         else:
             url += "&"

@@ -43,53 +43,38 @@ class RequestsWrapper:
         response.raise_for_status()
         return response
 
-    def _construct_url(
-        self,
-        action=None,
-        identifier=None,
-        subaction=None,
-        search=None,
-        sub_action_before_identifier=False,
-    ):
+    def _construct_url(self, *args, search=None):
         # noinspection PyProtectedMember
         """
         Constrói a url para o request.
 
         Args:
-            action: nome do resource
-            identifier: identificador de detalhe (ID)
-            search: query com url args para serem buscados
-            sub_action_before_identifier: flag para inverter a posição do identifier e subaction
-            subaction: subação do resource
+            args: lista de argumentos
+            search: atributo de busca (dict ou string)
 
         Examples:
             >>> rw = RequestsWrapper()
-            >>> rw._construct_url(action='acao', identifier='1', subaction='subacao', search='algum_atributo=1')  # noqa:
+            >>> rw._construct_url('acao', '1', 'subacao', search='algum_atributo=1')  # noqa:
             'rw.__base_url/acao/1/subacao/?algum_atributo=1'
 
         Returns:
             url completa para o request
         """
         url = f"{self._base_url}"
-        if action:
-            url += f"/{action}"
 
-        if sub_action_before_identifier:
-            if subaction:
-                url += f"/{subaction}"
-            if identifier:
-                url += f"/{identifier}"
-        else:
-            if identifier:
-                url += f"/{identifier}"
-            if subaction:
-                url += f"/{subaction}"
+        if url[-1] != "/":
+            url += "/"
+
+        for arg in args:
+            url += f"{arg}/"
 
         if search:
             url += "?"
             if isinstance(search, dict):
-                for key, value in search.items():
+                for index, (key, value) in enumerate(search.items()):
                     url += f"{key}={value}"
+                    if index < len(search) - 1:
+                        url += "&"
             else:
                 url += f"{search}"
         return url

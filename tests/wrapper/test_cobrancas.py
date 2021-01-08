@@ -3,7 +3,7 @@ from unittest import TestCase
 from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 
-class OurNumberTestCase(TestCase):
+class CobrancasBBWrapperTestCase(TestCase):
     maxDiff = None
 
     def test_convenio_assert(self):
