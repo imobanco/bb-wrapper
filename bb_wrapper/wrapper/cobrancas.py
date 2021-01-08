@@ -50,11 +50,9 @@ class CobrancasBBWrapper(BaseBBWrapper):
     def baixa_boleto(self, our_number):
         """"""
         self.authenticate()
-        url = self._construct_url(our_number, 'baixar')
+        url = self._construct_url(our_number, "baixar")
 
-        data = {
-            "numeroConvenio": self.__convenio
-        }
+        data = {"numeroConvenio": self.__convenio}
 
         response = self._post(url, data)
         return response

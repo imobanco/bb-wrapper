@@ -43,10 +43,7 @@ class RequestsWrapper:
         response.raise_for_status()
         return response
 
-    def _construct_url(
-        self,
-        *args, search=None
-    ):
+    def _construct_url(self, *args, search=None):
         # noinspection PyProtectedMember
         """
         Constrói a url para o request.
@@ -65,8 +62,8 @@ class RequestsWrapper:
         """
         url = f"{self._base_url}"
 
-        if url[-1] != '/':
-            url += '/'
+        if url[-1] != "/":
+            url += "/"
 
         for arg in args:
             url += f"{arg}/"
@@ -76,8 +73,8 @@ class RequestsWrapper:
             if isinstance(search, dict):
                 for index, (key, value) in enumerate(search.items()):
                     url += f"{key}={value}"
-                    if index < len(search)-1:
-                        url += '&'
+                    if index < len(search) - 1:
+                        url += "&"
             else:
                 url += f"{search}"
         return url

@@ -44,13 +44,8 @@ class BaseBBWrapper(RequestsWrapper):
         )
         return base_url
 
-    def _construct_url(
-        self,
-        *args, search=None
-    ):
-        url = super()._construct_url(
-            *args, search=search
-        )
+    def _construct_url(self, *args, search=None):
+        url = super()._construct_url(*args, search=search)
         if search is None:
             url += "?"
         else:

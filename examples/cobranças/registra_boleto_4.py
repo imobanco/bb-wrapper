@@ -6,6 +6,8 @@ from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 wrapper = CobrancasBBWrapper()
 
+number = "9999999999"
+
 data = wrapper.create_boleto_data_with_defaults(
     {
         "dataEmissao": "08.01.2021",

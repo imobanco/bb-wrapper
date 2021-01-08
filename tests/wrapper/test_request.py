@@ -16,10 +16,10 @@ class RequestsWrapperTestCase(TestCase):
         Então:
             - o resultado deve ser "http://foo.bar/acao1/id1/subacao2/id2/"
         """
-        base_url = 'http://foo.bar'
+        base_url = "http://foo.bar"
         wrapper = RequestsWrapper(base_url)
 
-        result = wrapper._construct_url('acao1', 'id1', 'subacao2', 'id2')
+        result = wrapper._construct_url("acao1", "id1", "subacao2", "id2")
 
         expected = "http://foo.bar/acao1/id1/subacao2/id2/"
 
@@ -35,10 +35,10 @@ class RequestsWrapperTestCase(TestCase):
         Então:
             - o resultado deve ser "http://foo.bar/acao1/id1/subacao2/id2/"
         """
-        base_url = 'http://foo.bar/'
+        base_url = "http://foo.bar/"
         wrapper = RequestsWrapper(base_url)
 
-        result = wrapper._construct_url('acao1', 'id1', 'subacao2', 'id2')
+        result = wrapper._construct_url("acao1", "id1", "subacao2", "id2")
 
         expected = "http://foo.bar/acao1/id1/subacao2/id2/"
 
@@ -50,14 +50,16 @@ class RequestsWrapperTestCase(TestCase):
             - uma base_url 'http://foo.bar'
             - um wrapper RequestsWrapper(self.base_url)
         Quando:
-            - self.wrapper._construct_url('acao1', 'id1', 'subacao2', 'id2', search='query1=1&query2=2')
+            - self.wrapper._construct_url('acao1', 'id1', 'subacao2', 'id2', search='query1=1&query2=2')  # noqa
         Então:
-            - o resultado deve ser "http://foo.bar/acao1/id1/subacao2/id2/?query1=1&query2=2"
+            - o resultado deve ser "http://foo.bar/acao1/id1/subacao2/id2/?query1=1&query2=2"  # noqa
         """
-        base_url = 'http://foo.bar'
+        base_url = "http://foo.bar"
         wrapper = RequestsWrapper(base_url)
 
-        result = wrapper._construct_url('acao1', 'id1', 'subacao2', 'id2', search='query1=1&query2=2')
+        result = wrapper._construct_url(
+            "acao1", "id1", "subacao2", "id2", search="query1=1&query2=2"
+        )
 
         expected = "http://foo.bar/acao1/id1/subacao2/id2/?query1=1&query2=2"
 
@@ -69,14 +71,16 @@ class RequestsWrapperTestCase(TestCase):
             - uma base_url 'http://foo.bar'
             - um wrapper RequestsWrapper(self.base_url)
         Quando:
-            - self.wrapper._construct_url('acao1', 'id1', 'subacao2', 'id2', search=dict(query1=1, query2=2))
+            - self.wrapper._construct_url('acao1', 'id1', 'subacao2', 'id2', search=dict(query1=1, query2=2))  # noqa
         Então:
-            - o resultado deve ser "http://foo.bar/acao1/id1/subacao2/id2/?query1=1&query2=2"
+            - o resultado deve ser "http://foo.bar/acao1/id1/subacao2/id2/?query1=1&query2=2"  # noqa
         """
-        base_url = 'http://foo.bar'
+        base_url = "http://foo.bar"
         wrapper = RequestsWrapper(base_url)
 
-        result = wrapper._construct_url('acao1', 'id1', 'subacao2', 'id2', search=dict(query1=1, query2=2))
+        result = wrapper._construct_url(
+            "acao1", "id1", "subacao2", "id2", search=dict(query1=1, query2=2)
+        )
 
         expected = "http://foo.bar/acao1/id1/subacao2/id2/?query1=1&query2=2"
 
