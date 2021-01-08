@@ -3,7 +3,7 @@ from typing import Optional, Literal
 
 from pydantic import BaseModel, confloat, conint, constr
 
-from .perfis import Pagador, Avalista
+from .perfis import PessoaComEndereco, Pessoa
 
 
 class ModalidadeEnum(IntEnum):
@@ -74,8 +74,8 @@ class Boleto(BaseModel):
     textoCampoUtilizacaoBeneficiario: Optional[constr(max_length=30)]
     numeroTituloCliente: constr(max_length=20)
     textoMensagemBloquetoOcorrencia: Optional[constr(max_length=30)]
-    pagador: Pagador
-    avalista: Optional[Avalista]
+    pagador: PessoaComEndereco
+    beneficiarioFinal: Optional[Pessoa]
     email: Optional[str]
     quantidadeDiasNegativacao: Optional[conint(ge=0)]
 
@@ -84,3 +84,5 @@ class Boleto(BaseModel):
     desconto: Optional[PrimeiroDesconto]
     segundoDesconto: Optional[SegundoOuTerceiroDesconto]
     terceiroDesconto: Optional[SegundoOuTerceiroDesconto]
+
+    indicadorPix: Optional[Literal["S", "N"]]
