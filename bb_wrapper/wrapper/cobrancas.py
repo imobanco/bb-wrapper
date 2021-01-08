@@ -35,7 +35,7 @@ class CobrancasBBWrapper(BaseBBWrapper):
 
     def _construct_base_url(self):
         base_url = super()._construct_base_url()
-        base_url += "/cobrancas/v1/boletos"
+        base_url += "/cobrancas/v2/boletos"
         return base_url
 
     def registra_boleto(self, data):
@@ -123,6 +123,7 @@ class CobrancasBBWrapper(BaseBBWrapper):
             "codigoTipoTitulo": 4,  # convênio tipo 4 (cliente numera, emite e expede)
             "indicadorPermissaoRecebimentoParcial": "N",  # sem recibimento parcial!
             "descricaoTipoTitulo": "DM",  # tipo de cobrança, Duplicata Mercantil
+            "indicadorPix": "S"  # PIX para o pagamento!
         }
         default_data.update(data)
 
