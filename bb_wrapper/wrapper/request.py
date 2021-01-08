@@ -88,8 +88,10 @@ class RequestsWrapper:
         if search:
             url += "?"
             if isinstance(search, dict):
-                for key, value in search.items():
+                for index, (key, value) in enumerate(search.items()):
                     url += f"{key}={value}"
+                    if index < len(search)-1:
+                        url += '&'
             else:
                 url += f"{search}"
         return url
