@@ -6,8 +6,8 @@ from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 wrapper = CobrancasBBWrapper()
 
-number = "9999999999"
+numero = "9999999995"
 
-response = wrapper.consulta_boleto(wrapper.build_our_number(number))
+response = wrapper.consulta_boleto(wrapper.build_our_number(numero))
 
 dump_response(response, os.path.basename(__file__).split(".")[0])

@@ -1,26 +1,26 @@
 {
-    "numero": "00031285579999999997",
+    "numero": "00033374569999999995",
     "numeroCarteira": 17,
-    "numeroVariacaoCarteira": 35,
-    "codigoCliente": 704950857,
-    "linhaDigitavel": "00190000090312855799299999997176984980000010000",
-    "codigoBarraNumerico": "00199849800000100000000003128557999999999717",
-    "numeroContratoCobranca": 19581316,
+    "numeroVariacaoCarteira": 19,
+    "codigoCliente": 515699759,
+    "linhaDigitavel": "00190000090333745699499999995170284980000000300",
+    "codigoBarraNumerico": "00192849800000003000000003337456999999999517",
+    "numeroContratoCobranca": 20117688,
     "beneficiario": {
-        "agencia": 452,
-        "contaCorrente": 123873,
+        "agencia": 2035,
+        "contaCorrente": 70466,
         "tipoEndereco": 1,
-        "logradouro": "RUA 16 LOTE 1",
-        "bairro": "SUL (AGUAS CLARAS)",
-        "cidade": "BRASILIA",
-        "codigoCidade": 2000,
-        "uf": "DF",
-        "cep": 71940180,
+        "logradouro": "AV PRUDENTE DE MORAIS 581",
+        "bairro": "TIROL",
+        "cidade": "NATAL",
+        "codigoCidade": 61300,
+        "uf": "RN",
+        "cep": 59020505,
         "indicadorComprovacao": "0"
     },
     "qrCode": {
-        "url": "qrcodepix-h.bb.com.br/pix/v2/1c3afd12-7859-4f6a-bb8d-c1c6406644f3",
-        "txId": "BOLETO31285579999999997DATA08012021",
-        "emv": "00020101021226870014br.gov.bcb.pix2565qrcodepix-h.bb.com.br/pix/v2/1c3afd12-7859-4f6a-bb8d-c1c6406644f352040000530398654031005802BR5925EMPRORT AMBIENTAL        6008BRASILIA62070503***6304A350"
+        "url": "Chave DICT n\u00e3o cadastrada",
+        "txId": "Pix n\u00e3o registrado",
+        "emv": ""
     }
 }
