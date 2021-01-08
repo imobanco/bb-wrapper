@@ -1,10 +1,10 @@
 {
-    "numero": "00031285571231230017",
+    "numero": "00031285579999999996",
     "numeroCarteira": 17,
     "numeroVariacaoCarteira": 35,
     "codigoCliente": 704950857,
-    "linhaDigitavel": "00190000090312855712531230017175984620000010000",
-    "codigoBarraNumerico": "00199846200000100000000003128557123123001717",
+    "linhaDigitavel": "00190000090312855799299999996178684620000010000",
+    "codigoBarraNumerico": "00196846200000100000000003128557999999999617",
     "numeroContratoCobranca": 19581316,
     "beneficiario": {
         "agencia": 452,
@@ -16,8 +16,11 @@
         "codigoCidade": 2000,
         "uf": "DF",
         "cep": 71940180,
-        "indicadorComprovacao": "S"
+        "indicadorComprovacao": "0"
     },
-    "quantidadeOcorrenciasNegativacao": "0",
-    "listaOcorrenciasNegativacao": []
+    "qrCode": {
+        "url": "O campo data de expira\u00e7\u00e3o n\u00e3o \u00e9 v\u00e1lido.",
+        "txId": "Pix n\u00e3o registrado",
+        "emv": ""
+    }
 }

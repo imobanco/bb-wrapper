@@ -1,10 +1,10 @@
 {
-    "numero": "00031285571231230021",
+    "numero": "00031285579999999997",
     "numeroCarteira": 17,
     "numeroVariacaoCarteira": 35,
     "codigoCliente": 704950857,
-    "linhaDigitavel": "00190000090312855712531230021177684620000010000",
-    "codigoBarraNumerico": "00196846200000100000000003128557123123002117",
+    "linhaDigitavel": "00190000090312855799299999997176984980000010000",
+    "codigoBarraNumerico": "00199849800000100000000003128557999999999717",
     "numeroContratoCobranca": 19581316,
     "beneficiario": {
         "agencia": 452,
@@ -16,8 +16,11 @@
         "codigoCidade": 2000,
         "uf": "DF",
         "cep": 71940180,
-        "indicadorComprovacao": "S"
+        "indicadorComprovacao": "0"
     },
-    "quantidadeOcorrenciasNegativacao": "0",
-    "listaOcorrenciasNegativacao": []
+    "qrCode": {
+        "url": "qrcodepix-h.bb.com.br/pix/v2/1c3afd12-7859-4f6a-bb8d-c1c6406644f3",
+        "txId": "BOLETO31285579999999997DATA08012021",
+        "emv": "00020101021226870014br.gov.bcb.pix2565qrcodepix-h.bb.com.br/pix/v2/1c3afd12-7859-4f6a-bb8d-c1c6406644f352040000530398654031005802BR5925EMPRORT AMBIENTAL        6008BRASILIA62070503***6304A350"
+    }
 }
