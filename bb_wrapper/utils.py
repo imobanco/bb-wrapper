@@ -10,7 +10,7 @@ from qrcode.image.svg import SvgImage
 import unidecode
 
 
-def _generate_b64image_from_buffer(buffer, data_uri_schema='data:image/svg+xml;base64'):
+def _generate_b64image_from_buffer(buffer, data_uri_schema="data:image/svg+xml;base64"):
     base64_img = base64.b64encode(buffer.getvalue())
     base64_string = f"{data_uri_schema},{base64_img.decode('utf-8')}"
     return base64_string
@@ -21,7 +21,9 @@ def generate_barcode_b64image(barcode_number, text=""):
     Método para gerar uma imagem base46 a partir de um código de barras numérico.
     """
     buffer = io.BytesIO()
-    generate_barcode(name="itf", code=barcode_number, output=buffer, text=text, writer=SVGWriter())
+    generate_barcode(
+        name="itf", code=barcode_number, output=buffer, text=text, writer=SVGWriter()
+    )
     return _generate_b64image_from_buffer(buffer)
 
 

@@ -25,7 +25,7 @@ data = wrapper.create_boleto_data_with_defaults(
             "bairro": "Tirol",
             "uf": "RN",
             "telefone": "",
-        }
+        },
     }
 )
 

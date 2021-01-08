@@ -5,7 +5,15 @@ from ..utils import parse_unicode_to_alphanumeric
 
 
 class CobrancasBBWrapper(BaseBBWrapper):
-    def __init__(self, convenio=None, carteira=None, variacao_carteira=None, agencia=None, conta=None, **kwargs):
+    def __init__(
+        self,
+        convenio=None,
+        carteira=None,
+        variacao_carteira=None,
+        agencia=None,
+        conta=None,
+        **kwargs,
+    ):
         super().__init__(**kwargs)
 
         if convenio is None:
@@ -60,11 +68,11 @@ class CobrancasBBWrapper(BaseBBWrapper):
 
     def lista_boletos(self, query=None, liquidados_flag=True):
         """"""
-        indicadorSituacao = "B" if liquidados_flag else 'A'
+        indicadorSituacao = "B" if liquidados_flag else "A"
         query_data = {
-            'indicadorSituacao': indicadorSituacao,
-            'agenciaBeneficiario': self.__agencia,
-            'contaBeneficiario': self.__conta
+            "indicadorSituacao": indicadorSituacao,
+            "agenciaBeneficiario": self.__agencia,
+            "contaBeneficiario": self.__conta,
         }
         if query is not None:
             query_data.update(query)
@@ -123,7 +131,7 @@ class CobrancasBBWrapper(BaseBBWrapper):
             "codigoTipoTitulo": 4,  # convênio tipo 4 (cliente numera, emite e expede)
             "indicadorPermissaoRecebimentoParcial": "N",  # sem recibimento parcial!
             "descricaoTipoTitulo": "DM",  # tipo de cobrança, Duplicata Mercantil
-            "indicadorPix": "S"  # PIX para o pagamento!
+            "indicadorPix": "S",  # PIX para o pagamento!
         }
         default_data.update(data)
 

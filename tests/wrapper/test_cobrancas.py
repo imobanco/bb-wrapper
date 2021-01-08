@@ -132,6 +132,7 @@ class CobrancasBBWrapperTestCase(TestCase):
             "codigoTipoTitulo": 4,
             "indicadorPermissaoRecebimentoParcial": "N",
             "descricaoTipoTitulo": "DM",
+            "indicadorPix": "S",
         }
 
         result = wrapper.create_boleto_data_with_defaults(data)
@@ -185,6 +186,7 @@ class CobrancasBBWrapperTestCase(TestCase):
             "codigoTipoTitulo": 4,
             "indicadorPermissaoRecebimentoParcial": "N",
             "descricaoTipoTitulo": "DM",
+            "indicadorPix": "S",
         }
 
         result = wrapper.create_boleto_data_with_defaults(data)
@@ -236,6 +238,7 @@ class CobrancasBBWrapperTestCase(TestCase):
             "codigoTipoTitulo": 4,
             "indicadorPermissaoRecebimentoParcial": "N",
             "descricaoTipoTitulo": "DM",
+            "indicadorPix": "S",
             "textoCampoUtilizacaoBeneficiario": "ANAUCTHII1UNGSSDEGTNG",
             "textoMensagemBloquetoOcorrencia": "ANAUCTHII1UNGSSDEGTNG",
         }
