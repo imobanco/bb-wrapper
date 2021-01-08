@@ -40,6 +40,7 @@ setup(
         "pydantic>=1.7.0",
         "python-barcode>=0.13.1",
         "unidecode>=1.1.2",
+        "qrcode>=6.1"
     ],
     keywords="API Banco Brasil BB client wrapper",
     project_urls={

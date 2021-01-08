@@ -3,8 +3,17 @@ import base64
 import logging
 import re
 
-from barcode import generate
+from barcode import generate as generate_barcode
+from barcode.writer import SVGWriter
+from qrcode import make as generate_qrcode
+from qrcode.image.svg import SvgImage
 import unidecode
+
+
+def _generate_b64image_from_buffer(buffer, data_uri_schema='data:image/svg+xml;base64'):
+    base64_img = base64.b64encode(buffer.getvalue())
+    base64_string = f"{data_uri_schema},{base64_img.decode('utf-8')}"
+    return base64_string
 
 
 def generate_barcode_b64image(barcode_number, text=""):
@@ -12,10 +21,15 @@ def generate_barcode_b64image(barcode_number, text=""):
     Método para gerar uma imagem base46 a partir de um código de barras numérico.
     """
     buffer = io.BytesIO()
-    generate(name="itf", code=barcode_number, output=buffer, text=text)
-    base64_img = base64.b64encode(buffer.getvalue())
-    base64_string = f"data:image/svg+xml;base64,{base64_img.decode('utf-8')}"
-    return base64_string
+    generate_barcode(name="itf", code=barcode_number, output=buffer, text=text, writer=SVGWriter())
+    return _generate_b64image_from_buffer(buffer)
+
+
+def generate_qrcode_b64image(qrcode_data):
+    buffer = io.BytesIO()
+    d = generate_qrcode(qrcode_data, image_factory=SvgImage)
+    d.save(buffer)
+    return _generate_b64image_from_buffer(buffer)
 
 
 def parse_unicode_to_alphanumeric(string):
