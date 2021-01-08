@@ -8,11 +8,11 @@ wrapper = CobrancasBBWrapper()
 
 data = wrapper.create_boleto_data_with_defaults(
     {
-        "dataEmissao": "07.12.2020",
-        "dataVencimento": "07.12.2020",
-        "valorOriginal": 100.00,
-        "numeroTituloBeneficiario": "TESTE2",
-        "numeroTituloCliente": "00031285571231230012",
+        "dataEmissao": "08.01.2021",
+        "dataVencimento": "12.01.2021",
+        "valorOriginal": 3.0,
+        "numeroTituloBeneficiario": number,
+        "numeroTituloCliente": wrapper.build_our_number(number),
         "pagador": {
             "tipoRegistro": 1,
             "numeroRegistro": "71128590182",
