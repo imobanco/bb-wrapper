@@ -1,11 +1,19 @@
 from .bb import BaseBBWrapper
-from ..constants import CONVENIO, CARTEIRA, VARIACAO_CARTEIRA
+from ..constants import CONVENIO, CARTEIRA, VARIACAO_CARTEIRA, AGENCIA, CONTA
 from ..models.boleto import Boleto
 from ..utils import parse_unicode_to_alphanumeric
 
 
 class CobrancasBBWrapper(BaseBBWrapper):
-    def __init__(self, convenio=None, carteira=None, variacao_carteira=None, **kwargs):
+    def __init__(
+        self,
+        convenio=None,
+        carteira=None,
+        variacao_carteira=None,
+        agencia=None,
+        conta=None,
+        **kwargs,
+    ):
         super().__init__(**kwargs)
 
         if convenio is None:
@@ -17,14 +25,25 @@ class CobrancasBBWrapper(BaseBBWrapper):
         if variacao_carteira is None:
             variacao_carteira = VARIACAO_CARTEIRA
 
+        if carteira is None:
+            carteira = CARTEIRA
+
+        if agencia is None:
+            agencia = AGENCIA
+
+        if conta is None:
+            conta = CONTA
+
         assert len(convenio) == 7, "O convênio não possui 7 dígitos!"
         self.__convenio = convenio
         self.__carteira = carteira
         self.__variacao_carteira = variacao_carteira
+        self.__agencia = agencia
+        self.__conta = conta
 
     def _construct_base_url(self):
         base_url = super()._construct_base_url()
-        base_url += "/cobrancas/v1/boletos"
+        base_url += "/cobrancas/v2/boletos"
         return base_url
 
     def registra_boleto(self, data):
@@ -44,6 +63,21 @@ class CobrancasBBWrapper(BaseBBWrapper):
         url = self._construct_url(
             our_number, search={"numeroConvenio": self.__convenio}
         )
+        response = self._get(url)
+        return response
+
+    def lista_boletos(self, query=None, liquidados_flag=True):
+        """"""
+        indicadorSituacao = "B" if liquidados_flag else "A"
+        query_data = {
+            "indicadorSituacao": indicadorSituacao,
+            "agenciaBeneficiario": self.__agencia,
+            "contaBeneficiario": self.__conta,
+        }
+        if query is not None:
+            query_data.update(query)
+        self.authenticate()
+        url = self._construct_url(search=query_data)
         response = self._get(url)
         return response
 
@@ -97,6 +131,7 @@ class CobrancasBBWrapper(BaseBBWrapper):
             "codigoTipoTitulo": 4,  # convênio tipo 4 (cliente numera, emite e expede)
             "indicadorPermissaoRecebimentoParcial": "N",  # sem recibimento parcial!
             "descricaoTipoTitulo": "DM",  # tipo de cobrança, Duplicata Mercantil
+            "indicadorPix": "S",  # PIX para o pagamento!
         }
         default_data.update(data)
 

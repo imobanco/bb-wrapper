@@ -16,8 +16,8 @@ data = wrapper.create_boleto_data_with_defaults(
         "numeroTituloBeneficiario": number,
         "numeroTituloCliente": wrapper.build_our_number(number),
         "pagador": {
-            "tipoRegistro": 1,
-            "numeroRegistro": "71128590182",
+            "tipoInscricao": 1,
+            "numeroInscricao": "71128590182",
             "nome": "NOME",
             "endereco": "ENDERECO",
             "cep": "70675727",
@@ -27,9 +27,9 @@ data = wrapper.create_boleto_data_with_defaults(
             "telefone": "999939669",
         },
         "avalista": {
-            "tipoRegistro": 1,
-            "numeroRegistro": "71128590182",
-            "nomeRegistro": "NOME",
+            "tipoInscricao": 1,
+            "numeroInscricao": "71128590182",
+            "nome": "NOME",
         },
     }
 )

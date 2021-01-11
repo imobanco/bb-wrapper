@@ -16,8 +16,11 @@
         "codigoCidade": 2000,
         "uf": "DF",
         "cep": 71940180,
-        "indicadorComprovacao": "S"
+        "indicadorComprovacao": "0"
     },
-    "quantidadeOcorrenciasNegativacao": "0",
-    "listaOcorrenciasNegativacao": []
+    "qrCode": {
+        "url": "O campo data de expira\u00e7\u00e3o n\u00e3o \u00e9 v\u00e1lido.",
+        "txId": "Pix n\u00e3o registrado",
+        "emv": ""
+    }
 }
