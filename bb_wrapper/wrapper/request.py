@@ -55,18 +55,15 @@ class RequestsWrapper:
         Examples:
             >>> rw = RequestsWrapper()
             >>> rw._construct_url('acao', '1', 'subacao', search='algum_atributo=1')  # noqa:
-            'rw.__base_url/acao/1/subacao/?algum_atributo=1'
+            'rw.__base_url/acao/1/subacao?algum_atributo=1'
 
         Returns:
             url completa para o request
         """
         url = f"{self._base_url}"
 
-        if url[-1] != "/":
-            url += "/"
-
         for arg in args:
-            url += f"{arg}/"
+            url += f"/{arg}"
 
         if search:
             url += "?"

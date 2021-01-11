@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
+from bb_wrapper.constants import GW_APP_KEY
 
 
 class CobrancasBBWrapperTestCase(TestCase):
@@ -244,5 +245,26 @@ class CobrancasBBWrapperTestCase(TestCase):
         }
 
         result = wrapper.create_boleto_data_with_defaults(data)
+
+        self.assertEqual(result, expected)
+
+    def test_build_url(self):
+        """
+        Dado:
+            - um wrapper CobrancasBBWrapper()
+        Quando:
+            - for chamado wrapper._construct_url()
+        Então:
+            - o resultado deve ser
+                "https://api.sandbox.bb.com.br/cobrancas/v2/boletos"
+                f"?gw-dev-app-key={GW_APP_KEY}"
+        """
+        wrapper = CobrancasBBWrapper()
+        result = wrapper._construct_url()
+
+        expected = (
+            "https://api.sandbox.bb.com.br/cobrancas/v2/boletos"
+            f"?gw-dev-app-key={GW_APP_KEY}"
+        )
 
         self.assertEqual(result, expected)
