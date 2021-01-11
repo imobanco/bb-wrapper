@@ -22,7 +22,20 @@ def generate_barcode_b64image(barcode_number, text=""):
     """
     buffer = io.BytesIO()
     generate_barcode(
-        name="itf", code=barcode_number, output=buffer, text=text, writer=SVGWriter()
+        name="itf",
+        code=barcode_number,
+        output=buffer,
+        text=text,
+        writer=SVGWriter(),
+        writer_options={
+            "quiet_zone": 0,  # margin esquerda e direita (sem margem pois nosso template tem espaço!)
+            # "module_width": 0.3,  # largura 817px
+            "module_width": 0.2,  # largura 545px
+            # "module_width": 0.1,  # largura 272px
+            # "module_height": 14  # altura 60px
+            # "module_height": 13  # altura 56px
+            "module_height": 12,  # altura 52px
+        },
     )
     return _generate_b64image_from_buffer(buffer)
 
