@@ -259,7 +259,9 @@ class CobrancasBBWrapperTestCase(TestCase):
         """
         result = CobrancasBBWrapper()._construct_url()
 
-        expected = 'https://api.sandbox.bb.com.br/cobrancas/v2/boletos' \
-                   f'?gw-dev-app-key={GW_APP_KEY}'
+        expected = (
+            "https://api.sandbox.bb.com.br/cobrancas/v2/boletos"
+            f"?gw-dev-app-key={GW_APP_KEY}"
+        )
 
         self.assertEqual(result, expected)
