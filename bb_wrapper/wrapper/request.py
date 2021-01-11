@@ -62,10 +62,8 @@ class RequestsWrapper:
         """
         url = f"{self._base_url}"
 
-        for index, arg in enumerate(args):
-            url += arg
-            if index < len(args)-1:
-                url += '/'
+        for arg in args:
+            url += f"/{arg}"
 
         if search:
             url += "?"
