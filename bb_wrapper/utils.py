@@ -29,8 +29,8 @@ def generate_barcode_b64image(barcode_number, text=""):
 
 def generate_qrcode_b64image(qrcode_data):
     buffer = io.BytesIO()
-    d = generate_qrcode(qrcode_data, image_factory=SvgImage)
-    d.save(buffer)
+    qrcode = generate_qrcode(qrcode_data, image_factory=SvgImage)
+    qrcode.save(buffer)
     return _generate_b64image_from_buffer(buffer)
 
 
