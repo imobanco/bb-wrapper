@@ -251,13 +251,16 @@ class CobrancasBBWrapperTestCase(TestCase):
     def test_build_url(self):
         """
         Dado:
-            -
+            - um wrapper CobrancasBBWrapper()
         Quando:
-            -
+            - for chamado wrapper._construct_url()
         Então:
-            -
+            - o resultado deve ser
+                "https://api.sandbox.bb.com.br/cobrancas/v2/boletos"
+                f"?gw-dev-app-key={GW_APP_KEY}"
         """
-        result = CobrancasBBWrapper()._construct_url()
+        wrapper = CobrancasBBWrapper()
+        result = wrapper._construct_url()
 
         expected = (
             "https://api.sandbox.bb.com.br/cobrancas/v2/boletos"
