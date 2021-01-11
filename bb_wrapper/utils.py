@@ -29,12 +29,12 @@ def generate_barcode_b64image(barcode_number, text=""):
         writer=SVGWriter(),
         writer_options={
             "quiet_zone": 0,  # margin esquerda e direita (sem margem pois nosso template tem espaço!)
-            # "module_width": 0.3,  # largura 817px
-            "module_width": 0.2,  # largura 545px
-            # "module_width": 0.1,  # largura 272px
-            # "module_height": 14  # altura 60px
-            # "module_height": 13  # altura 56px
-            "module_height": 12,  # altura 52px
+            # "module_width": 0.3,  # largura (0.3 mm => 817px)
+            "module_width": 0.2,  # largura (0.2 mm => 545px)
+            # "module_width": 0.1,  # largura (0.2 mm => 272px)
+            # "module_height": 14  # altura (14 mm => 60px)
+            # "module_height": 13  # altura (13 mm => 56px)
+            "module_height": 12,  # altura (12 mm => 52px)
         },
     )
     return _generate_b64image_from_buffer(buffer)
