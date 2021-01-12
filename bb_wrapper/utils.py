@@ -28,7 +28,7 @@ def generate_barcode_b64image(barcode_number, text=""):
         text=text,
         writer=SVGWriter(),
         writer_options={
-            "quiet_zone": 0,  # margin esquerda e direita (sem margem pois nosso template tem espaço!)
+            "quiet_zone": 0,  # margin esquerda e direita (sem margem pois nosso template tem espaço!)  # noqa
             # "module_width": 0.3,  # largura (0.3 mm => 817px)
             "module_width": 0.2,  # largura (0.2 mm => 545px)
             # "module_width": 0.1,  # largura (0.2 mm => 272px)
