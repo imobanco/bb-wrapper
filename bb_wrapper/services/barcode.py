@@ -104,7 +104,7 @@ class BarCodeService:
 
         return codeline
 
-    def calculate_dv(self, number):
+    def calculate_barcode_dv(self, number):
         """
         Método para calcular o DV
 
@@ -116,6 +116,17 @@ class BarCodeService:
         else:
             dv = 11 - resto2
         return dv
+
+    def calculate_codeline_dv(self, number):
+        """
+        Método para calcular o DV de um segmento da linha digitável
+
+        .. note:
+            Foi presumido que é utilizado o modulo 10 e deu certo para o cenário de teste.
+
+            O que não significa que é uma regra universal!
+        """
+        return ModService().modulo10(number)
 
     def validate_barcode(self, barcode):
         """
@@ -136,7 +147,7 @@ class BarCodeService:
 
         number = barcode[:4] + barcode[5:]
 
-        calculated_dv = self.calculate_dv(number)
+        calculated_dv = self.calculate_barcode_dv(number)
 
         return dv == calculated_dv
 
@@ -164,17 +175,17 @@ class BarCodeService:
 
         first_number = codeline[:9]
         first_dv = int(codeline[9])
-        first_calculated_dv = ModService().modulo10(first_number)
+        first_calculated_dv = self.calculate_codeline_dv(first_number)
         first_bool = first_dv == first_calculated_dv
 
         second_number = codeline[10:20]
         second_dv = int(codeline[20])
-        second_calculated_dv = ModService().modulo10(second_number)
+        second_calculated_dv = self.calculate_codeline_dv(second_number)
         second_bool = second_dv == second_calculated_dv
 
         third_number = codeline[21:31]
         third_dv = int(codeline[31])
-        third_calculated_dv = ModService().modulo10(third_number)
+        third_calculated_dv = self.calculate_codeline_dv(third_number)
         third_bool = third_dv == third_calculated_dv
 
         return valid_barcode and first_bool and second_bool and third_bool

@@ -88,7 +88,7 @@ class BarcodeTestCase(TestCase):
         """
         number = "1"
 
-        result = BarCodeService().calculate_dv(number)
+        result = BarCodeService().calculate_barcode_dv(number)
 
         expected = 9
 
@@ -105,7 +105,7 @@ class BarcodeTestCase(TestCase):
         """
         number = "2"
 
-        result = BarCodeService().calculate_dv(number)
+        result = BarCodeService().calculate_barcode_dv(number)
 
         expected = 7
 
@@ -122,7 +122,7 @@ class BarcodeTestCase(TestCase):
         """
         number = "12"
 
-        result = BarCodeService().calculate_dv(number)
+        result = BarCodeService().calculate_barcode_dv(number)
 
         expected = 4
 
@@ -139,7 +139,7 @@ class BarcodeTestCase(TestCase):
         """
         number = "21"
 
-        result = BarCodeService().calculate_dv(number)
+        result = BarCodeService().calculate_barcode_dv(number)
 
         expected = 3
 
