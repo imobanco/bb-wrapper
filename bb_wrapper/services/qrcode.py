@@ -9,7 +9,7 @@ from .b64 import Base64Service
 class QRCodeService:
     def generate_qrcode_b64image(self, qrcode_data):
         """
-        Método para gerar uma imagem base46 a partir de um qrcode data.
+        Método para gerar uma imagem base64 a partir de um qrcode data.
         """
         buffer = io.BytesIO()
         qrcode = generate_qrcode(qrcode_data, image_factory=SvgImage)
