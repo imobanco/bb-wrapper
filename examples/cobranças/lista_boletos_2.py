@@ -6,17 +6,15 @@ from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 wrapper = CobrancasBBWrapper()
 
-query = {
-    'codigoEstadoTituloCobranca': 6  # liquidados
-}
+query = {"codigoEstadoTituloCobranca": 6}  # liquidados
 
 response = wrapper.lista_boletos(liquidados_flag=True, query=query)
 
 data = response.data
 
 lista_numbers = []
-for boleto_data in data['boletos']:
-    lista_numbers.append(int(boleto_data['numeroBoletoBB'][10:]))
+for boleto_data in data["boletos"]:
+    lista_numbers.append(int(boleto_data["numeroBoletoBB"][10:]))
 
 
 dump_response(response, os.path.basename(__file__).split(".")[0])

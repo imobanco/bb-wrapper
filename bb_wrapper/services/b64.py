@@ -4,7 +4,9 @@ import base64
 class Base64Service:
     DEFAULT_DATA_URI_SCHEMA = "data:image/svg+xml;base64"
 
-    def generate_b64image_from_buffer(self, buffer, data_uri_schema=DEFAULT_DATA_URI_SCHEMA):
+    def generate_b64image_from_buffer(
+        self, buffer, data_uri_schema=DEFAULT_DATA_URI_SCHEMA
+    ):
         """
         Método para gerar uma string base64 de imagem svg a partir de um buffer
         """

@@ -48,12 +48,13 @@ class ModService:
             if fator == base:
                 fator = 1
             fator += 1
+
         if r_base == 0:
             soma = soma * 10
-            digito = soma % 11
-            if digito == 10:
-                digito = 0
-            return digito
-        if r_base == 1:
-            resto = soma % 11
-            return resto
+
+        digito = soma % 11
+
+        if r_base == 0 and digito == 10:
+            digito = 0
+
+        return digito

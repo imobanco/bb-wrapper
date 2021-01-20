@@ -36,9 +36,20 @@ data = wrapper.create_boleto_data_with_defaults(
             "nome": "NOME",
         },
         "jurosMora": {"tipo": 1, "valor": 0.1},
-        "multa": {"tipo": 2, "porcentagem": 0.1, "data": (today+timedelta(days=1)).strftime(bb_fmt)},
-        "desconto": {"tipo": 1, "dataExpiracao": (today-timedelta(days=2)).strftime(bb_fmt), "valor": 1.3},
-        "segundoDesconto": {"dataExpiracao": (today-timedelta(days=1)).strftime(bb_fmt), "valor": 1.2},
+        "multa": {
+            "tipo": 2,
+            "porcentagem": 0.1,
+            "data": (today + timedelta(days=1)).strftime(bb_fmt),
+        },
+        "desconto": {
+            "tipo": 1,
+            "dataExpiracao": (today - timedelta(days=2)).strftime(bb_fmt),
+            "valor": 1.3,
+        },
+        "segundoDesconto": {
+            "dataExpiracao": (today - timedelta(days=1)).strftime(bb_fmt),
+            "valor": 1.2,
+        },
         "terceiroDesconto": {"dataExpiracao": today.strftime(bb_fmt), "valor": 1.1},
     }
 )
