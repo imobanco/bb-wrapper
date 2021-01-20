@@ -39,15 +39,15 @@ class BarCodeService:
 
             Posição 0:3 (3) = Identificação do banco (exemplo: 001 = Banco do Brasil)
             Posição 3 (1) = Código de moeda (exemplo: 9 = Real)
-            Posição 4:9 (5) = 5 primeiras posições do campo livre (posição 19:24 do código de barras)
+            Posição 4:9 (5) = 5 primeiras posições do campo livre (posição 19:24 do código de barras)  # noqa
             Posição 9 (1) = Dígito verificador do primeiro campo
-            Posição 10:20 (10) = 6ª a 15ª posições do campo livre (posição 24:34 do código de barras)
+            Posição 10:20 (10) = 6ª a 15ª posições do campo livre (posição 24:34 do código de barras)  # noqa
             Posição 20 (1) = Dígito verificador do segundo campo
-            Posição 21:31 (10) = 16ª a 25ª posições do campo livre (posição 34:44 do código de barras)
+            Posição 21:31 (10) = 16ª a 25ª posições do campo livre (posição 34:44 do código de barras)  # noqa
             Posição 31 (1) = Dígito verificador do terceiro campo
             Posição 32 (1) = Dígito verificador geral (posição 4 do código de barras)
             Posição 33:37 (4) = Fator de vencimento (posição 5:9 do código de barras)
-            Posição 37:47 (10) = Valor nominal do título (posição 9:19 do código de barras)
+            Posição 37:47 (10) = Valor nominal do título (posição 9:19 do código de barras)  # noqa
 
             http://www.meusutilitarios.com.br/2015/05/boleto-bancario-validacao-do-codigo-de.html
         """
@@ -148,35 +148,33 @@ class BarCodeService:
 
             Posição 0:3 (3) = Identificação do banco (exemplo: 001 = Banco do Brasil)
             Posição 3 (1) = Código de moeda (exemplo: 9 = Real)
-            Posição 4:9 (5) = 5 primeiras posições do campo livre (posições 20 a 24 do código de barras)
+            Posição 4:9 (5) = 5 primeiras posições do campo livre (posições 20 a 24 do código de barras)  # noqa
             Posição 9 (1) = Dígito verificador do primeiro campo
-            Posição 10:20 (10) = 6ª a 15ª posições do campo livre (posições 25 a 34 do código de barras)
+            Posição 10:20 (10) = 6ª a 15ª posições do campo livre (posições 25 a 34 do código de barras)  # noqa
             Posição 20 (1) = Dígito verificador do segundo campo
-            Posição 21:31 (10) = 16ª a 25ª posições do campo livre (posições 35 a 44 do código de barras)
+            Posição 21:31 (10) = 16ª a 25ª posições do campo livre (posições 35 a 44 do código de barras)  # noqa
             Posição 31 (1) = Dígito verificador do terceiro campo
             Posição 32 (1) = Dígito verificador geral (posição 5 do código de barras)
             Posição 33:37 (4) = Fator de vencimento (posições 6 a 9 do código de barras)
-            Posição 37:47 (10) = Valor nominal do título (posições 10 a 19 do código de barras)
+            Posição 37:47 (10) = Valor nominal do título (posições 10 a 19 do código de barras)  # noqa
 
-            http://www.meusutilitarios.com.br/2015/05/boleto-bancario-validacao-do-codigo-de.html
+            http://www.meusutilitarios.com.br/2015/05/boleto-bancario-validacao-do-codigo-de.html  # noqa
         """
         valid_barcode = self.validate_barcode(self.codeline_to_barcode(codeline))
 
         first_number = codeline[:9]
         first_dv = int(codeline[9])
         first_calculated_dv = ModService().modulo10(first_number)
+        first_bool = first_dv == first_calculated_dv
 
         second_number = codeline[10:20]
         second_dv = int(codeline[20])
         second_calculated_dv = ModService().modulo10(second_number)
+        second_bool = second_dv == second_calculated_dv
 
         third_number = codeline[21:31]
         third_dv = int(codeline[31])
         third_calculated_dv = ModService().modulo10(third_number)
+        third_bool = third_dv == third_calculated_dv
 
-        return (
-            valid_barcode
-            and first_dv == first_calculated_dv
-            and second_dv == second_calculated_dv
-            and third_dv == third_calculated_dv
-        )
+        return valid_barcode and first_bool and second_bool and third_bool
