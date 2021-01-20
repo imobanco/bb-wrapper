@@ -6,13 +6,13 @@ from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 wrapper = CobrancasBBWrapper()
 
-number = "9999999994"
+number = "9999999991"
 
 data = wrapper.create_boleto_data_with_defaults(
     {
         "dataEmissao": "08.01.2021",
         "dataVencimento": "12.01.2021",
-        "valorOriginal": 3.0,
+        "valorOriginal": 3.1,
         "numeroTituloBeneficiario": number,
         "numeroTituloCliente": wrapper.build_our_number(number),
         "pagador": {

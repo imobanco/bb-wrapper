@@ -1,4 +1,5 @@
 import os
+from datetime import date, timedelta
 
 from examples.utils import dump_response
 
@@ -6,13 +7,16 @@ from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 wrapper = CobrancasBBWrapper()
 
-number = "9999999995"
+number = "9999999992"
+
+today = date.today()
+bb_fmt = "%d.%m.%Y"
 
 data = wrapper.create_boleto_data_with_defaults(
     {
-        "dataEmissao": "08.01.2021",
-        "dataVencimento": "12.01.2021",
-        "valorOriginal": 3.0,
+        "dataEmissao": today.strftime(bb_fmt),
+        "dataVencimento": today.strftime(bb_fmt),
+        "valorOriginal": 50.0,
         "numeroTituloBeneficiario": number,
         "numeroTituloCliente": wrapper.build_our_number(number),
         "pagador": {
@@ -32,10 +36,21 @@ data = wrapper.create_boleto_data_with_defaults(
             "nome": "NOME",
         },
         "jurosMora": {"tipo": 1, "valor": 0.1},
-        "multa": {"tipo": 2, "porcentagem": 0.1, "data": "08.12.2020"},
-        "desconto": {"tipo": 1, "dataExpiracao": "05.12.2020", "valor": 0.3},
-        "segundoDesconto": {"dataExpiracao": "06.12.2020", "valor": 0.2},
-        "terceiroDesconto": {"dataExpiracao": "07.12.2020", "valor": 0.1},
+        "multa": {
+            "tipo": 2,
+            "porcentagem": 0.1,
+            "data": (today + timedelta(days=1)).strftime(bb_fmt),
+        },
+        "desconto": {
+            "tipo": 1,
+            "dataExpiracao": (today - timedelta(days=2)).strftime(bb_fmt),
+            "valor": 1.3,
+        },
+        "segundoDesconto": {
+            "dataExpiracao": (today - timedelta(days=1)).strftime(bb_fmt),
+            "valor": 1.2,
+        },
+        "terceiroDesconto": {"dataExpiracao": today.strftime(bb_fmt), "valor": 1.1},
     }
 )
 

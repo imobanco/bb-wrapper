@@ -86,3 +86,25 @@ class Boleto(BaseModel):
     terceiroDesconto: Optional[SegundoOuTerceiroDesconto]
 
     indicadorPix: Optional[Literal["S", "N"]]
+
+
+class BoletoEstadoEnum(IntEnum):
+    normal = 1
+    movimento_cartorio = 2
+    em_cartorio = 3
+    titulo_com_ocorrencia_de_cartorio = 4
+    protestado_eletronico = 5
+    liquidado = 6
+    baixado = 7
+    titulo_com_pendencia_de_cartorio = 8
+    titulo_protestado_manual = 9
+    titulo_baixado_pago_em_cartorio = 10
+    titulo_liquidado_protestado = 11
+    titulo_liquidado_pgcrto = 12
+    titulo_protestado_aguardando_baixa = 13
+    titulo_em_liquidacao = 14
+    titulo_agendado = 15
+    titulo_creditado = 16
+    pago_em_cheque_aguardando_liquidacao = 17
+    pago_parcialmente = 18
+    pago_parcialmente_credito = 19

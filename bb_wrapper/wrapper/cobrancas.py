@@ -1,7 +1,7 @@
 from .bb import BaseBBWrapper
 from ..constants import CONVENIO, CARTEIRA, VARIACAO_CARTEIRA, AGENCIA, CONTA
 from ..models.boleto import Boleto
-from ..utils import parse_unicode_to_alphanumeric
+from ..services import parse_unicode_to_alphanumeric
 
 
 class CobrancasBBWrapper(BaseBBWrapper):
