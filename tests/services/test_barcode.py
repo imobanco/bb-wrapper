@@ -167,7 +167,7 @@ class BarcodeTestCase(TestCase):
         Dado:
             - uma linha digitável "00190000090312855799299999994173284980000000300"
         Quando:
-            - for chamado BarCodeService().validate_barcode(barcode)
+            - for chamado BarCodeService().validate_codeline(codeline)
         Então:
             - o resultado deve ser True
         """
@@ -182,11 +182,11 @@ class BarcodeTestCase(TestCase):
     def test_validate_codeline_2(self):
         """
         Dado:
-            -
+            - uma linha digitável "10497946031520210134976397000027784840000324000"
         Quando:
-            -
+            - for chamado BarCodeService().validate_codeline(codeline)
         Então:
-            -
+            - o resultado deve ser True
         """
         codeline = "10497946031520210134976397000027784840000324000"
 
@@ -196,14 +196,17 @@ class BarcodeTestCase(TestCase):
 
         self.assertEqual(result, expected)
 
-    def test_1(self):
+    def test_reconstruct_barcode_base64_1(self):
         """
         Dado:
-            -
+            - uma linha digitável "10497946031520210134976397000027784840000324000"
         Quando:
-            -
+            - convertido a linha digitável para um código de barras
+                BarCodeService().codeline_to_barcode(codeline)
+            - criado o base64 para o código de barras
+                BarCodeService().generate_barcode_b64image(barcode)
         Então:
-            -
+            - o resultado deve ser...
         """
         codeline = "10497946031520210134976397000027784840000324000"
 
