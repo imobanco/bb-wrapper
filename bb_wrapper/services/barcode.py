@@ -122,7 +122,8 @@ class BarCodeService:
         Método para calcular o DV de um segmento da linha digitável
 
         .. note:
-            Foi presumido que é utilizado o modulo 10 e deu certo para o cenário de teste.
+            Foi presumido que é utilizado o modulo 10 e deu
+            certo para o cenário de teste.
 
             O que não significa que é uma regra universal!
         """
