@@ -4,6 +4,7 @@ from .services import (  # noqa
     generate_barcode_b64image,
     parse_unicode_to_alphanumeric,
 )
+from .wrapper import CobrancasBBWrapper  # noqa
 
 __version__ = get_versions()["version"]
 del get_versions
