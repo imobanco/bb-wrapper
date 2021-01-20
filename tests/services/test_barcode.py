@@ -42,13 +42,139 @@ class BarcodeTestCase(TestCase):
 
         self.assertEqual(result, expected)
 
-    def test_(self):
+    def test_codeline_to_barcode_1(self):
         """
         Dado:
-            -
+            - uma linha digitavel "00190000090312855799299999994173284980000000300"
         Quando:
-            -
+            - for chamado BarCodeService().codeline_to_barcode(codeline)
         Então:
-            -
+            - o resultado deve ser "00192849800000003000000003128557999999999417"
         """
 
+        codeline = "00190000090312855799299999994173284980000000300"
+
+        result = BarCodeService().codeline_to_barcode(codeline)
+
+        expected = "00192849800000003000000003128557999999999417"
+
+        self.assertEqual(result, expected)
+
+    def test_barcode_to_codeline_1(self):
+        """
+        Dado:
+            - um código de barras "00192849800000003000000003128557999999999417"
+        Quando:
+            - for chamado BarCodeService().barcode_to_codeline(codeline)
+        Então:
+            - o resultado deve ser "00190000090312855799299999994173284980000000300"
+        """
+        barcode = "00192849800000003000000003128557999999999417"
+
+        result = BarCodeService().barcode_to_codeline(barcode)
+
+        expected = "00190000090312855799299999994173284980000000300"
+
+        self.assertEqual(result, expected)
+
+    def test_calculate_dv_1(self):
+        """
+        Dado:
+            - um número "1"
+        Quando:
+            - for chamado BarCodeService().calculate_dv(number)
+        Então:
+            - o resultado deve ser 9
+        """
+        number = "1"
+
+        result = BarCodeService().calculate_dv(number)
+
+        expected = 9
+
+        self.assertEqual(result, expected)
+
+    def test_calculate_dv_2(self):
+        """
+        Dado:
+            - um número "2"
+        Quando:
+            - for chamado BarCodeService().calculate_dv(number)
+        Então:
+            - o resultado deve ser 4
+        """
+        number = "2"
+
+        result = BarCodeService().calculate_dv(number)
+
+        expected = 7
+
+        self.assertEqual(result, expected)
+
+    def test_calculate_dv_3(self):
+        """
+        Dado:
+            - um número "12"
+        Quando:
+            - for chamado BarCodeService().calculate_dv(number)
+        Então:
+            - o resultado deve ser 8
+        """
+        number = "12"
+
+        result = BarCodeService().calculate_dv(number)
+
+        expected = 4
+
+        self.assertEqual(result, expected)
+
+    def test_calculate_dv_4(self):
+        """
+        Dado:
+            - um número "21"
+        Quando:
+            - for chamado BarCodeService().calculate_dv(number)
+        Então:
+            - o resultado deve ser 8
+        """
+        number = "21"
+
+        result = BarCodeService().calculate_dv(number)
+
+        expected = 3
+
+        self.assertEqual(result, expected)
+
+    def test_validate_barcode_1(self):
+        """
+        Dado:
+            - um código de barras "00192849800000003000000003128557999999999417"
+        Quando:
+            - for chamado BarCodeService().validate_barcode(barcode)
+        Então:
+            - o resultado deve ser True
+        """
+        barcode = "00192849800000003000000003128557999999999417"
+
+        result = BarCodeService().validate_barcode(barcode)
+
+        expected = True
+
+        self.assertEqual(result, expected)
+
+    def test_validate_codeline_1(self):
+        """
+        Dado:
+            - uma linha digitável "00190000090312855799299999994173284980000000300"
+        Quando:
+            - for chamado BarCodeService().validate_barcode(barcode)
+        Então:
+            - o resultado deve ser True
+        """
+        codeline = "00190000090312855799299999994173284980000000300"
+
+        result = BarCodeService().validate_codeline(codeline)
+
+        expected = True
+
+        self.assertEqual(result, expected)
