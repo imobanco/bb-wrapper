@@ -3,7 +3,10 @@ class ModService:
         """
         Método para calcular módulo 10.
 
-        https://github.com/eduardocereto/pyboleto/blob/1fed215eac2c974efc6f03a16b94406c2bb55cc2/pyboleto/data.py#L453  # noqa
+        Referências:
+            - https://pt.wikipedia.org/wiki/D%C3%ADgito_verificador
+            - página 14 https://github.com/imobanco/bb-wrapper/blob/7643255ac3d6f4ed1d6086cc2ad37c281659ea95/docs/Layout%20-%20C%C3%B3digo%20de%20Barras%20ATUALIZADO.pdf  # noqa
+            - https://github.com/eduardocereto/pyboleto/blob/1fed215eac2c974efc6f03a16b94406c2bb55cc2/pyboleto/data.py#L453  # noqa
         """
         if not isinstance(num, str):
             raise TypeError
@@ -33,7 +36,10 @@ class ModService:
         """
         Método para calcular módulo 11.
 
-        https://github.com/eduardocereto/pyboleto/blob/1fed215eac2c974efc6f03a16b94406c2bb55cc2/pyboleto/data.py#L478  # noqa
+        Referências:
+            - https://pt.wikipedia.org/wiki/D%C3%ADgito_verificador
+            - página 16 https://github.com/imobanco/bb-wrapper/blob/7643255ac3d6f4ed1d6086cc2ad37c281659ea95/docs/Layout%20-%20C%C3%B3digo%20de%20Barras%20ATUALIZADO.pdf  # noqa
+            - https://github.com/eduardocereto/pyboleto/blob/1fed215eac2c974efc6f03a16b94406c2bb55cc2/pyboleto/data.py#L478  # noqa
         """
         if not isinstance(num, str):
             raise TypeError
