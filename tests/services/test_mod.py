@@ -79,13 +79,13 @@ class ModServiceTestCase(TestCase):
         Quando:
             - for chamado ModService().modulo11(number)
         Então:
-            - o resultado deve ser 8
+            - o resultado deve ser 2
         """
         number = "1"
 
         result = ModService().modulo11(number)
 
-        expected = 9
+        expected = 2
 
         self.assertEqual(result, expected)
 
@@ -102,7 +102,7 @@ class ModServiceTestCase(TestCase):
 
         result = ModService().modulo11(number)
 
-        expected = 7
+        expected = 4
 
         self.assertEqual(result, expected)
 
@@ -113,13 +113,13 @@ class ModServiceTestCase(TestCase):
         Quando:
             - for chamado ModService().modulo11(number)
         Então:
-            - o resultado deve ser 4
+            - o resultado deve ser 7
         """
         number = "12"
 
         result = ModService().modulo11(number)
 
-        expected = 4
+        expected = 7
 
         self.assertEqual(result, expected)
 
@@ -130,13 +130,13 @@ class ModServiceTestCase(TestCase):
         Quando:
             - for chamado ModService().modulo11(number)
         Então:
-            - o resultado deve ser 3
+            - o resultado deve ser 8
         """
         number = "21"
 
         result = ModService().modulo11(number)
 
-        expected = 3
+        expected = 8
 
         self.assertEqual(result, expected)
 
@@ -147,13 +147,13 @@ class ModServiceTestCase(TestCase):
         Quando:
             - for chamado ModService().modulo11(number, r_base=1)
         Então:
-            - o resultado deve ser 2
+            - o resultado deve ser 9
         """
         number = "1"
 
-        result = ModService().modulo11(number, r_base=1)
+        result = ModService().modulo11(number, multiply_by_10_flag=False)
 
-        expected = 2
+        expected = 9
 
         self.assertEqual(result, expected)
 
@@ -164,13 +164,13 @@ class ModServiceTestCase(TestCase):
         Quando:
             - for chamado ModService().modulo11(number, r_base=1)
         Então:
-            - o resultado deve ser 4
+            - o resultado deve ser 7
         """
         number = "2"
 
-        result = ModService().modulo11(number, r_base=1)
+        result = ModService().modulo11(number, multiply_by_10_flag=False)
 
-        expected = 4
+        expected = 7
 
         self.assertEqual(result, expected)
 
@@ -181,13 +181,13 @@ class ModServiceTestCase(TestCase):
         Quando:
             - for chamado ModService().modulo11(number, r_base=1)
         Então:
-            - o resultado deve ser 8
+            - o resultado deve ser 4
         """
         number = "12"
 
-        result = ModService().modulo11(number, r_base=1)
+        result = ModService().modulo11(number, multiply_by_10_flag=False)
 
-        expected = 7
+        expected = 4
 
         self.assertEqual(result, expected)
 
@@ -198,12 +198,12 @@ class ModServiceTestCase(TestCase):
         Quando:
             - for chamado ModService().modulo11(number, r_base=1)
         Então:
-            - o resultado deve ser 8
+            - o resultado deve ser 3
         """
         number = "21"
 
-        result = ModService().modulo11(number, r_base=1)
+        result = ModService().modulo11(number, multiply_by_10_flag=False)
 
-        expected = 8
+        expected = 3
 
         self.assertEqual(result, expected)
