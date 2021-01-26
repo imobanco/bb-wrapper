@@ -17,7 +17,12 @@ setup(
     long_description=long_description,
     long_description_content_type="text/x-rst",
     url="https://github.com/imobanco/bb-wrapper/",
-    packages=["bb_wrapper", "bb_wrapper.wrapper", "bb_wrapper.models", "bb_wrapper.services"],
+    packages=[
+        "bb_wrapper",
+        "bb_wrapper.wrapper",
+        "bb_wrapper.models",
+        "bb_wrapper.services",
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "Development Status :: 3 - Alpha",
