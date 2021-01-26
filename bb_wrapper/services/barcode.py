@@ -4,7 +4,7 @@ from barcode import generate as generate_barcode
 from barcode.writer import SVGWriter
 
 from .b64 import Base64Service
-from .mod import ModService
+from .febrabran import FebrabranService
 
 
 class BarCodeService:
@@ -84,17 +84,17 @@ class BarCodeService:
         first_number += barcode[0:3]  # banco
         first_number += barcode[3]  # moeda
         first_number += barcode[19:24]  # 5 primeiras posições do campo livre
-        first_dv = ModService().modulo10(first_number)
+        first_dv = self.calculate_codeline_dv(first_number)
 
         codeline += first_number + str(first_dv)
 
         second_number = barcode[24:34]  # 10 seguintes posições do campo livre
-        second_dv = ModService().modulo10(second_number)
+        second_dv = self.calculate_codeline_dv(second_number)
 
         codeline += second_number + str(second_dv)
 
         third_number = barcode[34:44]  # 10 seguintes posições do campo livre
-        third_dv = ModService().modulo10(third_number)
+        third_dv = self.calculate_codeline_dv(third_number)
 
         codeline += third_number + str(third_dv)
 
@@ -106,16 +106,9 @@ class BarCodeService:
 
     def calculate_barcode_dv(self, number):
         """
-        Método para calcular o DV
-
-        https://github.com/eduardocereto/pyboleto/blob/1fed215eac2c974efc6f03a16b94406c2bb55cc2/pyboleto/data.py#L242  # noqa
+        Método para calcular o DV geral do código de barras
         """
-        resto2 = ModService().modulo11(number, r_base=1)
-        if resto2 in [0, 1, 10]:
-            dv = 1
-        else:
-            dv = 11 - resto2
-        return dv
+        return FebrabranService().dac_11(number)
 
     def calculate_codeline_dv(self, number):
         """
@@ -127,7 +120,7 @@ class BarCodeService:
 
             O que não significa que é uma regra universal!
         """
-        return ModService().modulo10(number)
+        return FebrabranService().dac_10(number)
 
     def validate_barcode(self, barcode):
         """

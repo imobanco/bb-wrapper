@@ -1,66 +1,52 @@
 class ModService:
-    def modulo10(self, num):
+    def mod_10(self, num):
         """
-        Método para calcular módulo 10.
+        Método para calcular o DV módulo 10.
 
         Referências:
             - https://pt.wikipedia.org/wiki/D%C3%ADgito_verificador
-            - página 14 https://github.com/imobanco/bb-wrapper/blob/7643255ac3d6f4ed1d6086cc2ad37c281659ea95/docs/Layout%20-%20C%C3%B3digo%20de%20Barras%20ATUALIZADO.pdf  # noqa
             - https://github.com/eduardocereto/pyboleto/blob/1fed215eac2c974efc6f03a16b94406c2bb55cc2/pyboleto/data.py#L453  # noqa
         """
+        if isinstance(num, int):
+            num = str(num)
+
         if not isinstance(num, str):
-            raise TypeError
-        soma = 0
-        peso = 2
-        for c in reversed(num):
-            parcial = int(c) * peso
-            if parcial > 9:
-                s = str(parcial)
-                parcial = int(s[0]) + int(s[1])
-            soma += parcial
-            if peso == 2:
-                peso = 1
-            else:
-                peso = 2
+            raise TypeError("O número deve estar no formato de str!")
 
-        resto10 = soma % 10
+        total = 0
+        factor = 2
+        for digit in reversed(num):
+            result = int(digit) * factor
+            total += sum([int(d) for d in str(result)])
+            factor = (factor % 2) + 1
 
-        if resto10 == 0:
-            modulo10 = 0
-        else:
-            modulo10 = 10 - resto10
+        rest = total % 10
+        dv = 10 - rest
+        return dv
 
-        return modulo10
-
-    def modulo11(self, num, base=9, r_base=0):
+    def mod_11(self, num, multiply_by_10_flag=True, base=9):
         """
-        Método para calcular módulo 11.
+        Método para calcular o DV módulo 11.
 
         Referências:
             - https://pt.wikipedia.org/wiki/D%C3%ADgito_verificador
-            - página 16 https://github.com/imobanco/bb-wrapper/blob/7643255ac3d6f4ed1d6086cc2ad37c281659ea95/docs/Layout%20-%20C%C3%B3digo%20de%20Barras%20ATUALIZADO.pdf  # noqa
             - https://github.com/eduardocereto/pyboleto/blob/1fed215eac2c974efc6f03a16b94406c2bb55cc2/pyboleto/data.py#L478  # noqa
         """
+        if isinstance(num, int):
+            num = str(num)
+
         if not isinstance(num, str):
-            raise TypeError
+            raise TypeError("O número deve estar no formato de str!")
 
-        if r_base != 0 and r_base != 1:
-            raise ValueError("O r_base precisa ser 1 ou 0")
+        total = 0
+        factor = 2
+        for digit in reversed(num):
+            total += int(digit) * factor
+            factor = (factor % base) + 1 + (factor // base) * 1
 
-        soma = 0
-        fator = 2
-        for c in reversed(num):
-            soma += int(c) * fator
-            if fator == base:
-                fator = 1
-            fator += 1
+        if multiply_by_10_flag:
+            total = total * 10
 
-        if r_base == 0:
-            soma = soma * 10
-
-        digito = soma % 11
-
-        if r_base == 0 and digito == 10:
-            digito = 0
-
-        return digito
+        rest = total % 11
+        dv = 11 - rest
+        return dv
