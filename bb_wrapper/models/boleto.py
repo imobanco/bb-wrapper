@@ -64,7 +64,6 @@ class Boleto(BaseModel):
     valorOriginal: confloat(strict=True, gt=0.0)
     valorAbatimento: Optional[confloat(strict=True, gt=0.0)]
     quantidadeDiasProtesto: Optional[conint(ge=0)]
-    indicadorNumeroDiasLimiteRecebimento: Optional[Literal["N", "S"]] = "N"
     numeroDiasLimiteRecebimento: Optional[conint(ge=0)]
     codigoAceite: Literal["A", "N"] = "N"
     codigoTipoTitulo: Literal[4] = 4
