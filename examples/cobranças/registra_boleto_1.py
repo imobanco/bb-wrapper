@@ -7,8 +7,7 @@ from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 wrapper = CobrancasBBWrapper()
 
-number = 9999999986
-
+number = 9999999999
 today = date.today()
 bb_fmt = "%d.%m.%Y"
 
