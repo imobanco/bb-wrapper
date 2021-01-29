@@ -125,7 +125,7 @@ class CobrancasBBWrapper(BaseBBWrapper):
             "numeroVariacaoCarteira": self.__variacao_carteira,
             "codigoModalidade": 1,  # SIMPLES (4 seria split!)
             "quantidadeDiasProtesto": 0,  # 0 dias para protestar!
-            "indicadorAceiteTituloVencido": 'S',  # COM tolerância
+            "indicadorAceiteTituloVencido": "S",  # COM tolerância
             "numeroDiasLimiteRecebimento": 0,  # 0 dias de tolerância
             "codigoAceite": "N",  # Boleto não reconhecido pelo pagador
             "codigoTipoTitulo": 4,  # convênio tipo 4 (cliente numera, emite e expede)

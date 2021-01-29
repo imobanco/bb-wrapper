@@ -1,5 +1,5 @@
 import os
-from datetime import date, timedelta
+from datetime import date
 
 from examples.utils import dump_response
 

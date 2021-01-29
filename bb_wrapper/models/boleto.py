@@ -62,7 +62,7 @@ class Boleto(BaseModel):
 
     dataEmissao: str
     dataVencimento: str
-    indicadorAceiteTituloVencido: Optional[Literal['S', 'N']] = "S"
+    indicadorAceiteTituloVencido: Optional[Literal["S", "N"]] = "S"
     numeroDiasLimiteRecebimento: Optional[conint(ge=0)]
 
     valorOriginal: confloat(strict=True, gt=0.0)
