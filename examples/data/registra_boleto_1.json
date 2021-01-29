@@ -1,10 +1,10 @@
 {
-    "numero": "00031285579999999994",
+    "numero": "00031285579999999999",
     "numeroCarteira": 17,
     "numeroVariacaoCarteira": 35,
     "codigoCliente": 704950857,
-    "linhaDigitavel": "00190000090312855799299999994173284980000000300",
-    "codigoBarraNumerico": "00192849800000003000000003128557999999999417",
+    "linhaDigitavel": "00190000090312855799299999999172185150000000310",
+    "codigoBarraNumerico": "00191851500000003100000003128557999999999917",
     "numeroContratoCobranca": 19581316,
     "beneficiario": {
         "agencia": 452,
@@ -19,8 +19,8 @@
         "indicadorComprovacao": "0"
     },
     "qrCode": {
-        "url": "qrcodepix-h.bb.com.br/pix/v2/80e85ed0-4fb6-4d3f-bc29-41f072df75ac",
-        "txId": "BOLETO31285579999999994DATA08012021",
-        "emv": "00020101021226870014br.gov.bcb.pix2565qrcodepix-h.bb.com.br/pix/v2/80e85ed0-4fb6-4d3f-bc29-41f072df75ac520400005303986540135802BR5925EMPRORT AMBIENTAL        6008BRASILIA62070503***63048DDF"
+        "url": "qrcodepix-h.bb.com.br/pix/v2/5fdebf06-be3c-4c90-85d2-d1b6bb343d19",
+        "txId": "BOLETO31285579999999999DATA29012021",
+        "emv": "00020101021226870014br.gov.bcb.pix2565qrcodepix-h.bb.com.br/pix/v2/5fdebf06-be3c-4c90-85d2-d1b6bb343d1952040000530398654043.105802BR5925EMPRORT AMBIENTAL        6008BRASILIA62070503***630443E2"
     }
 }

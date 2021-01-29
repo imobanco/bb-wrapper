@@ -59,25 +59,29 @@ class Boleto(BaseModel):
     numeroCarteira: str
     numeroVariacaoCarteira: str
     codigoModalidade: ModalidadeEnum
+
     dataEmissao: str
     dataVencimento: str
+    indicadorAceiteTituloVencido: Optional[Literal["S", "N"]] = "S"
+    numeroDiasLimiteRecebimento: Optional[conint(ge=0)]
+
     valorOriginal: confloat(strict=True, gt=0.0)
     valorAbatimento: Optional[confloat(strict=True, gt=0.0)]
+    indicadorPermissaoRecebimentoParcial: Literal["N", "S"] = "N"
+
+    numeroTituloCliente: constr(max_length=20)
+    pagador: PessoaComEndereco
+    beneficiarioFinal: Optional[Pessoa]
+
     quantidadeDiasProtesto: Optional[conint(ge=0)]
-    indicadorNumeroDiasLimiteRecebimento: Optional[Literal["N", "S"]] = "N"
-    numeroDiasLimiteRecebimento: Optional[conint(ge=0)]
+    quantidadeDiasNegativacao: Optional[conint(ge=0)]
     codigoAceite: Literal["A", "N"] = "N"
     codigoTipoTitulo: Literal[4] = 4
     descricaoTipoTitulo: Optional[str]
-    indicadorPermissaoRecebimentoParcial: Literal["N", "S"] = "N"
     numeroTituloBeneficiario: Optional[str]
     textoCampoUtilizacaoBeneficiario: Optional[constr(max_length=30)]
-    numeroTituloCliente: constr(max_length=20)
     textoMensagemBloquetoOcorrencia: Optional[constr(max_length=30)]
-    pagador: PessoaComEndereco
-    beneficiarioFinal: Optional[Pessoa]
     email: Optional[str]
-    quantidadeDiasNegativacao: Optional[conint(ge=0)]
 
     jurosMora: Optional[BoletoConfiguracaoBase]
     multa: Optional[BoletoConfiguracaoBase]
