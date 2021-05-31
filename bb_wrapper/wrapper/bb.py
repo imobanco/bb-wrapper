@@ -24,7 +24,7 @@ class BaseBBWrapper(RequestsWrapper):
 
         self.__basic_token = basic_token
         self.__gw_app_key = gw_app_key
-        self.__is_sandbox = is_sandbox
+        self._is_sandbox = is_sandbox
         self.__access_token = None
         self.__token_type = None
 
@@ -39,13 +39,19 @@ class BaseBBWrapper(RequestsWrapper):
         base_url = (
             f"{self.BASE_SCHEMA}"
             f"api"
-            f'{".sandbox" if self.__is_sandbox else ""}'
+            f'{".sandbox" if self._is_sandbox else ""}'
             f"{self.BASE_DOMAIN}"
         )
         return base_url
 
-    def _construct_url(self, *args, search=None):
-        url = super()._construct_url(*args, search=search)
+    def _construct_url(self, *args, **kwargs):
+        url = super()._construct_url(*args, **kwargs)
+
+        end_bar = kwargs.get('end_bar')
+        if end_bar:
+            url = f"{url}/"
+
+        search = kwargs.get('search')
         if search is None:
             url += "?"
         else:
@@ -68,7 +74,7 @@ class BaseBBWrapper(RequestsWrapper):
         url = (
             f"{self.BASE_SCHEMA}"
             f"oauth"
-            f'{".sandbox" if self.__is_sandbox else ""}'
+            f'{".sandbox" if self._is_sandbox else ""}'
             f"{self.BASE_DOMAIN}"
             f"/oauth/token"
         )

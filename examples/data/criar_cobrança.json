@@ -1,0 +1,19 @@
+{
+    "status": "ATIVA",
+    "calendario": {
+        "criacao": "2021-05-31T16:54:32.39-03:00",
+        "expiracao": "36000"
+    },
+    "location": "qrcodepix-h.bb.com.br/pix/v2/236ee117-538f-45ec-9ec1-04feb982bee0",
+    "txid": "o2sfh1EyLmkvYhx2CRLp3Ttf6hirF2agrap",
+    "revisao": 0,
+    "devedor": {
+        "cpf": "12345678909",
+        "nome": "Francisco da Silva"
+    },
+    "valor": {
+        "original": "130.44"
+    },
+    "solicitacaoPagador": "Cobran\u00e7a dos servi\u00e7os prestados.",
+    "chave": "7f6844d0-de89-47e5-9ef7-e0a35a681615"
+}

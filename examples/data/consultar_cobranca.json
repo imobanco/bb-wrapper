@@ -1,0 +1,49 @@
+{
+    "status": "CONCLUIDA",
+    "calendario": {
+        "criacao": "2021-01-08T14:52:20.18-03:00",
+        "expiracao": "604800"
+    },
+    "location": "qrcodepix-h.bb.com.br/pix/v2/58053b2d-23c0-44cd-87d0-ee44c441f184",
+    "txid": "IxN9HNEA1FSmtcx4FqbR9IH32LjaAfopI0E",
+    "revisao": 0,
+    "devedor": {
+        "cpf": "87678106408",
+        "nome": "DANILO RAMALHO FIUZA"
+    },
+    "valor": {
+        "original": "23.50"
+    },
+    "chave": "7f6844d0-de89-47e5-9ef7-e0a35a681615",
+    "infoAdicionais": [
+        {
+            "nome": "Pedido",
+            "valor": "17127235"
+        },
+        {
+            "nome": "Valor do Pedido",
+            "valor": "23.50"
+        },
+        {
+            "nome": "Desconto",
+            "valor": "0.00"
+        },
+        {
+            "nome": "Endere\u00e7o",
+            "valor": "RUA AT\u00cdLIO GROSSO, 17 - COMPLEMENTO 2"
+        }
+    ],
+    "pix": [
+        {
+            "endToEndId": "E00000000202101081802KEP4RED55RB",
+            "txid": "IxN9HNEA1FSmtcx4FqbR9IH32LjaAfopI0E",
+            "valor": "23.50",
+            "pagador": {
+                "cpf": "57217127831",
+                "nome": "VICTOR LOPES DORNELES"
+            },
+            "horario": "2021-01-08T15:02:34.00-03:00"
+        }
+    ],
+    "solicitacaoPagador": "Solicita\u00e7\u00e3o de pagamento para o pedido: 17127235"
+}

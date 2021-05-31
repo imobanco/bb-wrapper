@@ -1,0 +1,11 @@
+{
+    "endToEndId": "E0000000020201117193730817400475",
+    "txid": "esallabs000001605641765738",
+    "valor": "1.00",
+    "horario": "2020-11-17T16:37:40.00-03:00",
+    "infoPagador": "",
+    "pagador": {
+        "cnpj": "57217127831",
+        "nome": "VICTOR LOPES DORNELES"
+    }
+}

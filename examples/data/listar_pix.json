@@ -1,0 +1,694 @@
+{
+    "pix": [
+        {
+            "endToEndId": "E000000002020111014342452289948A",
+            "txid": "1234567891234567891234567891",
+            "valor": "130.44",
+            "horario": "2020-11-10T11:34:39.00-03:00",
+            "pagador": {
+                "cpf": "98262017315",
+                "nome": "EPITACIO NEVES BRAGA"
+            },
+            "devolucoes": [
+                {
+                    "id": "",
+                    "rtrId": "D00000000202102011312IW9UTY554FB",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-02-01T10:12:56.03-03:00",
+                        "liquidacao": "2021-02-01T10:12:48.59-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D00000000202102011313QXXZAGCYOYB",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-02-01T10:14:17.44-03:00",
+                        "liquidacao": "2021-02-01T10:13:55.45-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D000000002021020113175B7WLDEWB3B",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-02-01T10:17:23.95-03:00",
+                        "liquidacao": "2021-02-01T10:17:17.64-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D00000000202102011325UVHHI8XOZUB",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-02-01T10:25:34.44-03:00",
+                        "liquidacao": "2021-02-01T10:25:25.38-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                }
+            ],
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E000000002020111014304601145319A",
+            "txid": "1234567891234567891234567891",
+            "valor": "130.44",
+            "horario": "2020-11-10T11:30:56.00-03:00",
+            "pagador": {
+                "cpf": "98262017315",
+                "nome": "EPITACIO NEVES BRAGA"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E00000000202011102012TJA81MRD75B",
+            "txid": "1234567891234567891234567892",
+            "valor": "130.44",
+            "horario": "2020-11-10T17:12:55.00-03:00",
+            "pagador": {
+                "cpf": "98262017315",
+                "nome": "EPITACIO NEVES BRAGA"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E0000000020201117193730817400475",
+            "txid": "esallabs000001605641765738",
+            "valor": "1.00",
+            "horario": "2020-11-17T16:37:40.00-03:00",
+            "pagador": {
+                "cpf": "57217127831",
+                "nome": "VICTOR LOPES DORNELES"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E000000002020120921032BA8LLZB97B",
+            "txid": "QRCODEPIXLOJAMIRANDA8327734",
+            "valor": "2.19",
+            "horario": "2020-12-09T18:03:19.00-03:00",
+            "pagador": {
+                "cpf": "57217127831",
+                "nome": "VICTOR LOPES DORNELES"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E00000000202012232147NA4YQF4HIEB",
+            "txid": "WIOniLO5v7fQZdfVqF3tREE4JVY0rfDSnzp",
+            "valor": "1.55",
+            "horario": "2020-12-23T18:48:10.00-03:00",
+            "pagador": {
+                "cnpj": "89134853000120",
+                "nome": "MERCEARIA MANASSES PEREIRA"
+            },
+            "infoPagador": "Cobranca dos servicos prestados."
+        },
+        {
+            "endToEndId": "E00000000202012301936629MH1RBIHB",
+            "txid": "CkZ7O0G87I05ch9RMBXPp2Q6auCGiQNc6Ym",
+            "valor": "45.34",
+            "horario": "2020-12-30T16:37:04.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E00000000202101051340RUWYYKPZTVB",
+            "txid": "HUAY0i0XMbuq6W3EcGapjsGCp5V19ToaRNR",
+            "valor": "150.55",
+            "horario": "2021-01-05T10:40:09.00-03:00",
+            "pagador": {
+                "cpf": "57217127831",
+                "nome": "VICTOR LOPES DORNELES"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E00000000202101051330U51U1DK4A6B",
+            "txid": "HLmbEFhjhYan3xPovJqUvTQJKV0vtdrhcys",
+            "valor": "130.44",
+            "horario": "2021-01-05T10:30:29.00-03:00",
+            "pagador": {
+                "cpf": "57217127831",
+                "nome": "VICTOR LOPES DORNELES"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E00000000202101051646SEIARE8D90B",
+            "txid": "EItc2c57IF3RvdqE5DiCZGND5O4cWAWiMDB",
+            "valor": "180.25",
+            "horario": "2021-01-05T13:46:59.00-03:00",
+            "pagador": {
+                "cpf": "57217127831",
+                "nome": "VICTOR LOPES DORNELES"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E00000000202101051715QTQ748GEKCB",
+            "txid": "OfmeK6piXOvafYy8PsQQlprGU0qikJSic3e",
+            "valor": "100.25",
+            "horario": "2021-01-05T14:15:34.00-03:00",
+            "pagador": {
+                "cpf": "57217127831",
+                "nome": "VICTOR LOPES DORNELES"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E000000002021010518321TLQX2WVFCB",
+            "txid": "oart0N6ofobjWq052PYcE4rff2BNego5csi",
+            "valor": "300.25",
+            "horario": "2021-01-05T15:32:19.00-03:00",
+            "pagador": {
+                "cpf": "57217127831",
+                "nome": "VICTOR LOPES DORNELES"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E00000000202101052055RNALRWRSX5B",
+            "txid": "vk0NwzOoYfjODgWfkknY2WcMv2MIAXAa6VT",
+            "valor": "1000.25",
+            "horario": "2021-01-05T17:56:04.00-03:00",
+            "pagador": {
+                "cpf": "57217127831",
+                "nome": "VICTOR LOPES DORNELES"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E00000000202101071711VZNU1CMPQ8B",
+            "txid": "111222333444555666777888999031",
+            "valor": "130.44",
+            "horario": "2021-01-07T14:11:42.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E00000000202101081802KEP4RED55RB",
+            "txid": "IxN9HNEA1FSmtcx4FqbR9IH32LjaAfopI0E",
+            "valor": "23.50",
+            "horario": "2021-01-08T15:02:34.00-03:00",
+            "pagador": {
+                "cpf": "57217127831",
+                "nome": "VICTOR LOPES DORNELES"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E00000000202101082124Y7NSR2MFDLB",
+            "txid": "OEgnLU5HKJPG21u0JMmqzikXQWmlpU52zuQ",
+            "valor": "63.95",
+            "horario": "2021-01-08T18:24:21.00-03:00",
+            "pagador": {
+                "cpf": "57217127831",
+                "nome": "VICTOR LOPES DORNELES"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E00000000202101121411HCKE3NKE00B",
+            "txid": "7978c0c97ea847e78e88496353c1f33331",
+            "valor": "47.00",
+            "horario": "2021-01-12T11:11:32.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E00000000202101121852WOEGLAJE5KB",
+            "txid": "5UT6uVgPs3oTxK9yLUcKuv54353454009",
+            "valor": "10.00",
+            "horario": "2021-01-12T15:52:47.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E00000000202101122301EH21YEU4YBB",
+            "txid": "2RJdu1xSOoxOOrFQsS4QFZ1Y2Yyy2OyjIXi",
+            "valor": "130.44",
+            "horario": "2021-01-12T20:02:03.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E00000000202101131721LN6MKR16FQB",
+            "txid": "0222860405431285570001587620",
+            "valor": "13.00",
+            "horario": "2021-01-13T14:21:39.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "infoPagador": "Cobran\u00e7a DUFRIO"
+        },
+        {
+            "endToEndId": "E00000000202101141524IJLWZ894O1B",
+            "txid": "00000000000000000000090002",
+            "valor": "100.50",
+            "horario": "2021-01-14T12:24:39.00-03:00",
+            "pagador": {
+                "cnpj": "425010",
+                "nome": "PADARIA LEMES PESSOA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E00000000202101151303Y5U7GVWFV5B",
+            "txid": "b3edb4c485857c9f22dce278153a9e50",
+            "valor": "15.23",
+            "horario": "2021-01-15T10:06:28.00-03:00",
+            "pagador": {
+                "cnpj": "425010",
+                "nome": "PADARIA LEMES PESSOA"
+            },
+            "infoPagador": "asdasdasds."
+        },
+        {
+            "endToEndId": "E00000000202101151311GQSL2YFAEYB",
+            "txid": "1RKFZ8SqRSNbAZRdPy0bhIZtgmRWJmQtk7c",
+            "valor": "1234.56",
+            "horario": "2021-01-15T10:11:13.00-03:00",
+            "pagador": {
+                "cnpj": "425010",
+                "nome": "PADARIA LEMES PESSOA"
+            },
+            "infoPagador": "Texto da solicitacao aqui"
+        },
+        {
+            "endToEndId": "E000000002021011818039HYVV82FP9B",
+            "txid": "cKVtE7s93jW7Wev7Z3qiPk1QSORNaREmg40",
+            "valor": "0.25",
+            "horario": "2021-01-18T15:03:52.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "infoPagador": "Teste PIX - Falha Grave Forum1601"
+        },
+        {
+            "endToEndId": "E000000002021012216250Q5N2JSL8RB",
+            "txid": "9fc76d58bbda3a0cdd5f1b92b6490216",
+            "valor": "38.90",
+            "horario": "2021-01-22T13:25:28.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "devolucoes": [
+                {
+                    "id": "9fc76d58bbda3a0cdd5f1b92b6490216",
+                    "rtrId": "D0000000020210125133536953840167",
+                    "valor": "1.23",
+                    "horario": {
+                        "solicitacao": "2021-01-25T10:35:37.64-03:00",
+                        "liquidacao": "2021-01-25T10:35:37.38-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D0000000020210125133726043274821",
+                    "valor": "1.23",
+                    "horario": {
+                        "solicitacao": "2021-01-26T01:03:12.12-03:00",
+                        "liquidacao": "2021-01-25T10:37:26.18-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D0000000020210125134036176534170",
+                    "valor": "1.23",
+                    "horario": {
+                        "solicitacao": "2021-01-25T10:40:36.44-03:00",
+                        "liquidacao": "2021-01-25T10:40:36.40-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D0000000020210126022477P7H6J93EB",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-01-25T23:24:43.58-03:00",
+                        "liquidacao": "2021-01-25T23:24:42.75-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D000000002021012602534UFEU52G64B",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-01-25T23:53:12.96-03:00",
+                        "liquidacao": "2021-01-25T23:53:11.72-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D00000000202101260332R6UFSW8KFFB",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-01-26T00:32:26.13-03:00",
+                        "liquidacao": "2021-01-26T00:32:25.67-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D000000002021012603566VHFLZPA7OB",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-01-26T00:57:00.83-03:00",
+                        "liquidacao": "2021-01-26T00:56:59.45-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D00000000202102011304PY68TDKIX9B",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-02-01T10:04:25.36-03:00",
+                        "liquidacao": "2021-02-01T10:04:20.33-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D00000000202102011319K30KKYCJPUB",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-02-01T10:19:23.05-03:00",
+                        "liquidacao": "2021-02-01T10:19:02.06-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                }
+            ],
+            "infoPagador": "compra na pizzaria XXX"
+        },
+        {
+            "endToEndId": "E00000000202101261828241GQ6O60XB",
+            "valor": "0.08",
+            "horario": "2021-01-26T15:29:10.00-03:00",
+            "pagador": {
+                "cpf": "98262017315",
+                "nome": "EPITACIO NEVES BRAGA"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E0000000020210126190038LGGBFXLRB",
+            "valor": "0.09",
+            "horario": "2021-01-26T16:03:11.00-03:00",
+            "pagador": {
+                "cpf": "98262017315",
+                "nome": "EPITACIO NEVES BRAGA"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E00000000202101262114SG6IXABJ41B",
+            "txid": "eoYL9bJFneAWWQcqu8gkPyUXFFoXFUHBzkW",
+            "valor": "1.23",
+            "horario": "2021-01-26T18:14:34.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "infoPagador": "asdfasdf"
+        },
+        {
+            "endToEndId": "E00000000202101271446M8HPDXV2V4B",
+            "txid": "9838155500031285570001587643",
+            "valor": "2.75",
+            "horario": "2021-01-27T11:46:37.00-03:00",
+            "pagador": {
+                "cnpj": "425010",
+                "nome": "PADARIA LEMES PESSOA"
+            },
+            "infoPagador": "Cobran\u00e7a DUFRIO"
+        },
+        {
+            "endToEndId": "E00000000202101281618LB2ZGF2DG0B",
+            "txid": "YkC2AihOnavfFcm1XboXIbDjF8OSdWBLjjj",
+            "valor": "1226.50",
+            "horario": "2021-01-28T13:18:58.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "infoPagador": "Valor referente ao pedido 517 na loja Brasilself Service"
+        },
+        {
+            "endToEndId": "E000000002021012917473LYRFE0PG5B",
+            "txid": "rfFchpdJB8IBHeKj9R8XRWzy7f",
+            "valor": "8.25",
+            "horario": "2021-01-29T14:47:58.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "infoPagador": "Teste PIX"
+        },
+        {
+            "endToEndId": "E00000000202102012133OTC0VRNMULB",
+            "valor": "0.01",
+            "horario": "2021-02-01T18:33:47.00-03:00",
+            "pagador": {
+                "cpf": "57217127831",
+                "nome": "VICTOR LOPES DORNELES"
+            },
+            "infoPagador": "Teste"
+        },
+        {
+            "endToEndId": "E0000000020210202165249249674399",
+            "txid": "4BwrOkXkCcEIwsYHdZQ7vy31VN7xbgaWXJo",
+            "valor": "35.00",
+            "horario": "2021-02-02T13:53:02.00-03:00",
+            "pagador": {
+                "cnpj": "74910037000193",
+                "nome": "TECIDOS FARIA DUARTE"
+            },
+            "infoPagador": "Teste Geracao PIX"
+        },
+        {
+            "endToEndId": "E0000000020210202173605936769659",
+            "valor": "0.03",
+            "horario": "2021-02-02T14:36:43.00-03:00",
+            "pagador": {
+                "cpf": "98262017315",
+                "nome": "EPITACIO NEVES BRAGA"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E0000000020210203170826628091827",
+            "txid": "k9TwxUJwsphEOFD5fnxu8nwKgL1H2tNR2yd",
+            "valor": "1058.05",
+            "horario": "2021-02-03T14:08:42.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "infoPagador": "Pagamento da publica\u00e7\u00e3o 64931 referente a da data 04/02/2021"
+        },
+        {
+            "endToEndId": "E0000000020210204141845456409977",
+            "txid": "2w1F6apnsLW2LqVaMUw7GwGKbnaSKnh7Wa6",
+            "valor": "45.00",
+            "horario": "2021-02-04T11:18:55.00-03:00",
+            "pagador": {
+                "cnpj": "74910037000193",
+                "nome": "TECIDOS FARIA DUARTE"
+            },
+            "infoPagador": "Teste Geracao PIX"
+        },
+        {
+            "endToEndId": "E0000000020210204152241469695373",
+            "txid": "202102041213064D0831FB755DBF78B9F99",
+            "valor": "0.01",
+            "horario": "2021-02-04T12:22:51.00-03:00",
+            "pagador": {
+                "cnpj": "97441842000110",
+                "nome": "FUNERARIA DE PAIVA TEIXEIRA"
+            },
+            "infoPagador": "Venda PDV - Teste (Rayrone)"
+        },
+        {
+            "endToEndId": "E0000000020210205015040543086303",
+            "txid": "ANwCr2X4WY7AzfKcSvjkbnLyvCgSyEbSnIr",
+            "valor": "866.46",
+            "horario": "2021-02-04T22:50:49.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "infoPagador": "Pagamento da publica\u00e7\u00e3o 64932 referente a da data 04/02/2021"
+        },
+        {
+            "endToEndId": "E0000000020210205124425199517585",
+            "txid": "6fwbeg8tlbrozfc62iizlstdg0y41be1tfe",
+            "valor": "501.00",
+            "horario": "2021-02-05T09:44:34.00-03:00",
+            "pagador": {
+                "cnpj": "97441842000110",
+                "nome": "FUNERARIA DE PAIVA TEIXEIRA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E0000000020210205124633608967732",
+            "txid": "2a1hhwt0s3x0307kuxme6zwp2i2cpyn9bn2",
+            "valor": "502.00",
+            "horario": "2021-02-05T09:46:43.00-03:00",
+            "pagador": {
+                "cnpj": "97441842000110",
+                "nome": "FUNERARIA DE PAIVA TEIXEIRA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E0000000020210205130407114864909",
+            "txid": "mf7f9xuh4uirosql80dd7qzh989loex9sif",
+            "valor": "507.00",
+            "horario": "2021-02-05T10:04:15.00-03:00",
+            "pagador": {
+                "cnpj": "425010",
+                "nome": "PADARIA LEMES PESSOA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E0000000020210205130742280187204",
+            "txid": "p1y3advrdeb5awnqb8sby2xav6cjy4sjqdw",
+            "valor": "510.00",
+            "horario": "2021-02-05T10:07:50.00-03:00",
+            "pagador": {
+                "cnpj": "425010",
+                "nome": "PADARIA LEMES PESSOA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E0000000020210205131712179718396",
+            "txid": "000000000000BBSE2021020500000000001",
+            "valor": "1.19",
+            "horario": "2021-02-05T10:17:49.00-03:00",
+            "pagador": {
+                "cpf": "57217127831",
+                "nome": "VICTOR LOPES DORNELES"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E0000000020210205125011255147155",
+            "txid": "yp6j3rvyq0455qawd6vy1sybuzb2w4394ov",
+            "valor": "503.00",
+            "horario": "2021-02-05T09:50:17.00-03:00",
+            "pagador": {
+                "cnpj": "425010",
+                "nome": "PADARIA LEMES PESSOA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E0000000020210205130025772273707",
+            "txid": "4qxjxskjx4vqcehrobswvgmojcxg59smyuz",
+            "valor": "504.00",
+            "horario": "2021-02-05T10:00:33.00-03:00",
+            "pagador": {
+                "cnpj": "425010",
+                "nome": "PADARIA LEMES PESSOA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E0000000020210205130144793810388",
+            "txid": "btma0oj36q3ohavpai9mnxcqwlg86rv1z9g",
+            "valor": "505.00",
+            "horario": "2021-02-05T10:01:52.00-03:00",
+            "pagador": {
+                "cnpj": "425010",
+                "nome": "PADARIA LEMES PESSOA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E0000000020210205130249438583761",
+            "txid": "8kbtlb89vw75uqus8mxftwj8sxud65704ew",
+            "valor": "506.00",
+            "horario": "2021-02-05T10:02:57.00-03:00",
+            "pagador": {
+                "cnpj": "425010",
+                "nome": "PADARIA LEMES PESSOA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E0000000020210205130536721656607",
+            "txid": "56dzpsv1cevwawuu3p061qe2n6nqat64s6q",
+            "valor": "508.00",
+            "horario": "2021-02-05T10:05:46.00-03:00",
+            "pagador": {
+                "cnpj": "425010",
+                "nome": "PADARIA LEMES PESSOA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E0000000020210205130640645508074",
+            "txid": "4kspj9um8yspmfwyoh0ftga5h82glz5f381",
+            "valor": "509.00",
+            "horario": "2021-02-05T10:06:48.00-03:00",
+            "pagador": {
+                "cnpj": "425010",
+                "nome": "PADARIA LEMES PESSOA"
+            },
+            "infoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+        },
+        {
+            "endToEndId": "E0000000020210205151929161894860",
+            "txid": "k9NhBnGvUTFdym6KggBiRe0pls1Ac9gfh2a",
+            "valor": "8.25",
+            "horario": "2021-02-05T12:19:40.00-03:00",
+            "pagador": {
+                "cnpj": "92412320000177",
+                "nome": "RELOJOARIA LOPES BATISTA"
+            },
+            "infoPagador": "Teste PIX"
+        }
+    ],
+    "parametros": {
+        "inicio": "2020-11-10T11:30:56.00-03:00",
+        "fim": "2021-05-31T16:05:56.00-03:00",
+        "paginacao": {
+            "paginaAtual": 0,
+            "itensPorPagina": 50,
+            "quantidadeDePaginas": 12,
+            "quantidadeTotalDeItens": 589
+        }
+    }
+}
