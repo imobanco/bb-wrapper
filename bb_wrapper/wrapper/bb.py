@@ -76,7 +76,7 @@ class BaseBBWrapper(RequestsWrapper):
 
         data = {
             "grant_type": "client_credentials",
-            "scope": "cobrancas.boletos-info cobrancas.boletos-requisicao",
+            "scope": "cobrancas.boletos-info cobrancas.boletos-requisicao cob.read cob.write pix.read pix.write",
         }
 
         # https://superuser.com/a/1426579 => verify=False
