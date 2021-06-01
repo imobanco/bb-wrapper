@@ -84,10 +84,7 @@ class BaseBBWrapper(RequestsWrapper):
             "grant_type": "client_credentials",
             "scope": "cobrancas.boletos-info cobrancas.boletos-requisicao cob.read cob.write pix.read pix.write",
         }
-
-        # https://superuser.com/a/1426579 => verify=False
-        response = requests.post(url, data=data, headers=header, verify=False)
-        response = self._process_response(response)
+        response = self._post(url, data, header)
         self.__access_token = response.data["access_token"]
         self.__token_type = response.data["token_type"]
         return response

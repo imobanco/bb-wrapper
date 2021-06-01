@@ -16,6 +16,8 @@ class RequestsWrapper:
         __base_url: Url base para construir os requests
     """
 
+    VERIFY_HTTPS = False
+
     def __init__(self, base_url):
         self.__base_url = base_url
 
@@ -95,7 +97,7 @@ class RequestsWrapper:
     def _authorization_header_data(self):
         return {"Authorization": self._auth}
 
-    def _delete(self, url) -> requests.Response:
+    def _delete(self, url, headers=None) -> requests.Response:
         """
         http delete
 
@@ -106,12 +108,12 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         response = requests.delete(
-            url, headers=self._authorization_header_data, verify=False
+            url, headers=headers if headers else self._authorization_header_data, verify=self.VERIFY_HTTPS
         )
         response = self._process_response(response)
         return response
 
-    def _get(self, url) -> requests.Response:
+    def _get(self, url, headers=None) -> requests.Response:
         """
         http get
 
@@ -122,12 +124,12 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         response = requests.get(
-            url, headers=self._authorization_header_data, verify=False
+            url, headers=headers if headers else self._authorization_header_data, verify=self.VERIFY_HTTPS
         )
         response = self._process_response(response)
         return response
 
-    def _post(self, url, data) -> requests.Response:
+    def _post(self, url, data, headers=None) -> requests.Response:
         """
         http post
 
@@ -139,12 +141,12 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         response = requests.post(
-            url, json=data, headers=self._authorization_header_data, verify=False
+            url, json=data, headers=headers if headers else self._authorization_header_data, verify=self.VERIFY_HTTPS
         )
         response = self._process_response(response)
         return response
 
-    def _put(self, url, data) -> requests.Response:
+    def _put(self, url, data, headers=None) -> requests.Response:
         """
         http put
 
@@ -156,14 +158,14 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         response = requests.put(
-            url, json=data, headers=self._authorization_header_data, verify=False
+            url, json=data, headers=headers if headers else self._authorization_header_data, verify=self.VERIFY_HTTPS
         )
         response = self._process_response(response)
         return response
 
-    def _patch(self, url, data) -> requests.Response:
+    def _patch(self, url, data, headers=None) -> requests.Response:
         response = requests.patch(
-            url, json=data, headers=self._authorization_header_data, verify=False
+            url, json=data, headers=headers if headers else self._authorization_header_data, verify=self.VERIFY_HTTPS
         )
         response = self._process_response(response)
         return response
