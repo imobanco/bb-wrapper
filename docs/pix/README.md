@@ -1,4 +1,9 @@
 # PIX
+## Documentação
+- https://www.bcb.gov.br/estabilidadefinanceira/pix
+- https://bacen.github.io/pix-api/
+- https://www.bcb.gov.br/content/estabilidadefinanceira/pix/ListadeverificacaoparageracaoevalidacaodeQRCodes.pdf
+
 ## status
 https://apoio.developers.bb.com.br/referency/post/5fe221e7156f4c0012e4e2b2
 
