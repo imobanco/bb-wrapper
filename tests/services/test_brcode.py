@@ -58,3 +58,41 @@ class BRCodeServiceTestCase(TestCase):
         expected = "ID10|127.0.0.0"
 
         self.assertEqual(result, expected)
+
+    def test_crc_16_ccitt_ffff_1(self):
+        """
+        https://forum.developers.bb.com.br/t/duvida-sobre-a-criacao-do-qrcode-da-cobranca-pix/4503/3?u=rodrigo3
+
+        Dado:
+            - um data ALTAMENTE MÁGICO
+        Quando:
+            - for chamado BRCodeService().crc_16_ccitt_ffff(data)
+        Então:
+            - o resultado deve ser
+        """
+        data = """00020101021226870014br.gov.bcb.pix2565qrcodepix-h.bb.com.br/pix/v2/0c3f04a0-a41a-401e-8bb6-f6744c75a6055204000053039865802BR5920ALAN GUIACHERO BUENO6008BRASILIA62070503***6304"""  # noqa
+
+        result = BRCodeService().crc_16_ccitt_ffff(data)
+
+        expected = '2AC9'
+
+        self.assertEqual(result, expected)
+
+    def test_crc_16_ccitt_ffff_2(self):
+        """
+        https://forum.developers.bb.com.br/t/duvida-sobre-a-criacao-do-qrcode-da-cobranca-pix/4503/3?u=rodrigo3
+
+        Dado:
+            - um data ALTAMENTE MÁGICO
+        Quando:
+            - for chamado BRCodeService().crc_16_ccitt_ffff(data)
+        Então:
+            - o resultado deve ser
+        """
+        data = """00020101021226700014br.gov.bcb.pix2548pix.example.com/8b3da2f39a4140d1a91abd93113bd4415204000053039865802BR5913Fulano de Tal6008BRASILIA62070503***6304"""  # noqa
+
+        result = BRCodeService().crc_16_ccitt_ffff(data)
+
+        expected = '64E4'
+
+        self.assertEqual(result, expected)

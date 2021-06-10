@@ -7,7 +7,7 @@ from bb_wrapper.services import QRCodeService
 class PIXCodeServiceTestCase(TestCase):
     maxDiff = None
 
-    def test_(self):
+    def test_create(self):
         """
         https://forum.developers.bb.com.br/t/duvida-sobre-a-criacao-do-qrcode-da-cobranca-pix/4503/3?u=rodrigo3  # noqa
 
