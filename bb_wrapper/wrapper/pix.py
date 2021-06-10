@@ -3,7 +3,11 @@ import uuid
 from .bb import BaseBBWrapper
 
 
-class PIXBBWrapper(BaseBBWrapper):
+class PIXCobBBWrapper(BaseBBWrapper):
+    """
+    Wrapper da API PIX de cobranças (recebimento na conta berço)
+    """
+
     def __init__(
         self,
         **kwargs,
@@ -23,6 +27,9 @@ class PIXBBWrapper(BaseBBWrapper):
         return base_url
 
     def listar_pix(self):
+        """
+        Método para consultar todos os pix recebidos.
+        """
         url = self._construct_url(end_bar=True)
 
         self.authenticate()
@@ -32,6 +39,12 @@ class PIXBBWrapper(BaseBBWrapper):
         return response
 
     def consultar_pix(self, end_to_end_id):
+        """
+        Método para consultar um pix recebido.
+
+        Args:
+            end_to_end_id: identificador end_to_end do pix
+        """
         url = self._construct_url("pix", end_to_end_id)
 
         self.authenticate()
@@ -40,8 +53,16 @@ class PIXBBWrapper(BaseBBWrapper):
 
         return response
 
-    def devolver_pix(self, end_to_end_id, valor):
-        url = self._construct_url("pix", end_to_end_id, "devolucao", str(uuid.uuid4()))
+    def devolver_pix(self, end_to_end_id, valor, _id):
+        """
+        Método para devolver uma quantia de um pix recebido.
+
+        Args:
+            end_to_end_id: identificador end_to_end do pix
+            valor: valor a ser devolvido (formato int vulgo 10.00 para R$ 10,00)
+            _id: identificador único da devolução
+        """
+        url = self._construct_url("pix", end_to_end_id, "devolucao", _id)
 
         self.authenticate()
 
@@ -54,8 +75,15 @@ class PIXBBWrapper(BaseBBWrapper):
 
         return response
 
-    def consultar_devolucao_pix(self, end_to_end_id, id):
-        url = self._construct_url("pix", end_to_end_id, "devolucao", id)
+    def consultar_devolucao_pix(self, end_to_end_id, _id):
+        """
+        Método para consultar uma devolução feita.
+
+        Args:
+            end_to_end_id: identificador end_to_end do pix
+            _id: identificador único da devolução
+        """
+        url = self._construct_url("pix", end_to_end_id, "devolucao", _id)
 
         self.authenticate()
 
@@ -64,7 +92,22 @@ class PIXBBWrapper(BaseBBWrapper):
         return response
 
     def criar_cobranca(self, data):
+        """
+        Criar uma cobrança PIX
+        """
         url = self._construct_url("cob", end_bar=True)
+
+        self.authenticate()
+
+        response = self._put(url, data)
+
+        return response
+
+    def criar_cobranca_qrcode(self, data):
+        """
+        Criar uma cobrança PIX com QRCode dinâmico
+        """
+        url = self._construct_url("cobqrcode", end_bar=True)
 
         self.authenticate()
 

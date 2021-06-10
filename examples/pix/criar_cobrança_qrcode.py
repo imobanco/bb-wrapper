@@ -21,6 +21,6 @@ data = {
     "solicitacaoPagador": "Cobrança dos serviços prestados."
 }
 
-response = c.criar_cobranca(data)
+response = c.criar_cobranca_qrcode(data)
 
 dump_response(response, os.path.basename(__file__).split(".")[0])

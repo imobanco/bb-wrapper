@@ -2,9 +2,9 @@ import os
 
 from examples.utils import dump_response
 
-from bb_wrapper.wrapper.pix import PIXBBWrapper
+from bb_wrapper.wrapper.pix import PIXCobBBWrapper
 
-c = PIXBBWrapper()
+c = PIXCobBBWrapper()
 
 response = c.listar_pix()
 

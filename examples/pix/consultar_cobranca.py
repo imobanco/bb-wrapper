@@ -2,11 +2,11 @@ import os
 
 from examples.utils import dump_response
 
-from bb_wrapper.wrapper.pix import PIXBBWrapper
+from bb_wrapper.wrapper.pix import PIXCobBBWrapper
 
-c = PIXBBWrapper()
+c = PIXCobBBWrapper()
 
-txid = "IxN9HNEA1FSmtcx4FqbR9IH32LjaAfopI0E"
+txid = "VZOgwPQTBdM94bbpbn2LB2KroSaiGy13PKP"
 
 response = c.consultar_cobranca(txid)
 

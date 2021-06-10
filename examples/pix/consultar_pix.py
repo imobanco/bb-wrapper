@@ -2,9 +2,9 @@ import os
 
 from examples.utils import dump_response
 
-from bb_wrapper.wrapper.pix import PIXBBWrapper
+from bb_wrapper.wrapper.pix import PIXCobBBWrapper
 
-c = PIXBBWrapper()
+c = PIXCobBBWrapper()
 
 end_to_end_id = "E000000002020111014304601145319A"
 
