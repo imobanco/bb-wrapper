@@ -1,3 +1,6 @@
+from crc import CrcCalculator, Configuration
+
+
 class BRCodeService:
     """
     BR Code é a padronização brasileira de pagamentos via QR Code.
@@ -32,3 +35,29 @@ class BRCodeService:
         Ou seja, LEN VALOR de '123' é '03'
         """
         return f"{_id}{self._get_len_zfilled(value)}{value}"
+
+    def crc_16_ccitt_ffff(self, data: str):
+        """
+        Método para calcular o CRC-16-CCIT-FFFF de um valor.
+
+        Retorna os dois valores hexadecimais do resultado como string.
+
+        Configurações:
+            CRC - algorítmo de verificação
+            16 - width
+            ccitt - polinômio 0x1021
+            ffff - valor inicial 0xFFFF
+        """
+        crc_configuration = Configuration(
+            width=16,
+            polynomial=0x1021,
+            init_value=0xFFFF,
+            final_xor_value=0x0000,
+            reverse_input=False,
+            reverse_output=False
+        )
+        crc_calculator = CrcCalculator(crc_configuration)
+        data_to_encode = bytes(data, encoding='utf-8')
+        crc_value = crc_calculator.calculate_checksum(data_to_encode)
+        crc_value = str(hex(crc_value))[2:].upper()
+        return crc_value
