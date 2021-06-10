@@ -47,11 +47,11 @@ class BaseBBWrapper(RequestsWrapper):
     def _construct_url(self, *args, **kwargs):
         url = super()._construct_url(*args, **kwargs)
 
-        end_bar = kwargs.get('end_bar')
+        end_bar = kwargs.get("end_bar")
         if end_bar:
             url = f"{url}/"
 
-        search = kwargs.get('search')
+        search = kwargs.get("search")
         if search is None:
             url += "?"
         else:

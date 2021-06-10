@@ -33,12 +33,18 @@ class PixCodeService:
 
         # campo ID 26 Merchant Account Information
         # subcampo ID 00 GUI
-        merchant_account_information = BRCodeService().create_field_string(_id="00", value="br.gov.bcb.pix")
+        merchant_account_information = BRCodeService().create_field_string(
+            _id="00", value="br.gov.bcb.pix"
+        )
 
         # subcampo ID 25 URL
-        merchant_account_information += BRCodeService().create_field_string(_id="25", value=location)
+        merchant_account_information += BRCodeService().create_field_string(
+            _id="25", value=location
+        )
 
-        data += BRCodeService().create_field_string(_id="26", value=merchant_account_information)
+        data += BRCodeService().create_field_string(
+            _id="26", value=merchant_account_information
+        )
 
         # campo ID 52 Merchant Category Code
         data += BRCodeService().create_field_string(_id="52", value="0000")
@@ -63,12 +69,16 @@ class PixCodeService:
 
         # campo ID 62 Aditional Data Field
         # subcampo ID 05 Reference Label
-        aditional_data_field = BRCodeService().create_field_string(_id="05", value="***")
+        aditional_data_field = BRCodeService().create_field_string(
+            _id="05", value="***"
+        )
 
-        data += BRCodeService().create_field_string(_id="62", value=aditional_data_field)
+        data += BRCodeService().create_field_string(
+            _id="62", value=aditional_data_field
+        )
 
         # campo ID 63 CRC 16
-        crc_value = CRCService().crc_16('????')
+        crc_value = CRCService().crc_16("????")
         data += BRCodeService().create_field_string(_id="63", value=crc_value)
 
         return data, QRCodeService().generate_qrcode_b64image(data)

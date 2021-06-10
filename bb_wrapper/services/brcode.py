@@ -21,7 +21,7 @@ class BRCodeService:
             "03"
         """
 
-        return f"{data}".zfill(qt_zfill)
+        return f"{len(data)}".zfill(qt_zfill)
 
     def create_field_string(self, _id, value):
         """

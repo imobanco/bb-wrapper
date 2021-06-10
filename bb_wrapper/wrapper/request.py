@@ -67,7 +67,7 @@ class RequestsWrapper:
         for arg in args:
             url += f"/{arg}"
 
-        search = kwargs.get('search')
+        search = kwargs.get("search")
         if search:
             url += "?"
             if isinstance(search, dict):
@@ -108,7 +108,9 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         response = requests.delete(
-            url, headers=headers if headers else self._authorization_header_data, verify=self.VERIFY_HTTPS
+            url,
+            headers=headers if headers else self._authorization_header_data,
+            verify=self.VERIFY_HTTPS,
         )
         response = self._process_response(response)
         return response
@@ -124,7 +126,9 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         response = requests.get(
-            url, headers=headers if headers else self._authorization_header_data, verify=self.VERIFY_HTTPS
+            url,
+            headers=headers if headers else self._authorization_header_data,
+            verify=self.VERIFY_HTTPS,
         )
         response = self._process_response(response)
         return response
@@ -141,7 +145,10 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         response = requests.post(
-            url, json=data, headers=headers if headers else self._authorization_header_data, verify=self.VERIFY_HTTPS
+            url,
+            json=data,
+            headers=headers if headers else self._authorization_header_data,
+            verify=self.VERIFY_HTTPS,
         )
         response = self._process_response(response)
         return response
@@ -158,14 +165,20 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         response = requests.put(
-            url, json=data, headers=headers if headers else self._authorization_header_data, verify=self.VERIFY_HTTPS
+            url,
+            json=data,
+            headers=headers if headers else self._authorization_header_data,
+            verify=self.VERIFY_HTTPS,
         )
         response = self._process_response(response)
         return response
 
     def _patch(self, url, data, headers=None) -> requests.Response:
         response = requests.patch(
-            url, json=data, headers=headers if headers else self._authorization_header_data, verify=self.VERIFY_HTTPS
+            url,
+            json=data,
+            headers=headers if headers else self._authorization_header_data,
+            verify=self.VERIFY_HTTPS,
         )
         response = self._process_response(response)
         return response

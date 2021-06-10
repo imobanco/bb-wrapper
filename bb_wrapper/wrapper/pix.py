@@ -66,12 +66,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
         self.authenticate()
 
-        response = self._put(
-            url,
-            {
-                "valor": valor
-            }
-        )
+        response = self._put(url, {"valor": valor})
 
         return response
 
