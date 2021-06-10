@@ -1,5 +1,6 @@
 from .brcode import BRCodeService
 from .qrcode import QRCodeService
+from .crc import CRCService
 
 
 class PixCodeService:
@@ -67,6 +68,7 @@ class PixCodeService:
         data += BRCodeService().create_field_string(_id="62", value=aditional_data_field)
 
         # campo ID 63 CRC 16
-        data += BRCodeService().create_field_string(_id="63", value="????")
+        crc_value = CRCService().crc_16('????')
+        data += BRCodeService().create_field_string(_id="63", value=crc_value)
 
         return data, QRCodeService().generate_qrcode_b64image(data)
