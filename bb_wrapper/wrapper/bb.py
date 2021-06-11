@@ -1,5 +1,3 @@
-import requests
-
 from .request import RequestsWrapper
 from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY
 
@@ -78,7 +76,7 @@ class BaseBBWrapper(RequestsWrapper):
 
         data = {
             "grant_type": "client_credentials",
-            "scope": "cobrancas.boletos-info cobrancas.boletos-requisicao cob.read cob.write pix.read pix.write",
+            "scope": "cobrancas.boletos-info cobrancas.boletos-requisicao cob.read cob.write pix.read pix.write",  # noqa: E501
         }
         response = self._post(url, data, header)
         self.__access_token = response.data["access_token"]
