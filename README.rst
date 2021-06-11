@@ -31,10 +31,9 @@ Para utilizar o `zoop-wrapper` é necessário ter duas constantes/variáveis. se
 
 Recomendamos criar um arquivo `.env` contendo essas varíaveis de ambiente.
 
-::
+.. danger ::
 
     Podem ser criadas diretamente no terminal (não recomendado).
-
     Podem ser criadas também diretamente no `arquivo.py` (não recomendado).
 
 Recursos disponíveis
