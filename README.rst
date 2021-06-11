@@ -42,9 +42,14 @@ Podem ser criadas também diretamente no `arquivo.py`
 Recursos disponíveis
 =====================
 
+API's
 - ☑ API de Cobrança (geração de boletos)
 - ☑ API PIX (recebimento PIX) {essa API ainda está instável e incompleta no BB}
+- ☐ API Arrecadação PIX {sem previsão de implementação}
+- ☐ API Pagamentos {esperando lançar no BB}
+
+Recursos auxiliares
 - ☑ Geração de imagem b64
-- ☑ Geração e validação de código de barras de boleto
-- ☐ Geração e validação de código de barras de convênio
+- ☑ Geração, validação e conversão de código de barras de boleto
+- ☐ Geração, validação e conversão de código de barras de convênio {sem previsão de implementação}
 - ☑ Geração de QR Code PIX
