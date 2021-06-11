@@ -1,16 +1,3 @@
-.. |br| raw:: html
-
-  <br/>
-
-|br|
-
-.. image:: https://developers.bb.com.br/assets/images/logo.svg
-   :target: #
-   :alt: BB Logo
-   :align: center
-
-|br|
-
 Cliente não oficial feito em Python, para realizar integração com as API's do Banco do Brasil.
 
 `Documentação oficial do BB <https://developers.bb.com.br/>`_
