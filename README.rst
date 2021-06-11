@@ -15,12 +15,18 @@ Nosso pacote está hospedado no `PyPI <https://pypi.org/project/bb-wrapper/>`_
 
 Configuração
 ==================
-Para utilizar o `zoop-wrapper` é necessário ter duas constantes/variáveis. sendo elas:
+Para utilizar o `bb-wrapper` é necessário ter algumas constantes/variáveis. sendo elas:
 
 .. code-block:: python
+
     IMOBANCO_BB_IS_SANDBOX='flag True ou False para indicar utilização de sandbox ou não'
     IMOBANCO_BB_BASIC_TOKEN='chave de autenticação gerada para a aplicação no site developers.bb'
     IMOBANCO_BB_GW_APP_KEY='chave de desenvolvimento gerada para a aplicação no site developers.bb'
+
+
+Para geração de boletos é necessário:
+
+.. code-block:: python
 
     IMOBANCO_BB_CONVENIO='convênio do contrato para geração de boletos'
     IMOBANCO_BB_CARTEIRA='carteira do contrato para geração de boletos'
