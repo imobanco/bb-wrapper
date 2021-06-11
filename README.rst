@@ -31,18 +31,16 @@ Para utilizar o `zoop-wrapper` é necessário ter duas constantes/variáveis. se
 
 Recomendamos criar um arquivo `.env` contendo essas varíaveis de ambiente.
 
-Podem ser criadas diretamente no terminal (não recomendado).
+::
+    Podem ser criadas diretamente no terminal (não recomendado).
 
-Podem ser criadas também diretamente no `arquivo.py`
-
-.. danger::
-
-    Fazer isso além de não ser recomendado é uma **FALHA** de segurança.
+    Podem ser criadas também diretamente no `arquivo.py` (não recomendado).
 
 Recursos disponíveis
 =====================
 
 API's
+---------------------
 
 - ☑ API de Cobrança (geração de boletos)
 - ☑ API PIX (recebimento PIX) {essa API ainda está instável e incompleta no BB}
@@ -50,6 +48,7 @@ API's
 - ☐ API Pagamentos {esperando lançar no BB}
 
 Recursos auxiliares
+-------------------
 
 - ☑ Geração de imagem b64
 - ☑ Geração, validação e conversão de código de barras de boleto
