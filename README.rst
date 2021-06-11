@@ -5,7 +5,7 @@
 |br|
 
 .. image:: https://developers.bb.com.br/assets/images/logo.svg
-   :target: #
+   :target: https://developers.bb.com.br/assets/images/logo.svg
    :alt: BB Logo
    :height: 130
    :align: center
