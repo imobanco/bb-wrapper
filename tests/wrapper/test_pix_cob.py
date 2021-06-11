@@ -130,14 +130,14 @@ class PixCobBBWrapperTestCase(TestCase):
 
         self.assertEqual(ctx.exception.args[0], "Tipo de documento não identificado!")
 
-    def test_injetar_qrcode_data_na_cobranca(self):
+    def test_injeta_qrcode_data(self):
         """
         Dado:
             - uma 'response' com
                 data={"location": "location_qualquer"}
             - um 'nome' "Nome Qualquer"
         Quando:
-            - for chamado PIXCobBBWrapper()._injetar_qrcode_data_na_cobranca(response, nome)  # noqa: E501
+            - for chamado PIXCobBBWrapper()._injeta_qrcode_data(response, nome)  # noqa: E501
         Então:
             - response.data["qrcode_data"] deve ser PixCodeService().create(response.data["location"], nome)[0]  # noqa: E501
             - response.data["qrcode_b64"] deve ser PixCodeService().create(response.data["location"], nome)[1]  # noqa: E501
@@ -147,7 +147,7 @@ class PixCobBBWrapperTestCase(TestCase):
 
         nome = "Nome Qualquer"
 
-        PIXCobBBWrapper()._injetar_qrcode_data_na_cobranca(response, nome)
+        PIXCobBBWrapper()._injeta_qrcode_data(response, nome)
 
         expected_data, expected_b64 = PixCodeService().create(
             response.data["location"], nome

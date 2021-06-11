@@ -136,7 +136,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
         CobrancaPix(**data)
         return data
 
-    def _injetar_qrcode_data_na_cobranca(self, response, nome_recebedor):
+    def _injeta_qrcode_data(self, response, nome_recebedor):
         (
             response.data["qrcode_data"],
             response.data["qrcode_b64"],
@@ -174,7 +174,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
         response = self._put(url, data)
 
-        self._injetar_qrcode_data_na_cobranca(response, nome_recebedor)
+        self._injeta_qrcode_data(response, nome_recebedor)
 
         return response
 
@@ -209,7 +209,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
         response = self._put(url, data)
 
-        self._injetar_qrcode_data_na_cobranca(response, nome_recebedor)
+        self._injeta_qrcode_data(response, nome_recebedor)
 
         return response
 
