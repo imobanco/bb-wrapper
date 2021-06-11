@@ -2,7 +2,7 @@ import os
 
 from examples.utils import dump_response
 
-from bb_wrapper.wrapper.pix import PIXCobBBWrapper
+from bb_wrapper.wrapper import PIXCobBBWrapper
 
 c = PIXCobBBWrapper()
 

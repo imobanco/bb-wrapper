@@ -1,12 +1,12 @@
 {
     "status": "ATIVA",
     "calendario": {
-        "criacao": "2021-06-08T17:12:51.32-03:00",
+        "criacao": "2021-06-11T10:55:24.81-03:00",
         "expiracao": "36000"
     },
-    "location": "qrcodepix-h.bb.com.br/pix/v2/07c7285b-0b80-449a-b82a-a235e2d95354",
-    "textoImagemQRcode": "00020101021226870014br.gov.bcb.pix2565qrcodepix-h.bb.com.br/pix/v2/07c7285b-0b80-449a-b82a-a235e2d953545204000053039865802BR5920ALAN GUIACHERO BUENO6008BRASILIA62070503***6304D1CA",
-    "txid": "Ul4vHpM24VxvhM9DQYHHgFJozrx2abqvgZ1",
+    "location": "qrcodepix-h.bb.com.br/pix/v2/03683ec5-b9ea-4363-96c8-e32e3da65a92",
+    "textoImagemQRcode": "00020101021226870014br.gov.bcb.pix2565qrcodepix-h.bb.com.br/pix/v2/03683ec5-b9ea-4363-96c8-e32e3da65a925204000053039865802BR5920ALAN GUIACHERO BUENO6008BRASILIA62070503***630477F1",
+    "txid": "SnYfHCnPUQWSsKA3suAES7j2S5X2zNPpYp9",
     "revisao": 0,
     "devedor": {
         "cpf": "12345678909",
