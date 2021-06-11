@@ -6,8 +6,6 @@ from bb_wrapper.wrapper import PIXCobBBWrapper
 
 c = PIXCobBBWrapper()
 
-txid = "QtRnksK1N6Hn6xJgRXWuUn7XGx3TdwErWoK"
-
-response = c.consultar_cobranca(txid)
+response = c.listar_pix(inicio="2020-11-10T00:00:00Z", fim="2020-11-10T23:59:59Z")
 
 dump_response(response, os.path.basename(__file__).split(".")[0])

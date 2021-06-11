@@ -67,6 +67,10 @@ class RequestsWrapper:
         for arg in args:
             url += f"/{arg}"
 
+        end_bar = kwargs.get("end_bar")
+        if end_bar:
+            url = f"{url}/"
+
         search = kwargs.get("search")
         if search:
             url += "?"

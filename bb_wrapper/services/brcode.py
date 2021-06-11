@@ -54,10 +54,10 @@ class BRCodeService:
             init_value=0xFFFF,
             final_xor_value=0x0000,
             reverse_input=False,
-            reverse_output=False
+            reverse_output=False,
         )
         crc_calculator = CrcCalculator(crc_configuration)
-        data_to_encode = bytes(data, encoding='utf-8')
+        data_to_encode = bytes(data, encoding="utf-8")
         crc_value = crc_calculator.calculate_checksum(data_to_encode)
         crc_value = str(hex(crc_value))[2:].upper()
         return crc_value

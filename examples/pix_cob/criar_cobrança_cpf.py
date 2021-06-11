@@ -16,6 +16,6 @@ data = {
     "descricao": "Cobrança dos serviços prestados.",
 }
 
-response = c.criar_cobranca_qrcode(**data)
+response = c.criar_cobranca(**data)
 
 dump_response(response, os.path.basename(__file__).split(".")[0])

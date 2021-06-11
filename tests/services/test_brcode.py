@@ -74,7 +74,7 @@ class BRCodeServiceTestCase(TestCase):
 
         result = BRCodeService().crc_16_ccitt_ffff(data)
 
-        expected = '2AC9'
+        expected = "2AC9"
 
         self.assertEqual(result, expected)
 
@@ -93,6 +93,6 @@ class BRCodeServiceTestCase(TestCase):
 
         result = BRCodeService().crc_16_ccitt_ffff(data)
 
-        expected = '64E4'
+        expected = "64E4"
 
         self.assertEqual(result, expected)
