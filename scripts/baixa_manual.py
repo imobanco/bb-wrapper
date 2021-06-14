@@ -20,8 +20,7 @@ def baixa_boletos(index):
             print(number, e)
 
 
-for i in range(number_of_threads):
-    start_index = i + 0
+for start_index in range(number_of_threads):
     t = Thread(target=baixa_boletos, args=[start_index])
     t.start()
     threads.append(t)
