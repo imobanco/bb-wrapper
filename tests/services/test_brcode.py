@@ -87,7 +87,7 @@ class BRCodeServiceTestCase(TestCase):
         Quando:
             - for chamado BRCodeService().crc_16_ccitt_ffff(data)
         Então:
-            - o resultado deve ser
+            - o resultado deve ser "64E4"
         """
         data = """00020101021226700014br.gov.bcb.pix2548pix.example.com/8b3da2f39a4140d1a91abd93113bd4415204000053039865802BR5913Fulano de Tal6008BRASILIA62070503***6304"""  # noqa
 
