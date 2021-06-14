@@ -1,0 +1,21 @@
+import os
+
+from examples.utils import dump_response
+
+from bb_wrapper.wrapper import PIXCobBBWrapper
+
+c = PIXCobBBWrapper()
+
+data = {
+    "expiracao": 60 * 60,  # 60 segundos = 1 minuto. 60 minutos = 1h
+    "documento_devedor": "12345678909",
+    "nome_devedor": "Francisco da SilvaFrancisco da SilvaFrancisco da SilvaFrancisco da SilvaFrancisco da Silva",  # noqa: E501
+    "valor": 130.44,
+    "nome_recebedor": "Imobanco",
+    "chave": "7f6844d0-de89-47e5-9ef7-e0a35a681615",
+    "descricao": "Cobrança dos serviços prestados.",
+}
+
+response = c.criar_cobranca_qrcode(**data)
+
+dump_response(response, os.path.basename(__file__).split(".")[0])

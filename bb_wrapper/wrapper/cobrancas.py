@@ -1,7 +1,7 @@
 from .bb import BaseBBWrapper
 from ..constants import CONVENIO, CARTEIRA, VARIACAO_CARTEIRA, AGENCIA, CONTA
 from ..models.boleto import Boleto
-from ..services import parse_unicode_to_alphanumeric
+from ..services import parse_unicode_to_alphanumeric, BarCodeService, QRCodeService
 
 
 class CobrancasBBWrapper(BaseBBWrapper):
@@ -46,12 +46,25 @@ class CobrancasBBWrapper(BaseBBWrapper):
         base_url += "/cobrancas/v2/boletos"
         return base_url
 
+    def _injeta_b64_images(self, response):
+        """"""
+        response.data["codigo_barras_b64"] = BarCodeService().generate_barcode_b64image(
+            response.data["codigoBarraNumerico"]
+        )
+
+        qr_code = response.data.get("qrCode")
+        if qr_code:
+            response.data["qrCode"]["b64"] = QRCodeService().generate_qrcode_b64image(
+                qr_code["emv"]
+            )
+
     def registra_boleto(self, data):
         """"""
         Boleto(**data)
         self.authenticate()
         url = self._construct_url()
         response = self._post(url, data)
+        self._injeta_b64_images(response)
         return response
 
     def consulta_boleto(self, our_number):

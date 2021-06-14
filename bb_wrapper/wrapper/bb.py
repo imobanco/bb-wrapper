@@ -1,5 +1,3 @@
-import requests
-
 from .request import RequestsWrapper
 from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY
 
@@ -24,7 +22,7 @@ class BaseBBWrapper(RequestsWrapper):
 
         self.__basic_token = basic_token
         self.__gw_app_key = gw_app_key
-        self.__is_sandbox = is_sandbox
+        self._is_sandbox = is_sandbox
         self.__access_token = None
         self.__token_type = None
 
@@ -39,13 +37,15 @@ class BaseBBWrapper(RequestsWrapper):
         base_url = (
             f"{self.BASE_SCHEMA}"
             f"api"
-            f'{".sandbox" if self.__is_sandbox else ""}'
+            f'{".sandbox" if self._is_sandbox else ""}'
             f"{self.BASE_DOMAIN}"
         )
         return base_url
 
-    def _construct_url(self, *args, search=None):
-        url = super()._construct_url(*args, search=search)
+    def _construct_url(self, *args, **kwargs):
+        url = super()._construct_url(*args, **kwargs)
+
+        search = kwargs.get("search")
         if search is None:
             url += "?"
         else:
@@ -68,7 +68,7 @@ class BaseBBWrapper(RequestsWrapper):
         url = (
             f"{self.BASE_SCHEMA}"
             f"oauth"
-            f'{".sandbox" if self.__is_sandbox else ""}'
+            f'{".sandbox" if self._is_sandbox else ""}'
             f"{self.BASE_DOMAIN}"
             f"/oauth/token"
         )
@@ -76,12 +76,9 @@ class BaseBBWrapper(RequestsWrapper):
 
         data = {
             "grant_type": "client_credentials",
-            "scope": "cobrancas.boletos-info cobrancas.boletos-requisicao",
+            "scope": "cobrancas.boletos-info cobrancas.boletos-requisicao cob.read cob.write pix.read pix.write",  # noqa: E501
         }
-
-        # https://superuser.com/a/1426579 => verify=False
-        response = requests.post(url, data=data, headers=header, verify=False)
-        response = self._process_response(response)
+        response = self._post(url, data, header)
         self.__access_token = response.data["access_token"]
         self.__token_type = response.data["token_type"]
         return response

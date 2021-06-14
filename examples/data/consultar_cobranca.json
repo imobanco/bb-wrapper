@@ -1,0 +1,25 @@
+{
+    "status": "ATIVA",
+    "calendario": {
+        "criacao": "2021-06-02T14:11:44.36-03:00",
+        "expiracao": "36000"
+    },
+    "location": "qrcodepix-h.bb.com.br/pix/v2/72fe03d9-b23b-4b44-b6fd-a453c8ae1945",
+    "txid": "VZOgwPQTBdM94bbpbn2LB2KroSaiGy13PKP",
+    "revisao": 0,
+    "devedor": {
+        "cpf": "12345678909",
+        "nome": "SOARES DE MELO PATROCINIO"
+    },
+    "valor": {
+        "original": "130.44"
+    },
+    "chave": "7f6844d0-de89-47e5-9ef7-e0a35a681615",
+    "infoAdicionais": [
+        {
+            "nome": "",
+            "valor": ""
+        }
+    ],
+    "solicitacaoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."
+}

@@ -1,7 +1,9 @@
 from unittest import TestCase
+from unittest.mock import MagicMock
 
 from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 from bb_wrapper.constants import GW_APP_KEY
+from bb_wrapper.services import QRCodeService, BarCodeService
 
 
 class CobrancasBBWrapperTestCase(TestCase):
@@ -268,3 +270,31 @@ class CobrancasBBWrapperTestCase(TestCase):
         )
 
         self.assertEqual(result, expected)
+
+    def test_injeta_b64_images_with_qrcode(self):
+        """
+        Dado:
+            - uma 'response' com
+                data={"location": "location_qualquer"}
+        Quando:
+            - for chamado PIXCobBBWrapper()._injetar_qrcode_data_na_cobranca(response, nome)  # noqa: E501
+        Então:
+            - response.data["qrcode_data"] deve ser PixCodeService().create(response.data["location"], nome)[0]  # noqa: E501
+            - response.data["qrcode_b64"] deve ser PixCodeService().create(response.data["location"], nome)[1]  # noqa: E501
+        """
+
+        response = MagicMock(
+            data={"codigoBarraNumerico": "123455123", "qrCode": {"emv": "emv_qualquer"}}
+        )
+
+        CobrancasBBWrapper()._injeta_b64_images(response)
+
+        expected_barcode_b64 = BarCodeService().generate_barcode_b64image(
+            response.data["codigoBarraNumerico"]
+        )
+        expected_qrcode_b64 = QRCodeService().generate_qrcode_b64image(
+            response.data["qrCode"]["emv"]
+        )
+
+        self.assertEqual(response.data["codigo_barras_b64"], expected_barcode_b64)
+        self.assertEqual(response.data["qrCode"]["b64"], expected_qrcode_b64)

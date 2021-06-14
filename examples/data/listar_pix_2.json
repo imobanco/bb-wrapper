@@ -1,0 +1,89 @@
+{
+    "pix": [
+        {
+            "endToEndId": "E000000002020111014342452289948A",
+            "txid": "1234567891234567891234567891",
+            "valor": "130.44",
+            "horario": "2020-11-10T11:34:39.00-03:00",
+            "pagador": {
+                "cpf": "98262017315",
+                "nome": "EPITACIO NEVES BRAGA"
+            },
+            "devolucoes": [
+                {
+                    "id": "",
+                    "rtrId": "D00000000202102011312IW9UTY554FB",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-02-01T10:12:56.03-03:00",
+                        "liquidacao": "2021-02-01T10:12:48.59-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D00000000202102011313QXXZAGCYOYB",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-02-01T10:14:17.44-03:00",
+                        "liquidacao": "2021-02-01T10:13:55.45-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D000000002021020113175B7WLDEWB3B",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-02-01T10:17:23.95-03:00",
+                        "liquidacao": "2021-02-01T10:17:17.64-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                },
+                {
+                    "id": "",
+                    "rtrId": "D00000000202102011325UVHHI8XOZUB",
+                    "valor": "0.01",
+                    "horario": {
+                        "solicitacao": "2021-02-01T10:25:34.44-03:00",
+                        "liquidacao": "2021-02-01T10:25:25.38-03:00"
+                    },
+                    "status": "DEVOLVIDO"
+                }
+            ],
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E000000002020111014304601145319A",
+            "txid": "1234567891234567891234567891",
+            "valor": "130.44",
+            "horario": "2020-11-10T11:30:56.00-03:00",
+            "pagador": {
+                "cpf": "98262017315",
+                "nome": "EPITACIO NEVES BRAGA"
+            },
+            "infoPagador": ""
+        },
+        {
+            "endToEndId": "E00000000202011102012TJA81MRD75B",
+            "txid": "1234567891234567891234567892",
+            "valor": "130.44",
+            "horario": "2020-11-10T17:12:55.00-03:00",
+            "pagador": {
+                "cpf": "98262017315",
+                "nome": "EPITACIO NEVES BRAGA"
+            },
+            "infoPagador": ""
+        }
+    ],
+    "parametros": {
+        "inicio": "2020-11-10T00:00:00Z",
+        "fim": "2020-11-10T23:59:59Z",
+        "paginacao": {
+            "paginaAtual": 0,
+            "itensPorPagina": 50,
+            "quantidadeDePaginas": 1,
+            "quantidadeTotalDeItens": 3
+        }
+    }
+}

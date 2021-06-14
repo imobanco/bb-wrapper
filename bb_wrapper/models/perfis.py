@@ -27,3 +27,13 @@ class PessoaComEndereco(Pessoa):
     bairro: constr(max_length=30)
     uf: constr(max_length=2, min_length=2)
     telefone: Optional[constr(max_length=30)]
+
+
+class PessoaPix(BaseModel):
+    cpf: constr(max_length=11, min_length=11)
+    nome: str
+
+
+class EmpresaPix(BaseModel):
+    cnpj: constr(max_length=14, min_length=14)
+    nome: str

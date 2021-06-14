@@ -1,0 +1,302 @@
+{
+	"info": {
+		"_postman_id": "7aee15cb-ae55-4c88-a8f0-b3160aa2de2e",
+		"name": "API PIX - Testes em Homologação",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "hm",
+			"item": [
+				{
+					"name": "01 - Geração de Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"pm.globals.set(\"access_token\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{colar o conteúdo o botão Copiar Basic}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "cob.read cob.write pix.read pix.write",
+									"type": "text"
+								},
+								{
+									"key": "teste",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://oauth.hm.bb.com.br/oauth/token",
+							"protocol": "https",
+							"host": [
+								"oauth",
+								"hm",
+								"bb",
+								"com",
+								"br"
+							],
+							"path": [
+								"oauth",
+								"token"
+							],
+							"query": [
+								{
+									"key": "gw-",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gerenciamento de PIX recebidos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "https://api.hm.bb.com.br/pix/v1/?inicio&fim&paginacao.paginaAtual=1&gw-dev-app-key={{colar o valor do developer_application_key}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hm",
+								"bb",
+								"com",
+								"br"
+							],
+							"path": [
+								"pix",
+								"v1",
+								""
+							],
+							"query": [
+								{
+									"key": "inicio",
+									"value": null
+								},
+								{
+									"key": "fim",
+									"value": null
+								},
+								{
+									"key": "paginacao.paginaAtual",
+									"value": "1"
+								},
+								{
+									"key": "gw-dev-app-key",
+									"value": "{{colar o valor do developer_application_key}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar PIX (único)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.hm.bb.com.br/pix/v1/cob/:txid?gw-dev-app-key={{colar o valor do developer_application_key}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hm",
+								"bb",
+								"com",
+								"br"
+							],
+							"path": [
+								"pix",
+								"v1",
+								"cob",
+								":txid"
+							],
+							"query": [
+								{
+									"key": "gw-dev-app-key",
+									"value": "{{colar o valor do developer_application_key}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "txid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Cobrança",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"calendario\": {\n      \"expiracao\": \"36000\"\n    },\n    \"devedor\": {\n      \"cpf\": \"12345678909\",\n      \"nome\": \"Francisco da Silva\"\n    },\n    \"valor\": {\n      \"original\": \"130.44\"\n    },\n    \"chave\": \"7f6844d0-de89-47e5-9ef7-e0a35a681615\",\n    \"solicitacaoPagador\": \"Cobrança dos serviços prestados.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.hm.bb.com.br/pix/v1/cob/:txid?gw-dev-app-key={{colar o valor do developer_application_key}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hm",
+								"bb",
+								"com",
+								"br"
+							],
+							"path": [
+								"pix",
+								"v1",
+								"cob",
+								":txid"
+							],
+							"query": [
+								{
+									"key": "gw-dev-app-key",
+									"value": "{{colar o valor do developer_application_key}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "txid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Revisar Cobranças",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"ATIVA\",\n    \"calendario\": {\n      \"expiracao\": \"36000\"\n    },\n    \"devedor\": {\n      \"cpf\": \"88288899999\",\n      \"nome\": \"Teste\"\n    },\n    \"valor\": {\n      \"original\": \"101.00\"\n    },\n    \"chave\": \"3d22962e-a2a1-42ec-a68c-a8f66b69b09a\",\n    \"solicitacaoPagador\": \"Teste Descrição Altera PGR\",\n    \"infoAdicionais\": [\n        {\n            \"nome\": \"codigoAlterada\",\n            \"valor\": \"TextoAlterado\"\n        },\n        {\n            \"nome\": \"codigoAlterada2\",\n            \"valor\": \"TextoAlterado2\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.hm.bb.com.br/pix/v1/cob/:txid?gw-dev-app-key={{colar o valor do developer_application_key}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hm",
+								"bb",
+								"com",
+								"br"
+							],
+							"path": [
+								"pix",
+								"v1",
+								"cob",
+								":txid"
+							],
+							"query": [
+								{
+									"key": "gw-dev-app-key",
+									"value": "{{colar o valor do developer_application_key}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "txid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
