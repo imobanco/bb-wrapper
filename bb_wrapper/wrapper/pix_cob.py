@@ -70,7 +70,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
         Args:
             end_to_end_id: identificador end_to_end do pix
-            valor: valor a ser devolvido (formato int vulgo 10.00 para R$ 10,00)
+            valor: valor a ser devolvido (formato float vulgo 10.00 para R$ 10,00)
             txid: identificador único da devolução
         """
         url = self._construct_url("pix", end_to_end_id, "devolucao", txid)
