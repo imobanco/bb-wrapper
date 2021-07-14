@@ -6,7 +6,10 @@ from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 
 wrapper = CobrancasBBWrapper()
-logging.basicConfig(level=logging.INFO, format="%(asctime)-15s| %(threadName)-10s| %(levelname)-5s| %(message)s")
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)-15s| %(threadName)-10s| %(levelname)-5s| %(message)s",
+)
 
 number_of_threads = 13
 
@@ -27,7 +30,9 @@ threads = []
 
 for i in range(number_of_threads):
     start_index = i
-    thread = threading.Thread(target=baixa_slice, name=f"thread-{i}", args=[start_index, number_of_threads])
+    thread = threading.Thread(
+        target=baixa_slice, name=f"thread-{i}", args=[start_index, number_of_threads]
+    )
     threads.append(thread)
 
 for thread in threads:
