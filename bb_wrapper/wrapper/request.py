@@ -152,17 +152,14 @@ class RequestsWrapper:
         """
         kwargs = dict(
             headers=headers if headers else self._authorization_header_data,
-            verify=self.VERIFY_HTTPS
+            verify=self.VERIFY_HTTPS,
         )
         if use_json:
-            kwargs['json'] = data
+            kwargs["json"] = data
         else:
-            kwargs['data'] = data
+            kwargs["data"] = data
 
-        response = requests.post(
-            url,
-            **kwargs
-        )
+        response = requests.post(url, **kwargs)
         response = self._process_response(response)
         return response
 
