@@ -40,6 +40,8 @@ class PIXCobBBWrapper(BaseBBWrapper):
             search["inicio"] = inicio
         if fim:
             search["fim"] = fim
+        if not search:
+            search = None
 
         url = self._construct_url(end_bar=True, search=search)
 
@@ -105,6 +107,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
         nome_devedor: str,
         valor: float,
         descricao: str,
+        info: list = None,
     ):
         """
         Criar a estrutura de uma cobrança PIX
@@ -133,6 +136,10 @@ class PIXCobBBWrapper(BaseBBWrapper):
             "chave": chave,
             "solicitacaoPagador": descricao,
         }
+
+        if info is not None:
+            data["infoAdicionais"] = info
+
         CobrancaPix(**data)
         return data
 
@@ -151,6 +158,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
         nome_recebedor: str,
         valor: float,
         descricao: str,
+        info: list = None,
     ):
         """
         Criar uma cobrança PIX
@@ -163,9 +171,10 @@ class PIXCobBBWrapper(BaseBBWrapper):
             nome_recebedor: Nome do recebedor
             valor: valor da cobrança
             descricao: descrição da cobrança
+            info: lista de informações adicionais
         """
         data = self._create_and_validate_cobranca_data(
-            expiracao, chave, documento_devedor, nome_devedor, valor, descricao
+            expiracao, chave, documento_devedor, nome_devedor, valor, descricao, info
         )
 
         url = self._construct_url("cob", end_bar=True)
