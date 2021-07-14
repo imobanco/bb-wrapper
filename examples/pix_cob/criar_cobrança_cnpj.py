@@ -14,6 +14,7 @@ data = {
     "nome_recebedor": "Imobanco",
     "chave": "7f6844d0-de89-47e5-9ef7-e0a35a681615",
     "descricao": "Cobrança dos serviços prestados.",
+    "info": [{"nome": "Sacado", "valor": "Nome do sacado aqui"}],
 }
 
 response = c.criar_cobranca(**data)
