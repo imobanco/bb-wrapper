@@ -65,6 +65,11 @@ class BaseBBWrapper(RequestsWrapper):
         return f"{self.__token_type} {self.__access_token}"
 
     def authenticate(self):
+        """
+        https://forum.developers.bb.com.br/t/status-code-415-unsupported-media-type-somente-em-producao/1123
+
+        O endpoint oauth recebe application/x-www-form-urlencoded!
+        """
         url = (
             f"{self.BASE_SCHEMA}"
             f"oauth"
@@ -78,7 +83,7 @@ class BaseBBWrapper(RequestsWrapper):
             "grant_type": "client_credentials",
             "scope": "cobrancas.boletos-info cobrancas.boletos-requisicao cob.read cob.write pix.read pix.write",  # noqa: E501
         }
-        response = self._post(url, data, header)
+        response = self._post(url, data, header, use_json=False)
         self.__access_token = response.data["access_token"]
         self.__token_type = response.data["token_type"]
         return response

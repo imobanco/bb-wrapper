@@ -1,6 +1,6 @@
-from typing import Union
+from typing import Union, Optional
 
-from pydantic import BaseModel, confloat, conint
+from pydantic import BaseModel, confloat, conint, constr, conlist
 
 from .perfis import PessoaPix, EmpresaPix
 
@@ -10,12 +10,18 @@ class Calendario(BaseModel):
 
 
 class Valor(BaseModel):
-    original: confloat(gt=0.01)
+    original: confloat(ge=0.01)
+
+
+class InfoAdicional(BaseModel):
+    nome: constr(max_length=50)
+    valor: constr(max_length=200)
 
 
 class CobrancaPix(BaseModel):
     calendario: Calendario
     devedor: Union[PessoaPix, EmpresaPix]
     valor: Valor
-    chave: str
-    solicitacaoPagador: str
+    chave: constr(max_length=77)
+    solicitacaoPagador: constr(max_length=140)
+    infoAdicionais: Optional[conlist(InfoAdicional, max_items=50)]

@@ -27,15 +27,18 @@ class PIXCobBBWrapper(BaseBBWrapper):
             base_url += f"/{arg}"
         return base_url
 
-    def listar_pix(self, inicio=None, fim=None):
+    def listar_pix(self, inicio=None, fim=None, page=0):
         """
         Método para consultar todos os pix recebidos.
 
         Args:
             inicio: filtro de data inicio. Respeita o formato definido na RFC 3339
             fim: filtro de data final. Respeita o formato definido na RFC 3339
+            page: número da página atual. Padrão 0
         """
-        search = {}
+        search = {
+            "paginaAtual": page,
+        }
         if inicio:
             search["inicio"] = inicio
         if fim:
@@ -105,6 +108,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
         nome_devedor: str,
         valor: float,
         descricao: str,
+        info: list = None,
     ):
         """
         Criar a estrutura de uma cobrança PIX
@@ -133,6 +137,10 @@ class PIXCobBBWrapper(BaseBBWrapper):
             "chave": chave,
             "solicitacaoPagador": descricao,
         }
+
+        if info is not None:
+            data["infoAdicionais"] = info
+
         CobrancaPix(**data)
         return data
 
@@ -151,6 +159,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
         nome_recebedor: str,
         valor: float,
         descricao: str,
+        info: list = None,
     ):
         """
         Criar uma cobrança PIX
@@ -163,9 +172,10 @@ class PIXCobBBWrapper(BaseBBWrapper):
             nome_recebedor: Nome do recebedor
             valor: valor da cobrança
             descricao: descrição da cobrança
+            info: lista de informações adicionais
         """
         data = self._create_and_validate_cobranca_data(
-            expiracao, chave, documento_devedor, nome_devedor, valor, descricao
+            expiracao, chave, documento_devedor, nome_devedor, valor, descricao, info
         )
 
         url = self._construct_url("cob", end_bar=True)

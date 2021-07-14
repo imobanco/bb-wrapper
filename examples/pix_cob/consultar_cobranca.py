@@ -6,7 +6,7 @@ from bb_wrapper.wrapper import PIXCobBBWrapper
 
 c = PIXCobBBWrapper()
 
-txid = "QtRnksK1N6Hn6xJgRXWuUn7XGx3TdwErWoK"
+txid = "HUAY0i0XMbuq6W3EcGapjsGCp5V19ToaRNR"
 
 response = c.consultar_cobranca(txid)
 

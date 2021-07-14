@@ -6,7 +6,7 @@ from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 wrapper = CobrancasBBWrapper()
 
-number = "9999999994"
+number = 9999999984
 
 response = wrapper.baixa_boleto(wrapper.build_our_number(number))
 
