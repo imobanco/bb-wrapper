@@ -137,22 +137,31 @@ class RequestsWrapper:
         response = self._process_response(response)
         return response
 
-    def _post(self, url, data, headers=None) -> requests.Response:
+    def _post(self, url, data, headers=None, use_json=True) -> requests.Response:
         """
         http post
 
         Args:
             url: url de requisição
             data (dict): dados da requisição
+            headers: headers
+            use_json: Flag
 
         Returns:
             (:class:`.requests.Response`)
         """
+        kwargs = dict(
+            headers=headers if headers else self._authorization_header_data,
+            verify=self.VERIFY_HTTPS
+        )
+        if use_json:
+            kwargs['json'] = data
+        else:
+            kwargs['data'] = data
+
         response = requests.post(
             url,
-            json=data,
-            headers=headers if headers else self._authorization_header_data,
-            verify=self.VERIFY_HTTPS,
+            **kwargs
         )
         response = self._process_response(response)
         return response
