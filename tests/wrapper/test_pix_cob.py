@@ -155,3 +155,35 @@ class PixCobBBWrapperTestCase(TestCase):
 
         self.assertEqual(response.data["qrcode_data"], expected_data)
         self.assertEqual(response.data["qrcode_b64"], expected_b64)
+
+    def test_construct_url_1(self):
+        """
+        Dado:
+            -
+        Quando:
+            - for chamado PIXCobBBWrapper()._construct_url(end_bar=True, search=None)
+        Então:
+            - o resultado deve ter pelo menos o texto
+                'https://api.hm.bb.com.br/pix/v1/?gw-dev-app-key='
+        """
+        result = PIXCobBBWrapper()._construct_url(end_bar=True)
+
+        expected = "https://api.hm.bb.com.br/pix/v1/?gw-dev-app-key="
+
+        self.assertIn(expected, result)
+
+    def test_construct_url_2(self):
+        """
+        Dado:
+            -
+        Quando:
+            - for chamado PIXCobBBWrapper()._construct_url(end_bar=False)
+        Então:
+            - o resultado deve ter pelo menos o texto
+                'https://api.hm.bb.com.br/pix/v1?gw-dev-app-key='
+        """
+        result = PIXCobBBWrapper()._construct_url(end_bar=False)
+
+        expected = "https://api.hm.bb.com.br/pix/v1?gw-dev-app-key="
+
+        self.assertIn(expected, result)
