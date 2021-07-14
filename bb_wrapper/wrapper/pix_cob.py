@@ -27,21 +27,22 @@ class PIXCobBBWrapper(BaseBBWrapper):
             base_url += f"/{arg}"
         return base_url
 
-    def listar_pix(self, inicio=None, fim=None):
+    def listar_pix(self, inicio=None, fim=None, page=0):
         """
         Método para consultar todos os pix recebidos.
 
         Args:
             inicio: filtro de data inicio. Respeita o formato definido na RFC 3339
             fim: filtro de data final. Respeita o formato definido na RFC 3339
+            page: número da página atual. Padrão 0
         """
-        search = {}
+        search = {
+            "paginaAtual": page,
+        }
         if inicio:
             search["inicio"] = inicio
         if fim:
             search["fim"] = fim
-        if not search:
-            search = None
 
         url = self._construct_url(end_bar=True, search=search)
 
