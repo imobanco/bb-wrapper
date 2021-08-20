@@ -197,6 +197,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
         nome_recebedor: str,
         valor: float,
         descricao: str,
+        info: list = None,
     ):
         """
         Criar uma cobrança PIX com QRCode dinâmico
@@ -211,7 +212,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
             descricao: descrição da cobrança
         """
         data = self._create_and_validate_cobranca_data(
-            expiracao, chave, documento_devedor, nome_devedor, valor, descricao
+            expiracao, chave, documento_devedor, nome_devedor, valor, descricao, info
         )
         url = self._construct_url("cobqrcode", end_bar=True)
 
