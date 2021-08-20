@@ -1,0 +1,72 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | venv
+    | env
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+)
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.coverage.report]
+omit = [
+	"*/env/*",
+	"*/venv/*",
+	"*/tests/*",
+	"*/migrations/*",
+	"*/management/*",
+	"*/income/*",
+	"*/scripts/*",
+	"*/apps.py",
+	"*/admin.py",
+	"*/factories.py",
+	"*/test_utils.py",
+	"*/manage.py",
+	"*/__init__.py"
+]
+
+[tool.poetry]
+name = "bb-wrapper"
+version = "0.0.0"
+description = ""
+authors = ["Imobanco"]
+readme = "README.srt"
+packages = [{include = "**/*.py"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.9.2"
+black = "^21.6b0"
+coverage = {extras = ["toml"], version = "^5.5"}
+isort = "^5.9.2"
+
+[tool.poetry.scripts]
+
+# poetry config --list
+[virtualenvs]
+virtualenvs.create = true
+virtualenvs.in-project = true
+virtualenvs.path = "."
