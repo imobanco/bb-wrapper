@@ -51,7 +51,7 @@ name = "bb-wrapper"
 version = "0.0.0"
 description = ""
 authors = ["Imobanco"]
-readme = "README.srt"
+readme = "README.rst"
 packages = [{include = "**/*.py"}]
 
 [tool.poetry.dependencies]
