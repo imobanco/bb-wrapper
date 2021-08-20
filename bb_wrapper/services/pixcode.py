@@ -1,5 +1,6 @@
 from .brcode import BRCodeService
 from .qrcode import QRCodeService
+from .unicode import UnicodeService
 
 
 class PixCodeService:
@@ -61,10 +62,12 @@ class PixCodeService:
         data += BRCodeService().create_field_string(_id="58", value="BR")
 
         # campo ID 59 Merchant Name
+        nome_recebedor = nome_recebedor[:13]
+        nome_recebedor = UnicodeService().parse_unicode_to_alphanumeric(nome_recebedor)
         data += BRCodeService().create_field_string(_id="59", value=nome_recebedor)
 
         # campo ID 60 Merchant City
-        data += BRCodeService().create_field_string(_id="60", value="BRASILIA")
+        data += BRCodeService().create_field_string(_id="60", value="NATAL")
 
         # campo ID 62 Aditional Data Field
         # subcampo ID 05 Reference Label
@@ -79,6 +82,7 @@ class PixCodeService:
         # campo ID 63 CRC 16
         data_to_encode = data + "6304"
         crc_value = BRCodeService().crc_16_ccitt_ffff(data_to_encode)
+        crc_value = crc_value.zfill(4)
         data += BRCodeService().create_field_string(_id="63", value=crc_value)
 
         return data, QRCodeService().generate_qrcode_b64image(data)

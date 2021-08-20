@@ -1,4 +1,4 @@
-requests==2.23.*
+requests==2.24.*
 python-decouple==3.*
 pydantic==1.7.*
 python-barcode==0.13.*
