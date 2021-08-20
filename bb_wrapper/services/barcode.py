@@ -8,7 +8,7 @@ from .febrabran import FebrabranService
 
 
 class BarCodeService:
-    def generate_barcode_b64image(self, barcode, text=""):
+    def generate_barcode_b64image(self, barcode):
         """
         Método para gerar uma imagem base46 a partir de um código de barras numérico.
         """
@@ -17,7 +17,7 @@ class BarCodeService:
             name="itf",
             code=barcode,
             output=buffer,
-            text=text,
+            text=barcode,
             writer=SVGWriter(),
             writer_options={
                 "quiet_zone": 0,  # margin esquerda e direita (sem margem pois nosso template tem espaço!)  # noqa
