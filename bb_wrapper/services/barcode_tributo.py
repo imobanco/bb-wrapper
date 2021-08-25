@@ -109,7 +109,11 @@ class BarcodeTributoService:
         return method_to_calculate_dv
 
     def validate_barcode(self, barcode: str, raise_exception=True) -> bool:
-        """ """
+        """
+        Método para validar um código de barras.
+
+        O DV do código de barras está no índice 3.
+        """
         dv = barcode[3]
 
         method_to_calculate_dv = self._get_dv_method_for_barcode_or_code_line(barcode)
@@ -124,7 +128,51 @@ class BarcodeTributoService:
         return is_dv_correct
 
     def validate_code_line(self, code_line: str, raise_exception=True) -> bool:
-        pass
+        """
+        Método para validar uma linha digitável.
+
+        Os slices presentes nesse método estão documentados na docstring do service!
+        """
+        barcode = self.code_line_to_barcode(code_line, validate=False)
+
+        try:
+            self.validate_barcode(barcode)
+        except ValueError as e:
+            raise ValueError("Linha digitável inválida!") from e
+
+        method_to_calculate_dv = self._get_dv_method_for_barcode_or_code_line(barcode)
+
+        part_1 = code_line[0:11]
+        dv_1 = code_line[11]
+        # noinspection PyArgumentList
+        calculated_dv_1 = method_to_calculate_dv(part_1)
+        is_dv_1_correct = dv_1 == calculated_dv_1
+
+        part_2 = code_line[12:23]
+        dv_2 = code_line[23]
+        # noinspection PyArgumentList
+        calculated_dv_2 = method_to_calculate_dv(part_2)
+        is_dv_2_correct = dv_2 == calculated_dv_2
+
+        part_3 = code_line[24:35]
+        dv_3 = code_line[35]
+        # noinspection PyArgumentList
+        calculated_dv_3 = method_to_calculate_dv(part_3)
+        is_dv_3_correct = dv_3 == calculated_dv_3
+
+        part_4 = code_line[36:47]
+        dv_4 = code_line[47]
+        # noinspection PyArgumentList
+        calculated_dv_4 = method_to_calculate_dv(part_4)
+        is_dv_4_correct = dv_4 == calculated_dv_4
+
+        is_code_line_dvs_correct = (
+            is_dv_1_correct and is_dv_2_correct and is_dv_3_correct and is_dv_4_correct
+        )
+
+        if raise_exception and not is_code_line_dvs_correct:
+            raise ValueError("Linha digitável inválida!")
+        return is_code_line_dvs_correct
 
     def barcode_to_code_line(self, barcode: str, validate=True) -> str:
         """

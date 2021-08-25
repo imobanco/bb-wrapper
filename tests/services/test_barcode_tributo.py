@@ -40,12 +40,11 @@ class BarcodeTributoTestCase(BarcodeAndCodeLineTestCase):
             with self.subTest(barcode):
                 self.assertTrue(BarcodeTributoService().validate_barcode(barcode))
 
-    #
-    # def test_validate_code_line(self):
-    #     for code_line in self.cobrancas_barcodes_to_code_lines.values():
-    #         with self.subTest(code_line):
-    #             self.assertTrue(BarcodeCobrancaService().validate_code_line(code_line))
-    #
+    def test_validate_code_line(self):
+        for code_line in self.tributos_barcodes_to_code_lines.values():
+            with self.subTest(code_line):
+                self.assertTrue(BarcodeTributoService().validate_code_line(code_line))
+
     def test_barcode_to_code_line(self):
         for barcode, code_line in self.tributos_barcodes_to_code_lines.items():
             with self.subTest(barcode):

@@ -64,7 +64,7 @@ class BarcodeCobrancaService:
 
     def validate_barcode(self, barcode: str, raise_exception=True) -> bool:
         """
-        Método para validar um código de barras do boleto de cobrança.
+        Método para validar um código de barras.
 
         O digito no índice 4 é o DV do código de barras.
         """
@@ -79,7 +79,11 @@ class BarcodeCobrancaService:
         return is_dv_correct
 
     def validate_code_line(self, code_line: str, raise_exception=True) -> bool:
-        """ """
+        """
+        Método para validar uma linha digitável.
+
+        Os slices presentes nesse método estão documentados na docstring do service!
+        """
         barcode = self.code_line_to_barcode(code_line, validate=False)
 
         try:
