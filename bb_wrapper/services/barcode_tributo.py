@@ -18,10 +18,10 @@ class BarcodeTributoService:
         9. Uso exclusivo do banco
 
     valor real ou referência:
-        “6”- Valor a ser cobrado efetivamente em reais e DV módulo 10
-        “7”- Quantidade de moeda e DV módulo 10
-        “8” – Valor a ser cobrado efetivamente em reais e DV módulo 11
-        “9” – Quantidade de moeda e DV módulo 11
+        "6" - Valor a ser cobrado efetivamente em reais e DV módulo 10
+        "7" - Quantidade de moeda e DV módulo 10
+        "8" - Valor a ser cobrado efetivamente em reais e DV módulo 11
+        "9" - Quantidade de moeda e DV módulo 11
 
 
     Código de barras de tributos possui 44 caracteres:
