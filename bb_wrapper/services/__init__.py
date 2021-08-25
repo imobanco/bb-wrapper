@@ -3,7 +3,6 @@ from .unicode import UnicodeService
 from .qrcode import QRCodeService
 from .barcode import BarcodeService
 from .mod import ModService  # noqa: F401
-from .febrabran import FebrabranService  # noqa: F401
 from .pixcode import PixCodeService  # noqa: F401
 
 

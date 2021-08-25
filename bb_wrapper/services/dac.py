@@ -1,37 +1,29 @@
+from .mod import ModService
+
+
 class DACService:
-    def mod_10(self, number):
-        reversed_number = reversed(number)
+    def dac_10(self, number, dv_to_dv_mapping=None):
+        """
+        Método para calcular DAC módulo 10.
+        """
+        dv = ModService().mod_10(number)
 
-        factor = 2
-        total = 0
-        for num in reversed_number:
-            result = factor * int(num)
-            result = sum([int(d) for d in str(result)])
-            total += result
-            factor = (factor % 2) + 1
+        try:
+            dv = dv_to_dv_mapping[dv]
+        except (TypeError, KeyError):
+            pass
 
-        base = 10
-        rest = total % base
-        dv = base - rest
-        if dv in [10]:
-            dv = 0
+        return dv
 
-        return str(dv)
+    def dac_11(self, number, dv_to_dv_mapping=None):
+        """
+        Método para calcular o DAC módulo 11.
+        """
+        dv = ModService().mod_11(number)
 
-    def mod_11(self, number):
-        reversed_number = reversed(number)
-
-        factor = 2
-        total = 0
-        for num in reversed_number:
-            result = factor * int(num)
-            total += result
-            factor = (factor % 9) + 1 + (factor // 9) * 1
-
-        base = 11
-        rest = total % base
-        dv = base - rest
-        if dv in [0, 10, 11]:
-            dv = 1
+        try:
+            dv = dv_to_dv_mapping[dv]
+        except (TypeError, KeyError):
+            pass
 
         return str(dv)
