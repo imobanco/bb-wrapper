@@ -13,7 +13,7 @@ class BarcodeTributoService:
         3. Energia Elétrica e Gás;
         4. Telecomunicações;
         5. Órgãos Governamentais;
-        6. Carnes e Assemelhados ou demais Empresas / Órgãos que serão identificadas através do CNPJ.
+        6. Carnes e Assemelhados ou demais Empresas / Órgãos que serão identificadas através do CNPJ.  # noqa: E501
         7. Multas de trânsito
         9. Uso exclusivo do banco
 
@@ -27,7 +27,7 @@ class BarcodeTributoService:
     Código de barras de tributos possui 44 caracteres:
 
     Indices     Tamanho       Conteúdo
-      0:1         01          Identificação do Produto (Constante “8” para identificar arrecadação)
+      0:1         01          Identificação do Produto (Constante “8” para identificar arrecadação)  # noqa: E501
       1:2         01          Identificação do Segmento
       2:3         01          Identificação do valor real ou referência
       3:4         01          Dígito verificador geral (módulo 10 ou 11)
