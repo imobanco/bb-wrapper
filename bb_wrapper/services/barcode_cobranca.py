@@ -1,5 +1,6 @@
 from .dac import DACService
 
+
 class BarcodeCobrancaService:
     """
     Cálculos e métodos do código de barras e linha digitável dos boletos de cobrança!
@@ -90,21 +91,28 @@ class BarcodeCobrancaService:
 
     def calculate_barcode_dv(self, barcode: str) -> str:
         """
-        O DV do Código de Barras deve ser calculado pelo módulo 11.
-
         Para calcular o DV considerar 43 posições do Código
         de Barras sendo os slices :4 e 5:
+
+        O DV do Código de Barras deve ser calculado pelo módulo 11.
+
+        Se o DV do módulo 11 for:
+            DV 11 => DV 1
+            DV 10 => DV 1
         """
         number = barcode[:4] + barcode[5:]
 
-        return DACService().mod_11(number)
+        return DACService().dac_11(number, dv_to_dv_mapping={"11": "1", "10": "1"})
 
     def calculate_code_line_dv(self, number: str) -> str:
         """
         O DV de uma parte da linha digitável deve ser
         calculado pelo módulo 10.
+
+        Se o DV do módulo 10 for:
+            DV 10 => DV 0
         """
-        return DACService().mod_10(number)
+        return DACService().dac_10(number, dv_to_dv_mapping={"10": "0"})
 
     def validate_barcode(self, barcode: str, raise_exception=True) -> bool:
         """
