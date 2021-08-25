@@ -45,3 +45,4 @@ class BarcodeCobranca(BaseModel):
 class BarcodeTributo(BaseModel):
     code_line: Optional[constr(min_length=48, max_length=48, regex=r"^\d+$")]
     barcode: Optional[constr(min_length=44, max_length=44, regex=r"^\d+$")]
+    barcode_image: Optional[str]
