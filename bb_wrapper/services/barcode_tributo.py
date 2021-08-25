@@ -43,21 +43,17 @@ class BarcodeTributoService:
     Linha digitável de cobrança possui 48 caracteres:
 
     Indices     Tamanho       Conteúdo
-      0:4         04          Slice 0:4 do código de barras (Código do Banco na Câmara de Compensação e Código da Moeda)  # noqa: E501
-      4:9         05          Slice 19:24 do código de barras (Campo Livre pt1)
-      9:10        01          DV do slice 0:9 da linha digitável (calculado de acordo com o Módulo 10)  # noqa: E501
+      0:11        11          Slice 0:1 do código de barras
+     11:12        01          DV do slice 0:11 da linha digitável
 
-     10:20        10          Slice 24:34 do código de barras (Campo Livre pt2)
-     20:21        01          DV do slice 10:20 da linha digitável (calculado de acordo com o Módulo 10)  # noqa: E501
+     12:23        11          Slice 11:22 do código de barras
+     23:24        01          DV do slice 12:23 da linha digitável
 
-     21:31        10          Slice 34:44 do código de barras (Campo Livre pt3)
-     31:32        01          DV do slice 21:31 da linha digitável (calculado de acordo com o Módulo 10)  # noqa: E501
+     24:35        11          Slice 22:33 do código de barras (Campo Livre pt3)
+     35:36        01          DV do slice 24:35 da linha digitável
 
-     32:33        01          Slice 4:5 do código de barras (DV do código de Barras)
-
-     33:37        04          Slice 5:9 do código de barras (Fator de Vencimento)
-     37:47        10          Slice 9:19 do código de barras (Valor)
-
+     36:47        11          Slice 33:44 do código de barras
+     47:48        01          DV do slice 36:47 da linha digitável
     """
 
     def _get_number_from_barcode(self, barcode: str) -> str:
@@ -67,18 +63,21 @@ class BarcodeTributoService:
         """
         return barcode[:3] + barcode[4:]
 
-    def _calculate_dv_10(self, barcode: str) -> str:
+    def _calculate_dv_10(self, barcode_or_code_line: str) -> str:
         """
         O DV do Código de Barras pode ser calculado pelo módulo 10.
 
         Se o DV no módulo 10 for:
             DV 10 => DV 0
         """
-        number = self._get_number_from_barcode(barcode)
+        if len(barcode_or_code_line) == 44:
+            number = self._get_number_from_barcode(barcode_or_code_line)
+        else:
+            number = barcode_or_code_line
 
         return DACService().dac_10(number, dv_to_dv_mapping={"10": "0"})
 
-    def _calculate_dv_11(self, barcode: str) -> str:
+    def _calculate_dv_11(self, barcode_or_code_line: str) -> str:
         """
         O DV do Código de Barras pode ser calculado pelo módulo 11.
 
@@ -86,7 +85,10 @@ class BarcodeTributoService:
             DV 11 => DV 0
             DV 10 => DV 0
         """
-        number = self._get_number_from_barcode(barcode)
+        if len(barcode_or_code_line) == 44:
+            number = self._get_number_from_barcode(barcode_or_code_line)
+        else:
+            number = barcode_or_code_line
 
         return DACService().dac_11(number, dv_to_dv_mapping={"10": "0", "11": "0"})
 
@@ -125,6 +127,11 @@ class BarcodeTributoService:
         pass
 
     def barcode_to_code_line(self, barcode: str, validate=True) -> str:
+        """
+        Método para converter o códigoa linha digitável em código de barras.
+
+        Os slices presentes nesse método estão documentados na docstring do service!
+        """
         if validate:
             self.validate_barcode(barcode)
 
@@ -149,6 +156,11 @@ class BarcodeTributoService:
         return part_1 + dv_1 + part_2 + dv_2 + part_3 + dv_3 + part_4 + dv_4
 
     def code_line_to_barcode(self, code_line: str, validate=True) -> str:
+        """
+        Método para converter a linha digitável em código de barras.
+
+        Os slices presentes nesse método estão documentados na docstring do service!
+        """
         if validate:
             self.validate_code_line(code_line)
 

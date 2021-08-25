@@ -10,7 +10,7 @@ class BarcodeTributoTestCase(BarcodeAndCodeLineTestCase):
             "7": "5",
             "14": "1",
             "25": "7",
-            "123456": "2",
+            "123456": "6",
         }
 
         for number, dv in numbers_to_dvs.items():
