@@ -37,58 +37,6 @@ class BarcodeCobrancaService:
      37:47        10          Slice 9:19 do código de barras (Valor)
     """
 
-    _fields_to_barcode_and_code_line_mapping = [
-        {
-            "field": "Código do Banco na Câmara de Compensação e Código da Moeda",
-            "barcode_slice_indexes": [0, 4],
-            "barcode_order": 1,
-            "code_line_slice_indexes": [0, 4],
-            "code_line_order": 1.0,
-        },
-        {
-            "field": "Campo Livre pt1",
-            "barcode_slice_indexes": [19, 24],
-            "barcode_order": 5,
-            "code_line_slice_indexes": [4, 9],
-            "code_line_order": 1.1,
-        },
-        {
-            "field": "Campo Livre pt2",
-            "barcode_slice_indexes": [24, 34],
-            "barcode_order": 6,
-            "code_line_slice_indexes": [10, 20],
-            "code_line_order": 2.0,
-        },
-        {
-            "field": "Campo Livre pt3",
-            "barcode_slice_indexes": [34, 44],
-            "barcode_order": 7,
-            "code_line_slice_indexes": [21, 31],
-            "code_line_order": 3.0,
-        },
-        {
-            "field": "DV do código de Barras",
-            "barcode_slice_indexes": [4, 5],
-            "barcode_order": 2,
-            "code_line_slice_indexes": [32, 33],
-            "code_line_order": 4.0,
-        },
-        {
-            "field": "Fator de Vencimento",
-            "barcode_slice_indexes": [5, 9],
-            "barcode_order": 3,
-            "code_line_slice_indexes": [33, 37],
-            "code_line_order": 5.0,
-        },
-        {
-            "field": "Valor",
-            "barcode_slice_indexes": [9, 19],
-            "barcode_order": 4,
-            "code_line_slice_indexes": [37, 47],
-            "code_line_order": 5.1,
-        },
-    ]
-
     def calculate_barcode_dv(self, barcode: str) -> str:
         """
         Para calcular o DV considerar 43 posições do Código
@@ -163,50 +111,42 @@ class BarcodeCobrancaService:
         return is_code_line_dvs_correct
 
     def barcode_to_code_line(self, barcode: str, validate=True) -> str:
-        """"""
+        """
+        Método para converter um código de barras em linha digitável.
+
+        Os slices presentes nesse método estão documentados na docstring do service!
+        """
         if validate:
             self.validate_barcode(barcode)
 
-        code_line = ""
-        parts = {}
+        part_1 = barcode[0:4] + barcode[19:24]
+        dv_1 = self.calculate_code_line_dv(part_1)
 
-        mapping_for_code_line = sorted(
-            self._fields_to_barcode_and_code_line_mapping,
-            key=lambda k: k["code_line_order"],
-        )
+        part_2 = barcode[24:34]
+        dv_2 = self.calculate_code_line_dv(part_2)
 
-        for item in mapping_for_code_line:
-            barcode_part_start = item["barcode_slice_indexes"][0]
-            barcode_part_end = item["barcode_slice_indexes"][1]
-            part_index = int(item["code_line_order"])
-            barcode_part = barcode[barcode_part_start:barcode_part_end]
-            try:
-                parts[part_index] += barcode_part
-            except KeyError:
-                parts[part_index] = barcode_part
+        part_3 = barcode[34:44]
+        dv_3 = self.calculate_code_line_dv(part_3)
 
-        for part_index in range(1, 6):
-            part = parts[part_index]
-            code_line += part
-            if part_index < 4:
-                code_line += self.calculate_code_line_dv(part)
+        part_4 = barcode[4:5]
 
-        return code_line
+        part_5 = barcode[5:19]
+
+        return part_1 + dv_1 + part_2 + dv_2 + part_3 + dv_3 + part_4 + part_5
 
     def code_line_to_barcode(self, code_line: str, validate=True) -> str:
-        """"""
+        """
+        Método para converter uma linha digitável em código de barras.
+
+        Os slices presentes nesse método estão documentados na docstring do service!
+        """
         if validate:
             self.validate_code_line(code_line)
 
-        barcode = ""
-
-        mapping_for_barcode = sorted(
-            self._fields_to_barcode_and_code_line_mapping,
-            key=lambda k: k["barcode_order"],
+        return (
+            code_line[0:4]
+            + code_line[32:47]
+            + code_line[4:9]
+            + code_line[10:20]
+            + code_line[21:31]
         )
-
-        for item in mapping_for_barcode:
-            code_line_part_start = item["code_line_slice_indexes"][0]
-            code_line_part_end = item["code_line_slice_indexes"][1]
-            barcode += code_line[code_line_part_start:code_line_part_end]
-        return barcode
