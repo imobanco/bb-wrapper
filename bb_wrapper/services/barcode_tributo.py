@@ -36,14 +36,14 @@ class BarcodeTributoService:
      15:18        04          Identificação da Empresa/Órgão
      18:44        25          Campo livre de utilização da Empresa/Órgão
     ------------------------------  OU    --------------------------------
-     15:23        08          CNPJ / MF
+     15:23        08          CNPJ / Ministério da Fazenda
      24:44        21          Campo livre de utilização da Empresa/Órgão
 
 
-    Linha digitável de cobrança possui 48 caracteres:
+    Linha digitável de tributos possui 48 caracteres:
 
     Indices     Tamanho       Conteúdo
-      0:11        11          Slice 0:1 do código de barras
+      0:11        11          Slice 0:11 do código de barras
      11:12        01          DV do slice 0:11 da linha digitável
 
      12:23        11          Slice 11:22 do código de barras
