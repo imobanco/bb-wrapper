@@ -33,16 +33,9 @@ multi_line_output = 3
 omit = [
 	"*/env/*",
 	"*/venv/*",
+	"*/.venv/*",
 	"*/tests/*",
-	"*/migrations/*",
-	"*/management/*",
-	"*/income/*",
-	"*/scripts/*",
-	"*/apps.py",
-	"*/admin.py",
-	"*/factories.py",
-	"*/test_utils.py",
-	"*/manage.py",
+	"*/examples/*",
 	"*/__init__.py"
 ]
 

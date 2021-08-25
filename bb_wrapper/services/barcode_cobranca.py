@@ -1,8 +1,10 @@
 class BarcodeCobrancaService:
     """
-    Cálculos e método do código de barras e linha digitável dos boletos de cobrança!
+    Cálculos e métodos do código de barras e linha digitável dos boletos de cobrança!
 
-    Código de barras de cobrança possui 44 caracteres.
+    Foi utilizado o documento "docs/cobranca/especificações técnicas boleto de cobrança.pdf"
+
+    Código de barras de cobrança possui 44 caracteres:
 
     Indices     Tamanho       Conteúdo
       0:3         03          Código do Banco na Câmara de Compensação
@@ -13,7 +15,7 @@ class BarcodeCobrancaService:
      19:44        25          Campo Livre
 
 
-    Linha digitável de cobrança possui 47 caracteres.
+    Linha digitável de cobrança possui 47 caracteres:
 
     Indices     Tamanho       Conteúdo
       0:4         04          Slice 0:4 do código de barras (Código do Banco na Câmara de Compensação e Código da Moeda)  # noqa: E501
@@ -110,7 +112,7 @@ class BarcodeCobrancaService:
 
         return str(dv)
 
-    def calculate_code_line_dv(self, number) -> str:
+    def calculate_code_line_dv(self, number: str) -> str:
         """
         O DV de uma parte da linha digitável deve ser
         calculado pelo módulo 10.
