@@ -51,4 +51,10 @@ class BarcodeService:
         except ValidationError:
             pass
 
-        raise ValueError("Algo não deu certo!")
+        try:
+            instance = BarcodeTributo(**data)
+            return instance
+        except ValidationError:
+            pass
+
+        raise ValueError("Tipo não identificado!")

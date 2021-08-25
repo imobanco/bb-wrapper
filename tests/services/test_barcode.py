@@ -1,5 +1,5 @@
 from bb_wrapper.services import BarcodeService
-from bb_wrapper.models.barcode import BarcodeCobranca
+from bb_wrapper.models.barcode import BarcodeCobranca, BarcodeTributo
 
 from ..utils import BarcodeAndCodeLineTestCase
 
@@ -38,6 +38,28 @@ class BarcodeTestCase(BarcodeAndCodeLineTestCase):
             with self.subTest(code_line):
                 instance = BarcodeService().identify(code_line)
                 self.assertIsInstance(instance, BarcodeCobranca)
+                self.assertEqual(instance.barcode, barcode)
+                self.assertEqual(
+                    instance.barcode_image,
+                    BarcodeService().generate_barcode_b64image(barcode),
+                )
+
+    def test_identify_tributos_barcode(self):
+        for barcode, code_line in self.tributos_barcodes_to_code_lines.items():
+            with self.subTest(barcode):
+                instance = BarcodeService().identify(barcode)
+                self.assertIsInstance(instance, BarcodeTributo)
+                self.assertEqual(instance.code_line, code_line)
+                self.assertEqual(
+                    instance.barcode_image,
+                    BarcodeService().generate_barcode_b64image(barcode),
+                )
+
+    def test_identify_tributos_code_line(self):
+        for barcode, code_line in self.tributos_barcodes_to_code_lines.items():
+            with self.subTest(code_line):
+                instance = BarcodeService().identify(code_line)
+                self.assertIsInstance(instance, BarcodeTributo)
                 self.assertEqual(instance.barcode, barcode)
                 self.assertEqual(
                     instance.barcode_image,
