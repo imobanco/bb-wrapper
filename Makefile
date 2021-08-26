@@ -4,6 +4,11 @@ pip.install:
 pip.install.build:
 	pip install --upgrade --requirement requirements-build.txt
 
+poetry.install:
+	poetry config virtualenvs.in-project true
+	poetry config virtualenvs.path .
+	poetry install
+
 config.env:
 	cp .env.sample .env
 

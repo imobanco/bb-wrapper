@@ -1,7 +1,7 @@
 from .bb import BaseBBWrapper
 from ..constants import CONVENIO, CARTEIRA, VARIACAO_CARTEIRA, AGENCIA, CONTA
 from ..models.boleto import Boleto
-from ..services import parse_unicode_to_alphanumeric, BarCodeService, QRCodeService
+from ..services import parse_unicode_to_alphanumeric, BarcodeService, QRCodeService
 
 
 class CobrancasBBWrapper(BaseBBWrapper):
@@ -48,7 +48,7 @@ class CobrancasBBWrapper(BaseBBWrapper):
 
     def _injeta_b64_images(self, response):
         """"""
-        response.data["codigo_barras_b64"] = BarCodeService().generate_barcode_b64image(
+        response.data["codigo_barras_b64"] = BarcodeService().generate_barcode_b64image(
             response.data["codigoBarraNumerico"]
         )
 

@@ -1,0 +1,353 @@
+{
+	"info": {
+		"_postman_id": "261d56e1-d3d3-4f00-9db7-65e47005ac52",
+		"name": "API Cobrança",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Autenticação",
+			"item": [
+				{
+					"name": "Geração de Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "88cc05de-f1be-4d61-aeaa-a435502c7718",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"pm.globals.set(\"access_token\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{colar o conteúdo o botão Copiar Basic}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "cobrancas.boletos-info cobrancas.boletos-requisicao",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://oauth.sandbox.bb.com.br/oauth/token?",
+							"protocol": "https",
+							"host": [
+								"oauth",
+								"sandbox",
+								"bb",
+								"com",
+								"br"
+							],
+							"path": [
+								"oauth",
+								"token"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null
+								},
+								{
+									"key": "gw-",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Recursos",
+			"item": [
+				{
+					"name": "Registra Boleto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n   \"numeroConvenio\":3128557,\n   \"numeroCarteira\":17,\n   \"numeroVariacaoCarteira\":35,\n   \"codigoModalidade\":1,\n   \"dataEmissao\":\"30.10.2019\",\n   \"dataVencimento\":\"01.11.2019\",\n   \"valorOriginal\":100.00,\n   \"valorAbatimento\":0,\n   \"quantidadeDiasProtesto\":0,\n   \"indicadorNumeroDiasLimiteRecebimento\":\"N\",\n   \"numeroDiasLimiteRecebimento\":0,\n   \"codigoAceite\":\"A\",\n   \"codigoTipoTitulo\":4,\n   \"descricaoTipoTitulo\":\"DS\",\n   \"indicadorPermissaoRecebimentoParcial\":\"N\",\n   \"numeroTituloBeneficiario\":\"TESTE2\",\n   \"textoCampoUtilizacaoBeneficiario\":\"TESTE3\",\n   \"codigoTipoContaCaucao\":0,\n   \"numeroTituloCliente\":\"00031285570000000001\",\n   \"textoMensagemBloquetoOcorrencia\":\"TESTE5\",\n   \"pagador\":{ \n      \"tipoRegistro\":1,\n      \"numeroRegistro\":71128590182,\n      \"nome\":\"NOME\",\n      \"endereco\":\"ENDERECO\",\n      \"cep\":70675727,\n      \"cidade\":\"SAO PAULO\",\n      \"bairro\":\"CENTRO\",\n      \"uf\":\"SP\",\n      \"telefone\":\"999939669\"\n   },\n   \"email\":\"cliente@email.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.sandbox.bb.com.br/cobrancas/v1/boletos?gw-dev-app-key={{colar o valor do developer_application_key}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"sandbox",
+								"bb",
+								"com",
+								"br"
+							],
+							"path": [
+								"cobrancas",
+								"v1",
+								"boletos"
+							],
+							"query": [
+								{
+									"key": "gw-dev-app-key",
+									"value": "{{colar o valor do developer_application_key}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lista Boleto",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.sandbox.bb.com.br/cobrancas/v1/boletos?gw-dev-app-key={{colar o valor do developer_application_key}}&agenciaBeneficiario=452&contaBeneficiario=123873&indicadorSituacao=B&indice=300&codigoEstadoTituloCobranca=7&dataInicioMovimento=04.09.2020&dataFimMovimento=09.09.2020",
+							"protocol": "https",
+							"host": [
+								"api",
+								"sandbox",
+								"bb",
+								"com",
+								"br"
+							],
+							"path": [
+								"cobrancas",
+								"v1",
+								"boletos"
+							],
+							"query": [
+								{
+									"key": "gw-dev-app-key",
+									"value": "{{colar o valor do developer_application_key}}"
+								},
+								{
+									"key": "agenciaBeneficiario",
+									"value": "452"
+								},
+								{
+									"key": "contaBeneficiario",
+									"value": "123873"
+								},
+								{
+									"key": "indicadorSituacao",
+									"value": "B"
+								},
+								{
+									"key": "indice",
+									"value": "300"
+								},
+								{
+									"key": "codigoEstadoTituloCobranca",
+									"value": "7"
+								},
+								{
+									"key": "dataInicioMovimento",
+									"value": "04.09.2020"
+								},
+								{
+									"key": "dataFimMovimento",
+									"value": "09.09.2020"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar Boleto",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"numeroConvenio\":3128557,\r\n   \"indicadorNovaDataVencimento\":\"S\",\r\n   \"alteracaoData\":{\r\n      \"novaDataVencimento\":\"30.11.2019\"\r\n   }\r\n}"
+						},
+						"url": {
+							"raw": "https://api.sandbox.bb.com.br/cobrancas/v1/boletos/1?gw-dev-app-key={{colar o valor do developer_application_key}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"sandbox",
+								"bb",
+								"com",
+								"br"
+							],
+							"path": [
+								"cobrancas",
+								"v1",
+								"boletos",
+								"1"
+							],
+							"query": [
+								{
+									"key": "gw-dev-app-key",
+									"value": "{{colar o valor do developer_application_key}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Baixa de Boleto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"numeroConvenio\":3128557\r\n}"
+						},
+						"url": {
+							"raw": "https://api.sandbox.bb.com.br/cobrancas/v1/boletos/1/baixar?gw-dev-app-key={{colar o valor do developer_application_key}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"sandbox",
+								"bb",
+								"com",
+								"br"
+							],
+							"path": [
+								"cobrancas",
+								"v1",
+								"boletos",
+								"1",
+								"baixar"
+							],
+							"query": [
+								{
+									"key": "gw-dev-app-key",
+									"value": "{{colar o valor do developer_application_key}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Boleto",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.sandbox.bb.com.br/cobrancas/v1/boletos/1?gw-dev-app-key={{colar o valor do developer_application_key}}&numeroConvenio=3128557",
+							"protocol": "https",
+							"host": [
+								"api",
+								"sandbox",
+								"bb",
+								"com",
+								"br"
+							],
+							"path": [
+								"cobrancas",
+								"v1",
+								"boletos",
+								"1"
+							],
+							"query": [
+								{
+									"key": "gw-dev-app-key",
+									"value": "{{colar o valor do developer_application_key}}"
+								},
+								{
+									"key": "numeroConvenio",
+									"value": "3128557"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

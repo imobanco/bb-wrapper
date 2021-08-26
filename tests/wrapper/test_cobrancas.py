@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 
 from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 from bb_wrapper.constants import GW_APP_KEY
-from bb_wrapper.services import QRCodeService, BarCodeService
+from bb_wrapper.services import QRCodeService, BarcodeService
 
 
 class CobrancasBBWrapperTestCase(TestCase):
@@ -289,7 +289,7 @@ class CobrancasBBWrapperTestCase(TestCase):
 
         CobrancasBBWrapper()._injeta_b64_images(response)
 
-        expected_barcode_b64 = BarCodeService().generate_barcode_b64image(
+        expected_barcode_b64 = BarcodeService().generate_barcode_b64image(
             response.data["codigoBarraNumerico"]
         )
         expected_qrcode_b64 = QRCodeService().generate_qrcode_b64image(
