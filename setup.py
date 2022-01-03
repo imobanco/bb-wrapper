@@ -47,6 +47,7 @@ setup(
         "unidecode>=1.1.2",
         "qrcode>=6.1",
         "crc>=1.0.0",
+        "pycpfcnpj>=1.5.1",
     ],
     keywords="API Banco Brasil BB client wrapper",
     project_urls={
