@@ -9,11 +9,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
     Wrapper da API PIX de cobranças (recebimento na conta berço)
     """
 
-    def __init__(
-        self,
-        **kwargs,
-    ):
-        super().__init__(**kwargs)
+    SCOPE = "cob.read cob.write pix.read pix.write"
 
     def _construct_base_url(self, *args):
         base_url = (

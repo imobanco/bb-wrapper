@@ -5,6 +5,8 @@ from ..services import parse_unicode_to_alphanumeric, BarcodeService, QRCodeServ
 
 
 class CobrancasBBWrapper(BaseBBWrapper):
+    SCOPE = "cobrancas.boletos-info cobrancas.boletos-requisicao"
+
     def __init__(
         self,
         convenio=None,
