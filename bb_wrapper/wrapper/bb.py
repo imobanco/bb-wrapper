@@ -10,6 +10,8 @@ class BaseBBWrapper(RequestsWrapper):
     BASE_SCHEMA = "https://"
     BASE_DOMAIN = ".bb.com.br"
 
+    SCOPE = ""
+
     def __init__(self, basic_token=None, is_sandbox=None, gw_app_key=None):
         if is_sandbox is None:
             is_sandbox = IS_SANDBOX
@@ -81,7 +83,7 @@ class BaseBBWrapper(RequestsWrapper):
 
         data = {
             "grant_type": "client_credentials",
-            "scope": "cobrancas.boletos-info cobrancas.boletos-requisicao cob.read cob.write pix.read pix.write",  # noqa: E501
+            "scope": self.SCOPE,
         }
         response = self._post(url, data, header, use_json=False)
         self.__access_token = response.data["access_token"]
