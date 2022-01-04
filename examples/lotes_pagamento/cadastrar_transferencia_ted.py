@@ -7,7 +7,7 @@ from bb_wrapper.wrapper import PagamentoLoteBBWrapper
 c = PagamentoLoteBBWrapper()
 
 lote_data = {
-    "numeroRequisicao": 5141,
+    "numeroRequisicao": 5143,
     "numeroContratoPagamento": 0,
     "agenciaDebito": 1607,
     "contaCorrenteDebito": 99738672,
@@ -21,12 +21,12 @@ transferencia_data = {
     "contaCorrenteCredito": 3066,
     "digitoVerificadorContaCorrente": "X",
     "cpfBeneficiario": 99391916180,
-    "dataTransferencia": '21012022',
+    "dataTransferencia": '04012022',
     "valorTransferencia": 15.50,
     "descricaoTransferencia": "string",
 }
 
 
-response = c.criar_transferencia(lote_data, transferencia_data, pix=False)
+response = c.cadastrar_transferencia(lote_data, transferencia_data, pix=False)
 
-dump_response(response, os.path.basename(__file__).split(".")[0])
+dump_response(response, os.path.realpath(__file__))

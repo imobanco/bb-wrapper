@@ -10,4 +10,4 @@ numero = 9999999999
 
 response = wrapper.consulta_boleto(wrapper.build_our_number(numero))
 
-dump_response(response, os.path.basename(__file__).split(".")[0])
+dump_response(response, os.path.realpath(__file__))

@@ -1,0 +1,45 @@
+{
+    "numeroRequisicao": 579146,
+    "estadoRequisicao": 1,
+    "quantidadeLancamentos": 1,
+    "valorLancamentos": 15.5,
+    "quantidadeLancamentosValidos": 1,
+    "valorLancamentosValidos": 15.5,
+    "lancamentos": [
+        {
+            "codigoIdentificadorPagamento": "97310305791460001",
+            "numeroDocumentoDebito": 0,
+            "numeroCodigoBarras": "00196846200000100000000003128557123123000917",
+            "dataPagamento": 4012022,
+            "valorPagamento": 15.5,
+            "descricaoPagamento": "string",
+            "codigoSeuDocumento": "",
+            "codigoNossoDocumento": "",
+            "valorNominal": 15.5,
+            "valorDesconto": 0,
+            "valorMoraMulta": 0,
+            "codigoTipoPagador": 0,
+            "documentoPagador": 0,
+            "nomePagador": "",
+            "codigoTipoBeneficiario": 1,
+            "documentoBeneficiario": 99391916180,
+            "nomeBeneficiario": "LUIZ NILO REIS",
+            "codigoTipoAvalista": 0,
+            "documentoAvalista": 0,
+            "nomeAvalista": "",
+            "indicadorAceite": "S",
+            "errorCodes": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        }
+    ]
+}

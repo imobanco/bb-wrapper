@@ -21,6 +21,6 @@ transferencia_data = {
 }
 
 
-response = c.criar_transferencia(lote_data, transferencia_data, pix=True)
+response = c.cadastrar_transferencia(lote_data, transferencia_data, pix=True)
 
-dump_response(response, os.path.basename(__file__).split(".")[0])
+dump_response(response, os.path.realpath(__file__))

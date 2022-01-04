@@ -17,4 +17,4 @@ for boleto_data in data["boletos"]:
     lista_numbers.append(int(boleto_data["numeroBoletoBB"][10:]))
 
 
-dump_response(response, os.path.basename(__file__).split(".")[0])
+dump_response(response, os.path.realpath(__file__))

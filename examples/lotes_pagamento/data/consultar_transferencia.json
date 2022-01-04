@@ -1,0 +1,33 @@
+{
+    "id": 97310300051430000,
+    "estadoPagamento": "CONSISTENTE",
+    "tipoCredito": 1,
+    "agenciaDebito": 1607,
+    "contaCorrenteDebito": 99738672,
+    "digitoVerificadorContaCorrenteDebito": "X",
+    "inicioCartaoCredito": 0,
+    "fimCartaoCredito": 0,
+    "dataPagamento": 4012022,
+    "valorPagamento": 15.5,
+    "documentoDebito": 0,
+    "codigoAutenticacaoPagamento": "",
+    "numeroDepositoJudicial": "",
+    "codigoFinalidadeDOC": "",
+    "codigoFinalidadeTED": "",
+    "listaPagamentos": [
+        {
+            "numeroCOMPE": 1,
+            "numeroISPB": 0,
+            "agenciaCredito": 18,
+            "contaCorrenteCredito": 3066,
+            "digitoVerificadorContaCorrenteCredito": "3",
+            "numeroContaCredito": "",
+            "tipoBeneficiario": 1,
+            "cpfCnpjBeneficiario": 99391916180,
+            "nomeBeneficiario": "LUIZ NILO REIS",
+            "documentoCredito": 0,
+            "texto": ""
+        }
+    ],
+    "listaDevolucao": []
+}
