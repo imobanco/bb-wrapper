@@ -52,12 +52,16 @@ API's
 - ☑ API de Cobrança (geração de boletos)
 - ☑ API PIX (recebimento PIX) {essa API ainda está instável e incompleta no BB}
 - ☐ API Arrecadação PIX {sem previsão de implementação}
-- ☐ API Pagamentos {esperando lançar no BB}
+- ☑ API Lotes de Pagamentos {essa API ainda está instável e incompleta no BB}
 
 Recursos auxiliares
 -------------------
 
 - ☑ Geração de imagem b64
 - ☑ Geração, validação e conversão de código de barras de boleto
-- ☐ Geração, validação e conversão de código de barras de convênio {sem previsão de implementação}
+- ☑ Geração, validação e conversão de código de barras de tributos
 - ☑ Geração de QR Code PIX
+
+Exemplos disponíveis
+=====================
+Existem exemplos de utilização da biblioteca na pasta `examples`.
