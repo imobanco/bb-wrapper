@@ -1,6 +1,5 @@
 from .bb import BaseBBWrapper
-from ..models.pagamentos import LoteTransferencias, TransferenciaPIX, TransferenciaTED
-
+from ..models.pagamentos import LoteTransferencias, TransferenciaPIX, TransferenciaTED, LoteBoletosETributos, Boleto, Tributo
 
 class PagamentoLoteBBWrapper(BaseBBWrapper):
     """
@@ -14,17 +13,87 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         base_url += "/pagamentos-lote/v1"
         return base_url
 
-    def criar_transferencia(self, lote_data, transferencia_data, pix=True):
+    def cadastrar_transferencia(self, lote_data, pagamento_data, pix=True):
         LoteTransferencias(**lote_data)
         if pix:
-            TransferenciaPIX(**transferencia_data)
+            TransferenciaPIX(**pagamento_data)
         else:
-            TransferenciaTED(**transferencia_data)
+            TransferenciaTED(**pagamento_data)
         self.authenticate()
         url = self._construct_url("lotes-transferencias")
-        data = {**lote_data, "listaTransferencias": [{**transferencia_data}]}
+        data = {**lote_data, "listaTransferencias": [{**pagamento_data}]}
         response = self._post(url, data)
         return response
 
     def consultar_transferencia(self, _id):
-        pass
+        self.authenticate()
+        url = self._construct_url("transferencias", _id)
+        response = self._get(url)
+        return response
+
+    # def consultar_transferencias(self, dv):
+    #     """
+    #
+    #     Args:
+    #         dv: dígito verificador da conta corrente origem
+    #     """
+    #     search = {
+    #         "digitoVerificadorContaCorrente": dv
+    #     }
+    #     self.authenticate()
+    #     url = self._construct_url("lotes-transferencias", search=search)
+    #     response = self._get(url)
+    #     return response
+
+    def liberar_pagamentos(self, number, days_to_pay=0):
+        """
+
+        Args:
+            number: número da requisição
+            days_to_pay: quantidade de dias que esse pagamento pode ser
+                efetivado com relação à data do pagamento
+        """
+        self.authenticate()
+        url = self._construct_url("liberar-pagamentos")
+        data = {
+            "numeroRequisicao": number,
+            "indicadorFloat": days_to_pay
+        }
+        response = self._post(url, data)
+        return response
+
+    # def consultar_lote(self, number):
+    #     self.authenticate()
+    #     url = self._construct_url(number)
+    #     response = self._get(url)
+    #     return response
+
+    def cadastrar_pagamento_boleto(self, lote_data, pagamento_data):
+        LoteBoletosETributos(**lote_data)
+        Boleto(**pagamento_data)
+        self.authenticate()
+        url = self._construct_url("lotes-boletos")
+        pagamento_data = {**lote_data, "lancamentos": [{**pagamento_data}]}
+        response = self._post(url, pagamento_data)
+        return response
+
+    def consultar_pagamento_boleto(self, _id):
+        self.authenticate()
+        url = self._construct_url("boletos", _id)
+        response = self._get(url)
+        return response
+
+    def cadastrar_pagamento_tributo(self, lote_data, pagamento_data):
+        LoteBoletosETributos(**lote_data)
+        Tributo(**pagamento_data)
+        self.authenticate()
+        url = self._construct_url("lotes-guias-codigo-barras")
+        pagamento_data = {**lote_data, "lancamentos": [{**pagamento_data}]}
+        response = self._post(url, pagamento_data)
+        return response
+
+    def consultar_pagamento_tributo(self, _id):
+        self.authenticate()
+        url = self._construct_url("guias-codigo-barras", _id)
+        response = self._get(url)
+        return response

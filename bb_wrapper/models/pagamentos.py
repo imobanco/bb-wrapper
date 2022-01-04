@@ -1,10 +1,11 @@
 from typing import Optional, List, Union, Literal
 from enum import IntEnum
-
 from typing_extensions import Annotated
 
 from pydantic import BaseModel, constr, Field, root_validator
 from pycpfcnpj import cpfcnpj
+
+from .perfis import TipoInscricaoEnum
 
 
 class PagamentoTipoEnum(IntEnum):
@@ -69,8 +70,8 @@ class TransferenciaPIX(BaseModel):
                 values['cpf'] = int(key_value)
             else:
                 values['cnpj'] = int(key_value)
-
         return values
+
 
 class TransferenciaTED(BaseModel):
     numeroCOMPE: int
@@ -93,12 +94,26 @@ class LoteTransferencias(BaseModel):
     tipoPagamento: PagamentoTipoEnum
 
 
-class BaseBoleto(BaseModel):
+class Boleto(BaseModel):
+    numeroCodigoBarras: str
+    dataPagamento: str
+    valorPagamento: float
+    descricaoPagamento: str
+    valorNominal: float
+    codigoTipoBeneficiario: TipoInscricaoEnum
+    documentoBeneficiario: str
+
+
+class Tributo(BaseModel):
+    codigoBarras: str
+    dataPagamento: str
+    valorPagamento: float
+
+
+class LoteBoletosETributos(BaseModel):
     """
     Boletos e Código de barras
-
     """
-
     numeroRequisicao: int
     codigoContrato: int
     numeroAgenciaDebito: int
