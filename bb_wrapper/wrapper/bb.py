@@ -46,7 +46,7 @@ class BaseBBWrapper(RequestsWrapper):
         base_url = (
             f"{self.BASE_SCHEMA}"
             f"{self.BASE_SUBDOMAIN}"
-            f'{adition}'
+            f"{adition}"
             f"{self.BASE_DOMAIN}"
         )
         return base_url
@@ -92,11 +92,7 @@ class BaseBBWrapper(RequestsWrapper):
             "grant_type": "client_credentials",
             "scope": self.SCOPE,
         }
-        kwargs = dict(
-            headers=header,
-            verify=False,
-            data=data
-        )
+        kwargs = dict(headers=header, verify=False, data=data)
 
         response = requests.post(url, **kwargs)
         response = self._process_response(response)

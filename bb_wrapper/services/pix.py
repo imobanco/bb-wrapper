@@ -14,11 +14,11 @@ class PixService:
             is_uuid = False
         is_document = cpfcnpj.validate(key)
 
-        if '@' in key:
+        if "@" in key:
             return TipoChavePIX.email
         elif is_document:
             return TipoChavePIX.documento
-        elif key_len == 11 and key[2] == '9':
+        elif key_len == 11 and key[2] == "9":
             return TipoChavePIX.telefone
         elif is_uuid:
             return TipoChavePIX.uuid

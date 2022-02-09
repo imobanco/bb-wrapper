@@ -52,24 +52,24 @@ class TransferenciaPIX(BaseModel):
     def _set_data(cls, values):
         from ..services.pix import PixService
 
-        key = values.get('chave')
+        key = values.get("chave")
 
         key_type = PixService().identify_key_type(key)
-        values['formaIdentificacao'] = key_type
+        values["formaIdentificacao"] = key_type
 
         if key_type == TipoChavePIX.telefone:
-            values['dddTelefone'] = int(key[:2])
-            values['telefone'] = int(key[2:])
+            values["dddTelefone"] = int(key[:2])
+            values["telefone"] = int(key[2:])
         elif key_type == TipoChavePIX.email:
-            values['email'] = key
+            values["email"] = key
         elif key_type == TipoChavePIX.uuid:
-            values['identificacaoAleatoria'] = key
+            values["identificacaoAleatoria"] = key
         elif key_type == TipoChavePIX.documento:
             key_value = cpfcnpj.clear_punctuation(key)
             if len(key_value) == 1:
-                values['cpf'] = int(key_value)
+                values["cpf"] = int(key_value)
             else:
-                values['cnpj'] = int(key_value)
+                values["cnpj"] = int(key_value)
         return values
 
 
@@ -114,6 +114,7 @@ class LoteBoletosETributos(BaseModel):
     """
     Boletos e Código de barras
     """
+
     numeroRequisicao: int
     codigoContrato: int
     numeroAgenciaDebito: int
