@@ -1,4 +1,5 @@
 import os
+from datetime import date
 
 from examples.utils import dump_response
 
@@ -6,8 +7,12 @@ from bb_wrapper.wrapper import PagamentoLoteBBWrapper
 
 c = PagamentoLoteBBWrapper()
 
+
+today = date.today()
+bb_fmt = "%d%m%Y"
+
 lote_data = {
-    "numeroRequisicao": 5143,
+    "numeroRequisicao": 5144,
     "numeroContratoPagamento": 0,
     "agenciaDebito": 1607,
     "contaCorrenteDebito": 99738672,
@@ -21,7 +26,7 @@ transferencia_data = {
     "contaCorrenteCredito": 3066,
     "digitoVerificadorContaCorrente": "X",
     "cpfBeneficiario": 99391916180,
-    "dataTransferencia": '04012022',
+    "dataTransferencia": today.strftime(bb_fmt),
     "valorTransferencia": 15.50,
     "descricaoTransferencia": "string",
 }

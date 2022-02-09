@@ -1,4 +1,5 @@
 import os
+from datetime import date
 
 from examples.utils import dump_response
 
@@ -6,16 +7,20 @@ from bb_wrapper.wrapper import PagamentoLoteBBWrapper
 
 c = PagamentoLoteBBWrapper()
 
+
+today = date.today()
+bb_fmt = "%d%m%Y"
+
 lote_data = {
-    "numeroRequisicao": 579147,
+    "numeroRequisicao": 579149,
     "codigoContrato": 0,
     "numeroAgenciaDebito": 1607,
     "numeroContaCorrenteDebito": 99738672,
     "digitoVerificadorContaCorrenteDebito": "X",
 }
 pagamento_data = {
-    "codigoBarras": "00196846200000100000000003128557123123000917",
-    "dataPagamento": '04012022',
+    "codigoBarras": "85800000000600003282126307082112794112788193",
+    "dataPagamento": today.strftime(bb_fmt),
     "valorPagamento": 15.50,
 }
 

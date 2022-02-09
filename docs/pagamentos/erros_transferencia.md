@@ -127,11 +127,13 @@
 265 - Inscrição da Empresa Inválida para o Contrato 
 266 - Convênio com a Empresa Inexistente/Inválido para o Contrato 
 267 - Agência/Conta Corrente da Empresa Inexistente/Inválido para o Contrato. Verifique dado informado. 
-268 - Tipo de Serviço Inválido para o Contrato. Para contrato de Pagamentos, utilize 20 para Pagamento a Fornecedores, 30 Pagamento de Salários ou 98 Pagamentos Diversos no header de Lote, campo 05.1, do CNAB240 269 - Conta Corrente da Empresa com Saldo Insuficiente. 
+268 - Tipo de Serviço Inválido para o Contrato. Para contrato de Pagamentos, utilize 20 para Pagamento a Fornecedores, 30 Pagamento de Salários ou 98 Pagamentos Diversos no header de Lote, campo 05.1, do CNAB240 
+269 - Conta Corrente da Empresa com Saldo Insuficiente. 
 270 - Lote de Serviço Fora de Seqüência 
 271 - Lote de Serviço Inválido 
 272 - Arquivo não aceito 
-273 - Tipo de Registro Inválido 274 - Código Remessa / Retorno Inválido 
+273 - Tipo de Registro Inválido 
+274 - Código Remessa / Retorno Inválido 
 275 - Versão de layout inválida 
 276 - Mutuário não identificado 
 277 - Tipo do beneficio não permite empréstimo 
@@ -181,10 +183,11 @@
 321 - Código de Ocorrência Inválido. Verifique dado informado. 
 322 - Complemento de Ocorrência Inválido. Verifique dado informado. 
 323 - Alegação já Informada 
-324 - Agência / Conta do Favorecido Substituída. . Verifique dado informado. 
-325 - Divergência entre o primeiro e último nome do beneficiário versus primeiro e último nome na Receita Federal. Verificar com beneficiário necessidade de ajustes. 
+324 - Agência / Conta do Favorecido Substituída. Verifique dado informado. 
+325 - Divergência entre o primeiro e último nome do beneficiário VS primeiro e último nome na Receita Federal. Verificar com beneficiário necessidade de ajustes. 
 326 - Confirmação de Antecipação de Valor 
-327 - Antecipação parcial de valor 328 - Boleto bloqueado na base. Não passível de pagamento. 
+327 - Antecipação parcial de valor 
+328 - Boleto bloqueado na base. Não passível de pagamento. 
 329 - Sistema em contingência – Boleto valor maior que referência. Consulte o beneficiário ou tente efetuar o pagamento mais tarde. 
 330 - Sistema em contingência – Boleto vencido. Consulte o beneficiário ou tente efetuar o pagamento mais tarde. 
 331 - Sistema em contingência – Boleto indexado. Consulte o beneficiário ou tente efetuar o pagamento mais tarde. 
