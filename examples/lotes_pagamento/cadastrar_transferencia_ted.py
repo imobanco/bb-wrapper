@@ -21,7 +21,6 @@ lote_data = {
 }
 transferencia_data = {
     "numeroCOMPE": 1,
-    # "numeroISPB": 0,
     "agenciaCredito": 18,
     "contaCorrenteCredito": 3066,
     "digitoVerificadorContaCorrente": "X",
