@@ -12,7 +12,7 @@ today = date.today()
 bb_fmt = "%d%m%Y"
 
 lote_data = {
-    "numeroRequisicao": 579146,
+    "numeroRequisicao": 579167,
     "codigoContrato": 0,
     "numeroAgenciaDebito": 1607,
     "numeroContaCorrenteDebito": 99738672,
