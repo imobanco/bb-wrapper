@@ -7,6 +7,8 @@ from ..services import parse_unicode_to_alphanumeric, BarcodeService, QRCodeServ
 class CobrancasBBWrapper(BaseBBWrapper):
     SCOPE = "cobrancas.boletos-info cobrancas.boletos-requisicao"
 
+    BASE_DOMAIN = ".bb.com.br/cobrancas/v2/boletos"
+
     def __init__(
         self,
         convenio=None,
@@ -42,11 +44,6 @@ class CobrancasBBWrapper(BaseBBWrapper):
         self.__variacao_carteira = variacao_carteira
         self.__agencia = agencia
         self.__conta = conta
-
-    def _construct_base_url(self):
-        base_url = super()._construct_base_url()
-        base_url += "/cobrancas/v2/boletos"
-        return base_url
 
     def _injeta_b64_images(self, response):
         """"""

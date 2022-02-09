@@ -1,4 +1,4 @@
-from .request import RequestsWrapper
+from .request import RequestsWrapper, requests
 from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY
 
 
@@ -8,6 +8,9 @@ class BaseBBWrapper(RequestsWrapper):
     """
 
     BASE_SCHEMA = "https://"
+    BASE_SUBDOMAIN = "api"
+    BASE_SANDBOX_ADITION = ".sandbox"
+    BASE_PROD_ADITION = ""
     BASE_DOMAIN = ".bb.com.br"
 
     SCOPE = ""
@@ -36,10 +39,14 @@ class BaseBBWrapper(RequestsWrapper):
         super().__init__(base_url=base_url)
 
     def _construct_base_url(self):
+        if self._is_sandbox:
+            adition = self.BASE_SANDBOX_ADITION
+        else:
+            adition = self.BASE_PROD_ADITION
         base_url = (
             f"{self.BASE_SCHEMA}"
-            f"api"
-            f'{".sandbox" if self._is_sandbox else ""}'
+            f"{self.BASE_SUBDOMAIN}"
+            f'{adition}'
             f"{self.BASE_DOMAIN}"
         )
         return base_url
@@ -73,10 +80,10 @@ class BaseBBWrapper(RequestsWrapper):
         O endpoint oauth recebe application/x-www-form-urlencoded!
         """
         url = (
-            f"{self.BASE_SCHEMA}"
+            f"{BaseBBWrapper.BASE_SCHEMA}"
             f"oauth"
             f'{".sandbox" if self._is_sandbox else ""}'
-            f"{self.BASE_DOMAIN}"
+            f"{BaseBBWrapper.BASE_DOMAIN}"
             f"/oauth/token"
         )
         header = {"Authorization": f"Basic {self.__basic_token}"}
@@ -85,7 +92,14 @@ class BaseBBWrapper(RequestsWrapper):
             "grant_type": "client_credentials",
             "scope": self.SCOPE,
         }
-        response = self._post(url, data, header, use_json=False)
+        kwargs = dict(
+            headers=header,
+            verify=False,
+            data=data
+        )
+
+        response = requests.post(url, **kwargs)
+        response = self._process_response(response)
         self.__access_token = response.data["access_token"]
         self.__token_type = response.data["token_type"]
         return response

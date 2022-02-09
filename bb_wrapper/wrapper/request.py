@@ -17,6 +17,7 @@ class RequestsWrapper:
     """
 
     VERIFY_HTTPS = False
+    CERT = None
 
     def __init__(self, base_url):
         self.__base_url = base_url
@@ -115,6 +116,7 @@ class RequestsWrapper:
             url,
             headers=headers if headers else self._authorization_header_data,
             verify=self.VERIFY_HTTPS,
+            cert=self.CERT
         )
         response = self._process_response(response)
         return response
@@ -133,6 +135,7 @@ class RequestsWrapper:
             url,
             headers=headers if headers else self._authorization_header_data,
             verify=self.VERIFY_HTTPS,
+            cert=self.CERT
         )
         response = self._process_response(response)
         return response
@@ -153,6 +156,7 @@ class RequestsWrapper:
         kwargs = dict(
             headers=headers if headers else self._authorization_header_data,
             verify=self.VERIFY_HTTPS,
+            cert=self.CERT
         )
         if use_json:
             kwargs["json"] = data
@@ -179,6 +183,7 @@ class RequestsWrapper:
             json=data,
             headers=headers if headers else self._authorization_header_data,
             verify=self.VERIFY_HTTPS,
+            cert=self.CERT
         )
         response = self._process_response(response)
         return response
@@ -189,6 +194,7 @@ class RequestsWrapper:
             json=data,
             headers=headers if headers else self._authorization_header_data,
             verify=self.VERIFY_HTTPS,
+            cert=self.CERT
         )
         response = self._process_response(response)
         return response
