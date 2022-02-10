@@ -35,6 +35,18 @@ class TipoChavePIX(IntEnum):
     uuid = 4
 
 
+class FinalidadeTED(IntEnum):
+    """
+    1 - Conta corrente outros bancos
+    6 - Conta salário outros bancos
+    11 - Poupança outros bancos
+    """
+
+    corrente = 1
+    salario = 6
+    poupanca = 11
+
+
 class TransferenciaPIX(BaseModel):
     data: str
     valor: float
@@ -75,7 +87,6 @@ class TransferenciaPIX(BaseModel):
 
 class TransferenciaTED(BaseModel):
     numeroCOMPE: int
-    # numeroISPB: int
     agenciaCredito: int
     contaCorrenteCredito: int
     digitoVerificadorContaCorrente: str
@@ -83,15 +94,7 @@ class TransferenciaTED(BaseModel):
     cnpjBeneficiario: Optional[int]
     dataTransferencia: str
     valorTransferencia: float
-
-
-class LoteTransferencias(BaseModel):
-    numeroRequisicao: int
-    numeroContratoPagamento: int
-    agenciaDebito: int
-    contaCorrenteDebito: int
-    digitoVerificadorContaCorrente: str
-    tipoPagamento: PagamentoTipoEnum
+    codigoFinalidadeTED: Optional[FinalidadeTED]
 
 
 class Boleto(BaseModel):
@@ -110,21 +113,13 @@ class Tributo(BaseModel):
     valorPagamento: float
 
 
-class LoteBoletosETributos(BaseModel):
-    """
-    Boletos e Código de barras
-    """
-
-    numeroRequisicao: int
-    codigoContrato: int
-    numeroAgenciaDebito: int
-    numeroContaCorrenteDebito: int
-    digitoVerificadorContaCorrenteDebito: str
-
-
-class BaseGru(BaseModel):
-    numeroRequisicao: int
-    codigoContrato: int
+class LoteData(BaseModel):
+    n_requisicao: int
     agencia: int
     conta: int
-    digitoConta: str
+    dv_conta: str
+    convenio: Optional[int]
+
+
+class LoteTransferenciaData(LoteData):
+    tipo_pagamento: PagamentoTipoEnum
