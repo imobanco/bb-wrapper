@@ -1,12 +1,14 @@
 from .bb import BaseBBWrapper
 from ..models.pagamentos import (
-    LoteTransferencias,
     TransferenciaPIX,
     TransferenciaTED,
-    LoteBoletosETributos,
     Boleto,
     Tributo,
+    LoteData,
+    LoteTransferenciaData,
 )
+from ..services.document import DocumentoService
+from ..services.barcode import BarcodeService
 
 
 class PagamentoLoteBBWrapper(BaseBBWrapper):
@@ -23,21 +25,101 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         "/home/rodrigondec/prog/imobanco/bb-wrapper/certs/key-private.pem",
     )
 
-    def cadastrar_transferencia(self, lote_data, pagamento_data, pix=True):
-        LoteTransferencias(**lote_data)
-        if pix:
-            TransferenciaPIX(**pagamento_data)
+    def cadastrar_transferencia(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        tipo_pagamento,
+        codigo_banco,
+        agencia_destino,
+        conta_destino,
+        dv_conta_destino,
+        documento,
+        data_transferencia,
+        valor_transferencia,
+        descricao,
+        finalidade_ted=1,
+        convenio=None,
+    ):
+        """
+        Cadastra uma transferência bancária
+
+        Args:
+            n_requisicao: Nº da requisição a ser utilizado. Deve ser único
+            agencia: Agência da conta de origem do pagamento
+            conta: Nº da conta de origem do pagamento
+            dv_conta: DV da conta de origem do pagamento
+            tipo_pagamento: Tipo de pagamento a ser feito (126, 127 ou 128)
+            codigo_banco: Nº do banco destino
+            agencia_destino: Agência da conta de destino do pagamento
+            conta_destino: Nº da conta de destino do pagamento
+            dv_conta_destino: DV da conta de destino do pagamento
+            documento: CPF/CNPJ do recebedor
+            data_transferencia: Data do pagamento. No formato "ddmmyyyy"
+            valor_transferencia: Valor do pagamento
+            descricao: Descrição do pagamento
+            finalidade_ted: Tipo de transferência a ser feita (1, 6 ou 11)
+            convenio: Nº do convênio/contrato
+        """
+        self._valida_lote_data(
+            LoteTransferenciaData,
+            n_requisicao=n_requisicao,
+            agencia=agencia,
+            conta=conta,
+            dv_conta=dv_conta,
+            tipo_pagamento=tipo_pagamento,
+            convenio=convenio,
+        )
+
+        lote_data = {
+            "numeroRequisicao": n_requisicao,
+            "agenciaDebito": agencia,
+            "contaCorrenteDebito": conta,
+            "digitoVerificadorContaCorrente": dv_conta,
+            "tipoPagamento": tipo_pagamento,
+        }
+        if convenio is not None:
+            lote_data["numeroContratoPagamento"] = convenio
+
+        documento = DocumentoService().valida(documento)
+        documento_tipo = DocumentoService().identifica_tipo(documento)
+
+        pagamento_data = {
+            "numeroCOMPE": codigo_banco,
+            "agenciaCredito": agencia_destino,
+            "contaCorrenteCredito": conta_destino,
+            "digitoVerificadorContaCorrente": dv_conta_destino,
+            "dataTransferencia": data_transferencia,
+            "valorTransferencia": valor_transferencia,
+            "descricaoTransferencia": descricao,
+        }
+        if documento_tipo == 1:
+            pagamento_data["cpfBeneficiario"] = documento
         else:
-            TransferenciaTED(**pagamento_data)
-        self.authenticate()
+            pagamento_data["cnpjBeneficiario"] = documento
+        if int(codigo_banco) != 1:
+            """
+            Só é utilizado finalidade TED para outros bancos
+            que não sejam o BB!
+
+            O código do BB é 1!
+            """
+            pagamento_data["codigoFinalidadeTED"] = finalidade_ted
+
+        TransferenciaTED(**pagamento_data)
+
         url = self._construct_url("lotes-transferencias")
         data = {**lote_data, "listaTransferencias": [{**pagamento_data}]}
+
+        self.authenticate()
         response = self._post(url, data)
         return response
 
     def consultar_transferencia(self, _id):
-        self.authenticate()
         url = self._construct_url("transferencias", _id)
+        self.authenticate()
         response = self._get(url)
         return response
 
@@ -55,9 +137,40 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
     #     response = self._get(url)
     #     return response
 
+    def cancelar_pagamentos(self, number, agencia, conta, dv_conta, convenio=None):
+        """
+        Args:
+            number: numero do pagamento
+            agencia: agência bancária
+            conta: conta bancária
+            dv_conta: dígito verificador da conta bancária
+            convenio: nº do convênio/contrato
+        """
+        self._valida_lote_data(
+            LoteData,
+            n_requisicao=number,
+            agencia=agencia,
+            conta=conta,
+            dv_conta=dv_conta,
+            convenio=convenio,
+        )
+
+        url = self._construct_url("cancelar-pagamentos")
+        data = {
+            "agenciaDebito": agencia,
+            "contaCorrenteDebito": conta,
+            "digitoVerificadorContaCorrente": dv_conta,
+            "listaPagamentos": [{"codigoPagamento": number}],
+        }
+        if convenio is not None:
+            data["numeroContratoPagamento"] = convenio
+
+        self.authenticate()
+        response = self._post(url, data)
+        return response
+
     def liberar_pagamentos(self, number, days_to_pay=0):
         """
-
         Args:
             number: número da requisição
             days_to_pay: quantidade de dias que esse pagamento pode ser
@@ -75,32 +188,157 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
     #     response = self._get(url)
     #     return response
 
-    def cadastrar_pagamento_boleto(self, lote_data, pagamento_data):
-        LoteBoletosETributos(**lote_data)
+    def _valida_lote_data(self, model, **kwargs):
+        try:
+            if kwargs["convenio"] is None:
+                kwargs.pop("convenio")
+        except KeyError:
+            pass
+        model(**kwargs)
+
+    def cadastrar_pagamento_boleto(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        codigo_barras_ou_linha_digitavel,
+        documento,
+        data_pagamento,
+        valor_pagamento,
+        valor_nominal,
+        descricao,
+        convenio=None,
+    ):
+        """
+        Cadastra o pagamento de um boleto
+
+        Args:
+            n_requisicao: Nº da requisição a ser utilizado. Deve ser único
+            agencia: Agência da conta de origem do pagamento
+            conta: Nº da conta de origem do pagamento
+            dv_conta: DV da conta de origem do pagamento
+            codigo_barras_ou_linha_digitavel: Linha digitável ou código de barras do boleto
+            documento: CPF/CNPJ do recebedor
+            data_pagamento: Data do pagamento. No formato "ddmmyyyy"
+            valor_pagamento: Valor do pagamento
+            valor_nominal: Valor nominal da conta (valor original?)
+            descricao: Descrição do pagamento
+            convenio: Nº do convênio/contrato
+        """
+        self._valida_lote_data(
+            LoteData,
+            n_requisicao=n_requisicao,
+            agencia=agencia,
+            conta=conta,
+            dv_conta=dv_conta,
+            convenio=convenio,
+        )
+
+        lote_data = {
+            "numeroRequisicao": n_requisicao,
+            "numeroAgenciaDebito": agencia,
+            "numeroContaCorrenteDebito": conta,
+            "digitoVerificadorContaCorrenteDebito": dv_conta,
+        }
+        if convenio is not None:
+            lote_data["codigoContrato"] = convenio
+
+        documento = DocumentoService().valida(documento)
+        documento_tipo = DocumentoService().identifica_tipo(documento)
+        codigo_barras = (
+            BarcodeService().identify(codigo_barras_ou_linha_digitavel).barcode
+        )
+
+        pagamento_data = {
+            "numeroCodigoBarras": codigo_barras,
+            "codigoTipoBeneficiario": documento_tipo,
+            "documentoBeneficiario": documento,
+            "dataPagamento": data_pagamento,
+            "valorPagamento": valor_pagamento,
+            "valorNominal": valor_nominal,
+            "descricaoPagamento": descricao,
+        }
         Boleto(**pagamento_data)
-        self.authenticate()
+
         url = self._construct_url("lotes-boletos")
-        pagamento_data = {**lote_data, "lancamentos": [{**pagamento_data}]}
-        response = self._post(url, pagamento_data)
+        data = {**lote_data, "lancamentos": [{**pagamento_data}]}
+
+        self.authenticate()
+        response = self._post(url, data)
         return response
 
     def consultar_pagamento_boleto(self, _id):
-        self.authenticate()
         url = self._construct_url("boletos", _id)
+        self.authenticate()
         response = self._get(url)
         return response
 
-    def cadastrar_pagamento_tributo(self, lote_data, pagamento_data):
-        LoteBoletosETributos(**lote_data)
+    def cadastrar_pagamento_tributo(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        codigo_barras_ou_linha_digitavel,
+        data_pagamento,
+        valor_pagamento,
+        descricao,
+        convenio=None,
+    ):
+        """
+        Cadastra o pagamento de um tributo
+
+        Args:
+            n_requisicao: Nº da requisição a ser utilizado. Deve ser único
+            agencia: Agência da conta de origem do pagamento
+            conta: Nº da conta de origem do pagamento
+            dv_conta: DV da conta de origem do pagamento
+            codigo_barras_ou_linha_digitavel: Linha digitável ou código de barras do boleto
+            data_pagamento: Data do pagamento. No formato "ddmmyyyy"
+            valor_pagamento: Valor do pagamento
+            descricao: Descrição do pagamento
+            convenio: Nº do convênio/contrato
+        """
+        self._valida_lote_data(
+            LoteData,
+            n_requisicao=n_requisicao,
+            agencia=agencia,
+            conta=conta,
+            dv_conta=dv_conta,
+            convenio=convenio,
+        )
+
+        lote_data = {
+            "numeroRequisicao": n_requisicao,
+            "numeroAgenciaDebito": agencia,
+            "numeroContaCorrenteDebito": conta,
+            "digitoVerificadorContaCorrenteDebito": dv_conta,
+        }
+        if convenio is not None:
+            lote_data["codigoContrato"] = convenio
+
+        codigo_barras = (
+            BarcodeService().identify(codigo_barras_ou_linha_digitavel).barcode
+        )
+
+        pagamento_data = {
+            "codigoBarras": codigo_barras,
+            "dataPagamento": data_pagamento,
+            "valorPagamento": valor_pagamento,
+            "descricaoPagamento": descricao,
+        }
         Tributo(**pagamento_data)
-        self.authenticate()
+
         url = self._construct_url("lotes-guias-codigo-barras")
-        pagamento_data = {**lote_data, "lancamentos": [{**pagamento_data}]}
-        response = self._post(url, pagamento_data)
+        data = {**lote_data, "lancamentos": [{**pagamento_data}]}
+
+        self.authenticate()
+        response = self._post(url, data)
         return response
 
     def consultar_pagamento_tributo(self, _id):
-        self.authenticate()
         url = self._construct_url("guias-codigo-barras", _id)
+        self.authenticate()
         response = self._get(url)
         return response
