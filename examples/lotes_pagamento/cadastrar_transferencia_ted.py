@@ -12,25 +12,25 @@ today = date.today()
 bb_fmt = "%d%m%Y"
 
 lote_data = {
-    "numeroRequisicao": 5144,
-    "numeroContratoPagamento": 0,
-    "agenciaDebito": 1607,
-    "contaCorrenteDebito": 99738672,
-    "digitoVerificadorContaCorrente": "X",
-    "tipoPagamento": 126,
+    "n_requisicao": 579173,
+    "agencia": 1607,
+    "conta": 99738672,
+    "dv_conta": "X",
+    "tipo_pagamento": 126,
 }
 transferencia_data = {
-    "numeroCOMPE": 1,
-    "agenciaCredito": 18,
-    "contaCorrenteCredito": 3066,
-    "digitoVerificadorContaCorrente": "X",
-    "cpfBeneficiario": 99391916180,
-    "dataTransferencia": today.strftime(bb_fmt),
-    "valorTransferencia": 15.50,
-    "descricaoTransferencia": "string",
+    "codigo_banco": 1,
+    "agencia_destino": 18,
+    "conta_destino": 3066,
+    "dv_conta_destino": "X",
+    "documento": 99391916180,
+    "data_transferencia": today.strftime(bb_fmt),
+    "valor_transferencia": 15.50,
+    "descricao": "string",
+    "finalidade_ted": 1,
 }
 
 
-response = c.cadastrar_transferencia(lote_data, transferencia_data, pix=False)
+response = c.cadastrar_transferencia(**lote_data, **transferencia_data)
 
 dump_response(response, os.path.realpath(__file__))

@@ -12,23 +12,21 @@ today = date.today()
 bb_fmt = "%d%m%Y"
 
 lote_data = {
-    "numeroRequisicao": 579167,
-    "codigoContrato": 0,
-    "numeroAgenciaDebito": 1607,
-    "numeroContaCorrenteDebito": 99738672,
-    "digitoVerificadorContaCorrenteDebito": "X",
+    "n_requisicao": 579170,
+    "agencia": 1607,
+    "conta": 99738672,
+    "dv_conta": "X",
 }
 pagamento_data = {
-    "numeroCodigoBarras": "00196846200000100000000003128557123123000917",
-    "codigoTipoBeneficiario": 1,
-    "documentoBeneficiario": 99391916180,
-    "dataPagamento": today.strftime(bb_fmt),
-    "valorPagamento": 15.50,
-    "valorNominal": 15.50,
-    "descricaoPagamento": "string",
+    "codigo_barras_ou_linha_digitavel": "00196846200000100000000003128557123123000917",
+    "documento": "99391916180",
+    "data_pagamento": today.strftime(bb_fmt),
+    "valor_pagamento": 15.50,
+    "valor_nominal": 15.50,
+    "descricao": "string",
 }
 
 
-response = c.cadastrar_pagamento_boleto(lote_data, pagamento_data)
+response = c.cadastrar_pagamento_boleto(**lote_data, **pagamento_data)
 
 dump_response(response, os.path.realpath(__file__))
