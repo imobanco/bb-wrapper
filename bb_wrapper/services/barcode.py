@@ -35,7 +35,16 @@ class BarcodeService:
         return Base64Service().generate_b64image_from_buffer(buffer)
 
     def identify(self, number: str) -> Union[BarcodeCobranca, BarcodeTributo]:
-        """"""
+        """
+        Identifica e instância um Boleto Cobrança ou Boleto Tributo com base
+        na linha digitável ou código de barras.
+
+        Args:
+            number: linha digitável ou código de barras
+
+        Returns:
+            Instância um Boleto Cobrança ou Boleto Tributo
+        """
         length = len(number)
 
         if 47 <= length <= 48:
