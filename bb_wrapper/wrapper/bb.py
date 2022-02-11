@@ -15,7 +15,14 @@ class BaseBBWrapper(RequestsWrapper):
 
     SCOPE = ""
 
-    def __init__(self, basic_token=None, is_sandbox=None, gw_app_key=None):
+    def __init__(
+        self,
+        basic_token=None,
+        is_sandbox=None,
+        gw_app_key=None,
+        verify_https=False,
+        cert=None,
+    ):
         if is_sandbox is None:
             is_sandbox = IS_SANDBOX
 
@@ -36,7 +43,7 @@ class BaseBBWrapper(RequestsWrapper):
 
         base_url = self._construct_base_url()
 
-        super().__init__(base_url=base_url)
+        super().__init__(base_url=base_url, verify_https=verify_https, cert=cert)
 
     def _construct_base_url(self):
         if self._is_sandbox:

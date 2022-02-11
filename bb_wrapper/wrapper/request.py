@@ -16,11 +16,10 @@ class RequestsWrapper:
         __base_url: Url base para construir os requests
     """
 
-    VERIFY_HTTPS = False
-    CERT = None
-
-    def __init__(self, base_url):
+    def __init__(self, base_url, verify_https=False, cert=None):
         self.__base_url = base_url
+        self.__cert = cert
+        self.__verify_https = verify_https
 
     @staticmethod
     def _process_response(response) -> requests.Response:
@@ -115,8 +114,8 @@ class RequestsWrapper:
         response = requests.delete(
             url,
             headers=headers if headers else self._authorization_header_data,
-            verify=self.VERIFY_HTTPS,
-            cert=self.CERT,
+            verify=self.__verify_https,
+            cert=self.__cert,
         )
         response = self._process_response(response)
         return response
@@ -134,8 +133,8 @@ class RequestsWrapper:
         response = requests.get(
             url,
             headers=headers if headers else self._authorization_header_data,
-            verify=self.VERIFY_HTTPS,
-            cert=self.CERT,
+            verify=self.__verify_https,
+            cert=self.__cert,
         )
         response = self._process_response(response)
         return response
@@ -155,8 +154,8 @@ class RequestsWrapper:
         """
         kwargs = dict(
             headers=headers if headers else self._authorization_header_data,
-            verify=self.VERIFY_HTTPS,
-            cert=self.CERT,
+            verify=self.__verify_https,
+            cert=self.__cert,
         )
         if use_json:
             kwargs["json"] = data
@@ -182,8 +181,8 @@ class RequestsWrapper:
             url,
             json=data,
             headers=headers if headers else self._authorization_header_data,
-            verify=self.VERIFY_HTTPS,
-            cert=self.CERT,
+            verify=self.__verify_https,
+            cert=self.__cert,
         )
         response = self._process_response(response)
         return response
@@ -193,8 +192,8 @@ class RequestsWrapper:
             url,
             json=data,
             headers=headers if headers else self._authorization_header_data,
-            verify=self.VERIFY_HTTPS,
-            cert=self.CERT,
+            verify=self.__verify_https,
+            cert=self.__cert,
         )
         response = self._process_response(response)
         return response

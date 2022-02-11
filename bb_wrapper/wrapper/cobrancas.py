@@ -16,9 +16,19 @@ class CobrancasBBWrapper(BaseBBWrapper):
         variacao_carteira=None,
         agencia=None,
         conta=None,
-        **kwargs,
+        basic_token=None,
+        is_sandbox=None,
+        gw_app_key=None,
+        verify_https=False,
+        cert=None,
     ):
-        super().__init__(**kwargs)
+        super().__init__(
+            basic_token=basic_token,
+            is_sandbox=is_sandbox,
+            gw_app_key=gw_app_key,
+            verify_https=verify_https,
+            cert=cert,
+        )
 
         if convenio is None:
             convenio = CONVENIO

@@ -20,11 +20,6 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
     SCOPE = "pagamentos-lote.lotes-requisicao pagamentos-lote.transferencias-info pagamentos-lote.transferencias-requisicao pagamentos-lote.cancelar-requisicao pagamentos-lote.devolvidos-info pagamentos-lote.lotes-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-info pagamentos-lote.pagamentos-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-requisicao pagamentos-lote.pagamentos-codigo-barras-info pagamentos-lote.boletos-requisicao pagamentos-lote.guias-codigo-barras-info pagamentos-lote.guias-codigo-barras-requisicao pagamentos-lote.transferencias-pix-info pagamentos-lote.transferencias-pix-requisicao pagamentos-lote.pix-info pagamentos-lote.boletos-info"  # noqa
     BASE_PROD_ADITION = "-ip"
     BASE_DOMAIN = ".bb.com.br/pagamentos-lote/v1"
-    # VERIFY_HTTPS = True
-    CERT = (
-        "/home/rodrigondec/prog/imobanco/bb-wrapper/certs/cert-chain.pem",
-        "/home/rodrigondec/prog/imobanco/bb-wrapper/certs/key-private.pem",
-    )
 
     def cadastrar_transferencia(
         self,
