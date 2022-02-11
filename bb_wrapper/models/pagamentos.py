@@ -1,11 +1,16 @@
 from typing import Optional, List, Union, Literal
-from enum import IntEnum
+from enum import IntEnum, Enum
 from typing_extensions import Annotated
 
 from pydantic import BaseModel, constr, Field, root_validator
 from pycpfcnpj import cpfcnpj
 
 from .perfis import TipoInscricaoEnum
+
+
+class IndicadorFloatEnum(Enum):
+    s = "S"
+    n = "N"
 
 
 class PagamentoTipoEnum(IntEnum):
@@ -123,3 +128,8 @@ class LoteData(BaseModel):
 
 class LoteTransferenciaData(LoteData):
     tipo_pagamento: PagamentoTipoEnum
+
+
+class LiberarPagamentos(BaseModel):
+    numeroRequisicao: int
+    indicadorFloat: IndicadorFloatEnum

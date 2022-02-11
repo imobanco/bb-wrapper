@@ -6,6 +6,7 @@ from ..models.pagamentos import (
     Tributo,
     LoteData,
     LoteTransferenciaData,
+    LiberarPagamentos,
 )
 from ..services.document import DocumentoService
 from ..services.barcode import BarcodeService
@@ -31,7 +32,6 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         agencia,
         conta,
         dv_conta,
-        tipo_pagamento,
         codigo_banco,
         agencia_destino,
         conta_destino,
@@ -41,6 +41,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         valor_transferencia,
         descricao,
         finalidade_ted=1,
+        tipo_pagamento=128,
         convenio=None,
     ):
         """
@@ -169,16 +170,17 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         response = self._post(url, data)
         return response
 
-    def liberar_pagamentos(self, number, days_to_pay=0):
+    def liberar_pagamentos(self, number, indicador_float="N"):
         """
         Args:
             number: número da requisição
-            days_to_pay: quantidade de dias que esse pagamento pode ser
-                efetivado com relação à data do pagamento
+            indicador_float: Indicador de confirmação/concordância quanto ao
+                pagamento da tarifa de antecipação de float a ser calculada posteriormente
         """
         self.authenticate()
         url = self._construct_url("liberar-pagamentos")
-        data = {"numeroRequisicao": number, "indicadorFloat": days_to_pay}
+        data = {"numeroRequisicao": number, "indicadorFloat": indicador_float}
+        LiberarPagamentos(**data)
         response = self._post(url, data)
         return response
 

@@ -16,7 +16,6 @@ lote_data = {
     "agencia": 1607,
     "conta": 99738672,
     "dv_conta": "X",
-    "tipo_pagamento": 126,
 }
 transferencia_data = {
     "codigo_banco": 1,
