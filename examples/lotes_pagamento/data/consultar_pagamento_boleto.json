@@ -1,13 +1,13 @@
 {
-    "id": 97310305791460000,
-    "estadoPagamento": "REJEITADO",
+    "id": 90579175731030000,
+    "estadoPagamento": "CONSISTENTE",
     "tipoCredito": 30,
     "agenciaDebito": 1607,
     "contaCorrenteDebito": 99738672,
     "digitoVerificadorContaCorrenteDebito": "X",
     "inicioCartaoCredito": 0,
     "fimCartaoCredito": 0,
-    "dataPagamento": 4012022,
+    "dataPagamento": 11022022,
     "valorPagamento": 15.5,
     "documentoDebito": 0,
     "codigoAutenticacaoPagamento": "",
@@ -15,29 +15,23 @@
         {
             "codigo": "00196846200000100000000003128557123123000917",
             "nossoDocumento": "",
-            "seuDocumento": "000000000000000",
+            "seuDocumento": "",
             "tipoPessoaBeneficiario": 1,
             "documentoBeneficiario": 99391916180,
             "nomeBeneficiario": "LUIZ NILO REIS",
-            "tipoPessoaPagador": 2,
-            "documentoPagador": 425109,
-            "nomePagador": "ALESSANDRO GUIACHERO ANDREAZA",
-            "tipoPessoaAvalista": 2,
-            "documentoAvalista": 425109,
-            "nomeAvalista": "ALESSANDRO GUIACHERO ANDREAZA",
-            "dataVencimento": 4012022,
-            "dataAgendamento": 4012022,
+            "tipoPessoaPagador": 0,
+            "documentoPagador": 0,
+            "nomePagador": "",
+            "tipoPessoaAvalista": 0,
+            "documentoAvalista": 0,
+            "nomeAvalista": "",
+            "dataVencimento": 11022022,
+            "dataAgendamento": 0,
             "valorNominal": 15.5,
             "valorMoraMulta": 0,
             "valorDesconto": 0,
             "texto": ""
         }
     ],
-    "listaDevolucao": [
-        {
-            "codigoMotivo": 318,
-            "dataDevolucao": 0,
-            "valorDevolucao": 0
-        }
-    ]
+    "listaDevolucao": []
 }

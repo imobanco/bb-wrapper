@@ -1,6 +1,6 @@
 {
     "id": 97310305791490000,
-    "estadoPagamento": "CONSISTENTE",
+    "estadoPagamento": "REJEITADO",
     "agenciaDebito": 1607,
     "contaCorrenteDebito": 99738672,
     "digitoVerificadorContaCorrenteDebito": "X",
@@ -14,9 +14,13 @@
         {
             "codigo": "85800000000600003282126307082112794112788193",
             "nomeRecebedor": "DAS - SIMPLES NACIONAL",
-            "seuNumero": "",
+            "seuNumero": "000000000000000",
             "texto": ""
         }
     ],
-    "listaDevolucao": []
+    "listaDevolucao": [
+        {
+            "codigoMotivo": 218
+        }
+    ]
 }

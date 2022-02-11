@@ -1,0 +1,10 @@
+{
+    "pagamentos": [
+        {
+            "codigoPagamento": 92764700000020001,
+            "indicadorCancelamento": "N",
+            "estadoPagamento": "BLOQUEADO",
+            "estadoCancelamento": "Situa\u00e7\u00e3o do lan\u00e7amento n\u00e3o permite o cancelamento."
+        }
+    ]
+}

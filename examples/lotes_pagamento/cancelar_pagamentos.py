@@ -7,10 +7,10 @@ from bb_wrapper.wrapper import PagamentoLoteBBWrapper
 c = PagamentoLoteBBWrapper()
 
 data = {
-    "number": "92764700000020001",
+    "number": "90579175731030001",
     "convenio": 0,
-    "agencia": 2035,
-    "conta": 70466,
+    "agencia": 1607,
+    "conta": 99738672,
     "dv_conta": "0",
 }
 

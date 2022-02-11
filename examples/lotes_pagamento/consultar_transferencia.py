@@ -6,7 +6,7 @@ from bb_wrapper.wrapper import PagamentoLoteBBWrapper
 
 c = PagamentoLoteBBWrapper()
 
-_id = "92764700000060001"
+_id = "90579174731030001"
 
 
 response = c.consultar_transferencia(

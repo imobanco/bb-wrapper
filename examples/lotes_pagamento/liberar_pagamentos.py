@@ -6,7 +6,7 @@ from bb_wrapper.wrapper import PagamentoLoteBBWrapper
 
 c = PagamentoLoteBBWrapper()
 
-number = "5143"
+number = "579175"
 
 
 response = c.liberar_pagamentos(number)
