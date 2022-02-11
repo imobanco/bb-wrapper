@@ -1,6 +1,5 @@
 from .bb import BaseBBWrapper
 from ..models.pagamentos import (
-    TransferenciaPIX,
     TransferenciaTED,
     Boleto,
     Tributo,
@@ -20,6 +19,114 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
     SCOPE = "pagamentos-lote.lotes-requisicao pagamentos-lote.transferencias-info pagamentos-lote.transferencias-requisicao pagamentos-lote.cancelar-requisicao pagamentos-lote.devolvidos-info pagamentos-lote.lotes-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-info pagamentos-lote.pagamentos-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-requisicao pagamentos-lote.pagamentos-codigo-barras-info pagamentos-lote.boletos-requisicao pagamentos-lote.guias-codigo-barras-info pagamentos-lote.guias-codigo-barras-requisicao pagamentos-lote.transferencias-pix-info pagamentos-lote.transferencias-pix-requisicao pagamentos-lote.pix-info pagamentos-lote.boletos-info"  # noqa
     BASE_PROD_ADITION = "-ip"
     BASE_DOMAIN = ".bb.com.br/pagamentos-lote/v1"
+
+    def _valida_lote_data(self, model, **kwargs):
+        try:
+            if kwargs["convenio"] is None:
+                kwargs.pop("convenio")
+        except KeyError:
+            pass
+        model(**kwargs)
+
+    ##########################
+    #  Lotes & Pagamentos    #
+    ##########################
+
+    def cancelar_pagamentos(self, _id, agencia, conta, dv_conta, convenio=None):
+        """
+        Args:
+            _id: identificador do pagamento
+            agencia: agência bancária
+            conta: conta bancária
+            dv_conta: dígito verificador da conta bancária
+            convenio: nº do convênio/contrato
+        """
+        self._valida_lote_data(
+            LoteData,
+            n_requisicao=_id,
+            agencia=agencia,
+            conta=conta,
+            dv_conta=dv_conta,
+            convenio=convenio,
+        )
+
+        url = self._construct_url("cancelar-pagamentos")
+        data = {
+            "agenciaDebito": agencia,
+            "contaCorrenteDebito": conta,
+            "digitoVerificadorContaCorrente": dv_conta,
+            "listaPagamentos": [{"codigoPagamento": _id}],
+        }
+        if convenio is not None:
+            data["numeroContratoPagamento"] = convenio
+
+        self.authenticate()
+        response = self._post(url, data)
+        return response
+
+    def liberar_pagamentos(self, n_requisicao, indicador_float="N"):
+        """
+        Args:
+            n_requisicao: número da requisição
+            indicador_float: Indicador de confirmação/concordância quanto ao
+                pagamento da tarifa de antecipação de float a ser calculada posteriormente  # noqa: E501
+        """
+        self.authenticate()
+        url = self._construct_url("liberar-pagamentos")
+        data = {"numeroRequisicao": n_requisicao, "indicadorFloat": indicador_float}
+        LiberarPagamentos(**data)
+        response = self._post(url, data)
+        return response
+
+    def resgatar_lote(self, n_requisicao):
+        """
+        Consulta um lote de pagamento
+
+        Args:
+            n_requisicao: Nº da requisição do lote
+        """
+        url = self._construct_url(n_requisicao)
+        self.authenticate()
+        response = self._get(url)
+        return response
+
+    def resgatar_lote_solicitacao(self, n_requisicao):
+        """
+        Consulta a solicitação de um lote de pagamento
+
+        Args:
+            n_requisicao: Nº da requisição do lote
+        """
+        url = self._construct_url(n_requisicao, "solicitacao")
+        self.authenticate()
+        response = self._get(url)
+        return response
+
+    def listar_pagamentos(self, inicio, fim, status=None, index=0):
+        """
+        Lista os pagamentos
+
+        Args:
+            inicio: Data inicio da consulta no formato ddmmaaaa
+            fim: Data final da consulta no formato ddmmaaaa
+            status: Status a ser consultado
+            index: Índice da consulta
+        """
+        search = {
+            "dataInicio": inicio,
+            "dataFim": fim,
+            "indice": index,
+        }
+        if status:
+            search["estadoPagamento"] = status
+        url = self._construct_url("pagamentos", search=search)
+        self.authenticate()
+        response = self._get(url)
+        return response
+
+    ######################
+    #  Transferências    #
+    ######################
 
     def cadastrar_transferencia(
         self,
@@ -133,65 +240,9 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
     #     response = self._get(url)
     #     return response
 
-    def cancelar_pagamentos(self, number, agencia, conta, dv_conta, convenio=None):
-        """
-        Args:
-            number: numero do pagamento
-            agencia: agência bancária
-            conta: conta bancária
-            dv_conta: dígito verificador da conta bancária
-            convenio: nº do convênio/contrato
-        """
-        self._valida_lote_data(
-            LoteData,
-            n_requisicao=number,
-            agencia=agencia,
-            conta=conta,
-            dv_conta=dv_conta,
-            convenio=convenio,
-        )
-
-        url = self._construct_url("cancelar-pagamentos")
-        data = {
-            "agenciaDebito": agencia,
-            "contaCorrenteDebito": conta,
-            "digitoVerificadorContaCorrente": dv_conta,
-            "listaPagamentos": [{"codigoPagamento": number}],
-        }
-        if convenio is not None:
-            data["numeroContratoPagamento"] = convenio
-
-        self.authenticate()
-        response = self._post(url, data)
-        return response
-
-    def liberar_pagamentos(self, number, indicador_float="N"):
-        """
-        Args:
-            number: número da requisição
-            indicador_float: Indicador de confirmação/concordância quanto ao
-                pagamento da tarifa de antecipação de float a ser calculada posteriormente
-        """
-        self.authenticate()
-        url = self._construct_url("liberar-pagamentos")
-        data = {"numeroRequisicao": number, "indicadorFloat": indicador_float}
-        LiberarPagamentos(**data)
-        response = self._post(url, data)
-        return response
-
-    # def consultar_lote(self, number):
-    #     self.authenticate()
-    #     url = self._construct_url(number)
-    #     response = self._get(url)
-    #     return response
-
-    def _valida_lote_data(self, model, **kwargs):
-        try:
-            if kwargs["convenio"] is None:
-                kwargs.pop("convenio")
-        except KeyError:
-            pass
-        model(**kwargs)
+    ###############
+    #  Boletos    #
+    ###############
 
     def cadastrar_pagamento_boleto(
         self,
@@ -215,7 +266,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             agencia: Agência da conta de origem do pagamento
             conta: Nº da conta de origem do pagamento
             dv_conta: DV da conta de origem do pagamento
-            codigo_barras_ou_linha_digitavel: Linha digitável ou código de barras do boleto
+            codigo_barras_ou_linha_digitavel: Linha digitável ou código de barras do boleto  # noqa: E501
             documento: CPF/CNPJ do recebedor
             data_pagamento: Data do pagamento. No formato "ddmmyyyy"
             valor_pagamento: Valor do pagamento
@@ -271,6 +322,10 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         response = self._get(url)
         return response
 
+    ################
+    #  Tributos    #
+    ################
+
     def cadastrar_pagamento_tributo(
         self,
         n_requisicao,
@@ -291,7 +346,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             agencia: Agência da conta de origem do pagamento
             conta: Nº da conta de origem do pagamento
             dv_conta: DV da conta de origem do pagamento
-            codigo_barras_ou_linha_digitavel: Linha digitável ou código de barras do boleto
+            codigo_barras_ou_linha_digitavel: Linha digitável ou código de barras do boleto  # noqa: E501
             data_pagamento: Data do pagamento. No formato "ddmmyyyy"
             valor_pagamento: Valor do pagamento
             descricao: Descrição do pagamento
