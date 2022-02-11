@@ -4,7 +4,7 @@ from examples.utils import dump_response
 
 from bb_wrapper.wrapper import PagamentoLoteBBWrapper
 
-c = PagamentoLoteBBWrapper()
+c = PagamentoLoteBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
 
 data = {
     "number": "90579175731030001",
