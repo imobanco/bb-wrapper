@@ -1,4 +1,5 @@
-# Erros
+# Erros dos pagamentos
+
 1 - Agência de crédito está zerada. Informe o nº da Agência de Crédito. 
 
 2 - Conta de crédito informada não é numérica. Informe apenas números. 

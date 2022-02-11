@@ -168,7 +168,7 @@ class PixCobBBWrapperTestCase(TestCase):
         """
         result = PIXCobBBWrapper()._construct_url(end_bar=True)
 
-        expected = "https://api.hm.bb.com.br/pix/v1/?gw-dev-app-key="
+        expected = "https://api.sandbox.bb.com.br/pix/v1/?gw-dev-app-key="
 
         self.assertIn(expected, result)
 
@@ -184,6 +184,6 @@ class PixCobBBWrapperTestCase(TestCase):
         """
         result = PIXCobBBWrapper()._construct_url(end_bar=False)
 
-        expected = "https://api.hm.bb.com.br/pix/v1?gw-dev-app-key="
+        expected = "https://api.sandbox.bb.com.br/pix/v1?gw-dev-app-key="
 
         self.assertIn(expected, result)

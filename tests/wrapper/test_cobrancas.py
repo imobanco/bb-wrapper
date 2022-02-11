@@ -298,3 +298,19 @@ class CobrancasBBWrapperTestCase(TestCase):
 
         self.assertEqual(response.data["codigo_barras_b64"], expected_barcode_b64)
         self.assertEqual(response.data["qrCode"]["b64"], expected_qrcode_b64)
+
+    def test_construct_url_1(self):
+        """
+        Dado:
+            -
+        Quando:
+            - for chamado CobrancasBBWrapper()._construct_url(end_bar=True)
+        Então:
+            - o resultado deve ter pelo menos o texto
+                'https://api.hm.bb.com.br/cobrancas/v2/boletos/?gw-dev-app-key='
+        """
+        result = CobrancasBBWrapper()._construct_url(end_bar=True)
+
+        expected = "https://api.sandbox.bb.com.br/cobrancas/v2/boletos/?gw-dev-app-key="
+
+        self.assertIn(expected, result)

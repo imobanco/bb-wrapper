@@ -1,4 +1,4 @@
-# Descrição da situação do pagamento
+# Status de pagamentos
 
 Vencido - Pagamento não efetuado na data indicada por falta de saldo ou falta de autorização para débito do pagamento na conta do cliente conveniado.
 
