@@ -105,6 +105,8 @@ class RequestsWrapper:
         if not headers:
             headers = self._authorization_header_data
 
+        headers['Content-type'] = 'application/json'
+
         return dict(
             headers=headers,
             verify=self.__verify_https,

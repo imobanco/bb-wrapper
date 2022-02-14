@@ -1,0 +1,22 @@
+{
+    "indice": 1,
+    "estadoRequisicao": 7,
+    "tipoPagamento": 128,
+    "dataRequisicao": 11022022,
+    "quantidadePagamentos": 1,
+    "valorPagamentos": 15.5,
+    "pagamentos": [
+        {
+            "identificadorPagamento": "90579175731030001",
+            "dataPagamento": 11022022,
+            "valorPagamento": 15.5,
+            "tipoCredito": 0,
+            "tipoBeneficiario": 2,
+            "cpfCnpjBeneficiario": 0,
+            "nomeBeneficiario": "LUIZ NILO REIS",
+            "estadoPagamento": "REJEITADO",
+            "descricaoPagamento": "string",
+            "erros": []
+        }
+    ]
+}
