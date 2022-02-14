@@ -11,16 +11,21 @@ from ..models.barcode import BarcodeCobranca, BarcodeTributo
 
 
 class BarcodeService:
-    def generate_barcode_b64image(self, barcode: str) -> str:
+    def generate_barcode_b64image(self, barcode: str, include_number_in_image=True) -> str:
         """
         Método para gerar uma imagem base46 a partir de um código de barras numérico.
         """
+        if include_number_in_image:
+            text = barcode
+        else:
+            text = ''
+
         buffer = io.BytesIO()
         generate_barcode(
             name="itf",
             code=barcode,
             output=buffer,
-            text=barcode,
+            text=text,
             writer=SVGWriter(),
             writer_options={
                 "quiet_zone": 0,  # margin esquerda e direita (sem margem pois nosso template tem espaço!)  # noqa
