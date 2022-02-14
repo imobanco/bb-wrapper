@@ -48,7 +48,6 @@ class CobrancasBBWrapper(BaseBBWrapper):
         if conta is None:
             conta = CONTA
 
-        assert len(convenio) == 7, "O convênio não possui 7 dígitos!"
         self.__convenio = convenio
         self.__carteira = carteira
         self.__variacao_carteira = variacao_carteira

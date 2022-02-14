@@ -28,5 +28,5 @@ class DocumentoService:
         """
         documento = cpfcnpj.clear_punctuation(documento)
         if not cpfcnpj.validate(documento):
-            raise ValueError("Documento inválido")
+            raise ValueError(f"CPF/CNPJ '{documento}' é inválido!")
         return documento
