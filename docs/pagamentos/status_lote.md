@@ -12,10 +12,10 @@
 
 6 - Requisição Processada;
 
-7 - Requisição Rejeitada,
+7 - Requisição Rejeitada;
 
-8 - Preparando remessa não liberada,
+8 - Preparando remessa não liberada;
 
-9 - Requisição liberada via API,
+9 - Requisição liberada via API;
 
 10 - Preparando remessa liberada.
