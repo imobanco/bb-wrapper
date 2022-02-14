@@ -66,6 +66,11 @@ class TransferenciaPIX(BaseModel):
     # noinspection PyMethodParameters
     @root_validator
     def _set_data(cls, values):
+        """
+        Esse método realiza o processamento em cima do valor 'chave'
+        identificando que tipo de chave é e configurando-a corretamente
+        no objeto.
+        """
         from ..services.pix import PixService
 
         key = values.get("chave")
