@@ -226,20 +226,6 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         response = self._get(url)
         return response
 
-    # def consultar_transferencias(self, dv):
-    #     """
-    #
-    #     Args:
-    #         dv: dígito verificador da conta corrente origem
-    #     """
-    #     search = {
-    #         "digitoVerificadorContaCorrente": dv
-    #     }
-    #     self.authenticate()
-    #     url = self._construct_url("lotes-transferencias", search=search)
-    #     response = self._get(url)
-    #     return response
-
     ###############
     #  Boletos    #
     ###############
