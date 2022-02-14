@@ -4,7 +4,7 @@ from pycpfcnpj import cpfcnpj
 class DocumentoService:
     def identifica_tipo(self, documento):
         """
-        1 - Pessoa Físia
+        1 - Pessoa Física
         2 - Pessoa Jurídica
 
         Args:
