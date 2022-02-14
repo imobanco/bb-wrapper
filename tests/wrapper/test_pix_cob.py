@@ -1,11 +1,11 @@
-from unittest import TestCase
 from unittest.mock import MagicMock
 
 from bb_wrapper.wrapper import PIXCobBBWrapper
 from bb_wrapper.services import PixCodeService
+from tests.utils import IsolatedEnvTestCase
 
 
-class PixCobBBWrapperTestCase(TestCase):
+class PixCobBBWrapperTestCase(IsolatedEnvTestCase):
     maxDiff = None
 
     def test_create_and_validate_cobranca_data_cpf(self):
