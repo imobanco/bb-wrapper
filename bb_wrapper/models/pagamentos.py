@@ -135,7 +135,7 @@ class LiberarPagamentos(BaseModel):
 
 
 STATUS_PAGAMENTO_DICT = {
-    "VERNCIDO": "Pagamento não efetuado na data indicada por falta de saldo ou falta de autorização para débito do pagamento na conta do cliente conveniado.",  # noqa: E501
+    "VENCIDO": "Pagamento não efetuado na data indicada por falta de saldo ou falta de autorização para débito do pagamento na conta do cliente conveniado.",  # noqa: E501
     "CONSISTENTE": "pagamento recebido pelo banco, cumprem as regras de preenchimento dos campos mas ainda irá para validação e processamento",  # noqa: E501
     "INCONSISTENTE": "pagamento não aceito pelo banco por dados de entrada inconsistentes. Não cumpre as regras de preenchimento dos campos",  # noqa: E501
     "PAGO": "pagamento efetuado ao favorecido",
