@@ -101,6 +101,16 @@ class RequestsWrapper:
     def _authorization_header_data(self):
         return {"Authorization": self._auth}
 
+    def _get_request_info(self, headers=None):
+        if not headers:
+            headers = self._authorization_header_data
+
+        return dict(
+            headers=headers,
+            verify=self.__verify_https,
+            cert=self.__cert,
+        )
+
     def _delete(self, url, headers=None) -> requests.Response:
         """
         http delete
@@ -111,12 +121,8 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
-        response = requests.delete(
-            url,
-            headers=headers if headers else self._authorization_header_data,
-            verify=self.__verify_https,
-            cert=self.__cert,
-        )
+        request_info = self._get_request_info(headers)
+        response = requests.delete(url, **request_info)
         response = self._process_response(response)
         return response
 
@@ -130,12 +136,8 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
-        response = requests.get(
-            url,
-            headers=headers if headers else self._authorization_header_data,
-            verify=self.__verify_https,
-            cert=self.__cert,
-        )
+        request_info = self._get_request_info(headers)
+        response = requests.get(url, **request_info)
         response = self._process_response(response)
         return response
 
@@ -152,21 +154,16 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
-        kwargs = dict(
-            headers=headers if headers else self._authorization_header_data,
-            verify=self.__verify_https,
-            cert=self.__cert,
-        )
+        request_info = self._get_request_info(headers)
         if use_json:
-            kwargs["json"] = data
+            request_info["json"] = data
         else:
-            kwargs["data"] = data
-
-        response = requests.post(url, **kwargs)
+            request_info["data"] = data
+        response = requests.post(url, **request_info)
         response = self._process_response(response)
         return response
 
-    def _put(self, url, data, headers=None) -> requests.Response:
+    def _put(self, url, data, headers=None, use_json=True) -> requests.Response:
         """
         http put
 
@@ -177,23 +174,21 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
-        response = requests.put(
-            url,
-            json=data,
-            headers=headers if headers else self._authorization_header_data,
-            verify=self.__verify_https,
-            cert=self.__cert,
-        )
+        request_info = self._get_request_info(headers)
+        if use_json:
+            request_info["json"] = data
+        else:
+            request_info["data"] = data
+        response = requests.put(url, **request_info)
         response = self._process_response(response)
         return response
 
-    def _patch(self, url, data, headers=None) -> requests.Response:
-        response = requests.patch(
-            url,
-            json=data,
-            headers=headers if headers else self._authorization_header_data,
-            verify=self.__verify_https,
-            cert=self.__cert,
-        )
+    def _patch(self, url, data, headers=None, use_json=True) -> requests.Response:
+        request_info = self._get_request_info(headers)
+        if use_json:
+            request_info["json"] = data
+        else:
+            request_info["data"] = data
+        response = requests.patch(url, **request_info)
         response = self._process_response(response)
         return response
