@@ -97,7 +97,10 @@ class MockedBBTestCase(MockedRequestsTestCase):
         )
 
     def _get_headers(self):
-        return {"Authorization": "token_type access_token", "Content-type": 'application/json'}
+        return {
+            "Authorization": "token_type access_token",
+            "Content-type": "application/json",
+        }
 
     def get_request_complements(self, verify=False, cert=None):
         return dict(headers=self._get_headers(), verify=verify, cert=cert)

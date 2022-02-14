@@ -41,9 +41,7 @@ class PixService:
             is_uuid = False
 
         if (is_email + is_phone + is_uuid + is_document) > 1:
-            raise ValueError(
-                "A chave utilizada pode ser mais de um tipo!"
-            )
+            raise ValueError("A chave utilizada pode ser mais de um tipo!")
         elif is_email:
             return TipoChavePIX.email
         elif is_document:
