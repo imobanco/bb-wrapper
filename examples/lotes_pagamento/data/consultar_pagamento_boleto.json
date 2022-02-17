@@ -1,0 +1,37 @@
+{
+    "id": 90579175731030000,
+    "estadoPagamento": "CONSISTENTE",
+    "tipoCredito": 30,
+    "agenciaDebito": 1607,
+    "contaCorrenteDebito": 99738672,
+    "digitoVerificadorContaCorrenteDebito": "X",
+    "inicioCartaoCredito": 0,
+    "fimCartaoCredito": 0,
+    "dataPagamento": 11022022,
+    "valorPagamento": 15.5,
+    "documentoDebito": 0,
+    "codigoAutenticacaoPagamento": "",
+    "listaPagamentos": [
+        {
+            "codigo": "00196846200000100000000003128557123123000917",
+            "nossoDocumento": "",
+            "seuDocumento": "",
+            "tipoPessoaBeneficiario": 1,
+            "documentoBeneficiario": 99391916180,
+            "nomeBeneficiario": "LUIZ NILO REIS",
+            "tipoPessoaPagador": 0,
+            "documentoPagador": 0,
+            "nomePagador": "",
+            "tipoPessoaAvalista": 0,
+            "documentoAvalista": 0,
+            "nomeAvalista": "",
+            "dataVencimento": 11022022,
+            "dataAgendamento": 0,
+            "valorNominal": 15.5,
+            "valorMoraMulta": 0,
+            "valorDesconto": 0,
+            "texto": ""
+        }
+    ],
+    "listaDevolucao": []
+}

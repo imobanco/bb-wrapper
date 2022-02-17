@@ -1,11 +1,11 @@
-from unittest import TestCase
 from unittest.mock import MagicMock
 
 from bb_wrapper.wrapper import PIXCobBBWrapper
 from bb_wrapper.services import PixCodeService
+from tests.utils import IsolatedEnvTestCase
 
 
-class PixCobBBWrapperTestCase(TestCase):
+class PixCobBBWrapperTestCase(IsolatedEnvTestCase):
     maxDiff = None
 
     def test_create_and_validate_cobranca_data_cpf(self):
@@ -168,7 +168,7 @@ class PixCobBBWrapperTestCase(TestCase):
         """
         result = PIXCobBBWrapper()._construct_url(end_bar=True)
 
-        expected = "https://api.hm.bb.com.br/pix/v1/?gw-dev-app-key="
+        expected = "https://api.sandbox.bb.com.br/pix/v1/?gw-dev-app-key="
 
         self.assertIn(expected, result)
 
@@ -184,6 +184,6 @@ class PixCobBBWrapperTestCase(TestCase):
         """
         result = PIXCobBBWrapper()._construct_url(end_bar=False)
 
-        expected = "https://api.hm.bb.com.br/pix/v1?gw-dev-app-key="
+        expected = "https://api.sandbox.bb.com.br/pix/v1?gw-dev-app-key="
 
         self.assertIn(expected, result)

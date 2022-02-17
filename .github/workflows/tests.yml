@@ -21,13 +21,10 @@ jobs:
           python-version: 3.8
 
       - name: Install dependencies
-        run: pip install black flake8
+        run: make pip.install
 
       - name: Lint code with black
-        run: black --check .
-
-      - name: Lint code with flake8
-        run: flake8
+        run: make fmt.check
 
   test:
     name: test [${{ matrix.os }}] (${{ matrix.python }})

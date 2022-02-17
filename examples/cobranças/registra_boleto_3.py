@@ -41,4 +41,4 @@ data = wrapper.create_boleto_data_with_defaults(
 
 response = wrapper.registra_boleto(data)
 
-dump_response(response, os.path.basename(__file__).split(".")[0])
+dump_response(response, os.path.realpath(__file__))

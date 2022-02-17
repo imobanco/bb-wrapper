@@ -11,14 +11,16 @@ from ..models.barcode import BarcodeCobranca, BarcodeTributo
 
 
 class BarcodeService:
-    def generate_barcode_b64image(self, barcode: str, include_number_in_image=True) -> str:
+    def generate_barcode_b64image(
+        self, barcode: str, include_number_in_image=True
+    ) -> str:
         """
         Método para gerar uma imagem base46 a partir de um código de barras numérico.
         """
         if include_number_in_image:
             text = barcode
         else:
-            text = ''
+            text = ""
 
         buffer = io.BytesIO()
         generate_barcode(
@@ -40,7 +42,16 @@ class BarcodeService:
         return Base64Service().generate_b64image_from_buffer(buffer)
 
     def identify(self, number: str) -> Union[BarcodeCobranca, BarcodeTributo]:
-        """"""
+        """
+        Identifica e instância um Boleto Cobrança ou Boleto Tributo com base
+        na linha digitável ou código de barras.
+
+        Args:
+            number: linha digitável ou código de barras
+
+        Returns:
+            Instância um Boleto Cobrança ou Boleto Tributo
+        """
         length = len(number)
 
         if 47 <= length <= 48:

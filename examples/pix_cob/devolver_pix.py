@@ -11,4 +11,4 @@ txid = "?"
 
 response = c.devolver_pix(end_to_end_id, "0.01", txid)
 
-dump_response(response, os.path.basename(__file__).split(".")[0])
+dump_response(response, os.path.realpath(__file__))

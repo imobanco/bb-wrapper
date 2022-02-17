@@ -17,6 +17,7 @@ test:
 
 fmt:
 	black .
+	make fmt.check
 
 fmt.check:
 	black --check .

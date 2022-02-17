@@ -1,28 +1,12 @@
-from unittest import TestCase
 from unittest.mock import MagicMock
 
 from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
-from bb_wrapper.constants import GW_APP_KEY
 from bb_wrapper.services import QRCodeService, BarcodeService
+from tests.utils import IsolatedEnvTestCase
 
 
-class CobrancasBBWrapperTestCase(TestCase):
+class CobrancasBBWrapperTestCase(IsolatedEnvTestCase):
     maxDiff = None
-
-    def test_convenio_assert(self):
-        """
-        Dado:
-            - um número de convenio="123" (inválido pois não tem 7 dígitos)
-        Quando:
-            - for chamado CobrancasBBWrapper(convenio="123")
-        Então:
-            - deve ser lançado `AssertionError`
-            - a mensagem de erro deve ser 'O convênio não possui 7 dígitos!'
-        """
-        with self.assertRaises(AssertionError) as ctx:
-            CobrancasBBWrapper(convenio="123")
-
-        self.assertEqual(ctx.exception.args[0], "O convênio não possui 7 dígitos!")
 
     def test_build_our_number_1(self):
         """
@@ -266,7 +250,7 @@ class CobrancasBBWrapperTestCase(TestCase):
 
         expected = (
             "https://api.sandbox.bb.com.br/cobrancas/v2/boletos"
-            f"?gw-dev-app-key={GW_APP_KEY}"
+            f"?gw-dev-app-key={wrapper._BaseBBWrapper__gw_app_key}"
         )
 
         self.assertEqual(result, expected)
@@ -298,3 +282,19 @@ class CobrancasBBWrapperTestCase(TestCase):
 
         self.assertEqual(response.data["codigo_barras_b64"], expected_barcode_b64)
         self.assertEqual(response.data["qrCode"]["b64"], expected_qrcode_b64)
+
+    def test_construct_url_1(self):
+        """
+        Dado:
+            -
+        Quando:
+            - for chamado CobrancasBBWrapper()._construct_url(end_bar=True)
+        Então:
+            - o resultado deve ter pelo menos o texto
+                'https://api.hm.bb.com.br/cobrancas/v2/boletos/?gw-dev-app-key='
+        """
+        result = CobrancasBBWrapper()._construct_url(end_bar=True)
+
+        expected = "https://api.sandbox.bb.com.br/cobrancas/v2/boletos/?gw-dev-app-key="
+
+        self.assertIn(expected, result)

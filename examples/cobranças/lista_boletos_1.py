@@ -8,4 +8,4 @@ wrapper = CobrancasBBWrapper()
 
 response = wrapper.lista_boletos(liquidados_flag=False)
 
-dump_response(response, os.path.basename(__file__).split(".")[0])
+dump_response(response, os.path.realpath(__file__))

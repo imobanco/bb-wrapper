@@ -5,6 +5,10 @@ from ..services import parse_unicode_to_alphanumeric, BarcodeService, QRCodeServ
 
 
 class CobrancasBBWrapper(BaseBBWrapper):
+    SCOPE = "cobrancas.boletos-info cobrancas.boletos-requisicao"
+
+    BASE_DOMAIN = ".bb.com.br/cobrancas/v2/boletos"
+
     def __init__(
         self,
         convenio=None,
@@ -12,9 +16,19 @@ class CobrancasBBWrapper(BaseBBWrapper):
         variacao_carteira=None,
         agencia=None,
         conta=None,
-        **kwargs,
+        basic_token=None,
+        is_sandbox=None,
+        gw_app_key=None,
+        verify_https=False,
+        cert=None,
     ):
-        super().__init__(**kwargs)
+        super().__init__(
+            basic_token=basic_token,
+            is_sandbox=is_sandbox,
+            gw_app_key=gw_app_key,
+            verify_https=verify_https,
+            cert=cert,
+        )
 
         if convenio is None:
             convenio = CONVENIO
@@ -34,17 +48,11 @@ class CobrancasBBWrapper(BaseBBWrapper):
         if conta is None:
             conta = CONTA
 
-        assert len(convenio) == 7, "O convênio não possui 7 dígitos!"
         self.__convenio = convenio
         self.__carteira = carteira
         self.__variacao_carteira = variacao_carteira
         self.__agencia = agencia
         self.__conta = conta
-
-    def _construct_base_url(self):
-        base_url = super()._construct_base_url()
-        base_url += "/cobrancas/v2/boletos"
-        return base_url
 
     def _injeta_b64_images(self, response):
         """"""
