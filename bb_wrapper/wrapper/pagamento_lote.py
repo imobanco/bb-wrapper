@@ -128,7 +128,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
     #  Transferências    #
     ######################
 
-    def cadastrar_transferencia(
+    def _criar_dados_transferencia(
         self,
         n_requisicao,
         agencia,
@@ -146,26 +146,6 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         tipo_pagamento=128,
         convenio=None,
     ):
-        """
-        Cadastra uma transferência bancária
-
-        Args:
-            n_requisicao: Nº da requisição a ser utilizado. Deve ser único
-            agencia: Agência da conta de origem do pagamento
-            conta: Nº da conta de origem do pagamento
-            dv_conta: DV da conta de origem do pagamento
-            tipo_pagamento: Tipo de pagamento a ser feito (126, 127 ou 128)
-            codigo_banco: Nº do banco destino
-            agencia_destino: Agência da conta de destino do pagamento
-            conta_destino: Nº da conta de destino do pagamento
-            dv_conta_destino: DV da conta de destino do pagamento
-            documento: CPF/CNPJ do recebedor
-            data_transferencia: Data do pagamento. No formato "ddmmyyyy"
-            valor_transferencia: Valor do pagamento
-            descricao: Descrição do pagamento
-            finalidade_ted: Tipo de transferência a ser feita (1, 6 ou 11)
-            convenio: Nº do convênio/contrato
-        """
         self._valida_lote_data(
             LoteTransferenciaData,
             n_requisicao=n_requisicao,
@@ -213,8 +193,65 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
 
         TransferenciaTED(**pagamento_data)
 
+        return {**lote_data, "listaTransferencias": [{**pagamento_data}]}
+
+    def cadastrar_transferencia(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        codigo_banco,
+        agencia_destino,
+        conta_destino,
+        dv_conta_destino,
+        documento,
+        data_transferencia,
+        valor_transferencia,
+        descricao,
+        finalidade_ted=1,
+        tipo_pagamento=128,
+        convenio=None,
+    ):
+        """
+        Cadastra uma transferência bancária
+
+        Args:
+            n_requisicao: Nº da requisição a ser utilizado. Deve ser único
+            agencia: Agência da conta de origem do pagamento
+            conta: Nº da conta de origem do pagamento
+            dv_conta: DV da conta de origem do pagamento
+            tipo_pagamento: Tipo de pagamento a ser feito (126, 127 ou 128)
+            codigo_banco: Nº do banco destino
+            agencia_destino: Agência da conta de destino do pagamento
+            conta_destino: Nº da conta de destino do pagamento
+            dv_conta_destino: DV da conta de destino do pagamento
+            documento: CPF/CNPJ do recebedor
+            data_transferencia: Data do pagamento. No formato "ddmmyyyy"
+            valor_transferencia: Valor do pagamento
+            descricao: Descrição do pagamento
+            finalidade_ted: Tipo de transferência a ser feita (1, 6 ou 11)
+            convenio: Nº do convênio/contrato
+        """
+        data = self._criar_dados_transferencia(
+            n_requisicao,
+            agencia,
+            conta,
+            dv_conta,
+            codigo_banco,
+            agencia_destino,
+            conta_destino,
+            dv_conta_destino,
+            documento,
+            data_transferencia,
+            valor_transferencia,
+            descricao,
+            finalidade_ted,
+            tipo_pagamento,
+            convenio,
+        )
+
         url = self._construct_url("lotes-transferencias")
-        data = {**lote_data, "listaTransferencias": [{**pagamento_data}]}
 
         self.authenticate()
         response = self._post(url, data)
@@ -230,7 +267,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
     #  Boletos    #
     ###############
 
-    def cadastrar_pagamento_boleto(
+    def _criar_dados_pagamento_boleto(
         self,
         n_requisicao,
         agencia,
@@ -244,22 +281,6 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         descricao,
         convenio=None,
     ):
-        """
-        Cadastra o pagamento de um boleto
-
-        Args:
-            n_requisicao: Nº da requisição a ser utilizado. Deve ser único
-            agencia: Agência da conta de origem do pagamento
-            conta: Nº da conta de origem do pagamento
-            dv_conta: DV da conta de origem do pagamento
-            codigo_barras_ou_linha_digitavel: Linha digitável ou código de barras do boleto  # noqa: E501
-            documento: CPF/CNPJ do recebedor
-            data_pagamento: Data do pagamento. No formato "ddmmyyyy"
-            valor_pagamento: Valor do pagamento
-            valor_nominal: Valor nominal da conta (valor original?)
-            descricao: Descrição do pagamento
-            convenio: Nº do convênio/contrato
-        """
         self._valida_lote_data(
             LoteData,
             n_requisicao=n_requisicao,
@@ -295,8 +316,53 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         }
         Boleto(**pagamento_data)
 
+        return {**lote_data, "lancamentos": [{**pagamento_data}]}
+
+    def cadastrar_pagamento_boleto(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        codigo_barras_ou_linha_digitavel,
+        documento,
+        data_pagamento,
+        valor_pagamento,
+        valor_nominal,
+        descricao,
+        convenio=None,
+    ):
+        """
+        Cadastra o pagamento de um boleto
+
+        Args:
+            n_requisicao: Nº da requisição a ser utilizado. Deve ser único
+            agencia: Agência da conta de origem do pagamento
+            conta: Nº da conta de origem do pagamento
+            dv_conta: DV da conta de origem do pagamento
+            codigo_barras_ou_linha_digitavel: Linha digitável ou código de barras do boleto  # noqa: E501
+            documento: CPF/CNPJ do recebedor
+            data_pagamento: Data do pagamento. No formato "ddmmyyyy"
+            valor_pagamento: Valor do pagamento
+            valor_nominal: Valor nominal da conta (valor original?)
+            descricao: Descrição do pagamento
+            convenio: Nº do convênio/contrato
+        """
+        data = self._criar_dados_pagamento_boleto(
+            n_requisicao,
+            agencia,
+            conta,
+            dv_conta,
+            codigo_barras_ou_linha_digitavel,
+            documento,
+            data_pagamento,
+            valor_pagamento,
+            valor_nominal,
+            descricao,
+            convenio,
+        )
+
         url = self._construct_url("lotes-boletos")
-        data = {**lote_data, "lancamentos": [{**pagamento_data}]}
 
         self.authenticate()
         response = self._post(url, data)
@@ -312,7 +378,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
     #  Tributos    #
     ################
 
-    def cadastrar_pagamento_tributo(
+    def _criar_dados_pagamento_tributo(
         self,
         n_requisicao,
         agencia,
@@ -324,20 +390,6 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         descricao,
         convenio=None,
     ):
-        """
-        Cadastra o pagamento de um tributo
-
-        Args:
-            n_requisicao: Nº da requisição a ser utilizado. Deve ser único
-            agencia: Agência da conta de origem do pagamento
-            conta: Nº da conta de origem do pagamento
-            dv_conta: DV da conta de origem do pagamento
-            codigo_barras_ou_linha_digitavel: Linha digitável ou código de barras do boleto  # noqa: E501
-            data_pagamento: Data do pagamento. No formato "ddmmyyyy"
-            valor_pagamento: Valor do pagamento
-            descricao: Descrição do pagamento
-            convenio: Nº do convênio/contrato
-        """
         self._valida_lote_data(
             LoteData,
             n_requisicao=n_requisicao,
@@ -367,9 +419,47 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             "descricaoPagamento": descricao,
         }
         Tributo(**pagamento_data)
+        return {**lote_data, "lancamentos": [{**pagamento_data}]}
+
+    def cadastrar_pagamento_tributo(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        codigo_barras_ou_linha_digitavel,
+        data_pagamento,
+        valor_pagamento,
+        descricao,
+        convenio=None,
+    ):
+        """
+        Cadastra o pagamento de um tributo
+
+        Args:
+            n_requisicao: Nº da requisição a ser utilizado. Deve ser único
+            agencia: Agência da conta de origem do pagamento
+            conta: Nº da conta de origem do pagamento
+            dv_conta: DV da conta de origem do pagamento
+            codigo_barras_ou_linha_digitavel: Linha digitável ou código de barras do boleto  # noqa: E501
+            data_pagamento: Data do pagamento. No formato "ddmmyyyy"
+            valor_pagamento: Valor do pagamento
+            descricao: Descrição do pagamento
+            convenio: Nº do convênio/contrato
+        """
+        data = self._criar_dados_pagamento_tributo(
+            n_requisicao,
+            agencia,
+            conta,
+            dv_conta,
+            codigo_barras_ou_linha_digitavel,
+            data_pagamento,
+            valor_pagamento,
+            descricao,
+            convenio,
+        )
 
         url = self._construct_url("lotes-guias-codigo-barras")
-        data = {**lote_data, "lancamentos": [{**pagamento_data}]}
 
         self.authenticate()
         response = self._post(url, data)
