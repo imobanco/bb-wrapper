@@ -247,7 +247,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     77: "Valor de Atualização Monetária não é numérico",
     78: "Valor de Atualização Monetária não é numérico",
     79: "Período de apuração inválido",
-    80: "Conta de crédito inválida. Informe o numero   sem o 45 do início.",
+    80: "Conta de crédito inválida. Informe o número sem o 45 do início.",
     81: "A conta informada não pertence ao funcionário.",
     82: "Pagamento permitido apenas para pessoas físicas.",
     83: "Agência e Conta incorretos.",
