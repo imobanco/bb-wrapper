@@ -448,7 +448,7 @@ ERROS_ESTORNO_PAGAMENTO_DICT = {
     24: "Erro no Preenchimento do Documento de Recolhimento",
     25: "Erro no Preenchimento do Depósito Direto",
     26: "Devolc. de pagmnt de tributos por solicitação da IF",
-    27: "Devolc de recolhimento a maior autorizada pela RFB",
+    27: "Devolução de recolhimento a maior autorizada pela Receita Federal do Brasil",
     28: "Crédito não sacado - decurso de prazo estipulado",
     31: "CPF/CNPJ inapto junto a receita federal do Brasil",
     61: "Transf supera limite para o tipo de conta destino",
