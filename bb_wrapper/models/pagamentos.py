@@ -433,7 +433,7 @@ ERROS_ESTORNO_PAGAMENTO_DICT = {
     1: "Conta destinatária do crédito encerrada",
     2: "Agência ou conta destinatária do credito inválida",
     3: "Ausência ou divergência na indicação do CPF/CNPJ",
-    4: "Msg inválida p/ o tipo de transação ou finalidade",
+    4: "Mensagem inválida para o tipo de transação ou finalidade",
     5: "Divergência na titularidade",
     6: "Transferência insuficiente para finalidade indicada",
     7: "Diferença a maior",
