@@ -191,7 +191,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     21: "Número Compensação inválido. Verifique o dado informado.",
     22: "Número ISPB diferente de zeros. Não informe o nº ISPB.",
     23: "Conta de crédito igual a zeros. Informe o número da conta de crédito.",
-    24: "CPF igual a Zeros. Obrigatório informar o nº do CPF.",
+    24: "CPF igual a zeros. Obrigatório informar o nº do CPF.",
     25: "CNPJ diferente de zeros. Não permitido informar CNPJ.",
     26: "Conta de crédito diferente de zeros. Não permitido informar Conta de crédito.",
     27: "Dígito conta de crédito diferente de espaços. Não informar dígito da conta de crédito.",  # noqa
