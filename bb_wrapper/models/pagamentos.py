@@ -182,7 +182,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     12: "Ambos os campos Finalidade DOC e Finalidade TED estão zerados.",
     13: "Ambos os campos Finalidade DOC e Finalidade TED foram informados.",
     14: "Número depósito judicial igual a espaços.",
-    15: "Digito da conta de crédito inválido.",
+    15: "Dígito da conta de crédito inválido.",
     16: "Ambos os campos CPF e CNPJ foram informados. Informe apenas um dos campos.",
     17: "Ambos os campos CPF e CNPJ estão zerados. Informe um dos campos.",
     18: "Dígito do CPF inválido. Verifique o dado informado.",
