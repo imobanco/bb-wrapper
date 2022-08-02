@@ -231,7 +231,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     61: "Código da Receita do Tributo não informado",
     62: "Tipo de Identificação do Contribuinte não informado",
     63: "Nº de Identificação do Contribuinte não informado",
-    64: "Nº de Identificação do Contribuinte não numérico",
+    64: "Número de Identificação do Contribuinte não numérico",
     65: "Código de Identificação do Tributo não informado",
     66: "Período de apuração não informado",
     67: "Número de Referência não informado",
