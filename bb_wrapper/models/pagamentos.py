@@ -185,7 +185,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     15: "Digito da conta de crédito inválido.",
     16: "Ambos os campos CPF e CNPJ foram informados. Informe apenas um dos campos.",
     17: "Ambos os campos CPF e CNPJ estão zerados. Informe um dos campos.",
-    18: "Digito do CPF inválido. Verifique o dado informado.",
+    18: "Dígito do CPF inválido. Verifique o dado informado.",
     19: "Dígito do CNPJ inválido. Verifique o dado informado.",
     20: "Agência e conta de crédito estão iguais a de débito. Opção não permitida.",
     21: "Número Compensação inválido. Verifique o dado informado.",
