@@ -211,7 +211,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     41: "Número de inscrição do beneficiário não é numérico. Informar números.",
     42: "Número de inscrição do avalista não é numérico. Informar números.",
     43: "Dígito do CPF para o pagador inválido. Verifique o nº correto.",
-    44: "Dígito do CPF para o beneficiário inválido. Verifique o nº correto.",
+    44: "Dígito do CPF para o beneficiário inválido. Verifique o número correto.",
     45: "Dígito do CPF para o avalista inválido. Verifique o nº correto.",
     46: "Dígito do CNPJ para o pagador inválido. Verifique o nº correto.",
     47: "Dígito do CNPJ para o beneficiário inválido. Verifique o nº correto.",
