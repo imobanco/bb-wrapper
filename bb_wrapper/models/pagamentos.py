@@ -189,7 +189,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     19: "Dígito do CNPJ inválido. Verifique o dado informado.",
     20: "Agência e conta de crédito estão iguais a de débito. Opção não permitida.",
     21: "Número Compensação inválido. Verifique o dado informado.",
-    22: "Número ISPB diferente de zeros. Não informe o nº ISPB.",
+    22: "Número ISPB diferente de zeros. Não informe o número ISPB.",
     23: "Conta de crédito igual a zeros. Informe o número da conta de crédito.",
     24: "CPF igual a zeros. Obrigatório informar o nº do CPF.",
     25: "CNPJ diferente de zeros. Não permitido informar CNPJ.",
