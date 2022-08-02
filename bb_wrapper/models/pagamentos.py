@@ -454,5 +454,5 @@ ERROS_ESTORNO_PAGAMENTO_DICT = {
     61: "Transf supera limite para o tipo de conta destino",
     70: "Por solicitação de cliente da Inst Partcpt Receb",
     72: "Não conformidade no pagamento",
-    84: "Ct destino inválida p/ o tp de trans ou finalidade",
+    84: "Conta destino inválida para o tp de trans ou finalidade",
 }
