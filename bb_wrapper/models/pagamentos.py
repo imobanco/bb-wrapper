@@ -167,7 +167,7 @@ STATUS_LOTE_DICT = {
     10: "Preparando remessa liberada",
 }
 
-ERROS_PAGAMENTO_DICT = {
+ERROS_VALIDACAO_PAGAMENTO_DICT = {
     1: "Agência de crédito está zerada. Informe o nº da Agência de Crédito.",
     2: "Conta de crédito informada não é numérica. Informe apenas números.",
     3: "Dígito da conta de crédito não informado. Informe o DV da conta de crédito.",
@@ -364,4 +364,32 @@ ERROS_PAGAMENTO_DICT = {
     333: "Limite de pagamentos parciais do boleto excedido. Consulte o Beneficiário do boleto.",  # noqa: E501
     334: "Boleto já liquidado. Não passível de pagamento.",
     999: "Consultar o Banco para detalhar o erro.",
+}
+
+ERROOS_ESTORNO_PAGAMENTO_DICT = {
+    "1": "Conta destinatária do credito encerrada",
+    "2": "Agencia ou conta destinatária do credito invalida",
+    "3": "Ausência ou divergência na indicação do CPF/CNPJ",
+    "4": "Msg invalida p/ o tipo de transação ou finalidade",
+    "5": "Divergência na titularidade",
+    "6": "Transferência insuficiente p/ finalidade indicada",
+    "7": "Diferença a maior",
+    "8": "Código identificador de transferência invalido",
+    "9": "Devolução por fraude",
+    "15": "Identificação deposito Judicial Invalida",
+    "16": "Msg STRO020/PAG0116 fora do horário def do negocio",
+    "17": "Numero de contrato invalido",
+    "18": "Valor em duplicidade",
+    "19": "Mov. finc. ligadas ao terrorismo e seu financiamento",
+    "22": "Devolução de ordem bancaria pelo agente financeiro",
+    "24": "Erro no Preenchimento do Documento de Recolhimento",
+    "25": "Erro no Preenchimento do Deposito Direto",
+    "26": "Devolc. de pagmnt de tributos por solicitação da IF",
+    "27": "Devolc de recolhimento a maior autorizada pela RFB",
+    "28": "Credito não sacado - decurso de prazo estipulado",
+    "31": "CPF/CNPJ inapto junto a receita federal do Brasil",
+    "61": "Transf supera limite para o tipo de conta destino",
+    "70": "Por solicitação de cliente da Inst Partcpt Receb",
+    "72": "Não conformidade no pagamento",
+    "84": "Ct destino inválida p/ o tp de trans ou finalidade",
 }
