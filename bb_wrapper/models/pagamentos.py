@@ -215,7 +215,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     45: "Dígito do CPF para o avalista inválido. Verifique o nº correto.",
     46: "Dígito do CNPJ para o pagador inválido. Verifique o número correto.",
     47: "Dígito do CNPJ para o beneficiário inválido. Verifique o número correto.",
-    48: "Dígito do CNPJ para o avalista inválido. Verifique o nº correto.",
+    48: "Dígito do CNPJ para o avalista inválido. Verifique o número correto.",
     49: "Data do vencimento inválida.  Informar data válida.",
     50: "Valor nominal não é numérico. Informar números.",
     51: "Valor de desconto não é numérico. Informar números.",
