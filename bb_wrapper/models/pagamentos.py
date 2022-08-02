@@ -286,7 +286,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     119: "Valor principal inválido. Informe um valor válido.",
     120: "Valor da multa inválido. Informe um valor válido.",
     121: "Valor dos juros/encargos inválido. Informe um valor válido.",
-    122: "Nº de identificação do contribuinte GPS inválido. Informe um número válido.",
+    122: "Número de identificação do contribuinte GPS inválido. Informe um número válido.",
     123: "Valor previsto do pagamento do INSS inválido. Informe um valor válido.",
     124: "Valor de outras entidades inválido. Informe um valor válido.",
     125: "Valor de atualização monetária inválido. Informe um valor válido.",
