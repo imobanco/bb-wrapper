@@ -451,7 +451,7 @@ ERROS_ESTORNO_PAGAMENTO_DICT = {
     27: "Devolução de recolhimento a maior autorizada pela Receita Federal do Brasil",
     28: "Crédito não sacado - decurso de prazo estipulado",
     31: "CPF/CNPJ inapto junto a receita federal do Brasil",
-    61: "Transf supera limite para o tipo de conta destino",
+    61: "Transferência supera limite para o tipo de conta destino",
     70: "Por solicitação de cliente da Inst Partcpt Receb",
     72: "Não conformidade no pagamento",
     84: "Conta destino inválida para o tp de trans ou finalidade",
