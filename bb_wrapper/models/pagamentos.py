@@ -443,7 +443,7 @@ ERROS_ESTORNO_PAGAMENTO_DICT = {
     16: "Mensagem STRO020/PAG0116 fora do horário def do negócio",
     17: "Número de contrato inválido",
     18: "Valor em duplicidade",
-    19: "Mov. finc. ligadas ao terrorismo e seu financiamento",
+    19: "Movimentações finceiras ligadas ao terrorismo e seu financiamento",
     22: "Devolução de ordem bancária pelo agente financeiro",
     24: "Erro no Preenchimento do Documento de Recolhimento",
     25: "Erro no Preenchimento do Depósito Direto",
