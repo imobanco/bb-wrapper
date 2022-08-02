@@ -168,7 +168,7 @@ STATUS_LOTE_DICT = {
 }
 
 ERROS_VALIDACAO_PAGAMENTO_DICT = {
-    1: "Agência de crédito igual a zero. Informe o nº da Agência de Crédito.",
+    1: "Agência de crédito igual a zero. Informe o número da Agência de Crédito.",
     2: "Conta de crédito não é numérica. Informe apenas números.",
     3: "Dígito conta de crédito igual a espaços. Informe o DV da conta de crédito.",
     4: "CPF não é numérico. Informe apenas números.",
