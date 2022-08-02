@@ -435,7 +435,7 @@ ERROS_ESTORNO_PAGAMENTO_DICT = {
     3: "Ausência ou divergência na indicação do CPF/CNPJ",
     4: "Msg inválida p/ o tipo de transação ou finalidade",
     5: "Divergência na titularidade",
-    6: "Transferência insuficiente p/ finalidade indicada",
+    6: "Transferência insuficiente para finalidade indicada",
     7: "Diferença a maior",
     8: "Código identificador de transferência inválido",
     9: "Devolução por fraude",
