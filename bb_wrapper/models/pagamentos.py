@@ -301,7 +301,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     207: "Tipo/Número de Inscrição Inválido. CPF ou CNPJ inválido.",
     208: "Código de Convênio Inválido",
     209: "Agência/Conta Corrente/DV Inválido",
-    210: "Nº Sequencial do Registro no Lote Inválido",
+    210: "Número Sequencial do Registro no Lote Inválido",
     211: "Código de Segmento de Detalhe Inválido",
     212: "Lançamento inconsistente.",
     213: "Nº Compe do Banco para crédito Inválido",
