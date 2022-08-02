@@ -449,7 +449,7 @@ ERROS_ESTORNO_PAGAMENTO_DICT = {
     25: "Erro no Preenchimento do Deposito Direto",
     26: "Devolc. de pagmnt de tributos por solicitação da IF",
     27: "Devolc de recolhimento a maior autorizada pela RFB",
-    28: "Credito não sacado - decurso de prazo estipulado",
+    28: "Crédito não sacado - decurso de prazo estipulado",
     31: "CPF/CNPJ inapto junto a receita federal do Brasil",
     61: "Transf supera limite para o tipo de conta destino",
     70: "Por solicitação de cliente da Inst Partcpt Receb",
