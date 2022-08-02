@@ -309,7 +309,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     215: "Agência Mantenedora da Conta Corrente do Favorecido Inválida",
     216: "Conta Corrente/DV/Conta de Pagamento do Favorecido Inválido",
     217: "Nome do Favorecido Não Informado",
-    218: "Data Lançamento Inválido",
+    218: "Data Lançamento Inválida",
     219: "Tipo/Quantidade da Moeda Inválido",
     220: "Valor do Lançamento Inválido",
     221: "Aviso ao Favorecido - Identificação Inválida",
