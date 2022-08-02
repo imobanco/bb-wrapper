@@ -447,7 +447,7 @@ ERROS_ESTORNO_PAGAMENTO_DICT = {
     22: "Devolução de ordem bancária pelo agente financeiro",
     24: "Erro no Preenchimento do Documento de Recolhimento",
     25: "Erro no Preenchimento do Depósito Direto",
-    26: "Devolc. de pagmnt de tributos por solicitação da IF",
+    26: "Devolução de pagamento de tributos por solicitação da IF",
     27: "Devolução de recolhimento a maior autorizada pela Receita Federal do Brasil",
     28: "Crédito não sacado - decurso de prazo estipulado",
     31: "CPF/CNPJ inapto junto a Receita Federal do Brasil",
