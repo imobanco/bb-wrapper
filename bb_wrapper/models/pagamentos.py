@@ -234,7 +234,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     64: "Nº de Identificação do Contribuinte não numérico",
     65: "Código de Identificação do Tributo não informado",
     66: "Período de apuração não informado",
-    67: "Numero de Referência não informado",
+    67: "Número de Referência não informado",
     68: "Valor Principal não é numérico",
     69: "Valor Principal não informado",
     70: "Valor da Multa não é numérico",
