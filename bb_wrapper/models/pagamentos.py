@@ -304,7 +304,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     210: "Número Sequencial do Registro no Lote Inválido",
     211: "Código de Segmento de Detalhe Inválido",
     212: "Lançamento inconsistente.",
-    213: "Nº Compe do Banco para crédito Inválido",
+    213: "Número Compe do Banco para crédito Inválido",
     214: "Nº do ISPB Banco, Instituição de Pagamento para crédito Inválido",
     215: "Agência Mantenedora da Conta Corrente do Favorecido Inválida",
     216: "Conta Corrente/DV/Conta de Pagamento do Favorecido Inválido",
