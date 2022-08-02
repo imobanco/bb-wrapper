@@ -430,7 +430,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
 }
 
 ERROS_ESTORNO_PAGAMENTO_DICT = {
-    1: "Conta destinatária do credito encerrada",
+    1: "Conta destinatária do crédito encerrada",
     2: "Agencia ou conta destinatária do credito invalida",
     3: "Ausência ou divergência na indicação do CPF/CNPJ",
     4: "Msg invalida p/ o tipo de transação ou finalidade",
