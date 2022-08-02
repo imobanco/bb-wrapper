@@ -319,7 +319,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     225: "Cidade do Favorecido Não Informada",
     226: "CEP/Complemento do Favorecido Inválido",
     227: "Sigla do Estado do Favorecido Inválida",
-    228: "Nº do Banco para crédito Inválido",
+    228: "Número do Banco para crédito Inválido",
     229: "Código/Nome da Agência Depositária Não Informado",
     230: "Seu Número Inválido",
     231: "Nosso Número Inválido",
