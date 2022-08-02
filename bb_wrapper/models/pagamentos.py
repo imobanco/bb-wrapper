@@ -315,7 +315,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     221: "Aviso ao Favorecido - Identificação Inválida",
     222: "Tipo/Número de Inscrição (CPF/CNPJ) do Favorecido Inválido.",
     223: "Logradouro do Favorecido Não Informado",
-    224: "Nº do Local do Favorecido Não Informado",
+    224: "Número do Local do Favorecido Não Informado",
     225: "Cidade do Favorecido Não Informada",
     226: "CEP/Complemento do Favorecido Inválido",
     227: "Sigla do Estado do Favorecido Inválida",
