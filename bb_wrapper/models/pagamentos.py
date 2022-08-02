@@ -439,7 +439,7 @@ ERROS_ESTORNO_PAGAMENTO_DICT = {
     7: "Diferença a maior",
     8: "Código identificador de transferência inválido",
     9: "Devolução por fraude",
-    15: "Identificação deposito Judicial Inválida",
+    15: "Identificação Depósito Judicial inválida",
     16: "Mensagem STRO020/PAG0116 fora do horário def do negócio",
     17: "Número de contrato inválido",
     18: "Valor em duplicidade",
