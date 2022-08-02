@@ -423,7 +423,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     329: "Sistema em contingência – Boleto valor maior que referência",
     330: "Sistema em contingência – Boleto vencido",
     331: "Sistema em contingência – Boleto indexado",
-    332: "Beneficiário divergente. ",
+    332: "Beneficiário divergente.",
     333: "Limite de pagamentos parciais do boleto excedido.",
     334: "Boleto já liquidado. Não passível de pagamento.",
     999: "Consultar o Banco para detalhar o erro",
