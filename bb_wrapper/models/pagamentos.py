@@ -281,7 +281,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     114: "Número de inscrição do beneficiário inválido. Informe um número válido.",
     115: "Número de inscrição do pagador inválido. Informe um número válido.",
     116: "Número de inscrição do avalista inválido. Informe um número válido.",
-    117: "Número de identifiação do contribuinte DARF inválido. Informe um número válido.",
+    117: "Número de identifiação do contribuinte DARF inválido. Informe um número válido.",  # noqa
     118: "Número de referência inválido. Informe um número válido.",
     119: "Valor principal inválido. Informe um valor válido.",
     120: "Valor da multa inválido. Informe um valor válido.",
