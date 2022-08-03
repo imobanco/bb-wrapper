@@ -286,7 +286,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     119: "Valor principal inválido. Informe um valor válido.",
     120: "Valor da multa inválido. Informe um valor válido.",
     121: "Valor dos juros/encargos inválido. Informe um valor válido.",
-    122: "Número de identificação do contribuinte GPS inválido. Informe um número válido.",
+    122: "Número de identificação do contribuinte GPS inválido. Informe um número válido.",  # noqa
     123: "Valor previsto do pagamento do INSS inválido. Informe um valor válido.",
     124: "Valor de outras entidades inválido. Informe um valor válido.",
     125: "Valor de atualização monetária inválido. Informe um valor válido.",
@@ -440,7 +440,7 @@ ERROS_ESTORNO_PAGAMENTO_DICT = {
     8: "Código identificador de transferência inválido",
     9: "Devolução por fraude",
     15: "Identificação Depósito Judicial inválida",
-    16: "Mensagem STRO020/PAG0116 fora do horário def do negócio",
+    16: "Mensagem STRO020/PAG0116 fora do horário definido do negócio",
     17: "Número de contrato inválido",
     18: "Valor em duplicidade",
     19: "Movimentações finceiras ligadas ao terrorismo e seu financiamento",
@@ -454,5 +454,5 @@ ERROS_ESTORNO_PAGAMENTO_DICT = {
     61: "Transferência supera limite para o tipo de conta destino",
     70: "Por solicitação de cliente da Inst Partcpt Receb",
     72: "Não conformidade no pagamento",
-    84: "Conta destino inválida para o tp de trans ou finalidade",
+    84: "Conta destino inválida para o tipo de transferência",
 }
