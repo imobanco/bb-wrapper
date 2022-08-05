@@ -15,12 +15,6 @@
         "original": "150.55"
     },
     "chave": "7f6844d0-de89-47e5-9ef7-e0a35a681615",
-    "infoAdicionais": [
-        {
-            "nome": "",
-            "valor": ""
-        }
-    ],
     "pix": [
         {
             "endToEndId": "E00000000202101051340RUWYYKPZTVB",
@@ -30,7 +24,7 @@
                 "cpf": "57217127831",
                 "nome": "VICTOR LOPES DORNELES"
             },
-            "horario": "2021-01-05T10:40:09.00-03:00"
+            "horario": "2021-01-05-10.40.09.000001"
         }
     ],
     "solicitacaoPagador": "Cobran\u00e7a dos servi\u00e7os prestados."

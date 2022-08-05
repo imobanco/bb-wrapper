@@ -1,5 +1,4 @@
 from decouple import config
-from enum import Enum
 
 
 IS_SANDBOX = config("IMOBANCO_BB_IS_SANDBOX", default=True, cast=bool)

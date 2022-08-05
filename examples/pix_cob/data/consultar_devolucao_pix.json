@@ -1,0 +1,7 @@
+{
+    "correlationId": "API-BB-503529c2-ce7d-415f-bacb-dcb8b65644cb",
+    "detail": "Devolu\u00e7\u00e3o representada por {id} n\u00e3o encontrada para o e2eid informado.",
+    "status": 404,
+    "title": "Not Found",
+    "type": "https://api.hm.bb.com.br/pix/v2/error/NaoEncontrado"
+}
