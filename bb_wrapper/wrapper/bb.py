@@ -104,14 +104,13 @@ class BaseBBWrapper(RequestsWrapper):
         }
         kwargs = dict(headers=header, verify=False, data=data)
 
-        if self.__login is None:
-            self.__login = requests.post(url, **kwargs)
-            self.__login = self._process_response(self.__login)
+        if self.__access_token is None:
+            response = requests.post(url, **kwargs)
+            response = self._process_response(self.__login)
+            self.__access_token = response.data["access_token"]
+            self.__token_type = response.data["token_type"]
 
-        self.__access_token = self.__login.data["access_token"]
-        self.__token_type = self.__login.data["token_type"]
-
-        return self.__login
+        return True
 
     def reauthenticate(self):
         """
