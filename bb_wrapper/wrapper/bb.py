@@ -85,7 +85,7 @@ class BaseBBWrapper(RequestsWrapper):
         """
         return f"{self.__token_type} {self.__access_token}"
 
-    def authenticate(self):
+    def __authenticate(self, force=False):
         """
         https://forum.developers.bb.com.br/t/status-code-415-unsupported-media-type-somente-em-producao/1123
 
@@ -106,7 +106,7 @@ class BaseBBWrapper(RequestsWrapper):
         }
         kwargs = dict(headers=header, verify=False, data=data)
 
-        if self.__access_token is None:
+        if self.__access_token is None or force is True:
             response = requests.post(url, **kwargs)
             response = self._process_response(response)
             self.__access_token = response.data["access_token"]
@@ -114,20 +114,14 @@ class BaseBBWrapper(RequestsWrapper):
 
         return True
 
-    def reauthenticate(self):
-        """
-        Reseta dados de login (access token e o tipo de token) e faz uma nova requisição de autenticação.
-        """
-        self.authenticate()
-
     def _delete(self, url, headers=None) -> requests.Response:
         try:
-            self.authenticate()
+            self.__authenticate()
             response = super()._delete(url, headers)
 
         except HTTPError as err:
             if err.response.status_code in self.UNAUTHORIZED:
-                self.reauthenticate()
+                self.__authenticate(force=True)
                 response = super()._delete(url, headers)
             else:
                 response = err.response
@@ -136,12 +130,12 @@ class BaseBBWrapper(RequestsWrapper):
 
     def _get(self, url, headers=None) -> requests.Response:
         try:
-            self.authenticate()
+            self.__authenticate()
             response = super()._get(url, headers)
 
         except HTTPError as err:
             if err.response.status_code in self.UNAUTHORIZED:
-                self.reauthenticate()
+                self.__authenticate(force=True)
                 response = super()._get(url, headers)
             else:
                 response = err.response
@@ -150,12 +144,12 @@ class BaseBBWrapper(RequestsWrapper):
 
     def _post(self, url, data, headers=None, use_json=True) -> requests.Response:
         try:
-            self.authenticate()
+            self.__authenticate()
             response = super()._post(url, data, headers, use_json)
 
         except HTTPError as err:
             if err.response.status_code in self.UNAUTHORIZED:
-                self.reauthenticate()
+                self.__authenticate(force=True)
                 response = super()._post(url, data, headers, use_json)
             else:
                 response = err.response
@@ -164,12 +158,12 @@ class BaseBBWrapper(RequestsWrapper):
 
     def _put(self, url, data, headers=None, use_json=True) -> requests.Response:
         try:
-            self.authenticate()
+            self.__authenticate()
             response = super()._put(url, data, headers, use_json)
 
         except HTTPError as err:
             if err.response.status_code in self.UNAUTHORIZED:
-                self.reauthenticate()
+                self.__authenticate(force=True)
                 response = super()._put(url, data, headers, use_json)
             else:
                 response = err.response
@@ -178,12 +172,12 @@ class BaseBBWrapper(RequestsWrapper):
 
     def _patch(self, url, data, headers=None, use_json=True) -> requests.Response:
         try:
-            self.authenticate()
+            self.__authenticate()
             response = super()._patch(url, data, headers, use_json)
 
         except HTTPError as err:
             if err.response.status_code in self.UNAUTHORIZED:
-                self.reauthenticate()
+                self.__authenticate(force=True)
                 response = super()._patch(url, data, headers, use_json)
             else:
                 response = err.response
