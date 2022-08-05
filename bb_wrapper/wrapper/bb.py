@@ -1,5 +1,5 @@
 from .request import RequestsWrapper, requests
-from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY, AuthorizationDeniedEnum
+from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY
 from requests import HTTPError
 
 
@@ -15,6 +15,8 @@ class BaseBBWrapper(RequestsWrapper):
     BASE_DOMAIN = ".bb.com.br"
 
     SCOPE = ""
+
+    UNAUTHORIZED = [401, 403]
 
     def __init__(
         self,
@@ -106,7 +108,7 @@ class BaseBBWrapper(RequestsWrapper):
 
         if self.__access_token is None:
             response = requests.post(url, **kwargs)
-            response = self._process_response(self.__login)
+            response = self._process_response(response)
             self.__access_token = response.data["access_token"]
             self.__token_type = response.data["token_type"]
 
@@ -116,7 +118,6 @@ class BaseBBWrapper(RequestsWrapper):
         """
         Reseta dados de login (access token e o tipo de token) e faz uma nova requisição de autenticação.
         """
-        self.__login = None
         self.authenticate()
 
     def _delete(self, url, headers=None) -> requests.Response:
@@ -125,7 +126,7 @@ class BaseBBWrapper(RequestsWrapper):
             response = super()._delete(url, headers)
 
         except HTTPError as err:
-            if err.response.status_code in AuthorizationDeniedEnum.values():
+            if err.response.status_code in self.UNAUTHORIZED:
                 self.reauthenticate()
                 response = super()._delete(url, headers)
             else:
@@ -139,7 +140,7 @@ class BaseBBWrapper(RequestsWrapper):
             response = super()._get(url, headers)
 
         except HTTPError as err:
-            if err.response.status_code in AuthorizationDeniedEnum.values():
+            if err.response.status_code in self.UNAUTHORIZED:
                 self.reauthenticate()
                 response = super()._get(url, headers)
             else:
@@ -153,7 +154,7 @@ class BaseBBWrapper(RequestsWrapper):
             response = super()._post(url, data, headers, use_json)
 
         except HTTPError as err:
-            if err.response.status_code in AuthorizationDeniedEnum.values():
+            if err.response.status_code in self.UNAUTHORIZED:
                 self.reauthenticate()
                 response = super()._post(url, data, headers, use_json)
             else:
@@ -167,7 +168,7 @@ class BaseBBWrapper(RequestsWrapper):
             response = super()._put(url, data, headers, use_json)
 
         except HTTPError as err:
-            if err.response.status_code in AuthorizationDeniedEnum.values():
+            if err.response.status_code in self.UNAUTHORIZED:
                 self.reauthenticate()
                 response = super()._put(url, data, headers, use_json)
             else:
@@ -181,7 +182,7 @@ class BaseBBWrapper(RequestsWrapper):
             response = super()._patch(url, data, headers, use_json)
 
         except HTTPError as err:
-            if err.response.status_code in AuthorizationDeniedEnum.values():
+            if err.response.status_code in self.UNAUTHORIZED:
                 self.reauthenticate()
                 response = super()._patch(url, data, headers, use_json)
             else:

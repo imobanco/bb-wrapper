@@ -25,12 +25,3 @@ AGENCIA = config("IMOBANCO_BB_AGENCIA", default="")
 
 CONTA = config("IMOBANCO_BB_CONTA", default="")
 """número da conta"""
-
-
-class AuthorizationDeniedEnum(Enum):
-    UNAUTHORIZED = 401
-    FORBIDDEN = 403
-
-    @staticmethod
-    def values():
-        return [status.value for status in AuthorizationDeniedEnum]
