@@ -1,5 +1,5 @@
 from .request import RequestsWrapper, requests
-from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY
+from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY, AuthorizationDeniedEnum
 from requests import HTTPError
 
 
@@ -126,43 +126,68 @@ class BaseBBWrapper(RequestsWrapper):
         try:
             self.authenticate()
             response = super()._delete(url, headers)
-        except HTTPError:
-            self.reauthenticate()
-            response = super()._delete(url, headers)
+
+        except HTTPError as err:
+            if err.response.status_code in AuthorizationDeniedEnum.values():
+                self.reauthenticate()
+                response = super()._delete(url, headers)
+            else:
+                response = err.response
+
         return response
 
     def _get(self, url, headers=None) -> requests.Response:
         try:
             self.authenticate()
             response = super()._get(url, headers)
-        except HTTPError:
-            self.reauthenticate()
-            response = super()._get(url, headers)
+
+        except HTTPError as err:
+            if err.response.status_code in AuthorizationDeniedEnum.values():
+                self.reauthenticate()
+                response = super()._get(url, headers)
+            else:
+                response = err.response
+
         return response
 
     def _post(self, url, data, headers=None, use_json=True) -> requests.Response:
         try:
             self.authenticate()
             response = super()._post(url, data, headers, use_json)
-        except HTTPError:
-            self.reauthenticate()
-            response = super()._post(url, data, headers, use_json)
+
+        except HTTPError as err:
+            if err.response.status_code in AuthorizationDeniedEnum.values():
+                self.reauthenticate()
+                response = super()._post(url, data, headers, use_json)
+            else:
+                response = err.response
+
         return response
 
     def _put(self, url, data, headers=None, use_json=True) -> requests.Response:
         try:
             self.authenticate()
             response = super()._put(url, data, headers, use_json)
-        except HTTPError:
-            self.reauthenticate()
-            response = super()._put(url, data, headers, use_json)
+
+        except HTTPError as err:
+            if err.response.status_code in AuthorizationDeniedEnum.values():
+                self.reauthenticate()
+                response = super()._put(url, data, headers, use_json)
+            else:
+                response = err.response
+
         return response
 
     def _patch(self, url, data, headers=None, use_json=True) -> requests.Response:
         try:
             self.authenticate()
             response = super()._patch(url, data, headers, use_json)
-        except HTTPError:
-            self.reauthenticate()
-            response = super()._patch(url, data, headers, use_json)
+
+        except HTTPError as err:
+            if err.response.status_code in AuthorizationDeniedEnum.values():
+                self.reauthenticate()
+                response = super()._patch(url, data, headers, use_json)
+            else:
+                response = err.response
+
         return response
