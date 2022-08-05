@@ -114,7 +114,7 @@ class BaseBBWrapper(RequestsWrapper):
 
         return True
 
-    def do_request(self, request_method, *args, **kwargs) -> requests.Response:
+    def __do_request(self, request_method, *args, **kwargs) -> requests.Response:
         try:
             self.__authenticate()
             response = request_method(*args, **kwargs)
@@ -129,16 +129,16 @@ class BaseBBWrapper(RequestsWrapper):
         return response
 
     def _delete(self, url, headers=None) -> requests.Response:
-        return self.do_request(super()._delete, url, headers)
+        return self.__do_request(super()._delete, url, headers)
 
     def _get(self, url, headers=None) -> requests.Response:
-        return self.do_request(super()._get, url, headers)
+        return self.__do_request(super()._get, url, headers)
 
     def _post(self, url, data, headers=None, use_json=True) -> requests.Response:
-        return self.do_request(super()._post, url, data, headers, use_json)
+        return self.__do_request(super()._post, url, data, headers, use_json)
 
     def _put(self, url, data, headers=None, use_json=True) -> requests.Response:
-        return self.do_request(super()._put, url, data, headers, use_json)
+        return self.__do_request(super()._put, url, data, headers, use_json)
 
     def _patch(self, url, data, headers=None, use_json=True) -> requests.Response:
-        return self.do_request(super()._patch, url, data, headers, use_json)
+        return self.__do_request(super()._patch, url, data, headers, use_json)
