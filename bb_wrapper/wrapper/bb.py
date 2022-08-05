@@ -39,8 +39,6 @@ class BaseBBWrapper(RequestsWrapper):
         self.__access_token = None
         self.__token_type = None
 
-        self.__login = None
-
         if self.__basic_token == "" or self.__gw_app_key == "":
             raise ValueError("Configure o basic_token/gw_app_key do BB!")
 
