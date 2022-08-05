@@ -1,5 +1,6 @@
 from .request import RequestsWrapper, requests
 from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY
+from requests import HTTPError
 
 
 class BaseBBWrapper(RequestsWrapper):
@@ -38,6 +39,8 @@ class BaseBBWrapper(RequestsWrapper):
         self.__access_token = None
         self.__token_type = None
 
+        self.__login = None
+
         if self.__basic_token == "" or self.__gw_app_key == "":
             raise ValueError("Configure o basic_token/gw_app_key do BB!")
 
@@ -66,7 +69,9 @@ class BaseBBWrapper(RequestsWrapper):
             url += "?"
         else:
             url += "&"
+
         url += f"gw-dev-app-key={self.__gw_app_key}"
+
         return url
 
     @property
@@ -101,8 +106,63 @@ class BaseBBWrapper(RequestsWrapper):
         }
         kwargs = dict(headers=header, verify=False, data=data)
 
-        response = requests.post(url, **kwargs)
-        response = self._process_response(response)
-        self.__access_token = response.data["access_token"]
-        self.__token_type = response.data["token_type"]
+        if self.__login is None:
+            self.__login = requests.post(url, **kwargs)
+            self.__login = self._process_response(self.__login)
+
+        self.__access_token = self.__login.data["access_token"]
+        self.__token_type = self.__login.data["token_type"]
+
+        return self.__login
+
+    def reauthenticate(self):
+        """
+        Reseta dados de login (access token e o tipo de token) e faz uma nova requisição de autenticação.
+        """
+        self.__login = None
+        self.authenticate()
+
+    def _delete(self, url, headers=None) -> requests.Response:
+        try:
+            self.authenticate()
+            response = super()._delete(url, headers)
+        except HTTPError:
+            self.reauthenticate()
+            response = super()._delete(url, headers)
+        return response
+
+    def _get(self, url, headers=None) -> requests.Response:
+        try:
+            self.authenticate()
+            response = super()._get(url, headers)
+        except HTTPError:
+            self.reauthenticate()
+            response = super()._get(url, headers)
+        return response
+
+    def _post(self, url, data, headers=None, use_json=True) -> requests.Response:
+        try:
+            self.authenticate()
+            response = super()._post(url, data, headers, use_json)
+        except HTTPError:
+            self.reauthenticate()
+            response = super()._post(url, data, headers, use_json)
+        return response
+
+    def _put(self, url, data, headers=None, use_json=True) -> requests.Response:
+        try:
+            self.authenticate()
+            response = super()._put(url, data, headers, use_json)
+        except HTTPError:
+            self.reauthenticate()
+            response = super()._put(url, data, headers, use_json)
+        return response
+
+    def _patch(self, url, data, headers=None, use_json=True) -> requests.Response:
+        try:
+            self.authenticate()
+            response = super()._patch(url, data, headers, use_json)
+        except HTTPError:
+            self.reauthenticate()
+            response = super()._patch(url, data, headers, use_json)
         return response

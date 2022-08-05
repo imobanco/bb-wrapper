@@ -51,6 +51,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         )
 
         url = self._construct_url("cancelar-pagamentos")
+
         data = {
             "agenciaDebito": agencia,
             "contaCorrenteDebito": conta,
@@ -60,8 +61,8 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         if convenio is not None:
             data["numeroContratoPagamento"] = convenio
 
-        self.authenticate()
         response = self._post(url, data)
+
         return response
 
     def liberar_pagamentos(self, n_requisicao, indicador_float="N"):
@@ -71,11 +72,13 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             indicador_float: Indicador de confirmação/concordância quanto ao
                 pagamento da tarifa de antecipação de float a ser calculada posteriormente  # noqa: E501
         """
-        self.authenticate()
         url = self._construct_url("liberar-pagamentos")
+
         data = {"numeroRequisicao": n_requisicao, "indicadorFloat": indicador_float}
         LiberarPagamentos(**data)
+
         response = self._post(url, data)
+
         return response
 
     def resgatar_lote(self, n_requisicao):
@@ -86,8 +89,9 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             n_requisicao: Nº da requisição do lote
         """
         url = self._construct_url(n_requisicao)
-        self.authenticate()
+
         response = self._get(url)
+
         return response
 
     def resgatar_lote_solicitacao(self, n_requisicao):
@@ -98,8 +102,9 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             n_requisicao: Nº da requisição do lote
         """
         url = self._construct_url(n_requisicao, "solicitacao")
-        self.authenticate()
+
         response = self._get(url)
+
         return response
 
     def listar_pagamentos(self, inicio, fim, status=None, index=0):
@@ -119,9 +124,11 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         }
         if status:
             search["estadoPagamento"] = status
+
         url = self._construct_url("pagamentos", search=search)
-        self.authenticate()
+
         response = self._get(url)
+
         return response
 
     ######################
@@ -253,14 +260,15 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
 
         url = self._construct_url("lotes-transferencias")
 
-        self.authenticate()
         response = self._post(url, data)
+
         return response
 
     def consultar_transferencia(self, _id):
         url = self._construct_url("transferencias", _id)
-        self.authenticate()
+
         response = self._get(url)
+
         return response
 
     ###############
@@ -364,14 +372,15 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
 
         url = self._construct_url("lotes-boletos")
 
-        self.authenticate()
         response = self._post(url, data)
+
         return response
 
     def consultar_pagamento_boleto(self, _id):
         url = self._construct_url("boletos", _id)
-        self.authenticate()
+
         response = self._get(url)
+
         return response
 
     ################
@@ -419,6 +428,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             "descricaoPagamento": descricao,
         }
         Tributo(**pagamento_data)
+
         return {**lote_data, "lancamentos": [{**pagamento_data}]}
 
     def cadastrar_pagamento_tributo(
@@ -461,12 +471,13 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
 
         url = self._construct_url("lotes-guias-codigo-barras")
 
-        self.authenticate()
         response = self._post(url, data)
+
         return response
 
     def consultar_pagamento_tributo(self, _id):
         url = self._construct_url("guias-codigo-barras", _id)
-        self.authenticate()
+
         response = self._get(url)
+
         return response

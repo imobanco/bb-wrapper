@@ -69,22 +69,25 @@ class CobrancasBBWrapper(BaseBBWrapper):
     def registra_boleto(self, data):
         """"""
         Boleto(**data)
-        self.authenticate()
+
         url = self._construct_url()
+
         response = self._post(url, data)
+
         self._injeta_b64_images(response)
+
         return response
 
     def consulta_boleto(self, our_number):
         """"""
-
         assert len(our_number) == 20, "O nósso número não tem 20 dígitos!"
 
-        self.authenticate()
         url = self._construct_url(
             our_number, search={"numeroConvenio": self.__convenio}
         )
+
         response = self._get(url)
+
         return response
 
     def lista_boletos(self, query=None, liquidados_flag=True):
@@ -97,19 +100,21 @@ class CobrancasBBWrapper(BaseBBWrapper):
         }
         if query is not None:
             query_data.update(query)
-        self.authenticate()
+
         url = self._construct_url(search=query_data)
+
         response = self._get(url)
+
         return response
 
     def baixa_boleto(self, our_number):
         """"""
-        self.authenticate()
         url = self._construct_url(our_number, "baixar")
 
         data = {"numeroConvenio": self.__convenio}
 
         response = self._post(url, data)
+
         return response
 
     def build_our_number(self, number):
@@ -161,4 +166,5 @@ class CobrancasBBWrapper(BaseBBWrapper):
                 default_data[field] = parse_unicode_to_alphanumeric(default_data[field])
             except KeyError:
                 pass
+
         return default_data
