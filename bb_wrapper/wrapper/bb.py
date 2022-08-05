@@ -114,72 +114,31 @@ class BaseBBWrapper(RequestsWrapper):
 
         return True
 
-    def _delete(self, url, headers=None) -> requests.Response:
+    def do_request(self, request_method, *args, **kwargs) -> requests.Response:
         try:
             self.__authenticate()
-            response = super()._delete(url, headers)
+            response = request_method(*args, **kwargs)
 
         except HTTPError as err:
             if err.response.status_code in self.UNAUTHORIZED:
                 self.__authenticate(force=True)
-                response = super()._delete(url, headers)
-            else:
-                response = err.response
+                return request_method(*args, **kwargs)
+
+            raise err
 
         return response
+
+    def _delete(self, url, headers=None) -> requests.Response:
+        return self.do_request(super()._delete, url, headers)
 
     def _get(self, url, headers=None) -> requests.Response:
-        try:
-            self.__authenticate()
-            response = super()._get(url, headers)
-
-        except HTTPError as err:
-            if err.response.status_code in self.UNAUTHORIZED:
-                self.__authenticate(force=True)
-                response = super()._get(url, headers)
-            else:
-                response = err.response
-
-        return response
+        return self.do_request(super()._get, url, headers)
 
     def _post(self, url, data, headers=None, use_json=True) -> requests.Response:
-        try:
-            self.__authenticate()
-            response = super()._post(url, data, headers, use_json)
-
-        except HTTPError as err:
-            if err.response.status_code in self.UNAUTHORIZED:
-                self.__authenticate(force=True)
-                response = super()._post(url, data, headers, use_json)
-            else:
-                response = err.response
-
-        return response
+        return self.do_request(super()._post, url, data, headers, use_json)
 
     def _put(self, url, data, headers=None, use_json=True) -> requests.Response:
-        try:
-            self.__authenticate()
-            response = super()._put(url, data, headers, use_json)
-
-        except HTTPError as err:
-            if err.response.status_code in self.UNAUTHORIZED:
-                self.__authenticate(force=True)
-                response = super()._put(url, data, headers, use_json)
-            else:
-                response = err.response
-
-        return response
+        return self.do_request(super()._put, url, data, headers, use_json)
 
     def _patch(self, url, data, headers=None, use_json=True) -> requests.Response:
-        try:
-            self.__authenticate()
-            response = super()._patch(url, data, headers, use_json)
-
-        except HTTPError as err:
-            if err.response.status_code in self.UNAUTHORIZED:
-                self.__authenticate(force=True)
-                response = super()._patch(url, data, headers, use_json)
-            else:
-                response = err.response
-
-        return response
+        return self.do_request(super()._patch, url, data, headers, use_json)
