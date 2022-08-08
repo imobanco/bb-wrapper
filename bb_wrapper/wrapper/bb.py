@@ -23,7 +23,7 @@ class BaseBBWrapper(RequestsWrapper):
     __data = threading.local()
 
     TOKEN_TIME_ERROR = 5  # 5 seconds
-    TOKEN_TIME = 10 * 60 - TOKEN_TIME_ERROR  # 10 minutes
+    TOKEN_EXPIRE_TIME = 10 * 60 - TOKEN_TIME_ERROR  # 10 minutes
 
     def __init__(
         self,
