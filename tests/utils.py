@@ -75,7 +75,7 @@ class MockedRequestsTestCase(TestCase):
             # noinspection PyCallByClass
             requests.Response.raise_for_status(response)
 
-        response.raise_for_status = raise_for_status
+        response.raise_for_status.side_effect = raise_for_status
         return response
 
 
