@@ -6,4 +6,4 @@ unidecode==1.1.*
 qrcode==6.1
 crc==1.0.0
 pycpfcnpj==1.5.1
-freezegun=1.1.0
+freezegun==1.1.0
