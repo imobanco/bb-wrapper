@@ -20,7 +20,7 @@ class BaseBBWrapper(RequestsWrapper):
 
     UNAUTHORIZED = [401, 403]
 
-    data = threading.local()
+    __data = threading.local()
 
     TOKEN_TIME_ERROR = 5  # 5 seconds
     TOKEN_TIME = 10 * 60 - TOKEN_TIME_ERROR  # 10 minutes
