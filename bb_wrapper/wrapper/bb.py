@@ -1,6 +1,7 @@
+import time
+
 from .request import RequestsWrapper, requests
 from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY
-from requests import HTTPError
 
 
 class BaseBBWrapper(RequestsWrapper):
@@ -17,6 +18,9 @@ class BaseBBWrapper(RequestsWrapper):
     SCOPE = ""
 
     UNAUTHORIZED = [401, 403]
+
+    TOKEN_TIME_ERROR = 5  # 5 seconds
+    TOKEN_TIME = 10 * 60 - TOKEN_TIME_ERROR  # 10 minutes
 
     def __init__(
         self,
@@ -40,6 +44,7 @@ class BaseBBWrapper(RequestsWrapper):
         self._is_sandbox = is_sandbox
         self.__access_token = None
         self.__token_type = None
+        self.__token_time = None
 
         if self.__basic_token == "" or self.__gw_app_key == "":
             raise ValueError("Configure o basic_token/gw_app_key do BB!")
@@ -111,21 +116,19 @@ class BaseBBWrapper(RequestsWrapper):
             response = self._process_response(response)
             self.__access_token = response.data["access_token"]
             self.__token_type = response.data["token_type"]
+            self.__token_time = time.time()
 
         return True
 
     def __do_request(self, request_method, *args, **kwargs) -> requests.Response:
-        try:
+        if self.__access_token is None:
             self.__authenticate()
-            response = request_method(*args, **kwargs)
-
-        except HTTPError as err:
-            if err.response.status_code in self.UNAUTHORIZED:
+        else:
+            elapsed_time = time.time() - self.__token_time
+            if elapsed_time >= self.TOKEN_TIME:
                 self.__authenticate(force_auth=True)
-                return request_method(*args, **kwargs)
 
-            raise err
-
+        response = request_method(*args, **kwargs)
         return response
 
     def _delete(self, url, headers=None) -> requests.Response:
