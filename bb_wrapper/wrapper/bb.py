@@ -114,8 +114,8 @@ class BaseBBWrapper(RequestsWrapper):
         if self.__access_token is None or force_auth is True:
             response = requests.post(url, **kwargs)
             response = self._process_response(response)
-            self.__access_token = response.data["access_token"]
-            self.__token_type = response.data["token_type"]
+            self.data.access_token = response.data["access_token"]
+            self.data.token_type = response.data["token_type"]
             self.__token_time = time.time()
 
         return True
