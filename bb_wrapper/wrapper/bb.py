@@ -106,7 +106,7 @@ class BaseBBWrapper(RequestsWrapper):
         }
         kwargs = dict(headers=header, verify=False, data=data)
 
-        if self.__access_token is None or force is True:
+        if self.__access_token is None or force_auth is True:
             response = requests.post(url, **kwargs)
             response = self._process_response(response)
             self.__access_token = response.data["access_token"]
