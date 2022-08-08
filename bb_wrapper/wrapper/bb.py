@@ -121,7 +121,7 @@ class BaseBBWrapper(RequestsWrapper):
 
         except HTTPError as err:
             if err.response.status_code in self.UNAUTHORIZED:
-                self.__authenticate(force=True)
+                self.__authenticate(force_auth=True)
                 return request_method(*args, **kwargs)
 
             raise err
