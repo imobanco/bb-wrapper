@@ -121,7 +121,6 @@ class BaseBBWrapper(RequestsWrapper):
             self.data.access_token = response.data["access_token"]
             self.data.token_type = response.data["token_type"]
             self.data.token_time = time.time()
-            print("\n >>>>>>>>>>>>>>> Login \n")
 
         return True
 
