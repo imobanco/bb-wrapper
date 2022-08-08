@@ -1,4 +1,5 @@
 import time
+import threading
 
 from .request import RequestsWrapper, requests
 from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY
@@ -18,7 +19,9 @@ class BaseBBWrapper(RequestsWrapper):
     SCOPE = ""
 
     UNAUTHORIZED = [401, 403]
+
     data = threading.local()
+
     TOKEN_TIME_ERROR = 5  # 5 seconds
     TOKEN_TIME = 10 * 60 - TOKEN_TIME_ERROR  # 10 minutes
 
@@ -42,9 +45,10 @@ class BaseBBWrapper(RequestsWrapper):
         self.__basic_token = basic_token
         self.__gw_app_key = gw_app_key
         self._is_sandbox = is_sandbox
-        self.__access_token = None
-        self.__token_type = None
-        self.__token_time = None
+
+        self.data.access_token = None
+        self.data.token_type = None
+        self.data.token_time = None
 
         if self.__basic_token == "" or self.__gw_app_key == "":
             raise ValueError("Configure o basic_token/gw_app_key do BB!")
@@ -88,7 +92,7 @@ class BaseBBWrapper(RequestsWrapper):
             string de autenticação para o header
             Authorization
         """
-        return f"{self.__token_type} {self.__access_token}"
+        return f"{self.data.token_type} {self.data.access_token}"
 
     def __authenticate(self, force_auth=False):
         """
@@ -111,20 +115,21 @@ class BaseBBWrapper(RequestsWrapper):
         }
         kwargs = dict(headers=header, verify=False, data=data)
 
-        if self.__access_token is None or force_auth is True:
+        if self.data.access_token is None or force_auth is True:
             response = requests.post(url, **kwargs)
             response = self._process_response(response)
             self.data.access_token = response.data["access_token"]
             self.data.token_type = response.data["token_type"]
-            self.__token_time = time.time()
+            self.data.token_time = time.time()
+            print("\n >>>>>>>>>>>>>>> Login \n")
 
         return True
 
     def __do_request(self, request_method, *args, **kwargs) -> requests.Response:
-        if self.__access_token is None:
+        if self.data.access_token is None:
             self.__authenticate()
         else:
-            elapsed_time = time.time() - self.__token_time
+            elapsed_time = time.time() - self.data.token_time
             if elapsed_time >= self.TOKEN_TIME:
                 self.__authenticate(force_auth=True)
 
