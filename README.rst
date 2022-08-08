@@ -78,6 +78,8 @@ Existem exemplos de utilização da biblioteca na pasta `examples`.
 Preparando ambiente de desenvolvimento
 =======================================
 
+> O NIX é utilizado para gerenciar os pacotes necessários, por exemplo como a versão correta do python.
+
 Certifique-se que o ambiente está ativado, se não estiver execute:
 
 .. code-block:: bash
