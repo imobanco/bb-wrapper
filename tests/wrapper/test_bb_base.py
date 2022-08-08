@@ -55,3 +55,37 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedBBTestCase):
             self.assertEqual(
                 bb_wrapper._BaseBBWrapper__data.access_token, "access_token2"
             )
+
+    def test_authentication_for_multiple_instances(self):
+        """
+        Teste para verificar se o token de autenticação é utilizado
+        por instâncias diferentes.
+
+        Dado:
+            -
+        Quando:
+            - 2 instâncias BaseBBWrapper realizarem requisições
+        Então:
+            - o dado de autenticação deve ser compartilhado
+            - o tempo de expiração deve ser igual
+        """
+        self.mocked_auth_requests.post.return_value = self.build_response_mock(
+            200, data={"access_token": "access_token", "token_type": "token_type"}
+        )
+
+        bb_wrapper1 = BaseBBWrapper()
+        bb_wrapper2 = BaseBBWrapper()
+
+        result1 = bb_wrapper1._BaseBBWrapper__authenticate()
+        result2 = bb_wrapper2._BaseBBWrapper__authenticate()
+
+        self.assertTrue(result1)
+        self.assertTrue(result2)
+
+        self.assertEqual(bb_wrapper1._BaseBBWrapper__data.access_token, "access_token")
+        self.assertEqual(bb_wrapper2._BaseBBWrapper__data.access_token, "access_token")
+
+        self.assertEqual(
+            bb_wrapper1._BaseBBWrapper__data.token_time,
+            bb_wrapper2._BaseBBWrapper__data.token_time,
+        )
