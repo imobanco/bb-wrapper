@@ -1,4 +1,5 @@
-from unittest.mock import patch
+from freezegun import freeze_time
+from datetime import timedelta
 
 from tests.utils import IsolatedEnvTestCase, MockedBBTestCase
 from bb_wrapper.wrapper.bb import BaseBBWrapper
@@ -39,17 +40,18 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedBBTestCase):
         result = bb_wrapper._BaseBBWrapper__authenticate()
 
         self.assertTrue(result)
-        self.assertEqual(bb_wrapper.data.access_token, "access_token1")
+        self.assertEqual(bb_wrapper._BaseBBWrapper__data.access_token, "access_token1")
 
-        with patch("bb_wrapper.wrapper.bb.time.time") as mocked_time:
-            mocked_time.return_value = (
-                bb_wrapper.data.token_time + bb_wrapper.TOKEN_TIME
+        expire_time = timedelta(seconds=bb_wrapper.TOKEN_EXPIRE_TIME)
+        time_travel = bb_wrapper._BaseBBWrapper__data.token_time + expire_time
+
+        with freeze_time(time_travel):
+            self.mocked_auth_requests.post.return_value = self.build_response_mock(
+                200, data={"access_token": "access_token2", "token_type": "token_type"}
             )
+            result = bb_wrapper._BaseBBWrapper__authenticate()
 
-        self.mocked_auth_requests.post.return_value = self.build_response_mock(
-            200, data={"access_token": "access_token2", "token_type": "token_type"}
-        )
-        result = bb_wrapper._BaseBBWrapper__authenticate(force_auth=True)
-
-        self.assertTrue(result)
-        self.assertEqual(bb_wrapper.data.access_token, "access_token2")
+            self.assertTrue(result)
+            self.assertEqual(
+                bb_wrapper._BaseBBWrapper__data.access_token, "access_token2"
+            )

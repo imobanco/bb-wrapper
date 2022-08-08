@@ -1,4 +1,4 @@
-import time
+from datetime import datetime
 import threading
 
 from .request import RequestsWrapper, requests
@@ -20,10 +20,9 @@ class BaseBBWrapper(RequestsWrapper):
 
     UNAUTHORIZED = [401, 403]
 
-    __data = threading.local()
+    TOKEN_EXPIRE_TIME = 10 * 60  # 10 minutes
 
-    TOKEN_TIME_ERROR = 5  # 5 seconds
-    TOKEN_EXPIRE_TIME = 10 * 60 - TOKEN_TIME_ERROR  # 10 minutes
+    __data = threading.local()
 
     def __init__(
         self,
@@ -46,9 +45,9 @@ class BaseBBWrapper(RequestsWrapper):
         self.__gw_app_key = gw_app_key
         self._is_sandbox = is_sandbox
 
-        self.data.access_token = None
-        self.data.token_type = None
-        self.data.token_time = None
+        self.__data.access_token = None
+        self.__data.token_type = None
+        self.__data.token_time = None
 
         if self.__basic_token == "" or self.__gw_app_key == "":
             raise ValueError("Configure o basic_token/gw_app_key do BB!")
@@ -92,9 +91,22 @@ class BaseBBWrapper(RequestsWrapper):
             string de autenticação para o header
             Authorization
         """
-        return f"{self.data.token_type} {self.data.access_token}"
+        return f"{self.__data.token_type} {self.__data.access_token}"
 
-    def __authenticate(self, force_auth=False):
+    def __should_authenticate(self):
+        """
+        A autenticação deve ser realizada se não houver Access Token
+        ou se o tempo do token estiver expirado.
+        """
+        elapsed_time = 0
+        if self.__data.token_time:
+            elapsed_time = datetime.now() - self.__data.token_time
+        return (
+            not self.__data.access_token
+            or elapsed_time.total_seconds() >= self.TOKEN_EXPIRE_TIME
+        )
+
+    def __authenticate(self):
         """
         https://forum.developers.bb.com.br/t/status-code-415-unsupported-media-type-somente-em-producao/1123
 
@@ -115,37 +127,31 @@ class BaseBBWrapper(RequestsWrapper):
         }
         kwargs = dict(headers=header, verify=False, data=data)
 
-        if self.data.access_token is None or force_auth is True:
+        if self.__should_authenticate():
             response = requests.post(url, **kwargs)
             response = self._process_response(response)
-            self.data.access_token = response.data["access_token"]
-            self.data.token_type = response.data["token_type"]
-            self.data.token_time = time.time()
+            self.__data.access_token = response.data["access_token"]
+            self.__data.token_type = response.data["token_type"]
+            self.__data.token_time = datetime.now()
 
         return True
 
-    def __do_request(self, request_method, *args, **kwargs) -> requests.Response:
-        if self.data.access_token is None:
-            self.__authenticate()
-        else:
-            elapsed_time = time.time() - self.data.token_time
-            if elapsed_time >= self.TOKEN_TIME:
-                self.__authenticate(force_auth=True)
-
-        response = request_method(*args, **kwargs)
-        return response
-
     def _delete(self, url, headers=None) -> requests.Response:
-        return self.__do_request(super()._delete, url, headers)
+        self.__authenticate()
+        return super()._delete(url, headers)
 
     def _get(self, url, headers=None) -> requests.Response:
-        return self.__do_request(super()._get, url, headers)
+        self.__authenticate()
+        return super()._get(url, headers)
 
     def _post(self, url, data, headers=None, use_json=True) -> requests.Response:
-        return self.__do_request(super()._post, url, data, headers, use_json)
+        self.__authenticate()
+        return super()._post(url, data, headers, use_json)
 
     def _put(self, url, data, headers=None, use_json=True) -> requests.Response:
-        return self.__do_request(super()._put, url, data, headers, use_json)
+        self.__authenticate()
+        return super()._put(url, data, headers, use_json)
 
     def _patch(self, url, data, headers=None, use_json=True) -> requests.Response:
-        return self.__do_request(super()._patch, url, data, headers, use_json)
+        self.__authenticate()
+        return super()._patch(url, data, headers, use_json)
