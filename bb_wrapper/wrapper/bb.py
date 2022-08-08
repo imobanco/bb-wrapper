@@ -85,7 +85,7 @@ class BaseBBWrapper(RequestsWrapper):
         """
         return f"{self.__token_type} {self.__access_token}"
 
-    def __authenticate(self, force=False):
+    def __authenticate(self, force_auth=False):
         """
         https://forum.developers.bb.com.br/t/status-code-415-unsupported-media-type-somente-em-producao/1123
 
