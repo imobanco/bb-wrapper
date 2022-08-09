@@ -86,14 +86,3 @@ Certifique-se que o ambiente está ativado, se não estiver execute:
 
     nix develop
 
-Criando variáveis de ambiente:
-
-.. code-block:: bash
-
-    make config.env
-
-Instalando dependências:
-
-.. code-block:: bash
-
-    make poetry.install
