@@ -22,8 +22,6 @@ class BaseBBWrapper(RequestsWrapper):
 
     TOKEN_EXPIRE_TIME = (10 * 60) - 30  # 9:30 minutos
 
-    __data = threading.local()
-
     def __init__(
         self,
         basic_token=None,
@@ -52,9 +50,19 @@ class BaseBBWrapper(RequestsWrapper):
 
         super().__init__(base_url=base_url, verify_https=verify_https, cert=cert)
 
+    def __new__(cls, *args, **kwargs):
+        try:
+            cls.__data[cls.__name__]
+        except AttributeError:
+            cls.__data = {}
+            cls.__data[cls.__name__] = threading.local()
+        except KeyError:
+            cls.__data[cls.__name__] = threading.local()
+        return super().__new__(cls)
+
     @classmethod
     def clear_data(cls):
-        cls.__data = threading.local()
+        cls.__data = {}
 
     def _construct_base_url(self):
         if self._is_sandbox:
@@ -91,40 +99,40 @@ class BaseBBWrapper(RequestsWrapper):
             string de autenticação para o header
             Authorization
         """
-        return f"{self.__token_type} {self.__access_token}"
+        return f"{self._token_type} {self._access_token}"
 
     @property
-    def __access_token(self):
+    def _access_token(self):
         try:
-            return self.__data.access_token
+            return self.__data[self.__class__.__name__].access_token
         except AttributeError:
             return None
 
-    @__access_token.setter
-    def __access_token(self, value):
-        self.__data.access_token = value
+    @_access_token.setter
+    def _access_token(self, access_token):
+        self.__data[self.__class__.__name__].access_token = access_token
 
     @property
-    def __token_type(self):
+    def _token_type(self):
         try:
-            return self.__data.token_type
+            return self.__data[self.__class__.__name__].token_type
         except AttributeError:
             return None
 
-    @__token_type.setter
-    def __token_type(self, value):
-        self.__data.token_type = value
+    @_token_type.setter
+    def _token_type(self, token_type):
+        self.__data[self.__class__.__name__].token_type = token_type
 
     @property
-    def __token_time(self):
+    def _token_time(self):
         try:
-            return self.__data.token_time
+            return self.__data[self.__class__.__name__].token_time
         except AttributeError:
             return None
 
-    @__token_time.setter
-    def __token_time(self, value):
-        self.__data.token_time = value
+    @_token_time.setter
+    def _token_time(self, token_time):
+        self.__data[self.__class__.__name__].token_time = token_time
 
     def __should_authenticate(self):
         """
@@ -132,11 +140,11 @@ class BaseBBWrapper(RequestsWrapper):
         ou se o tempo do token estiver expirado.
         """
         try:
-            elapsed_time = datetime.now() - self.__token_time
+            elapsed_time = datetime.now() - self._token_time
             is_token_expired = elapsed_time.total_seconds() >= self.TOKEN_EXPIRE_TIME
         except TypeError:
             is_token_expired = False
-        is_token_missing = not self.__access_token
+        is_token_missing = not self._access_token
         return is_token_missing or is_token_expired
 
     def __authenticate(self):
@@ -163,9 +171,9 @@ class BaseBBWrapper(RequestsWrapper):
         if self.__should_authenticate():
             response = requests.post(url, **kwargs)
             response = self._process_response(response)
-            self.__access_token = response.data["access_token"]
-            self.__token_type = response.data["token_type"]
-            self.__token_time = datetime.now()
+            self._access_token = response.data["access_token"]
+            self._token_type = response.data["token_type"]
+            self._token_time = datetime.now()
 
         return True
 

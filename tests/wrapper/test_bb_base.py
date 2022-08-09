@@ -40,16 +40,16 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         result = bb_wrapper._BaseBBWrapper__authenticate()
 
         self.assertTrue(result)
-        self.assertEqual(bb_wrapper._BaseBBWrapper__access_token, "token_1")
+        self.assertEqual(bb_wrapper._access_token, "token_1")
 
         expire_time = timedelta(seconds=bb_wrapper.TOKEN_EXPIRE_TIME)
-        time_travel = bb_wrapper._BaseBBWrapper__token_time + expire_time
+        time_travel = bb_wrapper._token_time + expire_time
 
         with freeze_time(time_travel):
             result = bb_wrapper._BaseBBWrapper__authenticate()
 
             self.assertTrue(result)
-            self.assertEqual(bb_wrapper._BaseBBWrapper__access_token, "token_2")
+            self.assertEqual(bb_wrapper._access_token, "token_2")
 
     def test_authentication_for_multiple_instances(self):
         """
@@ -73,12 +73,12 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         self.assertTrue(result1)
         self.assertTrue(result2)
 
-        self.assertEqual(bb_wrapper1._BaseBBWrapper__access_token, "token_1")
-        self.assertEqual(bb_wrapper2._BaseBBWrapper__access_token, "token_1")
+        self.assertEqual(bb_wrapper1._access_token, "token_1")
+        self.assertEqual(bb_wrapper2._access_token, "token_1")
 
         self.assertEqual(
-            bb_wrapper1._BaseBBWrapper__token_time,
-            bb_wrapper2._BaseBBWrapper__token_time,
+            bb_wrapper1._token_time,
+            bb_wrapper2._token_time,
         )
 
     def test_multiple_wrappers(self):
@@ -96,11 +96,11 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         wrapper2 = PIXCobBBWrapper()
 
         self.assertNotEqual(
-            wrapper1._BaseBBWrapper__data,
-            wrapper2._BaseBBWrapper__data,
+            wrapper1._BaseBBWrapper__data['BaseBBWrapper'],
+            wrapper2._BaseBBWrapper__data['PIXCobBBWrapper'],
         )
 
         wrapper1._BaseBBWrapper__authenticate()
-        self.assertEqual(wrapper1._BaseBBWrapper__access_token, "token_1")
+        self.assertEqual(wrapper1._access_token, "token_1")
 
-        self.assertEqual(wrapper2._BaseBBWrapper__access_token, None)
+        self.assertEqual(wrapper2._access_token, None)
