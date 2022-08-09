@@ -98,12 +98,14 @@ class BaseBBWrapper(RequestsWrapper):
         A autenticação deve ser realizada se não houver Access Token
         ou se o tempo do token estiver expirado.
         """
-        elapsed_time = 0
-        if self.__data.token_time:
+        try:
             elapsed_time = datetime.now() - self.__data.token_time
+            is_token_expired = elapsed_time.total_seconds() >= self.TOKEN_EXPIRE_TIME
+        except Exception:
+            is_token_expired = False
+        is_token_missing = not self.__data.access_token
         return (
-            not self.__data.access_token
-            or elapsed_time.total_seconds() >= self.TOKEN_EXPIRE_TIME
+            is_token_missing or is_token_expired
         )
 
     def __authenticate(self):
