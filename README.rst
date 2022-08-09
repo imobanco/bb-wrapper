@@ -84,7 +84,7 @@ Certifique-se que o ambiente está ativado, se não estiver execute:
 
 .. code-block:: bash
 
-    direnv allow
+    nix develop
 
 Criando variáveis de ambiente:
 
