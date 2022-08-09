@@ -56,6 +56,10 @@ class BaseBBWrapper(RequestsWrapper):
 
         super().__init__(base_url=base_url, verify_https=verify_https, cert=cert)
 
+    @classmethod
+    def clear_data(cls):
+        cls.__data = threading.local()
+
     def _construct_base_url(self):
         if self._is_sandbox:
             addition = self.BASE_SANDBOX_ADDITION
