@@ -18,7 +18,6 @@ class BaseBBWrapper(RequestsWrapper):
 
     SCOPE = ""
 
-    UNAUTHORIZED = [401, 403]
 
     TOKEN_EXPIRE_TIME = (10 * 60) - 30  # 9:30 minutos
 
