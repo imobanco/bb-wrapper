@@ -12,8 +12,8 @@ class BaseBBWrapper(RequestsWrapper):
 
     BASE_SCHEMA = "https://"
     BASE_SUBDOMAIN = "api"
-    BASE_SANDBOX_ADITION = ".sandbox"
-    BASE_PROD_ADITION = ""
+    BASE_SANDBOX_ADDITION = ".sandbox"
+    BASE_PROD_ADDITION = ""
     BASE_DOMAIN = ".bb.com.br"
 
     SCOPE = ""
@@ -57,13 +57,13 @@ class BaseBBWrapper(RequestsWrapper):
 
     def _construct_base_url(self):
         if self._is_sandbox:
-            adition = self.BASE_SANDBOX_ADITION
+            addition = self.BASE_SANDBOX_ADDITION
         else:
-            adition = self.BASE_PROD_ADITION
+            addition = self.BASE_PROD_ADDITION
         base_url = (
             f"{self.BASE_SCHEMA}"
             f"{self.BASE_SUBDOMAIN}"
-            f"{adition}"
+            f"{addition}"
             f"{self.BASE_DOMAIN}"
         )
         return base_url
