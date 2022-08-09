@@ -23,6 +23,9 @@ class BaseBBWrapper(RequestsWrapper):
     TOKEN_EXPIRE_TIME = (10 * 60) - 30  # 9:30 minutos
 
     __data = threading.local()
+    __data.access_token = None
+    __data.token_type = None
+    __data.token_time = None
 
     def __init__(
         self,
@@ -44,10 +47,6 @@ class BaseBBWrapper(RequestsWrapper):
         self.__basic_token = basic_token
         self.__gw_app_key = gw_app_key
         self._is_sandbox = is_sandbox
-
-        self.__data.access_token = None
-        self.__data.token_type = None
-        self.__data.token_time = None
 
         if self.__basic_token == "" or self.__gw_app_key == "":
             raise ValueError("Configure o basic_token/gw_app_key do BB!")
@@ -101,12 +100,10 @@ class BaseBBWrapper(RequestsWrapper):
         try:
             elapsed_time = datetime.now() - self.__data.token_time
             is_token_expired = elapsed_time.total_seconds() >= self.TOKEN_EXPIRE_TIME
-        except Exception:
+        except TypeError:
             is_token_expired = False
         is_token_missing = not self.__data.access_token
-        return (
-            is_token_missing or is_token_expired
-        )
+        return is_token_missing or is_token_expired
 
     def __authenticate(self):
         """
