@@ -68,7 +68,7 @@ class MockedRequestsTestCase(TestCase):
     def clear_data(self):
         from bb_wrapper.wrapper.bb import BaseBBWrapper
 
-        BaseBBWrapper().clear_data()
+        BaseBBWrapper().reset_data()
 
     @staticmethod
     def build_response_mock(status_code=200, data=None, content=None):
@@ -105,7 +105,8 @@ class MockedRequestsTestCase(TestCase):
 
     def _get_headers(self):
         return {
-            "Authorization": f"token_type token_{self.mocked_auth_requests.post.call_count}",
+            "Authorization": f"token_type token_"
+            f"{self.mocked_auth_requests.post.call_count}",
             "Content-type": "application/json",
         }
 

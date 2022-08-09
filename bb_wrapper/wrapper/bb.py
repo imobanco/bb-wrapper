@@ -51,18 +51,42 @@ class BaseBBWrapper(RequestsWrapper):
         super().__init__(base_url=base_url, verify_https=verify_https, cert=cert)
 
     def __new__(cls, *args, **kwargs):
-        try:
-            cls.__data[cls.__name__]
-        except AttributeError:
-            cls.__data = {}
-            cls.__data[cls.__name__] = threading.local()
-        except KeyError:
-            cls.__data[cls.__name__] = threading.local()
+        cls.reset_data()
         return super().__new__(cls)
 
     @classmethod
-    def clear_data(cls):
-        cls.__data = {}
+    def reset_data(cls):
+        """
+        Quando se fala de múltiplas classes com herança fazer:
+            >>> setattr(cls, f'_{cls.__name__}__data', threading.local())
+
+        tem comportamento diferente de
+            >>> cls.__data = threading.local()
+
+        Testado com BaseBBWrapper e PIXCobBBWrapper!
+
+        Mesmo na classe filha (PIXCobBBWrapper), o
+        'cls.__data' é traduzido para '_BaseBBWrapper__data' ao invés
+        de '_PIXCobBBWrapper__data'!
+        """
+        setattr(cls, f"_{cls.__name__}__data", threading.local())
+
+    @property
+    def _data(self):
+        """
+        Quando se fala de múltiplas classes com herança fazer:
+            >>> getattr(self, f"_{self.__class__.__name__}__data", None)
+
+        tem comportamento diferente de
+            >>> self.__data
+
+        Testado com BaseBBWrapper e PIXCobBBWrapper!
+
+        Mesmo na classe filha (PIXCobBBWrapper), o
+        'self.__data' é traduzido para '_BaseBBWrapper__data' ao invés
+        de '_PIXCobBBWrapper__data'!
+        """
+        return getattr(self, f"_{self.__class__.__name__}__data", None)
 
     def _construct_base_url(self):
         if self._is_sandbox:
@@ -104,35 +128,35 @@ class BaseBBWrapper(RequestsWrapper):
     @property
     def _access_token(self):
         try:
-            return self.__data[self.__class__.__name__].access_token
+            return self._data.access_token
         except AttributeError:
             return None
 
     @_access_token.setter
     def _access_token(self, access_token):
-        self.__data[self.__class__.__name__].access_token = access_token
+        self._data.access_token = access_token
 
     @property
     def _token_type(self):
         try:
-            return self.__data[self.__class__.__name__].token_type
+            return self._data.token_type
         except AttributeError:
             return None
 
     @_token_type.setter
     def _token_type(self, token_type):
-        self.__data[self.__class__.__name__].token_type = token_type
+        self._data.token_type = token_type
 
     @property
     def _token_time(self):
         try:
-            return self.__data[self.__class__.__name__].token_time
+            return self._data.token_time
         except AttributeError:
             return None
 
     @_token_time.setter
     def _token_time(self, token_time):
-        self.__data[self.__class__.__name__].token_time = token_time
+        self._data.token_time = token_time
 
     def __should_authenticate(self):
         """

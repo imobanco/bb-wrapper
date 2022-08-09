@@ -4,8 +4,6 @@ from datetime import timedelta
 from tests.utils import IsolatedEnvTestCase, MockedRequestsTestCase
 from bb_wrapper.wrapper.bb import BaseBBWrapper
 from bb_wrapper.wrapper.pix_cob import PIXCobBBWrapper
-from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
-from bb_wrapper.wrapper.pagamento_lote import PagamentoLoteBBWrapper
 
 
 class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
@@ -96,8 +94,8 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         wrapper2 = PIXCobBBWrapper()
 
         self.assertNotEqual(
-            wrapper1._BaseBBWrapper__data['BaseBBWrapper'],
-            wrapper2._BaseBBWrapper__data['PIXCobBBWrapper'],
+            wrapper1._data,
+            wrapper2._data,
         )
 
         wrapper1._BaseBBWrapper__authenticate()
