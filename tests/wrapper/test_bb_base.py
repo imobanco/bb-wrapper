@@ -3,6 +3,9 @@ from datetime import timedelta
 
 from tests.utils import IsolatedEnvTestCase, MockedRequestsTestCase
 from bb_wrapper.wrapper.bb import BaseBBWrapper
+from bb_wrapper.wrapper.pix_cob import PIXCobBBWrapper
+from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
+from bb_wrapper.wrapper.pagamento_lote import PagamentoLoteBBWrapper
 
 
 class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
@@ -77,3 +80,27 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
             bb_wrapper1._BaseBBWrapper__token_time,
             bb_wrapper2._BaseBBWrapper__token_time,
         )
+
+    def test_multiple_wrappers(self):
+        """
+        Dado:
+            - um wrapper BaseBBWrapper
+            - outro wrapper PIXCobBBWrapper
+        quando:
+            - BaseBBWrapper se autenticar
+            - PIXCobBBWrapper se autenticar
+        então:
+            - cada wrapper deve ter um token diferente
+        """
+        wrapper1 = BaseBBWrapper()
+        wrapper2 = PIXCobBBWrapper()
+
+        self.assertNotEqual(
+            wrapper1._BaseBBWrapper__data,
+            wrapper2._BaseBBWrapper__data,
+        )
+
+        wrapper1._BaseBBWrapper__authenticate()
+        self.assertEqual(wrapper1._BaseBBWrapper__access_token, "token_1")
+
+        self.assertEqual(wrapper2._BaseBBWrapper__access_token, None)
