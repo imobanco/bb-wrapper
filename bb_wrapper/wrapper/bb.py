@@ -18,7 +18,6 @@ class BaseBBWrapper(RequestsWrapper):
 
     SCOPE = ""
 
-
     TOKEN_EXPIRE_TIME = (10 * 60) - 30  # 9:30 minutos
 
     def __init__(
