@@ -67,8 +67,14 @@ class MockedRequestsTestCase(TestCase):
 
     def clear_data(self):
         from bb_wrapper.wrapper.bb import BaseBBWrapper
+        from bb_wrapper.wrapper.pagamento_lote import PagamentoLoteBBWrapper
+        from bb_wrapper.wrapper.pix_cob import PIXCobBBWrapper
+        from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
         BaseBBWrapper().reset_data()
+        PagamentoLoteBBWrapper().reset_data()
+        PIXCobBBWrapper().reset_data()
+        CobrancasBBWrapper().reset_data()
 
     @staticmethod
     def build_response_mock(status_code=200, data=None, content=None):
