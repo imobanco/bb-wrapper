@@ -5,7 +5,13 @@ on:
     types: [created]
   push:
     branches:
-      - '*'
+      - main
+  pull_request:
+    branchs:
+      - 'feature/**'
+      - 'hotfix/**'
+      - 'release/**'
+
 
 jobs:
   deploy:
