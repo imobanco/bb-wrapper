@@ -63,15 +63,13 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
             - o tempo de expiração deve ser igual
         """
         bb_wrapper1 = BaseBBWrapper()
-        bb_wrapper2 = BaseBBWrapper()
-
         result1 = bb_wrapper1._BaseBBWrapper__authenticate()
-        result2 = bb_wrapper2._BaseBBWrapper__authenticate()
-
-        self.assertTrue(result1)
-        self.assertTrue(result2)
-
+        self.assertEqual(result1, True)
         self.assertEqual(bb_wrapper1._access_token, "token_1")
+
+        bb_wrapper2 = BaseBBWrapper()
+        result2 = bb_wrapper2._BaseBBWrapper__authenticate()
+        self.assertEqual(result2, False)
         self.assertEqual(bb_wrapper2._access_token, "token_1")
 
         self.assertEqual(
