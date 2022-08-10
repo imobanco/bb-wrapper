@@ -2,9 +2,10 @@ poetry.install:
 	poetry install
 
 poetry.config.native:
-	poetry config virtualenvs.in-project false
+	poetry config virtualenvs.create false
 
 poetry.config.venv:
+	poetry config virtualenvs.create true
 	poetry config virtualenvs.in-project true
 	poetry config virtualenvs.path .
 
