@@ -3,6 +3,9 @@ name: pypi deploy
 on:
   release:
     types: [created]
+  push:
+    branches:
+      - '*'
 
 jobs:
   deploy:
@@ -24,13 +27,14 @@ jobs:
       run: |
         make poetry.config.native
         make poetry.install
+        pip install wheel
 
     - name: build package
       run: make package.build
-
-    - name: deploy package
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-      run: twine upload dist/*
-      
+#
+#    - name: deploy package
+#      env:
+#        TWINE_USERNAME: __token__
+#        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+#      run: twine upload dist/*
+#
