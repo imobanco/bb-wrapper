@@ -5,4 +5,4 @@ from .services import (  # noqa: F401
 )
 from .wrapper import CobrancasBBWrapper  # noqa: F401
 
-__version__ = '0.0.0'
+__version__ = "0.0.0"
