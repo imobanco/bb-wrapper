@@ -25,14 +25,12 @@ jobs:
       run: |
         make poetry.config.native
         make poetry.install
-        pip install wheel packaging
 
     - name: build package
       run: make package.build
 
     - name: deploy package
       env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-      run: twine upload dist/*
+        PASSWORD: ${{ secrets.PYPI_TOKEN }}
+      run: make package.publish PASSWORD=$PASSWORD
 
