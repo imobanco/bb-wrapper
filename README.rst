@@ -53,6 +53,7 @@ API's
 - ☑ API PIX (recebimento PIX) {essa API ainda está instável e incompleta no BB}
 - ☐ API Arrecadação PIX {sem previsão de implementação}
 - ☑ API Lotes de Pagamentos {essa API ainda está instável e incompleta no BB}
+
   - ☐ Transferência PIX
   - ☑ Transferência Bancária
   - ☐ Pagamento GPS
@@ -73,3 +74,15 @@ Recursos auxiliares
 Exemplos disponíveis
 =====================
 Existem exemplos de utilização da biblioteca na pasta `examples`.
+
+Preparando ambiente de desenvolvimento
+=======================================
+
+> O Nix é utilizado para gerenciar os pacotes necessários, por exemplo como a versão correta do python.
+
+Certifique-se que o ambiente está ativado, se não estiver execute:
+
+.. code-block:: bash
+
+    nix develop
+

@@ -59,6 +59,22 @@ class MockedRequestsTestCase(TestCase):
         self.mocked_put = self.mocked_requests.put
         self.mocked_patch = self.mocked_requests.patch
         self.mocked_delete = self.mocked_requests.delete
+        self.set_auth()
+
+    def tearDown(self):
+        super().tearDown()
+        self.clear_data()
+
+    def clear_data(self):
+        from bb_wrapper.wrapper.bb import BaseBBWrapper
+        from bb_wrapper.wrapper.pagamento_lote import PagamentoLoteBBWrapper
+        from bb_wrapper.wrapper.pix_cob import PIXCobBBWrapper
+        from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
+
+        BaseBBWrapper().reset_data()
+        PagamentoLoteBBWrapper().reset_data()
+        PIXCobBBWrapper().reset_data()
+        CobrancasBBWrapper().reset_data()
 
     @staticmethod
     def build_response_mock(status_code=200, data=None, content=None):
@@ -75,30 +91,28 @@ class MockedRequestsTestCase(TestCase):
             # noinspection PyCallByClass
             requests.Response.raise_for_status(response)
 
-        response.raise_for_status = raise_for_status
+        response.raise_for_status.side_effect = raise_for_status
         return response
 
-
-class MockedBBTestCase(MockedRequestsTestCase):
-    def setUp(self):
-        super().setUp()
-
-        self.auth_requests_patcher = patch("bb_wrapper.wrapper.bb.requests")
-
-        self.mocked_auth_requests = self.auth_requests_patcher.start()
-
-        self.addCleanup(self.auth_requests_patcher.stop)
-
-        self.set_auth()
-
     def set_auth(self):
-        self.mocked_auth_requests.post.return_value = self.build_response_mock(
-            200, data={"access_token": "access_token", "token_type": "token_type"}
-        )
+        self.mocked_auth_requests.post.reset_mock()
+
+        def request_auth(*args, **kwargs):
+            call_count = self.mocked_auth_requests.post.call_count
+            return self.build_response_mock(
+                200,
+                data={
+                    "access_token": f"token_{call_count}",
+                    "token_type": "token_type",
+                },
+            )
+
+        self.mocked_auth_requests.post.side_effect = request_auth
 
     def _get_headers(self):
         return {
-            "Authorization": "token_type access_token",
+            "Authorization": f"token_type token_"
+            f"{self.mocked_auth_requests.post.call_count}",
             "Content-type": "application/json",
         }
 

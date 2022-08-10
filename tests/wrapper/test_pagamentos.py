@@ -7,12 +7,12 @@ from bb_wrapper.wrapper.pagamento_lote import (
     LoteData,
 )
 from tests.utils import (
-    MockedBBTestCase,
+    MockedRequestsTestCase,
     IsolatedEnvTestCase,
 )
 
 
-class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedBBTestCase):
+class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
     maxDiff = None
 
     def test_construct_url_1(self):

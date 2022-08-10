@@ -16,12 +16,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions/setup-python@v1
+      - name: Set up Python
+        uses: actions/setup-python@v1
         with:
           python-version: 3.8
 
+      - name: Set up Poetry
+        uses: Gr1N/setup-poetry@v7
+        with:
+          poetry-version: 1.1.8
+
       - name: Install dependencies
-        run: make pip.install
+        run: |
+          make poetry.config.native
+          make poetry.install
 
       - name: Lint code with black
         run: make fmt.check
@@ -41,8 +49,15 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
 
+      - name: Set up Poetry
+        uses: Gr1N/setup-poetry@v7
+        with:
+          poetry-version: 1.1.8
+
       - name: Install dependencies
-        run: make pip.install
+        run: |
+          make poetry.config.native
+          make poetry.install
 
       - name: Config env
         run: make config.env
@@ -56,12 +71,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions/setup-python@v1
+      - name: Set up Python
+        uses: actions/setup-python@v1
         with:
           python-version: 3.8
 
+      - name: Set up Poetry
+        uses: Gr1N/setup-poetry@v7
+        with:
+          poetry-version: 1.1.8
+
       - name: Install dependencies
-        run: make pip.install
+        run: |
+          make poetry.config.native
+          make poetry.install
 
       - name: Config env
         run: make config.env

@@ -32,8 +32,6 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
         url = self._construct_url(end_bar=True, search=search)
 
-        self.authenticate()
-
         response = self._get(url)
 
         return response
@@ -46,8 +44,6 @@ class PIXCobBBWrapper(BaseBBWrapper):
             end_to_end_id: identificador end_to_end do pix
         """
         url = self._construct_url("pix", end_to_end_id)
-
-        self.authenticate()
 
         response = self._get(url)
 
@@ -64,8 +60,6 @@ class PIXCobBBWrapper(BaseBBWrapper):
         """
         url = self._construct_url("pix", end_to_end_id, "devolucao", txid)
 
-        self.authenticate()
-
         response = self._put(url, {"valor": valor})
 
         return response
@@ -79,8 +73,6 @@ class PIXCobBBWrapper(BaseBBWrapper):
             txid: identificador único da devolução
         """
         url = self._construct_url("pix", end_to_end_id, "devolucao", txid)
-
-        self.authenticate()
 
         response = self._get(url)
 
@@ -123,7 +115,6 @@ class PIXCobBBWrapper(BaseBBWrapper):
             "chave": chave,
             "solicitacaoPagador": descricao,
         }
-
         if info is not None:
             data["infoAdicionais"] = info
 
@@ -166,8 +157,6 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
         url = self._construct_url("cob", end_bar=True)
 
-        self.authenticate()
-
         response = self._put(url, data)
 
         self._injeta_qrcode_data(response, nome_recebedor)
@@ -200,9 +189,8 @@ class PIXCobBBWrapper(BaseBBWrapper):
         data = self._create_and_validate_cobranca_data(
             expiracao, chave, documento_devedor, nome_devedor, valor, descricao, info
         )
-        url = self._construct_url("cobqrcode", end_bar=True)
 
-        self.authenticate()
+        url = self._construct_url("cobqrcode", end_bar=True)
 
         response = self._put(url, data)
 
@@ -218,8 +206,6 @@ class PIXCobBBWrapper(BaseBBWrapper):
             txid: identificador único da cobrança
         """
         url = self._construct_url("cob", txid)
-
-        self.authenticate()
 
         response = self._get(url)
 
