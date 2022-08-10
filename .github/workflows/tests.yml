@@ -27,7 +27,11 @@ jobs:
           poetry-version: 1.1.8
 
       - name: Install dependencies
-        run: poetry install
+        run: |
+          poetry config --list
+          make poetry.config.native
+          poetry config --list
+          make poetry.install
 
       - name: Lint code with black
         run: make fmt.check
