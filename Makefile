@@ -14,7 +14,7 @@ poetry.config.venv:
 bump.version:
 	echo $(V)
 	poetry version $(V)
-	sed "s/__version__ = '0.0.0'/__version__ = '$(V)'/" -i bb_wrapper/_version.py
+	sed "s/__version__ = '0.0.0'/__version__ = '$(V)'/" -i bb_wrapper/__init__.py
 
 config.env:
 	cp .env.sample .env
