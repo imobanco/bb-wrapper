@@ -27,7 +27,7 @@ jobs:
           poetry-version: 1.1.8
 
       - name: Install dependencies
-        run: make poetry.install
+        run: poetry install
 
       - name: Lint code with black
         run: make fmt.check
@@ -53,7 +53,7 @@ jobs:
           poetry-version: 1.1.8
 
       - name: Install dependencies
-        run: make poetry.install
+        run: poetry install
 
       - name: Config env
         run: make config.env
@@ -78,7 +78,7 @@ jobs:
           poetry-version: 1.1.8
 
       - name: Install dependencies
-        run: make poetry.install
+        run: poetry install
 
       - name: Config env
         run: make config.env
