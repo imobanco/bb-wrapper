@@ -9,6 +9,10 @@ poetry.config.venv:
 	poetry config virtualenvs.in-project true
 	poetry config virtualenvs.path .
 
+bump.version:
+	poetry version $(shell git describe --tags --abbrev=0)
+	sed "s/__version__ = '0.0.0'/__version__ = '$(shell git describe --tags --abbrev=0 | sed "s/v//")'/" -i bb_wrapper/_version.py
+
 config.env:
 	cp .env.sample .env
 
@@ -28,6 +32,15 @@ coverage:
 	coverage report
 	coverage xml
 
-package.build:
-	python setup.py sdist bdist_wheel
-	
+package.build: bump.version
+	poetry build
+
+pypi.test:
+	poetry config repositories.testpypi https://test.pypi.org/legacy/
+
+package.publish.test:
+	poetry publish -r testpypi
+
+install.test:
+	pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ bb-wrapper
+

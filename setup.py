@@ -1,8 +1,5 @@
 from setuptools import setup
 
-# versioning
-import versioneer
-
 
 with open("README.rst", "r") as fh:
     long_description = fh.read()
