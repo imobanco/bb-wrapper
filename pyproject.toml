@@ -64,12 +64,7 @@ classifiers = [
 	"Topic :: Internet :: WWW/HTTP :: Dynamic Content :: CGI Tools/Libraries",
 	"Topic :: Utilities"
 ]
-include = [
-
-]
-
-
-
+include = []
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -87,10 +82,7 @@ flake8 = "^3.9.2"
 black = "^22.3.0"
 coverage = {extras = ["toml"], version = "^5.5"}
 isort = "^5.9.2"
-wheel = "^0.37.0"
-twine = "^3.4.2"
 freezegun = "1.1.0"
-packaging = "^21.3"
 
 [tool.poetry.scripts]
 
