@@ -76,6 +76,8 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
             bb_wrapper1._token_time,
             bb_wrapper2._token_time,
         )
+        
+        self.mocked_auth_requests.post.assert_called_once()
 
     def test_multiple_wrappers(self):
         """
