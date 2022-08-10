@@ -41,7 +41,7 @@ omit = [
 
 [tool.poetry]
 name = "bb-wrapper"
-version = "v0.4.3"
+version = "0.0.0"
 description = "Cliente não oficial da API do Banco do Brasil"
 authors = ["Imobanco"]
 readme = "README.rst"

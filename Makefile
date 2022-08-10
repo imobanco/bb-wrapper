@@ -1,3 +1,5 @@
+V=$(shell git describe --tags --abbrev=0 | sed "s/v//")
+
 poetry.install:
 	poetry install
 
@@ -10,8 +12,9 @@ poetry.config.venv:
 	poetry config virtualenvs.path .
 
 bump.version:
-	poetry version $(shell git describe --tags --abbrev=0)
-	sed "s/__version__ = '0.0.0'/__version__ = '$(shell git describe --tags --abbrev=0 | sed "s/v//")'/" -i bb_wrapper/_version.py
+	echo $(V)
+	poetry version $(V)
+	sed "s/__version__ = '0.0.0'/__version__ = '$(V)'/" -i bb_wrapper/_version.py
 
 config.env:
 	cp .env.sample .env
