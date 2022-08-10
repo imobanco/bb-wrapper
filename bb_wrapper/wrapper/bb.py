@@ -196,8 +196,8 @@ class BaseBBWrapper(RequestsWrapper):
             self._access_token = response.data["access_token"]
             self._token_type = response.data["token_type"]
             self._token_time = datetime.now()
-
-        return True
+            return True
+        return False
 
     def _delete(self, url, headers=None) -> requests.Response:
         self.__authenticate()
