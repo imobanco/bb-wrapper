@@ -16,7 +16,7 @@ jobs:
         python-version: 3.8
 
     - name: Install dependencies
-      run: make pip.install.build
+      run: make poetry.install
 
     - name: build package
       run: make package.build

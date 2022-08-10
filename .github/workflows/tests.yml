@@ -21,7 +21,7 @@ jobs:
           python-version: 3.8
 
       - name: Install dependencies
-        run: make pip.install
+        run: make poetry.install
 
       - name: Lint code with black
         run: make fmt.check
@@ -42,7 +42,7 @@ jobs:
           python-version: ${{ matrix.python }}
 
       - name: Install dependencies
-        run: make pip.install
+        run: make poetry.install
 
       - name: Config env
         run: make config.env
@@ -61,7 +61,7 @@ jobs:
           python-version: 3.8
 
       - name: Install dependencies
-        run: make pip.install
+        run: make poetry.install
 
       - name: Config env
         run: make config.env
