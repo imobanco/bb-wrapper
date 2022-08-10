@@ -49,7 +49,21 @@ class BaseBBWrapper(RequestsWrapper):
         super().__init__(base_url=base_url, verify_https=verify_https, cert=cert)
 
     def __new__(cls, *args, **kwargs):
-        cls.reset_data()
+        """
+        Quando se fala de múltiplas classes com herança fazer:
+            >>> getattr(self, f"_{self.__class__.__name__}__data", None)
+
+        tem comportamento diferente de
+            >>> self.__data
+
+        Testado com BaseBBWrapper e PIXCobBBWrapper!
+
+        Mesmo na classe filha (PIXCobBBWrapper), o
+        'self.__data' é traduzido para '_BaseBBWrapper__data' ao invés
+        de '_PIXCobBBWrapper__data'!
+        """
+        if not getattr(cls, f"_{cls.__name__}__data", None):
+            cls.reset_data()
         return super().__new__(cls)
 
     @classmethod
