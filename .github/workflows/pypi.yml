@@ -3,14 +3,6 @@ name: pypi deploy
 on:
   release:
     types: [created]
-  push:
-    branches:
-      - main
-  pull_request:
-    branchs:
-      - 'feature/**'
-      - 'hotfix/**'
-      - 'release/**'
 
 
 jobs:
@@ -37,10 +29,10 @@ jobs:
 
     - name: build package
       run: make package.build
-#
-#    - name: deploy package
-#      env:
-#        TWINE_USERNAME: __token__
-#        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-#      run: twine upload dist/*
-#
+
+    - name: deploy package
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+      run: twine upload dist/*
+
