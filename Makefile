@@ -1,4 +1,7 @@
 V=$(shell git describe --tags --abbrev=0 | sed "s/v//")
+PYPI_TEST_REPO=https://test.pypi.org/simple/
+USERNAME='__token__'
+PASSWORD='foo'
 
 poetry.install:
 	poetry install
@@ -38,12 +41,16 @@ coverage:
 package.build: bump.version
 	poetry build
 
-pypi.test:
-	poetry config repositories.testpypi https://test.pypi.org/legacy/
+pypi.repo.test:
+	poetry config repositories.testpypi $(PYPI_TEST_REPO)
 
 package.publish.test:
-	poetry publish -r testpypi
+	poetry publish -r testpypi -u $(USERNAME) -p $(PASSWORD)
+
+package.publish:
+	poetry publish -u $(USERNAME) -p $(PASSWORD)
+
+package.build_and_publish: package.build package.publish
 
 install.test:
-	pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ bb-wrapper
-
+	pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ bb-wrapper==$(V)
