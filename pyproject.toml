@@ -67,6 +67,7 @@ versioneer = "^0.20"
 wheel = "^0.37.0"
 twine = "^3.4.2"
 freezegun = "1.1.0"
+packaging = "^21.3"
 
 [tool.poetry.scripts]
 

@@ -243,6 +243,17 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "packaging"
+version = "21.3"
+description = "Core utilities for Python packages"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+pyparsing = ">=2.0.2,<3.0.5 || >3.0.5"
+
+[[package]]
 name = "pathspec"
 version = "0.9.0"
 description = "Utility library for gitignore style pattern matching of file paths."
@@ -327,6 +338,17 @@ description = "Pygments is a syntax highlighting package written in Python."
 category = "dev"
 optional = false
 python-versions = ">=3.6"
+
+[[package]]
+name = "pyparsing"
+version = "3.0.9"
+description = "pyparsing module - Classes and methods to define and execute parsing grammars"
+category = "dev"
+optional = false
+python-versions = ">=3.6.8"
+
+[package.extras]
+diagrams = ["railroad-diagrams", "jinja2"]
 
 [[package]]
 name = "python-barcode"
@@ -573,7 +595,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "efb3dd52691e36ad3d2e4fd421f61afcbbad90c42189e2434435801e7dde22b1"
+content-hash = "423a6bffac47aac8178fe498bc723af6d90fad882c6d5a3ff95d1322050f5c72"
 
 [metadata.files]
 black = []
@@ -602,6 +624,7 @@ jeepney = []
 keyring = []
 mccabe = []
 mypy-extensions = []
+packaging = []
 pathspec = []
 pkginfo = []
 platformdirs = []
@@ -611,6 +634,7 @@ pycpfcnpj = []
 pydantic = []
 pyflakes = []
 pygments = []
+pyparsing = []
 python-barcode = []
 python-dateutil = []
 python-decouple = []

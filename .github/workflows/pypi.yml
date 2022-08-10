@@ -4,6 +4,7 @@ on:
   release:
     types: [created]
 
+
 jobs:
   deploy:
     runs-on: ubuntu-18.04
@@ -20,10 +21,11 @@ jobs:
       with:
         poetry-version: 1.1.8
 
-      - name: Install dependencies
-        run: |
-          make poetry.config.native
-          make poetry.install
+    - name: Install dependencies
+      run: |
+        make poetry.config.native
+        make poetry.install
+        pip install wheel packaging
 
     - name: build package
       run: make package.build
@@ -33,4 +35,4 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
       run: twine upload dist/*
-      
+
