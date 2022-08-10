@@ -40,10 +40,10 @@
             # um .venv desatualizado.
             test -f .venv/bin/activate || make poetry.install
             source .venv/bin/activate
-          # Se não existir cria o .env com valores padrão
-          if ! test -f .env; then
-            make config.env
-          fi
+            # Se não existir cria o .env com valores padrão
+            if ! test -f .env; then
+              make config.env
+            fi
             echo "Entering the nix devShell no income back"
           '';
         };
