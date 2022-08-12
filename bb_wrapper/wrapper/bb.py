@@ -3,6 +3,7 @@ import threading
 
 from .request import RequestsWrapper, requests
 from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY
+from requests import HTTPError
 
 
 class BaseBBWrapper(RequestsWrapper):
@@ -219,8 +220,9 @@ class BaseBBWrapper(RequestsWrapper):
                     attempts += 1
                     perform_auth()
                     return True
-                finally:
-                    continue
+                except HTTPError as err:
+                    if attempts >= self.MAX_ATTEMPTS:
+                        raise err
         return False
 
     def _delete(self, url, headers=None) -> requests.Response:

@@ -4,6 +4,7 @@ from datetime import timedelta
 from tests.utils import IsolatedEnvTestCase, MockedRequestsTestCase
 from bb_wrapper.wrapper.bb import BaseBBWrapper
 from bb_wrapper.wrapper.pix_cob import PIXCobBBWrapper
+from requests import HTTPError
 
 
 class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
@@ -150,7 +151,10 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
 
         self.set_fail_auth(fail_attempts)
 
-        result = bb_wrapper._BaseBBWrapper__authenticate()
+        try:
+            bb_wrapper._BaseBBWrapper__authenticate()
+        except HTTPError as err:
+            response = err.response
+            self.assertEqual(response.status_code, 401, msg=response.data)
 
-        self.assertFalse(result)
         self.assertEqual(total_attempts, self.mocked_auth_requests.post.call_count)
