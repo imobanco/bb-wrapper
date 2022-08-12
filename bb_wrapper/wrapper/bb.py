@@ -19,6 +19,7 @@ class BaseBBWrapper(RequestsWrapper):
     SCOPE = ""
 
     TOKEN_EXPIRE_TIME = (10 * 60) - 30  # 9:30 minutos
+    MAX_ATTEMPTS = 5
 
     def __init__(
         self,
@@ -204,13 +205,22 @@ class BaseBBWrapper(RequestsWrapper):
         }
         kwargs = dict(headers=header, verify=False, data=data)
 
-        if self.__should_authenticate():
+        def perform_auth():
             response = requests.post(url, **kwargs)
             response = self._process_response(response)
             self._access_token = response.data["access_token"]
             self._token_type = response.data["token_type"]
             self._token_time = datetime.now()
-            return True
+
+        if self.__should_authenticate():
+            attempts = 0
+            while attempts < self.MAX_ATTEMPTS:
+                try:
+                    attempts += 1
+                    perform_auth()
+                    return True
+                finally:
+                    continue
         return False
 
     def _delete(self, url, headers=None) -> requests.Response:

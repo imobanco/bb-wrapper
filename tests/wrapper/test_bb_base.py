@@ -7,7 +7,7 @@ from bb_wrapper.wrapper.pix_cob import PIXCobBBWrapper
 
 
 class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
-    def test_authenticate(self):
+    def test_authentication(self):
         """
         Teste para verificar a validação da autenticação.
 
@@ -16,7 +16,7 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         Quando:
             - for chamado BaseBBWrapper()._BaseBBWrapper__authenticate()
         Então:
-            - o resultado da autenticação deve ser True
+            - o resultado de uma autenticação bem sucedida deve ser True
         """
         result = BaseBBWrapper()._BaseBBWrapper__authenticate()
         self.assertTrue(result)
@@ -79,7 +79,7 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
 
         self.mocked_auth_requests.post.assert_called_once()
 
-    def test_multiple_wrappers(self):
+    def test_authentication_multiple_wrappers(self):
         """
         Dado:
             - um wrapper BaseBBWrapper
@@ -104,3 +104,53 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         self.assertEqual(wrapper2._access_token, None)
 
         self.mocked_auth_requests.post.assert_called_once()
+
+    def test_authentication_fail_and_reauthentication(self):
+        """
+        Teste para verificar uma nova tentativa de autenticação
+        após uma falha na autenticação.
+
+        Dado:
+            -
+        Quando:
+            - for chamado BaseBBWrapper()._BaseBBWrapper__authenticate()
+        Então:
+            - 2 tentativas de autenticação devem ser realizadas,
+              uma falha e uma bem sucedida
+            - o resultado da autenticação deve ser True
+        """
+        bb_wrapper = BaseBBWrapper()
+
+        fail_attempts = 1
+        total_attempts = fail_attempts + 1
+
+        self.set_fail_auth(fail_attempts)
+
+        result = bb_wrapper._BaseBBWrapper__authenticate()
+
+        self.assertTrue(result)
+        self.assertEqual(total_attempts, self.mocked_auth_requests.post.call_count)
+
+    def test_authentication_fail_and_reauthentication_fail_after_5_attempts(self):
+        """
+        Teste para verificar falhas em todas as tentativas de autenticação.
+
+        Dado:
+            -
+        Quando:
+            - for chamado BaseBBWrapper()._BaseBBWrapper__authenticate()
+        Então:
+            - o máximo de tentativas de autenticação devem ser realizadas
+            - o resultado da autenticação deve ser False
+        """
+        bb_wrapper = BaseBBWrapper()
+
+        fail_attempts = bb_wrapper.MAX_ATTEMPTS
+        total_attempts = fail_attempts
+
+        self.set_fail_auth(fail_attempts)
+
+        result = bb_wrapper._BaseBBWrapper__authenticate()
+
+        self.assertFalse(result)
+        self.assertEqual(total_attempts, self.mocked_auth_requests.post.call_count)

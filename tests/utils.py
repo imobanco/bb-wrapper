@@ -94,18 +94,44 @@ class MockedRequestsTestCase(TestCase):
         response.raise_for_status.side_effect = raise_for_status
         return response
 
+    @staticmethod
+    def build_success_auth_response(call_count):
+        return MockedRequestsTestCase.build_response_mock(
+            200,
+            data={
+                "access_token": f"token_{call_count}",
+                "token_type": "token_type",
+            },
+        )
+
+    @staticmethod
+    def build_fail_auth_response():
+        return MockedRequestsTestCase.build_response_mock(
+            401,
+            data={
+                "error": "invalid_client",
+                "error_description": "Identificador ou credencial inválidos",
+            },
+        )
+
     def set_auth(self):
         self.mocked_auth_requests.post.reset_mock()
 
         def request_auth(*args, **kwargs):
             call_count = self.mocked_auth_requests.post.call_count
-            return self.build_response_mock(
-                200,
-                data={
-                    "access_token": f"token_{call_count}",
-                    "token_type": "token_type",
-                },
-            )
+            return self.build_success_auth_response(call_count)
+
+        self.mocked_auth_requests.post.side_effect = request_auth
+
+    def set_fail_auth(self, number_of_fails):
+        self.mocked_auth_requests.post.reset_mock()
+
+        def request_auth(*args, **kwargs):
+            call_count = self.mocked_auth_requests.post.call_count
+            if call_count <= number_of_fails:
+                return self.build_fail_auth_response()
+            else:
+                return self.build_success_auth_response(call_count)
 
         self.mocked_auth_requests.post.side_effect = request_auth
 
