@@ -95,7 +95,7 @@ class MockedRequestsTestCase(TestCase):
         return response
 
     @staticmethod
-    def build_success_auth_response(call_count):
+    def build_auth_success_response(call_count):
         return MockedRequestsTestCase.build_response_mock(
             200,
             data={
