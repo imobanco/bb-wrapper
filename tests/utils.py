@@ -119,7 +119,7 @@ class MockedRequestsTestCase(TestCase):
 
         def request_auth(*args, **kwargs):
             call_count = self.mocked_auth_requests.post.call_count
-            return self.build_success_auth_response(call_count)
+            return self.build_auth_success_response(call_count)
 
         self.mocked_auth_requests.post.side_effect = request_auth
 
@@ -129,9 +129,9 @@ class MockedRequestsTestCase(TestCase):
         def request_auth(*args, **kwargs):
             call_count = self.mocked_auth_requests.post.call_count
             if call_count <= number_of_fails:
-                return self.build_fail_auth_response()
+                return self.build_auth_fail_response()
             else:
-                return self.build_success_auth_response(call_count)
+                return self.build_auth_success_response(call_count)
 
         self.mocked_auth_requests.post.side_effect = request_auth
 

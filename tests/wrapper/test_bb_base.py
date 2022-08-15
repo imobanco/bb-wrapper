@@ -131,7 +131,7 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
 
         self.assertTrue(result)
         self.assertEqual(total_attempts, self.mocked_auth_requests.post.call_count)
-        self.assertEqual(bb_wrapper._token, 'token_2')
+        self.assertEqual(bb_wrapper._access_token, 'token_2')
 
     def test_authentication_fail_and_reauthentication_fail_after_5_attempts(self):
         """
@@ -147,7 +147,7 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         """
         bb_wrapper = BaseBBWrapper()
 
-        fail_attempts = bb_wrapper.MAX_ATTEMPTS
+        fail_attempts = bb_wrapper.AUTH_MAX_RETRY_ATTEMPTS
         total_attempts = fail_attempts
 
         self.set_fail_auth(fail_attempts)

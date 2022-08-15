@@ -215,13 +215,13 @@ class BaseBBWrapper(RequestsWrapper):
 
         if self.__should_authenticate():
             attempts = 0
-            while attempts < self.MAX_ATTEMPTS:
+            while attempts < self.AUTH_MAX_RETRY_ATTEMPTS:
                 try:
                     attempts += 1
                     perform_auth()
                     return True
                 except HTTPError as err:
-                    if attempts >= self.MAX_ATTEMPTS:
+                    if attempts >= self.AUTH_MAX_RETRY_ATTEMPTS:
                         raise err
         return False
 
