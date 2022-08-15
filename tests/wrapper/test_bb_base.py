@@ -152,10 +152,10 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
 
         self.set_fail_auth(fail_attempts)
 
-        try:
+        with self.assertRaises(HTTPError) as ctx:
             bb_wrapper._BaseBBWrapper__authenticate()
-        except HTTPError as err:
-            response = err.response
-            self.assertEqual(response.status_code, 401, msg=response.data)
+        response = ctx.exception.response
+        self.assertEqual(response.status_code, 401, msg=response.data)
+            
 
         self.assertEqual(total_attempts, self.mocked_auth_requests.post.call_count)
