@@ -131,6 +131,7 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
 
         self.assertTrue(result)
         self.assertEqual(total_attempts, self.mocked_auth_requests.post.call_count)
+        self.assertEqual(bb_wrapper._token, 'token_2')
 
     def test_authentication_fail_and_reauthentication_fail_after_5_attempts(self):
         """
