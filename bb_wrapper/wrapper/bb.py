@@ -20,7 +20,7 @@ class BaseBBWrapper(RequestsWrapper):
     SCOPE = ""
 
     TOKEN_EXPIRE_TIME = (10 * 60) - 30  # 9:30 minutos
-    MAX_ATTEMPTS = 5
+    AUTH_MAX_RETRY_ATTEMPTS = 5
 
     def __init__(
         self,
