@@ -126,6 +126,7 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         fail_attempts = 3
 
         self.set_auth(fail_attempts)
+        self.get_conn_patcher.stop()
 
         result = bb_wrapper._BaseBBWrapper__authenticate()
 
