@@ -50,7 +50,9 @@ class MockedRequestsTestCase(TestCase):
     def setUp(self):
         super().setUp()
 
-        self.get_conn_patcher = patch("urllib3.connectionpool.HTTPConnectionPool._get_conn")
+        self.get_conn_patcher = patch(
+            "urllib3.connectionpool.HTTPConnectionPool._get_conn"
+        )
         self.mocked_get_conn = self.get_conn_patcher.start()
         self.mocked_conn = self.mocked_get_conn.return_value
         self.mocked_getresponse = self.mocked_conn.getresponse
@@ -77,7 +79,7 @@ class MockedRequestsTestCase(TestCase):
         data = {
             "access_token": f"token_{call_count}",
             "token_type": "token_type",
-            "expires_in": 600
+            "expires_in": 600,
         }
 
         resp = self.build_mocked_response(201, data)
@@ -103,7 +105,7 @@ class MockedRequestsTestCase(TestCase):
         resp = MagicMock(
             code=status_code,
             status=status_code,
-            reason='foo??',
+            reason="foo??",
             strict=0,
             fp=io.BufferedReader(raw_io),  # noqa
             closed=False,
@@ -130,12 +132,10 @@ class MockedRequestsTestCase(TestCase):
         """
         self.mocked_getresponse.reset_mock()
 
-        # number_of_retries_to_success += 1
-
         def get_response(*args, **kwargs):
             call_count = self.mocked_getresponse.call_count
 
-            passed_retries = number_of_retries_to_success <= call_count
+            passed_retries = number_of_retries_to_success < call_count
             verify = number_of_retries_to_success and passed_retries
             if verify:
                 return self.build_auth_success_response(call_count)

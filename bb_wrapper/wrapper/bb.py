@@ -208,8 +208,14 @@ class BaseBBWrapper(RequestsWrapper):
 
         if self.__should_authenticate():
             session = requests.Session()
-            retries = requests.adapters.Retry(total=self.AUTH_MAX_RETRY_ATTEMPTS, backoff_factor=0.1, status_forcelist=[401])
-            session.mount('http://', HTTPAdapter(max_retries=retries))
+            retry_strategy = Retry(
+                total=self.AUTH_MAX_RETRY_ATTEMPTS,
+                backoff_factor=0.1,
+                status_forcelist=[401, 429, 500, 502, 503, 504],
+                allowed_methods=frozenset(["POST"]),
+            )
+            session.mount("http://", HTTPAdapter(max_retries=retry_strategy))
+            session.mount("https://", HTTPAdapter(max_retries=retry_strategy))
             response = session.post(url, **kwargs)
             response = self._process_response(response)
             self._access_token = response.data["access_token"]

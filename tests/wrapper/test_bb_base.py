@@ -123,16 +123,15 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         """
         bb_wrapper = BaseBBWrapper()
 
-        fail_attempts = 3
-
+        fail_attempts = 1
+        total_attempts = fail_attempts + 1
         self.set_auth(fail_attempts)
-        self.get_conn_patcher.stop()
 
         result = bb_wrapper._BaseBBWrapper__authenticate()
 
         self.assertTrue(result)
-        self.assertEqual(bb_wrapper._access_token, 'token_1')
-        # self.assertEqual(fail_attempts, self.mocked_retry.increment.post.call_count)
+        self.assertEqual(bb_wrapper._access_token, "token_2")
+        self.assertEqual(total_attempts, self.mocked_getresponse.call_count)
 
     def test_authentication_fail_and_reauthentication_fail_after_5_attempts(self):
         """
@@ -149,13 +148,12 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         bb_wrapper = BaseBBWrapper()
 
         fail_attempts = bb_wrapper.AUTH_MAX_RETRY_ATTEMPTS
-        total_attempts = fail_attempts
-
-        # self.set_fail_auth(fail_attempts - 1)
+        total_attempts = fail_attempts + 1
+        self.set_auth(fail_attempts)
 
         with self.assertRaises(MaxRetryError) as ctx:
             bb_wrapper._BaseBBWrapper__authenticate()
-        # response = ctx.exception.response
-        # self.assertEqual(response.status_code, 401, msg=response.data)
-        #
-        # self.assertEqual(total_attempts, self.mocked_auth_requests.Session().post.call_count)
+        response = ctx.exception.response
+        self.assertEqual(response.status_code, 401, msg=response.data)
+
+        self.assertEqual(total_attempts, self.mocked_getresponse.call_count)
