@@ -1,10 +1,11 @@
 from freezegun import freeze_time
 from datetime import timedelta
 
-from tests.utils import IsolatedEnvTestCase, MockedRequestsTestCase
+from tests.utils import IsolatedEnvTestCase, MockedRequestsTestCase, MockedAuthenticationTestCase
 from bb_wrapper.wrapper.bb import BaseBBWrapper
 from bb_wrapper.wrapper.pix_cob import PIXCobBBWrapper
-from requests import HTTPError
+
+from urllib3.util.retry import MaxRetryError
 
 
 class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
@@ -78,7 +79,7 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
             bb_wrapper2._token_time,
         )
 
-        self.mocked_auth_requests.post.assert_called_once()
+        self.mocked_auth_requests.Session().post.assert_called_once()
 
     def test_authentication_multiple_wrappers(self):
         """
@@ -104,7 +105,7 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
 
         self.assertEqual(wrapper2._access_token, None)
 
-        self.mocked_auth_requests.post.assert_called_once()
+        self.mocked_auth_requests.Session().post.assert_called_once()
 
     def test_authentication_fail_and_reauthentication(self):
         """
@@ -123,15 +124,14 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         bb_wrapper = BaseBBWrapper()
 
         fail_attempts = 1
-        total_attempts = fail_attempts + 1
 
         self.set_fail_auth(fail_attempts)
 
         result = bb_wrapper._BaseBBWrapper__authenticate()
 
         self.assertTrue(result)
-        self.assertEqual(total_attempts, self.mocked_auth_requests.post.call_count)
-        self.assertEqual(bb_wrapper._access_token, 'token_2')
+        self.assertEqual(bb_wrapper._access_token, 'token_1')
+        self.assertEqual(fail_attempts, self.mocked_retry.increment.post.call_count)
 
     def test_authentication_fail_and_reauthentication_fail_after_5_attempts(self):
         """
@@ -150,12 +150,45 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         fail_attempts = bb_wrapper.AUTH_MAX_RETRY_ATTEMPTS
         total_attempts = fail_attempts
 
-        self.set_fail_auth(fail_attempts)
+        self.set_fail_auth(fail_attempts - 1)
 
-        with self.assertRaises(HTTPError) as ctx:
+        with self.assertRaises(MaxRetryError) as ctx:
             bb_wrapper._BaseBBWrapper__authenticate()
         response = ctx.exception.response
         self.assertEqual(response.status_code, 401, msg=response.data)
-            
 
-        self.assertEqual(total_attempts, self.mocked_auth_requests.post.call_count)
+        self.assertEqual(total_attempts, self.mocked_auth_requests.Session().post.call_count)
+
+
+class AuthBBWrapperTestCase(IsolatedEnvTestCase, MockedAuthenticationTestCase):
+    def test_authentication(self):
+        result = BaseBBWrapper()._BaseBBWrapper__authenticate()
+        self.assertTrue(result)
+
+    def test_authentication_fail_and_reauthentication(self):
+        bb_wrapper = BaseBBWrapper()
+
+        fail_attempts = 1
+
+        self.set_fail_auth(fail_attempts)
+
+        result = bb_wrapper._BaseBBWrapper__authenticate()
+
+        self.assertTrue(result)
+        self.assertEqual(bb_wrapper._access_token, 'token_1')
+        self.assertEqual(fail_attempts, self.mocked_retry.call_count)
+
+    def test_authentication_fail_and_reauthentication_fail_after_5_attempts(self):
+        bb_wrapper = BaseBBWrapper()
+
+        fail_attempts = bb_wrapper.AUTH_MAX_RETRY_ATTEMPTS
+        total_attempts = fail_attempts
+
+        self.set_fail_auth(fail_attempts - 1)
+
+        with self.assertRaises(MaxRetryError) as ctx:
+            bb_wrapper._BaseBBWrapper__authenticate()
+        response = ctx.exception.response
+        self.assertEqual(response.status_code, 401, msg=response.data)
+
+        self.assertEqual(total_attempts, self.mocked_retry.call_count)

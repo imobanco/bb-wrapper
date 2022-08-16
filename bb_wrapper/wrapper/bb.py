@@ -3,7 +3,7 @@ import threading
 
 from .request import RequestsWrapper, requests
 from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY
-from requests import HTTPError
+from requests.adapters import HTTPAdapter, Retry
 
 
 class BaseBBWrapper(RequestsWrapper):
@@ -207,22 +207,27 @@ class BaseBBWrapper(RequestsWrapper):
         kwargs = dict(headers=header, verify=False, data=data)
 
         def perform_auth():
-            response = requests.post(url, **kwargs)
+            session = requests.Session()
+            retries = requests.adapters.Retry(total=self.AUTH_MAX_RETRY_ATTEMPTS, backoff_factor=0.1)
+            session.mount('http://', HTTPAdapter(max_retries=retries))
+            response = session.post(url, **kwargs)
             response = self._process_response(response)
             self._access_token = response.data["access_token"]
             self._token_type = response.data["token_type"]
             self._token_time = datetime.now()
 
         if self.__should_authenticate():
-            attempts = 0
-            while attempts < self.AUTH_MAX_RETRY_ATTEMPTS:
-                try:
-                    attempts += 1
-                    perform_auth()
-                    return True
-                except HTTPError as err:
-                    if attempts >= self.AUTH_MAX_RETRY_ATTEMPTS:
-                        raise err
+            perform_auth()
+            return True
+            # attempts = 0
+            # while attempts < self.AUTH_MAX_RETRY_ATTEMPTS:
+            #     try:
+            #         attempts += 1
+            #         perform_auth()
+            #         return True
+            #     except HTTPError as err:
+            #         if attempts >= self.AUTH_MAX_RETRY_ATTEMPTS:
+            #             raise err
         return False
 
     def _delete(self, url, headers=None) -> requests.Response:

@@ -1,5 +1,8 @@
 from unittest import TestCase
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, Mock, MagicMock
+
+from http.client import HTTPMessage, HTTPResponse
+from urllib3.util.retry import Retry
 
 import requests
 
@@ -118,22 +121,24 @@ class MockedRequestsTestCase(TestCase):
         self.mocked_auth_requests.post.reset_mock()
 
         def request_auth(*args, **kwargs):
-            call_count = self.mocked_auth_requests.post.call_count
+            call_count = self.mocked_auth_requests.Session().post.call_count
             return self.build_auth_success_response(call_count)
 
         self.mocked_auth_requests.post.side_effect = request_auth
+        self.mocked_auth_requests.Session().post.side_effect = request_auth
 
     def set_fail_auth(self, number_of_fails):
         self.mocked_auth_requests.post.reset_mock()
 
         def request_auth(*args, **kwargs):
-            call_count = self.mocked_auth_requests.post.call_count
-            if call_count <= number_of_fails:
+            call_count = self.mocked_auth_requests.Session().post.call_count
+            if call_count < number_of_fails:
                 return self.build_auth_fail_response()
             else:
                 return self.build_auth_success_response(call_count)
 
         self.mocked_auth_requests.post.side_effect = request_auth
+        self.mocked_auth_requests.Session().post.side_effect = request_auth
 
     def _get_headers(self):
         return {
@@ -144,3 +149,98 @@ class MockedRequestsTestCase(TestCase):
 
     def get_request_complements(self, verify=False, cert=None):
         return dict(headers=self._get_headers(), verify=verify, cert=cert)
+
+
+class MockedAuthenticationTestCase(TestCase):
+
+    def setUp(self):
+        super().setUp()
+
+        self.conn_patcher = patch("urllib3.connectionpool.HTTPConnectionPool._get_conn")
+        self.patcher = patch("bb_wrapper.wrapper.request.RequestsWrapper._process_response")
+        self.retry_patcher = patch("urllib3.util.retry.Retry.increment")
+        self.retry2_patcher = patch("urllib3.util.retry.Retry.is_retry")
+
+        self.mocked_conn = self.conn_patcher.start()
+        self.mocked_retry = self.retry_patcher.start()
+        self.mocked_retry2 = self.retry2_patcher.start()
+        self.mocked_ = self.patcher.start()
+
+        self.addCleanup(self.conn_patcher.stop)
+        self.addCleanup(self.retry_patcher.stop)
+        self.addCleanup(self.retry2_patcher.stop)
+        self.addCleanup(self.patcher.stop)
+
+        self.set_auth()
+
+    @staticmethod
+    def build_auth_success_response(call_count):
+        return MockedRequestsTestCase.build_response_mock(
+            200,
+            data={
+                "access_token": f"token_{call_count}",
+                "token_type": "token_type",
+            },
+        )
+
+    @staticmethod
+    def build_auth_fail_response():
+        return MockedRequestsTestCase.build_response_mock(
+            401,
+            data={
+                "error": "invalid_client",
+                "error_description": "Identificador ou credencial inválidos",
+            },
+        )
+
+    def set_auth(self):
+        self.mocked_conn.return_value.getresponse.reset_mock()
+
+        self.mocked_conn.return_value.getresponse.side_effect = [
+                Mock(status=200, msg=HTTPMessage()),
+            ]
+
+        def request_auth(*args, **kwargs):
+            call_count = self.mocked_.call_count
+            return self.build_auth_success_response(call_count)
+
+        self.mocked_.side_effect = request_auth
+
+    def set_fail_auth(self, number_of_fails):
+        self.counter = number_of_fails
+
+        self.mocked_conn.reset_mock()
+        self.mocked_retry.reset_mock()
+        self.mocked_retry2.reset_mock()
+
+
+        def getresponse2(*args, **kwargs):
+            call_count = self.mocked_conn.getresponse.call_count
+            return MagicMock()
+        self.mocked_conn().getresponse.side_effect = getresponse2
+
+
+        self.mocked_conn.return_value = self.mocked_conn
+
+
+        def request_auth(*args, **kwargs):
+            call_count = self.mocked_.call_count
+            return self.build_auth_success_response(call_count)
+
+        self.mocked_.side_effect = request_auth
+
+        def increment(*args, **kwargs):
+            call_count = self.mocked_retry2.call_count
+            self.counter -= 1
+            return Retry(total=self.counter)
+
+        self.mocked_retry.side_effect = increment
+
+        def is_retry(*args, **kwargs):
+            call_count = self.mocked_retry2.call_count
+            if number_of_fails >= call_count:
+                return True
+            return False
+
+        self.mocked_retry2.side_effect = is_retry
+
