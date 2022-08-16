@@ -1,5 +1,7 @@
 from unittest import TestCase
 from unittest.mock import patch, Mock, MagicMock
+import io
+import json
 
 from http.client import HTTPMessage, HTTPResponse
 from urllib3.util.retry import Retry
@@ -48,20 +50,12 @@ class MockedRequestsTestCase(TestCase):
     def setUp(self):
         super().setUp()
 
-        self.requests_patcher = patch("bb_wrapper.wrapper.request.requests")
-        self.auth_requests_patcher = patch("bb_wrapper.wrapper.bb.requests")
+        self.get_conn_patcher = patch("urllib3.connectionpool.HTTPConnectionPool._get_conn")
+        self.mocked_get_conn = self.get_conn_patcher.start()
+        self.mocked_conn = self.mocked_get_conn.return_value
+        self.mocked_getresponse = self.mocked_conn.getresponse
+        self.addCleanup(self.get_conn_patcher.stop)
 
-        self.mocked_requests = self.requests_patcher.start()
-        self.mocked_auth_requests = self.auth_requests_patcher.start()
-
-        self.addCleanup(self.requests_patcher.stop)
-        self.addCleanup(self.auth_requests_patcher.stop)
-
-        self.mocked_get = self.mocked_requests.get
-        self.mocked_post = self.mocked_requests.post
-        self.mocked_put = self.mocked_requests.put
-        self.mocked_patch = self.mocked_requests.patch
-        self.mocked_delete = self.mocked_requests.delete
         self.set_auth()
 
     def tearDown(self):
@@ -79,168 +73,82 @@ class MockedRequestsTestCase(TestCase):
         PIXCobBBWrapper().reset_data()
         CobrancasBBWrapper().reset_data()
 
+    def build_auth_success_response(self, call_count):
+        data = {
+            "access_token": f"token_{call_count}",
+            "token_type": "token_type",
+            "expires_in": 600
+        }
+
+        resp = self.build_mocked_response(201, data)
+
+        return resp
+
+    def build_auth_fail_response_401(self, call_count):
+        data = {
+            "error": f"invalid_client{call_count}",
+            "error_description": "Identificador ou credencial inválidos",
+        }
+
+        resp = self.build_mocked_response(401, data)
+
+        return resp
+
     @staticmethod
-    def build_response_mock(status_code=200, data=None, content=None):
+    def build_mocked_response(status_code=200, data=None):
+        if data is None:
+            data = {}
+        data = json.dumps(data).encode()
+        raw_io = io.BytesIO(data)
+        resp = MagicMock(
+            code=status_code,
+            status=status_code,
+            reason='foo??',
+            strict=0,
+            fp=io.BufferedReader(raw_io),  # noqa
+            closed=False,
+        )
+
+        def read(*args, **kwargs):
+            return raw_io.read()
+
+        def close(*args, **kwargs):
+            resp.closed = True
+
+        def isclosed(*args, **kwargs):
+            return resp.closed
+
+        resp.read.side_effect = read
+        resp.close.side_effect = close
+        resp.isclosed.side_effect = isclosed
+
+        return resp
+
+    def set_auth(self, number_of_retries_to_success: int = 1):
         """
-        Cria uma response mockada
+        Se `number_of_retries_to_success` for 0 sempre dará falha!
         """
-        response = MagicMock(
-            status_code=status_code, data=data if data else {}, content=content
-        )
+        self.mocked_getresponse.reset_mock()
 
-        response.json.return_value = response.data
+        # number_of_retries_to_success += 1
 
-        def raise_for_status():
-            # noinspection PyCallByClass
-            requests.Response.raise_for_status(response)
+        def get_response(*args, **kwargs):
+            call_count = self.mocked_getresponse.call_count
 
-        response.raise_for_status.side_effect = raise_for_status
-        return response
-
-    @staticmethod
-    def build_auth_success_response(call_count):
-        return MockedRequestsTestCase.build_response_mock(
-            200,
-            data={
-                "access_token": f"token_{call_count}",
-                "token_type": "token_type",
-            },
-        )
-
-    @staticmethod
-    def build_auth_fail_response():
-        return MockedRequestsTestCase.build_response_mock(
-            401,
-            data={
-                "error": "invalid_client",
-                "error_description": "Identificador ou credencial inválidos",
-            },
-        )
-
-    def set_auth(self):
-        self.mocked_auth_requests.post.reset_mock()
-
-        def request_auth(*args, **kwargs):
-            call_count = self.mocked_auth_requests.Session().post.call_count
-            return self.build_auth_success_response(call_count)
-
-        self.mocked_auth_requests.post.side_effect = request_auth
-        self.mocked_auth_requests.Session().post.side_effect = request_auth
-
-    def set_fail_auth(self, number_of_fails):
-        self.mocked_auth_requests.post.reset_mock()
-
-        def request_auth(*args, **kwargs):
-            call_count = self.mocked_auth_requests.Session().post.call_count
-            if call_count < number_of_fails:
-                return self.build_auth_fail_response()
-            else:
+            passed_retries = number_of_retries_to_success <= call_count
+            verify = number_of_retries_to_success and passed_retries
+            if verify:
                 return self.build_auth_success_response(call_count)
+            return self.build_auth_fail_response_401(call_count)
 
-        self.mocked_auth_requests.post.side_effect = request_auth
-        self.mocked_auth_requests.Session().post.side_effect = request_auth
+        self.mocked_getresponse.side_effect = get_response
 
     def _get_headers(self):
         return {
             "Authorization": f"token_type token_"
-            f"{self.mocked_auth_requests.post.call_count}",
+            f"{self.mocked_getresponse.call_count}",
             "Content-type": "application/json",
         }
 
     def get_request_complements(self, verify=False, cert=None):
         return dict(headers=self._get_headers(), verify=verify, cert=cert)
-
-
-class MockedAuthenticationTestCase(TestCase):
-
-    def setUp(self):
-        super().setUp()
-
-        self.conn_patcher = patch("urllib3.connectionpool.HTTPConnectionPool._get_conn")
-        self.patcher = patch("bb_wrapper.wrapper.request.RequestsWrapper._process_response")
-        self.retry_patcher = patch("urllib3.util.retry.Retry.increment")
-        self.retry2_patcher = patch("urllib3.util.retry.Retry.is_retry")
-
-        self.mocked_conn = self.conn_patcher.start()
-        self.mocked_retry = self.retry_patcher.start()
-        self.mocked_retry2 = self.retry2_patcher.start()
-        self.mocked_ = self.patcher.start()
-
-        self.addCleanup(self.conn_patcher.stop)
-        self.addCleanup(self.retry_patcher.stop)
-        self.addCleanup(self.retry2_patcher.stop)
-        self.addCleanup(self.patcher.stop)
-
-        self.set_auth()
-
-    @staticmethod
-    def build_auth_success_response(call_count):
-        return MockedRequestsTestCase.build_response_mock(
-            200,
-            data={
-                "access_token": f"token_{call_count}",
-                "token_type": "token_type",
-            },
-        )
-
-    @staticmethod
-    def build_auth_fail_response():
-        return MockedRequestsTestCase.build_response_mock(
-            401,
-            data={
-                "error": "invalid_client",
-                "error_description": "Identificador ou credencial inválidos",
-            },
-        )
-
-    def set_auth(self):
-        self.mocked_conn.return_value.getresponse.reset_mock()
-
-        self.mocked_conn.return_value.getresponse.side_effect = [
-                Mock(status=200, msg=HTTPMessage()),
-            ]
-
-        def request_auth(*args, **kwargs):
-            call_count = self.mocked_.call_count
-            return self.build_auth_success_response(call_count)
-
-        self.mocked_.side_effect = request_auth
-
-    def set_fail_auth(self, number_of_fails):
-        self.counter = number_of_fails
-
-        self.mocked_conn.reset_mock()
-        self.mocked_retry.reset_mock()
-        self.mocked_retry2.reset_mock()
-
-
-        def getresponse2(*args, **kwargs):
-            call_count = self.mocked_conn.getresponse.call_count
-            return MagicMock()
-        self.mocked_conn().getresponse.side_effect = getresponse2
-
-
-        self.mocked_conn.return_value = self.mocked_conn
-
-
-        def request_auth(*args, **kwargs):
-            call_count = self.mocked_.call_count
-            return self.build_auth_success_response(call_count)
-
-        self.mocked_.side_effect = request_auth
-
-        def increment(*args, **kwargs):
-            call_count = self.mocked_retry2.call_count
-            self.counter -= 1
-            return Retry(total=self.counter)
-
-        self.mocked_retry.side_effect = increment
-
-        def is_retry(*args, **kwargs):
-            call_count = self.mocked_retry2.call_count
-            if number_of_fails >= call_count:
-                return True
-            return False
-
-        self.mocked_retry2.side_effect = is_retry
-

@@ -206,18 +206,15 @@ class BaseBBWrapper(RequestsWrapper):
         }
         kwargs = dict(headers=header, verify=False, data=data)
 
-        def perform_auth():
+        if self.__should_authenticate():
             session = requests.Session()
-            retries = requests.adapters.Retry(total=self.AUTH_MAX_RETRY_ATTEMPTS, backoff_factor=0.1)
+            retries = requests.adapters.Retry(total=self.AUTH_MAX_RETRY_ATTEMPTS, backoff_factor=0.1, status_forcelist=[401])
             session.mount('http://', HTTPAdapter(max_retries=retries))
             response = session.post(url, **kwargs)
             response = self._process_response(response)
             self._access_token = response.data["access_token"]
             self._token_type = response.data["token_type"]
             self._token_time = datetime.now()
-
-        if self.__should_authenticate():
-            perform_auth()
             return True
             # attempts = 0
             # while attempts < self.AUTH_MAX_RETRY_ATTEMPTS:
