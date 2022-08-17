@@ -21,10 +21,12 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
             - o resultado de uma autenticação bem sucedida deve ser True
             - apenas uma requisição deve ser realizada
         """
+        expected_total_requests = 1
+
         result = BaseBBWrapper()._BaseBBWrapper__authenticate()
 
         self.assertTrue(result)
-        self.mocked_getresponse.assert_called_once()
+        self.assertEqual(expected_total_requests, self.total_requests())
 
     def test_reauthentication(self):
         """
@@ -38,25 +40,29 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
             - uma nova autenticação deve ser realizada
             - o wrapper deve ter um novo token de autenticação
         """
-        total_requests = 2
+        expected_total_requests = 2
 
         bb_wrapper = BaseBBWrapper()
+
+        expected_token = "token_1"
 
         result = bb_wrapper._BaseBBWrapper__authenticate()
 
         self.assertTrue(result)
-        self.assertEqual(bb_wrapper._access_token, "token_1")
+        self.assertEqual(expected_token, bb_wrapper._access_token)
 
         expire_time = timedelta(seconds=bb_wrapper.TOKEN_EXPIRE_TIME)
         time_travel = bb_wrapper._token_time + expire_time
 
         with freeze_time(time_travel):
+            expected_token = "token_2"
+
             result = bb_wrapper._BaseBBWrapper__authenticate()
 
             self.assertTrue(result)
-            self.assertEqual(bb_wrapper._access_token, "token_2")
+            self.assertEqual(expected_token, bb_wrapper._access_token)
 
-        self.assertEqual(total_requests, self.mocked_getresponse.call_count)
+        self.assertEqual(expected_total_requests, self.total_requests())
 
     def test_authentication_for_multiple_instances(self):
         """
@@ -71,6 +77,8 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
             - o dado de autenticação deve ser compartilhado
             - o tempo de expiração deve ser igual
         """
+        expected_total_requests = 1
+
         bb_wrapper1 = BaseBBWrapper()
         result1 = bb_wrapper1._BaseBBWrapper__authenticate()
 
@@ -85,7 +93,7 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
 
         self.assertEqual(bb_wrapper1._token_time, bb_wrapper2._token_time)
 
-        self.mocked_getresponse.assert_called_once()
+        self.assertEqual(expected_total_requests, self.total_requests())
 
     def test_authentication_multiple_wrappers(self):
         """
@@ -98,7 +106,7 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         Então:
             - cada wrapper deve ter um token diferente
         """
-        total_requests = 2
+        expected_total_requests = 2
 
         wrapper1 = BaseBBWrapper()
         wrapper2 = PIXCobBBWrapper()
@@ -113,7 +121,7 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         self.assertEqual(wrapper1._access_token, "token_1")
         self.assertEqual(wrapper2._access_token, "token_2")
 
-        self.assertEqual(total_requests, self.mocked_getresponse.call_count)
+        self.assertEqual(expected_total_requests, self.total_requests())
 
     def test_authentication_fail_and_reauthentication(self):
         """
@@ -132,7 +140,7 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         bb_wrapper = BaseBBWrapper()
 
         fail_attempts = 1
-        total_attempts = fail_attempts + 1
+        expected_total_requests = fail_attempts + 1
 
         self.set_auth(fail_attempts)
 
@@ -140,7 +148,8 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
 
         self.assertTrue(result)
         self.assertEqual(bb_wrapper._access_token, "token_2")
-        self.assertEqual(total_attempts, self.mocked_getresponse.call_count)
+
+        self.assertEqual(expected_total_requests, self.total_requests())
 
     def test_authentication_fail_and_reauthentication_fail_after_5_attempts(self):
         """
@@ -156,7 +165,7 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         """
         bb_wrapper = BaseBBWrapper()
 
-        total_attempts = bb_wrapper.AUTH_MAX_RETRY_ATTEMPTS + 1
+        expected_total_requests = bb_wrapper.AUTH_MAX_RETRY_ATTEMPTS + 1
 
         self.set_auth(-1)
 
@@ -165,4 +174,5 @@ class BaseBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         response = ctx.exception.response
 
         self.assertEqual(response.status_code, 401, msg=response.data)
-        self.assertEqual(total_attempts, self.mocked_getresponse.call_count)
+
+        self.assertEqual(expected_total_requests, self.total_requests())
