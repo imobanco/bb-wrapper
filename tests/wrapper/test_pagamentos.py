@@ -16,6 +16,19 @@ from tests.utils import (
 
 class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
     maxDiff = None
+    SUCCESS_STATUS_CODE = 200
+
+    def setUp(self):
+        super().setUp()
+
+        oauth_url = PagamentoLoteBBWrapper()._BaseBBWrapper__oauth_url()
+        response_oauth = self._MockedRequestsTestCase__auth_success_response(1)
+        responses.add(
+            responses.POST,
+            oauth_url,
+            json=response_oauth,
+        )
+
 
     def test_construct_url_1(self):
         """
@@ -76,13 +89,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         """
         Teste para verificar a URL da requisição e dados
         """
-        oauth_url = PagamentoLoteBBWrapper()._BaseBBWrapper__oauth_url()
-        response_oauth = self._MockedRequestsTestCase__auth_success_response(1)
-        responses.add(
-            responses.POST,
-            oauth_url,
-            json=response_oauth,
-        )
+        total_requests = 2
 
         request_url = PagamentoLoteBBWrapper()._construct_url("cancelar-pagamentos")
         expected_json = {
@@ -102,20 +109,17 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(request_url, response.url)
         self.assertEqual(self._get_headers(), response.headers)
-        self.assertEqual(expected_json, response.data)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(total_requests, len(responses.calls))
+        responses.assert_call_count(request_url, 1)
 
     @responses.activate
     def test_cancelar_pagamento_2(self):
         """
         Teste para verificar a URL da requisição e dados
         """
-        oauth_url = PagamentoLoteBBWrapper()._BaseBBWrapper__oauth_url()
-        response_oauth = self._MockedRequestsTestCase__auth_success_response(1)
-        responses.add(
-            responses.POST,
-            oauth_url,
-            json=response_oauth,
-        )
+        total_requests = 2
 
         request_url = PagamentoLoteBBWrapper()._construct_url("cancelar-pagamentos")
         expected_json = {
@@ -136,20 +140,17 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(request_url, response.url)
         self.assertEqual(self._get_headers(), response.headers)
-        self.assertEqual(expected_json, response.data)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(total_requests, len(responses.calls))
+        responses.assert_call_count(request_url, 1)
 
     @responses.activate
     def test_liberar_pagamentos_1(self):
         """
         Teste para verificar a URL da requisição e dados
         """
-        oauth_url = PagamentoLoteBBWrapper()._BaseBBWrapper__oauth_url()
-        response_oauth = self._MockedRequestsTestCase__auth_success_response(1)
-        responses.add(
-            responses.POST,
-            oauth_url,
-            json=response_oauth,
-        )
+        total_requests = 2
 
         request_url = PagamentoLoteBBWrapper()._construct_url("liberar-pagamentos")
         expected_json = {"numeroRequisicao": "1", "indicadorFloat": "N"}
@@ -164,20 +165,17 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(request_url, response.url)
         self.assertEqual(self._get_headers(), response.headers)
-        self.assertEqual(expected_json, response.data)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(total_requests, len(responses.calls))
+        responses.assert_call_count(request_url, 1)
 
     @responses.activate
     def test_resgatar_lote_1(self):
         """
         Teste para verificar a URL da requisição e dados
         """
-        oauth_url = PagamentoLoteBBWrapper()._BaseBBWrapper__oauth_url()
-        response_oauth = self._MockedRequestsTestCase__auth_success_response(1)
-        responses.add(
-            responses.POST,
-            oauth_url,
-            json=response_oauth,
-        )
+        total_requests = 2
 
         request_url = PagamentoLoteBBWrapper()._construct_url("1")
         expected_json = {}
@@ -192,20 +190,17 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(request_url, response.url)
         self.assertEqual(self._get_headers(), response.headers)
-        self.assertEqual(expected_json, response.data)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(total_requests, len(responses.calls))
+        responses.assert_call_count(request_url, 1)
 
     @responses.activate
     def test_resgatar_lote_solicitacao_1(self):
         """
         Teste para verificar a URL da requisição e dados
         """
-        oauth_url = PagamentoLoteBBWrapper()._BaseBBWrapper__oauth_url()
-        response_oauth = self._MockedRequestsTestCase__auth_success_response(1)
-        responses.add(
-            responses.POST,
-            oauth_url,
-            json=response_oauth,
-        )
+        total_requests = 2
 
         request_url = PagamentoLoteBBWrapper()._construct_url("1", "solicitacao")
         expected_json = {}
@@ -220,20 +215,17 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(request_url, response.url)
         self.assertEqual(self._get_headers(), response.headers)
-        self.assertEqual(expected_json, response.data)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(total_requests, len(responses.calls))
+        responses.assert_call_count(request_url, 1)
 
     @responses.activate
     def test_listar_pagamentos_1(self):
         """
         Teste para verificar a URL da requisição e dados
         """
-        oauth_url = PagamentoLoteBBWrapper()._BaseBBWrapper__oauth_url()
-        response_oauth = self._MockedRequestsTestCase__auth_success_response(1)
-        responses.add(
-            responses.POST,
-            oauth_url,
-            json=response_oauth,
-        )
+        total_requests = 2
 
         request_url = PagamentoLoteBBWrapper()._construct_url(
             "pagamentos", search={"dataInicio": "foo", "dataFim": "bar", "indice": 0}
@@ -250,20 +242,17 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(request_url, response.url)
         self.assertEqual(self._get_headers(), response.headers)
-        self.assertEqual(expected_json, response.data)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(total_requests, len(responses.calls))
+        responses.assert_call_count(request_url, 1)
 
     @responses.activate
     def test_cadastrar_transferencia_1(self):
         """
         Teste para verificar a URL da requisição e dados
         """
-        oauth_url = PagamentoLoteBBWrapper()._BaseBBWrapper__oauth_url()
-        response_oauth = self._MockedRequestsTestCase__auth_success_response(1)
-        responses.add(
-            responses.POST,
-            oauth_url,
-            json=response_oauth,
-        )
+        total_requests = 2
 
         request_url = PagamentoLoteBBWrapper()._construct_url("lotes-transferencias")
         expected_json = {
@@ -299,20 +288,17 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(request_url, response.url)
         self.assertEqual(self._get_headers(), response.headers)
-        self.assertEqual(expected_json, response.data)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(total_requests, len(responses.calls))
+        responses.assert_call_count(request_url, 1)
 
     @responses.activate
     def test_consultar_transferencia_1(self):
         """
         Teste para verificar a URL da requisição e dados
         """
-        oauth_url = PagamentoLoteBBWrapper()._BaseBBWrapper__oauth_url()
-        response_oauth = self._MockedRequestsTestCase__auth_success_response(1)
-        responses.add(
-            responses.POST,
-            oauth_url,
-            json=response_oauth,
-        )
+        total_requests = 2
 
         request_url = PagamentoLoteBBWrapper()._construct_url("transferencias", "1")
         expected_json = {}
@@ -327,20 +313,17 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(request_url, response.url)
         self.assertEqual(self._get_headers(), response.headers)
-        self.assertEqual(expected_json, response.data)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(total_requests, len(responses.calls))
+        responses.assert_call_count(request_url, 1)
 
     @responses.activate
     def test_cadastrar_pagamento_boleto_1(self):
         """
         Teste para verificar a URL da requisição e dados
         """
-        oauth_url = PagamentoLoteBBWrapper()._BaseBBWrapper__oauth_url()
-        response_oauth = self._MockedRequestsTestCase__auth_success_response(1)
-        responses.add(
-            responses.POST,
-            oauth_url,
-            json=response_oauth,
-        )
+        total_requests = 2
 
         request_url = PagamentoLoteBBWrapper()._construct_url("lotes-boletos")
         expected_json = {
@@ -382,20 +365,17 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(request_url, response.url)
         self.assertEqual(self._get_headers(), response.headers)
-        self.assertEqual(expected_json, response.data)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(total_requests, len(responses.calls))
+        responses.assert_call_count(request_url, 1)
 
     @responses.activate
     def test_consultar_pagamento_boleto_1(self):
         """
         Teste para verificar a URL da requisição e dados
         """
-        oauth_url = PagamentoLoteBBWrapper()._BaseBBWrapper__oauth_url()
-        response_oauth = self._MockedRequestsTestCase__auth_success_response(1)
-        responses.add(
-            responses.POST,
-            oauth_url,
-            json=response_oauth,
-        )
+        total_requests = 2
 
         request_url = PagamentoLoteBBWrapper()._construct_url("boletos", "1")
         expected_json = {}
@@ -410,20 +390,17 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(request_url, response.url)
         self.assertEqual(self._get_headers(), response.headers)
-        self.assertEqual(expected_json, response.data)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(total_requests, len(responses.calls))
+        responses.assert_call_count(request_url, 1)
 
     @responses.activate
     def test_cadastrar_pagamento_tributo_1(self):
         """
         Teste para verificar a URL da requisição e dados
         """
-        oauth_url = PagamentoLoteBBWrapper()._BaseBBWrapper__oauth_url()
-        response_oauth = self._MockedRequestsTestCase__auth_success_response(1)
-        responses.add(
-            responses.POST,
-            oauth_url,
-            json=response_oauth,
-        )
+        total_requests = 2
 
         request_url = PagamentoLoteBBWrapper()._construct_url(
             "lotes-guias-codigo-barras"
@@ -462,20 +439,17 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(request_url, response.url)
         self.assertEqual(self._get_headers(), response.headers)
-        self.assertEqual(expected_json, response.data)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(total_requests, len(responses.calls))
+        responses.assert_call_count(request_url, 1)
 
     @responses.activate
     def test_consultar_pagamento_tributo_1(self):
         """
         Teste para verificar a URL da requisição e dados
         """
-        oauth_url = PagamentoLoteBBWrapper()._BaseBBWrapper__oauth_url()
-        response_oauth = self._MockedRequestsTestCase__auth_success_response(1)
-        responses.add(
-            responses.POST,
-            oauth_url,
-            json=response_oauth,
-        )
+        total_requests = 2
 
         request_url = PagamentoLoteBBWrapper()._construct_url(
             "guias-codigo-barras", "1"
@@ -492,4 +466,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(request_url, response.url)
         self.assertEqual(self._get_headers(), response.headers)
-        self.assertEqual(expected_json, response.data)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(total_requests, len(responses.calls))
+        responses.assert_call_count(request_url, 1)
