@@ -29,7 +29,6 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             json=response_oauth,
         )
 
-
     def test_construct_url_1(self):
         """
         Dado:
