@@ -76,6 +76,7 @@ Unidecode = "^1.2.0"
 qrcode = "^7.3"
 crc = "^1.0.1"
 pycpfcnpj = "^1.5.1"
+responses = "^0.21.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.9.2"

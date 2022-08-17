@@ -70,12 +70,16 @@ class MockedRequestsTestCase(TestCase):
         PIXCobBBWrapper().reset_data()
         CobrancasBBWrapper().reset_data()
 
-    def build_auth_success_response(self, call_count):
-        data = {
+    @staticmethod
+    def __auth_success_response(call_count):
+        return {
             "access_token": f"token_{call_count}",
             "token_type": "token_type",
             "expires_in": 600,
         }
+
+    def build_auth_success_response(self, call_count):
+        data = self.__auth_success_response(call_count)
 
         resp = self.build_mocked_response(201, data)
 
@@ -100,7 +104,6 @@ class MockedRequestsTestCase(TestCase):
         resp = MagicMock(
             code=status_code,
             status=status_code,
-            reason="foo??",
             strict=0,
             fp=io.BufferedReader(raw_io),  # noqa
             closed=False,
@@ -142,9 +145,15 @@ class MockedRequestsTestCase(TestCase):
 
         self.mocked_getresponse.side_effect = get_response
 
+    def _get_authorization_header(self):
+        return {
+            "Authorization": "token_type token_"
+            f"{self.mocked_getresponse.call_count}",
+        }
+
     def _get_headers(self):
         return {
-            "Authorization": f"token_type token_"
+            "Authorization": "token_type token_"
             f"{self.mocked_getresponse.call_count}",
             "Content-type": "application/json",
         }

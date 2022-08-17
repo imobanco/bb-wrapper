@@ -185,19 +185,22 @@ class BaseBBWrapper(RequestsWrapper):
         is_token_missing = not self._access_token
         return is_token_missing or is_token_expired
 
-    def __authenticate(self):
-        """
-        https://forum.developers.bb.com.br/t/status-code-415-unsupported-media-type-somente-em-producao/1123
-
-        O endpoint oauth recebe application/x-www-form-urlencoded!
-        """
-        url = (
+    def __oauth_url(self):
+        return (
             f"{BaseBBWrapper.BASE_SCHEMA}"
             f"oauth"
             f'{".sandbox" if self._is_sandbox else ""}'
             f"{BaseBBWrapper.BASE_DOMAIN}"
             f"/oauth/token"
         )
+
+    def __authenticate(self):
+        """
+        https://forum.developers.bb.com.br/t/status-code-415-unsupported-media-type-somente-em-producao/1123
+
+        O endpoint oauth recebe application/x-www-form-urlencoded!
+        """
+        url = self.__oauth_url()
         header = {"Authorization": f"Basic {self.__basic_token}"}
 
         data = {
