@@ -213,6 +213,7 @@ class BaseBBWrapper(RequestsWrapper):
                 backoff_factor=0.1,
                 status_forcelist=[401, 429, 500, 502, 503, 504],
                 allowed_methods=frozenset(["POST"]),
+                raise_on_status=False,
             )
             session.mount("http://", HTTPAdapter(max_retries=retry_strategy))
             session.mount("https://", HTTPAdapter(max_retries=retry_strategy))
@@ -222,15 +223,6 @@ class BaseBBWrapper(RequestsWrapper):
             self._token_type = response.data["token_type"]
             self._token_time = datetime.now()
             return True
-            # attempts = 0
-            # while attempts < self.AUTH_MAX_RETRY_ATTEMPTS:
-            #     try:
-            #         attempts += 1
-            #         perform_auth()
-            #         return True
-            #     except HTTPError as err:
-            #         if attempts >= self.AUTH_MAX_RETRY_ATTEMPTS:
-            #             raise err
         return False
 
     def _delete(self, url, headers=None) -> requests.Response:
