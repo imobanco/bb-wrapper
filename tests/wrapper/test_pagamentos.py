@@ -425,7 +425,9 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             json=response_oauth,
         )
 
-        request_url = PagamentoLoteBBWrapper()._construct_url("lotes-guias-codigo-barras")
+        request_url = PagamentoLoteBBWrapper()._construct_url(
+            "lotes-guias-codigo-barras"
+        )
         expected_json = {
             "numeroRequisicao": "1",
             "numeroAgenciaDebito": "2",
@@ -475,7 +477,9 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             json=response_oauth,
         )
 
-        request_url = PagamentoLoteBBWrapper()._construct_url("guias-codigo-barras", "1")
+        request_url = PagamentoLoteBBWrapper()._construct_url(
+            "guias-codigo-barras", "1"
+        )
         expected_json = {}
         responses.add(
             responses.GET,
