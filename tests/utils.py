@@ -1,12 +1,7 @@
 from unittest import TestCase
-from unittest.mock import patch, Mock, MagicMock
+from unittest.mock import patch, MagicMock
 import io
 import json
-
-from http.client import HTTPMessage, HTTPResponse
-from urllib3.util.retry import Retry
-
-import requests
 
 
 class BarcodeAndCodeLineTestCase(TestCase):
@@ -126,20 +121,24 @@ class MockedRequestsTestCase(TestCase):
 
         return resp
 
-    def set_auth(self, number_of_retries_to_success: int = 1):
+    def set_auth(self, number_of_retries_to_success: int = 0):
         """
-        Se `number_of_retries_to_success` for 0 sempre dará falha!
+        Se `number_of_retries_to_success` for 0, não haverá falhas!
+        Se `number_of_retries_to_success` for negativo, sempre haverá falhas!
+        Se `number_of_retries_to_success` for positivo, vai definir o número de falhas!
         """
         self.mocked_getresponse.reset_mock()
 
         def get_response(*args, **kwargs):
             call_count = self.mocked_getresponse.call_count
 
-            passed_retries = number_of_retries_to_success < call_count
-            verify = number_of_retries_to_success and passed_retries
-            if verify:
-                return self.build_auth_success_response(call_count)
-            return self.build_auth_fail_response_401(call_count)
+            never_fail = number_of_retries_to_success == 0
+            always_fail = number_of_retries_to_success < 0
+            retry_again = number_of_retries_to_success >= call_count and not never_fail
+
+            if always_fail or retry_again:
+                return self.build_auth_fail_response_401(call_count)
+            return self.build_auth_success_response(call_count)
 
         self.mocked_getresponse.side_effect = get_response
 
