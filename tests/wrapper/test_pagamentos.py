@@ -88,7 +88,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "digitoVerificadorContaCorrente": "x",
             "listaPagamentos": [{"codigoPagamento": "1"}],
         }
-        self.mock.add(
+        self.mock_responses.add(
             responses.POST,
             request_url,
             headers=self._build_authorization_header(1),
@@ -102,7 +102,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response.json())
 
         self.assertEqual(expected_total_requests, self.total_requests())
-        self.mock.assert_call_count(request_url, 1)
+        self.mock_responses.assert_call_count(request_url, 1)
 
     def test_cancelar_pagamento_2(self):
         """
@@ -118,7 +118,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "listaPagamentos": [{"codigoPagamento": "1"}],
             "numeroContratoPagamento": "4",
         }
-        self.mock.add(
+        self.mock_responses.add(
             responses.POST,
             request_url,
             headers=self._build_authorization_header(1),
@@ -132,7 +132,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response.json())
 
         self.assertEqual(expected_total_requests, self.total_requests())
-        self.mock.assert_call_count(request_url, 1)
+        self.mock_responses.assert_call_count(request_url, 1)
 
     def test_liberar_pagamentos_1(self):
         """
@@ -142,7 +142,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         request_url = PagamentoLoteBBWrapper()._construct_url("liberar-pagamentos")
         expected_json = {"numeroRequisicao": "1", "indicadorFloat": "N"}
-        self.mock.add(
+        self.mock_responses.add(
             responses.POST,
             request_url,
             headers=self._build_authorization_header(1),
@@ -156,7 +156,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response.json())
 
         self.assertEqual(expected_total_requests, self.total_requests())
-        self.mock.assert_call_count(request_url, 1)
+        self.mock_responses.assert_call_count(request_url, 1)
 
     def test_resgatar_lote_1(self):
         """
@@ -166,7 +166,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         request_url = PagamentoLoteBBWrapper()._construct_url("1")
         expected_json = {}
-        self.mock.add(
+        self.mock_responses.add(
             responses.GET,
             request_url,
             headers=self._build_authorization_header(1),
@@ -180,7 +180,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response.json())
 
         self.assertEqual(expected_total_requests, self.total_requests())
-        self.mock.assert_call_count(request_url, 1)
+        self.mock_responses.assert_call_count(request_url, 1)
 
     def test_resgatar_lote_solicitacao_1(self):
         """
@@ -190,7 +190,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         request_url = PagamentoLoteBBWrapper()._construct_url("1", "solicitacao")
         expected_json = {}
-        self.mock.add(
+        self.mock_responses.add(
             responses.GET,
             request_url,
             headers=self._build_authorization_header(1),
@@ -204,7 +204,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response.json())
 
         self.assertEqual(expected_total_requests, self.total_requests())
-        self.mock.assert_call_count(request_url, 1)
+        self.mock_responses.assert_call_count(request_url, 1)
 
     def test_listar_pagamentos_1(self):
         """
@@ -216,7 +216,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "pagamentos", search={"dataInicio": "foo", "dataFim": "bar", "indice": 0}
         )
         expected_json = {}
-        self.mock.add(
+        self.mock_responses.add(
             responses.GET,
             request_url,
             headers=self._build_authorization_header(1),
@@ -230,7 +230,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response.json())
 
         self.assertEqual(expected_total_requests, self.total_requests())
-        self.mock.assert_call_count(request_url, 1)
+        self.mock_responses.assert_call_count(request_url, 1)
 
     def test_cadastrar_transferencia_1(self):
         """
@@ -259,7 +259,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
                 }
             ],
         }
-        self.mock.add(
+        self.mock_responses.add(
             responses.POST,
             request_url,
             headers=self._build_authorization_header(1),
@@ -275,7 +275,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response.json())
 
         self.assertEqual(expected_total_requests, self.total_requests())
-        self.mock.assert_call_count(request_url, 1)
+        self.mock_responses.assert_call_count(request_url, 1)
 
     def test_consultar_transferencia_1(self):
         """
@@ -285,7 +285,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         request_url = PagamentoLoteBBWrapper()._construct_url("transferencias", "1")
         expected_json = {}
-        self.mock.add(
+        self.mock_responses.add(
             responses.GET,
             request_url,
             headers=self._build_authorization_header(1),
@@ -299,7 +299,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response.json())
 
         self.assertEqual(expected_total_requests, self.total_requests())
-        self.mock.assert_call_count(request_url, 1)
+        self.mock_responses.assert_call_count(request_url, 1)
 
     def test_cadastrar_pagamento_boleto_1(self):
         """
@@ -325,7 +325,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
                 }
             ],
         }
-        self.mock.add(
+        self.mock_responses.add(
             responses.POST,
             request_url,
             headers=self._build_authorization_header(1),
@@ -350,7 +350,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response.json())
 
         self.assertEqual(expected_total_requests, self.total_requests())
-        self.mock.assert_call_count(request_url, 1)
+        self.mock_responses.assert_call_count(request_url, 1)
 
     def test_consultar_pagamento_boleto_1(self):
         """
@@ -360,7 +360,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         request_url = PagamentoLoteBBWrapper()._construct_url("boletos", "1")
         expected_json = {}
-        self.mock.add(
+        self.mock_responses.add(
             responses.GET,
             request_url,
             headers=self._build_authorization_header(1),
@@ -374,7 +374,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response.json())
 
         self.assertEqual(expected_total_requests, self.total_requests())
-        self.mock.assert_call_count(request_url, 1)
+        self.mock_responses.assert_call_count(request_url, 1)
 
     def test_cadastrar_pagamento_tributo_1(self):
         """
@@ -399,7 +399,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
                 }
             ],
         }
-        self.mock.add(
+        self.mock_responses.add(
             responses.POST,
             request_url,
             headers=self._build_authorization_header(1),
@@ -422,7 +422,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response.json())
 
         self.assertEqual(expected_total_requests, self.total_requests())
-        self.mock.assert_call_count(request_url, 1)
+        self.mock_responses.assert_call_count(request_url, 1)
 
     def test_consultar_pagamento_tributo_1(self):
         """
@@ -434,7 +434,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "guias-codigo-barras", "1"
         )
         expected_json = {}
-        self.mock.add(
+        self.mock_responses.add(
             responses.GET,
             request_url,
             headers=self._build_authorization_header(1),
@@ -448,4 +448,4 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response.json())
 
         self.assertEqual(expected_total_requests, self.total_requests())
-        self.mock.assert_call_count(request_url, 1)
+        self.mock_responses.assert_call_count(request_url, 1)
