@@ -47,8 +47,11 @@ class MockedRequestsTestCase(TestCase):
     def setUp(self):
         super().setUp()
 
-        self.mock = responses.RequestsMock(registry=registries.OrderedRegistry)
-        self.mock.start()
+        self.mocked_responses = responses.RequestsMock(registry=registries.OrderedRegistry)
+        self.mocked_responses.start()
+        self.addCleanUp(self.mocked_responses.stop)
+        
+        self.addCleanUp(self.clear_data)
 
         self.set_auth()
 
