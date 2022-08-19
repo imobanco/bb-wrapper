@@ -2,6 +2,7 @@ from unittest import TestCase
 from unittest.mock import patch
 import json
 import responses
+from responses import registries
 
 
 class BarcodeAndCodeLineTestCase(TestCase):
@@ -45,7 +46,9 @@ class MockedRequestsTestCase(TestCase):
     def setUp(self):
         super().setUp()
 
-        self.mock_responses = responses.RequestsMock()
+        self.mock_responses = responses.RequestsMock(
+            registry=registries.OrderedRegistry
+        )
         self.mock_responses.start()
         self.addCleanup(self.mock_responses.stop)
 
