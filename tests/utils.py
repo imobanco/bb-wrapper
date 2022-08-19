@@ -1,7 +1,8 @@
 from unittest import TestCase
-from unittest.mock import patch, MagicMock
-
-import requests
+from unittest.mock import patch
+import json
+import responses
+from responses import registries
 
 
 class BarcodeAndCodeLineTestCase(TestCase):
@@ -45,27 +46,18 @@ class MockedRequestsTestCase(TestCase):
     def setUp(self):
         super().setUp()
 
-        self.requests_patcher = patch("bb_wrapper.wrapper.request.requests")
-        self.auth_requests_patcher = patch("bb_wrapper.wrapper.bb.requests")
+        self.mock_responses = responses.RequestsMock(
+            registry=registries.OrderedRegistry
+        )
+        self.mock_responses.start()
+        self.addCleanup(self.mock_responses.stop)
 
-        self.mocked_requests = self.requests_patcher.start()
-        self.mocked_auth_requests = self.auth_requests_patcher.start()
+        self.addCleanup(self.clear_data)
 
-        self.addCleanup(self.requests_patcher.stop)
-        self.addCleanup(self.auth_requests_patcher.stop)
-
-        self.mocked_get = self.mocked_requests.get
-        self.mocked_post = self.mocked_requests.post
-        self.mocked_put = self.mocked_requests.put
-        self.mocked_patch = self.mocked_requests.patch
-        self.mocked_delete = self.mocked_requests.delete
         self.set_auth()
 
-    def tearDown(self):
-        super().tearDown()
-        self.clear_data()
-
-    def clear_data(self):
+    @staticmethod
+    def clear_data():
         from bb_wrapper.wrapper.bb import BaseBBWrapper
         from bb_wrapper.wrapper.pagamento_lote import PagamentoLoteBBWrapper
         from bb_wrapper.wrapper.pix_cob import PIXCobBBWrapper
@@ -77,44 +69,88 @@ class MockedRequestsTestCase(TestCase):
         CobrancasBBWrapper().reset_data()
 
     @staticmethod
-    def build_response_mock(status_code=200, data=None, content=None):
+    def __auth_success_201_data(call_count):
+        return {
+            "access_token": f"token_{call_count}",
+            "token_type": "token_type",
+            "expires_in": 600,
+        }
+
+    def build_auth_success_response(self, call_count):
+        status = 201
+        headers = self._get_headers()
+        data = json.dumps(self.__auth_success_201_data(call_count))
+        return status, headers, data
+
+    @staticmethod
+    def __auth_fail_401_data(call_count):
+        return {
+            "error": f"invalid_client{call_count}",
+            "error_description": "Identificador ou credencial inválidos",
+        }
+
+    def build_auth_fail_response_401(self, call_count):
+        status = 401
+        headers = self._get_headers()
+        data = json.dumps(self.__auth_fail_401_data(call_count))
+        return status, headers, data
+
+    def __get_auth_request(self):
         """
-        Cria uma response mockada
+        Retorna a primeira requisição cadastrada, ou seja, a
+        requisição de autenticação.
         """
-        response = MagicMock(
-            status_code=status_code, data=data if data else {}, content=content
+        return self.mock_responses.registered()[0]
+
+    def total_requests(self):
+        return len(self.mock_responses.calls)
+
+    @staticmethod
+    def __get_auth_url():
+        from bb_wrapper.wrapper.bb import BaseBBWrapper
+
+        return BaseBBWrapper()._BaseBBWrapper__oauth_url()
+
+    def set_auth(self, number_of_retries_to_success: int = 0):
+        self.mock_responses.reset()
+
+        def auth_request(request):
+            call_count = self.__get_auth_request().call_count + 1
+
+            never_fail = number_of_retries_to_success == 0
+            always_fail = number_of_retries_to_success < 0
+            retry_again = number_of_retries_to_success >= call_count and not never_fail
+
+            if always_fail or retry_again:
+                return self.build_auth_fail_response_401(call_count)
+            return self.build_auth_success_response(call_count)
+
+        self.mock_responses.add_callback(
+            responses.POST,
+            self.__get_auth_url(),
+            callback=auth_request,
         )
 
-        response.json.return_value = response.data
+    def no_auth(func):
+        """
+        Nem todos os testes de uma classe realizaram requisições,
+        nesse caso, é necessário utilizar este decorator para
+        desativar o mock de responses.
+        """
 
-        def raise_for_status():
-            # noinspection PyCallByClass
-            requests.Response.raise_for_status(response)
+        def inner(self):
+            self.mock_responses.remove(responses.POST, self.__get_auth_url())
+            func(self)
 
-        response.raise_for_status.side_effect = raise_for_status
-        return response
+        return inner
 
-    def set_auth(self):
-        self.mocked_auth_requests.post.reset_mock()
-
-        def request_auth(*args, **kwargs):
-            call_count = self.mocked_auth_requests.post.call_count
-            return self.build_response_mock(
-                200,
-                data={
-                    "access_token": f"token_{call_count}",
-                    "token_type": "token_type",
-                },
-            )
-
-        self.mocked_auth_requests.post.side_effect = request_auth
+    @staticmethod
+    def _build_authorization_header(token):
+        return {"Authorization": "token_type token_" f"{token}"}
 
     def _get_headers(self):
         return {
-            "Authorization": f"token_type token_"
-            f"{self.mocked_auth_requests.post.call_count}",
+            "Authorization": "token_type token_"
+            f"{self.__get_auth_request().call_count}",
             "Content-type": "application/json",
         }
-
-    def get_request_complements(self, verify=False, cert=None):
-        return dict(headers=self._get_headers(), verify=verify, cert=cert)

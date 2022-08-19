@@ -3,6 +3,7 @@ import threading
 
 from .request import RequestsWrapper, requests
 from ..constants import IS_SANDBOX, BASIC_TOKEN, GW_APP_KEY
+from requests.adapters import HTTPAdapter, Retry
 
 
 class BaseBBWrapper(RequestsWrapper):
@@ -19,6 +20,7 @@ class BaseBBWrapper(RequestsWrapper):
     SCOPE = ""
 
     TOKEN_EXPIRE_TIME = (10 * 60) - 30  # 9:30 minutos
+    AUTH_MAX_RETRY_ATTEMPTS = 5
 
     def __init__(
         self,
@@ -183,19 +185,22 @@ class BaseBBWrapper(RequestsWrapper):
         is_token_missing = not self._access_token
         return is_token_missing or is_token_expired
 
-    def __authenticate(self):
-        """
-        https://forum.developers.bb.com.br/t/status-code-415-unsupported-media-type-somente-em-producao/1123
-
-        O endpoint oauth recebe application/x-www-form-urlencoded!
-        """
-        url = (
+    def __oauth_url(self):
+        return (
             f"{BaseBBWrapper.BASE_SCHEMA}"
             f"oauth"
             f'{".sandbox" if self._is_sandbox else ""}'
             f"{BaseBBWrapper.BASE_DOMAIN}"
             f"/oauth/token"
         )
+
+    def __authenticate(self):
+        """
+        https://forum.developers.bb.com.br/t/status-code-415-unsupported-media-type-somente-em-producao/1123
+
+        O endpoint oauth recebe application/x-www-form-urlencoded!
+        """
+        url = self.__oauth_url()
         header = {"Authorization": f"Basic {self.__basic_token}"}
 
         data = {
@@ -205,7 +210,17 @@ class BaseBBWrapper(RequestsWrapper):
         kwargs = dict(headers=header, verify=False, data=data)
 
         if self.__should_authenticate():
-            response = requests.post(url, **kwargs)
+            session = requests.Session()
+            retry_strategy = Retry(
+                total=self.AUTH_MAX_RETRY_ATTEMPTS,
+                backoff_factor=0.1,
+                status_forcelist=[401, 429, 500, 502, 503, 504],
+                allowed_methods=frozenset(["POST"]),
+                raise_on_status=False,
+            )
+            session.mount("http://", HTTPAdapter(max_retries=retry_strategy))
+            session.mount("https://", HTTPAdapter(max_retries=retry_strategy))
+            response = session.post(url, **kwargs)
             response = self._process_response(response)
             self._access_token = response.data["access_token"]
             self._token_type = response.data["token_type"]
