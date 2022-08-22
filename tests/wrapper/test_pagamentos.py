@@ -26,12 +26,33 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             - for chamado PagamentoLoteBBWrapper()._construct_url(end_bar=True)
         Então:
             - o resultado deve ter pelo menos o texto
-                'https://api.hm.bb.com.br/pagamentos-lote/v1/?gw-dev-app-key='
+                'https://api.sandbox.bb.com.br/pagamentos-lote/v1/?gw-dev-app-key='
         """
         result = PagamentoLoteBBWrapper()._construct_url(end_bar=True)
 
         expected = (
             f"https://api.sandbox.bb.com.br/pagamentos-lote/v1/"
+            f"?gw-dev-app-key={PagamentoLoteBBWrapper()._BaseBBWrapper__gw_app_key}"
+        )
+
+        self.assertEqual(expected, result)
+
+    @MockedRequestsTestCase.no_auth
+    def test_construct_url_prod(self):
+        """
+        Dado:
+            -
+        Quando:
+            - for chamado PagamentoLoteBBWrapper(is_sandbox=False)._construct_url(end_bar=True)
+        Então:
+            - o resultado deve ter pelo menos o texto
+                'https://api-ip.bb.com.br/pagamentos-lote/v1/?gw-dev-app-key='
+        """
+
+        result = PagamentoLoteBBWrapper(is_sandbox=False)._construct_url(end_bar=True)
+
+        expected = (
+            f"https://api-ip.bb.com.br/pagamentos-lote/v1/"
             f"?gw-dev-app-key={PagamentoLoteBBWrapper()._BaseBBWrapper__gw_app_key}"
         )
 
