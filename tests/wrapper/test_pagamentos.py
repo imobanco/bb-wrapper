@@ -43,7 +43,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         Dado:
             -
         Quando:
-            - for chamado PagamentoLoteBBWrapper(is_sandbox=False)._construct_url(end_bar=True)
+            - for chamado PagamentoLoteBBWrapper(is_sandbox=False)._construct_url(end_bar=True)  # noqa
         Então:
             - o resultado deve ter pelo menos o texto
                 'https://api-ip.bb.com.br/pagamentos-lote/v1/?gw-dev-app-key='
