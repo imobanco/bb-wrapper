@@ -27,7 +27,7 @@ class BaseBBWrapper(RequestsWrapper):
         basic_token=None,
         is_sandbox=None,
         gw_app_key=None,
-        verify_https=False,
+        verify_https=True,
         cert=None,
     ):
         if is_sandbox is None:
@@ -207,7 +207,7 @@ class BaseBBWrapper(RequestsWrapper):
             "grant_type": "client_credentials",
             "scope": self.SCOPE,
         }
-        kwargs = dict(headers=header, verify=False, data=data)
+        kwargs = dict(headers=header, verify=self._verify_https, data=data)
 
         if self.__should_authenticate():
             session = requests.Session()

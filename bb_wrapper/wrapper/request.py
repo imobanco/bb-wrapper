@@ -16,10 +16,10 @@ class RequestsWrapper:
         __base_url: Url base para construir os requests
     """
 
-    def __init__(self, base_url, verify_https=False, cert=None):
+    def __init__(self, base_url, verify_https=True, cert=None):
         self.__base_url = base_url
         self.__cert = cert
-        self.__verify_https = verify_https
+        self._verify_https = verify_https
 
     @staticmethod
     def _process_response(response) -> requests.Response:
@@ -109,7 +109,7 @@ class RequestsWrapper:
 
         return dict(
             headers=headers,
-            verify=self.__verify_https,
+            verify=self._verify_https,
             cert=self.__cert,
         )
 
