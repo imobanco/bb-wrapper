@@ -131,6 +131,7 @@ class MockedRequestsTestCase(TestCase):
             callback=auth_request,
         )
 
+    @staticmethod
     def no_auth(func):
         """
         Nem todos os testes de uma classe realizaram requisições,

@@ -38,7 +38,7 @@ class RequestsWrapper:
             'objeto' (:class:`.requests.Response`) de resposta http
         """
         try:
-            response.data = response.json()
+            response.data = response.json(strict=False)
         except JSONDecodeError:
             response.data = {}
         response.reason = response.data
