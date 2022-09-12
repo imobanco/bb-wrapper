@@ -131,6 +131,9 @@ class MockedRequestsTestCase(TestCase):
             callback=auth_request,
         )
 
+    def remove_auth(self):
+        self.mock_responses.remove(responses.POST, self.__get_auth_url())
+
     @staticmethod
     def no_auth(func):
         """
@@ -140,7 +143,7 @@ class MockedRequestsTestCase(TestCase):
         """
 
         def inner(self):
-            self.mock_responses.remove(responses.POST, self.__get_auth_url())
+            self.remove_auth()
             func(self)
 
         return inner
