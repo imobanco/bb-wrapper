@@ -2,11 +2,15 @@ from unittest.mock import MagicMock
 
 from bb_wrapper.wrapper import PIXCobBBWrapper
 from bb_wrapper.services import PixCodeService
-from tests.utils import IsolatedEnvTestCase
+from tests.utils import IsolatedEnvTestCase, MockedRequestsTestCase
 
 
-class PixCobBBWrapperTestCase(IsolatedEnvTestCase):
+class PixCobBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
     maxDiff = None
+
+    def setUp(self):
+        super(PixCobBBWrapperTestCase, self).setUp()
+        self.remove_auth()
 
     def test_create_and_validate_cobranca_data_cpf(self):
         """
@@ -187,3 +191,25 @@ class PixCobBBWrapperTestCase(IsolatedEnvTestCase):
         expected = "https://api.sandbox.bb.com.br/pix/v1?gw-dev-app-key="
 
         self.assertIn(expected, result)
+
+    def test_consultar_cobranca_content_bizarro(self):
+        """
+        A string 'Mensalidade setembro (-5\n%)' em um content
+        bytes para fazer o parse para JSON estoura um JSONDecodeError!
+        """
+        tx_id = "foo"
+
+        content = b'{\n\t\n\t"status": "CONCLUIDA",\n\t"calendario": {\n\t\t"criacao": "2022-09-12T07:58:41.29-03:00",\n\t\t"expiracao": "604800"\n\t},\n\t"location": "qrcodepix.bb.com.br/pix/v2/46asd23a5-g5h6-j7k8-l9a0-adasd231r5bd",\n\t"txid": "eVShZasd1asd2rLTasdASDg44",\n\t"revisao": 0,\n\t\n\t\t"devedor": {\n\t\t\t\n\t\t\t\t"cpf": "00000000000",\n\t\t\t\n\t\t\t\n\t\t\t"nome": "DANIEL FULANO"\n\t\t},\n\t\n\t"valor": {\n\t\t"original": "902.50"\n\t},\n\t"chave": "asd27bd-4ag6-5fsc-y6hm-d1da25fa4bdsdf",\n\t\n\t\t"infoAdicionais": [\n\t\t\t\n\t\t\t{\n\t\t\t\t"nome": "Benefici\xc3\xa1rio final",\n\t\t\t\t"valor": "MARIA FULANO, cnpj: 00000000000000"\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t],\n\t\n\t\n\t\t"pix": [\n\t\t\t{\n\t\t\t\t"endToEndId": "E00000000202209121142123454564",\n\t\t\t\t"txid": "eKpVSLh0asdGasdM2DvrLTsqA4s4",\n\t\t\t\t"valor": "902.50",\n\t\t\t\t\n\t\t\t\t\t"pagador": {\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t"cpf": "00000000000",\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t"nome": "DANIEL FULANO"\n\t\t\t\t\t},\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t"infoPagador": "Mensalidade setembro (-5\n%)",\n\t\t\t\t\n\t\t\t\t\n                "horario": "2022-09-12T08:43:39.00-03:00"\n\t\t\t}\n\t\t],\n\t\n\t"solicitacaoPagador": "MENSALIDADE SETEMBRO/22 - MATEUS FULANO"\n\t\n}'  # noqa
+
+        url = PIXCobBBWrapper()._construct_url("cob", tx_id)
+        self.set_auth()
+        self.mock_responses.add("GET", url, content, status=200)
+
+        result = PIXCobBBWrapper().consultar_cobranca(tx_id)
+
+        expected_data = {}
+
+        self.assertNotEqual(result.data, expected_data)
+        self.assertEqual(
+            result.data["pix"][0]["infoPagador"], "Mensalidade setembro (-5\n%)"
+        )
