@@ -2,7 +2,6 @@ from json.decoder import JSONDecodeError
 
 import requests
 
-from ..constants import REQUEST_TIMEOUT
 from ..utils import _get_logger
 
 
@@ -21,7 +20,7 @@ class RequestsWrapper:
     """
 
     def __init__(
-        self, base_url, timeout=REQUEST_TIMEOUT, verify_https=False, cert=None
+        self, base_url, timeout=None, verify_https=False, cert=None
     ):
         self.__base_url = base_url
         self.__timeout = timeout
