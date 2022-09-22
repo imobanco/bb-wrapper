@@ -17,7 +17,9 @@ class RequestsWrapper:
         __base_url: Url base para construir os requests
     """
 
-    def __init__(self, base_url, timeout=REQUEST_TIMEOUT, verify_https=False, cert=None):
+    def __init__(
+        self, base_url, timeout=REQUEST_TIMEOUT, verify_https=False, cert=None
+    ):
         self.__base_url = base_url
         self.__timeout = timeout
         self.__cert = cert
@@ -145,9 +147,7 @@ class RequestsWrapper:
         response = self._process_response(response)
         return response
 
-    def _post(
-        self, url, data, headers=None, use_json=True
-    ) -> requests.Response:
+    def _post(self, url, data, headers=None, use_json=True) -> requests.Response:
         """
         http post
 
@@ -169,9 +169,7 @@ class RequestsWrapper:
         response = self._process_response(response)
         return response
 
-    def _put(
-        self, url, data, headers=None, use_json=True
-    ) -> requests.Response:
+    def _put(self, url, data, headers=None, use_json=True) -> requests.Response:
         """
         http put
 
@@ -191,9 +189,7 @@ class RequestsWrapper:
         response = self._process_response(response)
         return response
 
-    def _patch(
-        self, url, data, headers=None, use_json=True
-    ) -> requests.Response:
+    def _patch(self, url, data, headers=None, use_json=True) -> requests.Response:
         request_info = self._get_request_info(headers)
         if use_json:
             request_info["json"] = data
