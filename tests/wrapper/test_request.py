@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from unittest.mock import patch
-from requests import ReadTimeout
+from requests import Timeout
 
 from bb_wrapper.wrapper.request import RequestsWrapper
 
@@ -71,6 +71,14 @@ class RequestsWrapperTestCase(TestCase):
         self.assertEqual(result, expected)
 
     def test_request_timeout(self):
+        """
+        Dado:
+            - uma requisição qualquer
+        Quando:
+            - o servidor demorar X segundos para responder
+        Então:
+            - um erro de timeout deve ser lançado
+        """
         self.headers_patcher = patch(
             "bb_wrapper.wrapper.request.RequestsWrapper._get_request_info"
         )
@@ -80,7 +88,7 @@ class RequestsWrapperTestCase(TestCase):
 
         wrapper = RequestsWrapper(base_url="", timeout=2)
         url = "https://httpstat.us/200?sleep=5000"
-        with self.assertRaises(ReadTimeout):
+        with self.assertRaises(Timeout):
             wrapper._get(url)
 
         self.headers_patcher.stop()
