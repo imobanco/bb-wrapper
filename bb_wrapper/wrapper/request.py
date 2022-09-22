@@ -15,6 +15,9 @@ class RequestsWrapper:
 
     Attributes:
         __base_url: Url base para construir os requests
+        __timeout: Tempo máximo de espera de requests
+        __verity_https: flag que ativa verificação https
+        __cert: certificado http
     """
 
     def __init__(
