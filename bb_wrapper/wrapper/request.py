@@ -17,8 +17,9 @@ class RequestsWrapper:
         __base_url: Url base para construir os requests
     """
 
-    def __init__(self, base_url, verify_https=False, cert=None):
+    def __init__(self, base_url, timeout=REQUEST_TIMEOUT, verify_https=False, cert=None):
         self.__base_url = base_url
+        self.__timeout = timeout
         self.__cert = cert
         self.__verify_https = verify_https
 
@@ -114,7 +115,7 @@ class RequestsWrapper:
             cert=self.__cert,
         )
 
-    def _delete(self, url, headers=None, timeout=REQUEST_TIMEOUT) -> requests.Response:
+    def _delete(self, url, headers=None) -> requests.Response:
         """
         http delete
 
@@ -125,11 +126,11 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         request_info = self._get_request_info(headers)
-        response = requests.delete(url, timeout=timeout, **request_info)
+        response = requests.delete(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
         return response
 
-    def _get(self, url, headers=None, timeout=REQUEST_TIMEOUT) -> requests.Response:
+    def _get(self, url, headers=None) -> requests.Response:
         """
         http get
 
@@ -140,12 +141,12 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         request_info = self._get_request_info(headers)
-        response = requests.get(url, timeout=timeout, **request_info)
+        response = requests.get(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
         return response
 
     def _post(
-        self, url, data, headers=None, use_json=True, timeout=REQUEST_TIMEOUT
+        self, url, data, headers=None, use_json=True
     ) -> requests.Response:
         """
         http post
@@ -164,12 +165,12 @@ class RequestsWrapper:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.post(url, timeout=timeout, **request_info)
+        response = requests.post(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
         return response
 
     def _put(
-        self, url, data, headers=None, use_json=True, timeout=REQUEST_TIMEOUT
+        self, url, data, headers=None, use_json=True
     ) -> requests.Response:
         """
         http put
@@ -186,18 +187,18 @@ class RequestsWrapper:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.put(url, timeout=timeout, **request_info)
+        response = requests.put(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
         return response
 
     def _patch(
-        self, url, data, headers=None, use_json=True, timeout=REQUEST_TIMEOUT
+        self, url, data, headers=None, use_json=True
     ) -> requests.Response:
         request_info = self._get_request_info(headers)
         if use_json:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.patch(url, timeout=timeout, **request_info)
+        response = requests.patch(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
         return response

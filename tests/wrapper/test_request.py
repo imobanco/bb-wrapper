@@ -78,9 +78,9 @@ class RequestsWrapperTestCase(TestCase):
 
         self.mocked_headers.return_value = {}
 
-        wrapper = RequestsWrapper(base_url="")
+        wrapper = RequestsWrapper(base_url="", timeout=2)
         url = "https://httpstat.us/200?sleep=5000"
         with self.assertRaises(ReadTimeout):
-            wrapper._get(url, timeout=2)
+            wrapper._get(url)
 
         self.headers_patcher.stop()
