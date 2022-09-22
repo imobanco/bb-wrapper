@@ -1,5 +1,8 @@
 from unittest import TestCase
 
+from unittest.mock import patch
+from requests import ReadTimeout
+
 from bb_wrapper.wrapper.request import RequestsWrapper
 
 
@@ -66,3 +69,19 @@ class RequestsWrapperTestCase(TestCase):
         expected = "http://foo.bar/acao1/id1/subacao2/id2?query1=1&query2=2"
 
         self.assertEqual(result, expected)
+
+    def test_request_timeout(self):
+        self.timeout_patcher = patch("bb_wrapper.wrapper.request.RequestsWrapper.REQUEST_TIMEOUT", 2)
+        self.headers_patcher = patch("bb_wrapper.wrapper.request.RequestsWrapper._get_request_info")
+        self.mocked_timeout = self.timeout_patcher.start()
+        self.mocked_headers = self.headers_patcher.start()
+
+        self.mocked_headers.return_value = {}
+
+        wrapper = RequestsWrapper(base_url="")
+        url = "https://httpstat.us/200?sleep=5000"
+        with self.assertRaises(ReadTimeout):
+            wrapper._get(url)
+
+        self.timeout_patcher.stop()
+        self.headers_patcher.stop()

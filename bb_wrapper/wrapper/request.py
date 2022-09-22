@@ -16,6 +16,8 @@ class RequestsWrapper:
         __base_url: Url base para construir os requests
     """
 
+    REQUEST_TIMEOUT = 5
+
     def __init__(self, base_url, verify_https=False, cert=None):
         self.__base_url = base_url
         self.__cert = cert
@@ -124,7 +126,7 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         request_info = self._get_request_info(headers)
-        response = requests.delete(url, **request_info)
+        response = requests.delete(url, timeout=self.REQUEST_TIMEOUT, **request_info)
         response = self._process_response(response)
         return response
 
@@ -139,7 +141,7 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         request_info = self._get_request_info(headers)
-        response = requests.get(url, **request_info)
+        response = requests.get(url, timeout=self.REQUEST_TIMEOUT, **request_info)
         response = self._process_response(response)
         return response
 
@@ -161,7 +163,7 @@ class RequestsWrapper:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.post(url, **request_info)
+        response = requests.post(url, timeout=self.REQUEST_TIMEOUT, **request_info)
         response = self._process_response(response)
         return response
 
@@ -181,7 +183,7 @@ class RequestsWrapper:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.put(url, **request_info)
+        response = requests.put(url, timeout=self.REQUEST_TIMEOUT, **request_info)
         response = self._process_response(response)
         return response
 
@@ -191,6 +193,6 @@ class RequestsWrapper:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.patch(url, **request_info)
+        response = requests.patch(url, timeout=self.REQUEST_TIMEOUT, **request_info)
         response = self._process_response(response)
         return response
