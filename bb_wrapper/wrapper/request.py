@@ -22,8 +22,8 @@ class RequestsWrapper:
     ):
         self.__base_url = base_url
         self.__timeout = timeout
-        self.__cert = cert
         self.__verify_https = verify_https
+        self.__cert = cert
 
     @staticmethod
     def _process_response(response) -> requests.Response:
