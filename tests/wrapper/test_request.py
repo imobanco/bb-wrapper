@@ -71,7 +71,9 @@ class RequestsWrapperTestCase(TestCase):
         self.assertEqual(result, expected)
 
     def test_request_timeout(self):
-        self.headers_patcher = patch("bb_wrapper.wrapper.request.RequestsWrapper._get_request_info")
+        self.headers_patcher = patch(
+            "bb_wrapper.wrapper.request.RequestsWrapper._get_request_info"
+        )
         self.mocked_headers = self.headers_patcher.start()
 
         self.mocked_headers.return_value = {}
