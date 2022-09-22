@@ -1,5 +1,6 @@
 from decouple import config
 
+REQUEST_TIMEOUT = 5
 
 IS_SANDBOX = config("IMOBANCO_BB_IS_SANDBOX", default=True, cast=bool)
 """É ambiente de teste?"""

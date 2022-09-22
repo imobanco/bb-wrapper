@@ -2,6 +2,7 @@ from json.decoder import JSONDecodeError
 
 import requests
 
+from ..constants import REQUEST_TIMEOUT
 from ..utils import _get_logger
 
 
@@ -15,8 +16,6 @@ class RequestsWrapper:
     Attributes:
         __base_url: Url base para construir os requests
     """
-
-    REQUEST_TIMEOUT = 5
 
     def __init__(self, base_url, verify_https=False, cert=None):
         self.__base_url = base_url
@@ -115,7 +114,7 @@ class RequestsWrapper:
             cert=self.__cert,
         )
 
-    def _delete(self, url, headers=None) -> requests.Response:
+    def _delete(self, url, headers=None, timeout=REQUEST_TIMEOUT) -> requests.Response:
         """
         http delete
 
@@ -126,11 +125,11 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         request_info = self._get_request_info(headers)
-        response = requests.delete(url, timeout=self.REQUEST_TIMEOUT, **request_info)
+        response = requests.delete(url, timeout=timeout, **request_info)
         response = self._process_response(response)
         return response
 
-    def _get(self, url, headers=None) -> requests.Response:
+    def _get(self, url, headers=None, timeout=REQUEST_TIMEOUT) -> requests.Response:
         """
         http get
 
@@ -141,11 +140,11 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         request_info = self._get_request_info(headers)
-        response = requests.get(url, timeout=self.REQUEST_TIMEOUT, **request_info)
+        response = requests.get(url, timeout=timeout, **request_info)
         response = self._process_response(response)
         return response
 
-    def _post(self, url, data, headers=None, use_json=True) -> requests.Response:
+    def _post(self, url, data, headers=None, use_json=True, timeout=REQUEST_TIMEOUT) -> requests.Response:
         """
         http post
 
@@ -163,11 +162,11 @@ class RequestsWrapper:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.post(url, timeout=self.REQUEST_TIMEOUT, **request_info)
+        response = requests.post(url, timeout=timeout, **request_info)
         response = self._process_response(response)
         return response
 
-    def _put(self, url, data, headers=None, use_json=True) -> requests.Response:
+    def _put(self, url, data, headers=None, use_json=True, timeout=REQUEST_TIMEOUT) -> requests.Response:
         """
         http put
 
@@ -183,16 +182,16 @@ class RequestsWrapper:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.put(url, timeout=self.REQUEST_TIMEOUT, **request_info)
+        response = requests.put(url, timeout=timeout, **request_info)
         response = self._process_response(response)
         return response
 
-    def _patch(self, url, data, headers=None, use_json=True) -> requests.Response:
+    def _patch(self, url, data, headers=None, use_json=True, timeout=REQUEST_TIMEOUT) -> requests.Response:
         request_info = self._get_request_info(headers)
         if use_json:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.patch(url, timeout=self.REQUEST_TIMEOUT, **request_info)
+        response = requests.patch(url, timeout=timeout, **request_info)
         response = self._process_response(response)
         return response

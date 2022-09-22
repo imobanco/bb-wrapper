@@ -71,9 +71,7 @@ class RequestsWrapperTestCase(TestCase):
         self.assertEqual(result, expected)
 
     def test_request_timeout(self):
-        self.timeout_patcher = patch("bb_wrapper.wrapper.request.RequestsWrapper.REQUEST_TIMEOUT", 2)
         self.headers_patcher = patch("bb_wrapper.wrapper.request.RequestsWrapper._get_request_info")
-        self.mocked_timeout = self.timeout_patcher.start()
         self.mocked_headers = self.headers_patcher.start()
 
         self.mocked_headers.return_value = {}
@@ -81,7 +79,6 @@ class RequestsWrapperTestCase(TestCase):
         wrapper = RequestsWrapper(base_url="")
         url = "https://httpstat.us/200?sleep=5000"
         with self.assertRaises(ReadTimeout):
-            wrapper._get(url)
+            wrapper._get(url, timeout=2)
 
-        self.timeout_patcher.stop()
         self.headers_patcher.stop()
