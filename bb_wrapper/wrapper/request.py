@@ -19,12 +19,10 @@ class RequestsWrapper:
         __cert: certificado http
     """
 
-    def __init__(
-        self, base_url, timeout=None, verify_https=False, cert=None
-    ):
+    def __init__(self, base_url, timeout=None, verify_https=True, cert=None):
         self.__base_url = base_url
         self.__timeout = timeout
-        self.__verify_https = verify_https
+        self._verify_https = verify_https
         self.__cert = cert
 
     @staticmethod
@@ -115,7 +113,7 @@ class RequestsWrapper:
 
         return dict(
             headers=headers,
-            verify=self.__verify_https,
+            verify=self._verify_https,
             cert=self.__cert,
         )
 
