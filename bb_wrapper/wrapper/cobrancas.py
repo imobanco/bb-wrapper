@@ -19,11 +19,13 @@ class CobrancasBBWrapper(BaseBBWrapper):
         basic_token=None,
         is_sandbox=None,
         gw_app_key=None,
+        **kwargs,
     ):
         super().__init__(
             basic_token=basic_token,
             is_sandbox=is_sandbox,
             gw_app_key=gw_app_key,
+            **kwargs,
         )
 
         if convenio is None:

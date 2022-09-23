@@ -19,11 +19,11 @@ class RequestsWrapper:
         __cert: certificado http
     """
 
-    def __init__(self, base_url, timeout=None, verify_https=True, cert=None):
+    def __init__(self, base_url, verify_https=True, cert=None, **kwargs):
         self.__base_url = base_url
-        self.__timeout = timeout
         self._verify_https = verify_https
         self.__cert = cert
+        self.__timeout = kwargs.get("timeout", None)
 
     @staticmethod
     def _process_response(response) -> requests.Response:
