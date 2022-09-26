@@ -11,6 +11,7 @@ class CobrancasBBWrapper(BaseBBWrapper):
 
     def __init__(
         self,
+        *args,
         convenio=None,
         carteira=None,
         variacao_carteira=None,
@@ -19,11 +20,14 @@ class CobrancasBBWrapper(BaseBBWrapper):
         basic_token=None,
         is_sandbox=None,
         gw_app_key=None,
+        **kwargs,
     ):
         super().__init__(
+            *args,
             basic_token=basic_token,
             is_sandbox=is_sandbox,
             gw_app_key=gw_app_key,
+            **kwargs,
         )
 
         if convenio is None:

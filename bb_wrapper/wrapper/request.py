@@ -14,12 +14,16 @@ class RequestsWrapper:
 
     Attributes:
         __base_url: Url base para construir os requests
+        __timeout: Tempo máximo de espera de requests
+        __verity_https: flag que ativa verificação https
+        __cert: certificado http
     """
 
-    def __init__(self, base_url, verify_https=True, cert=None):
+    def __init__(self, *args, base_url, verify_https=True, cert=None, **kwargs):
         self.__base_url = base_url
-        self.__cert = cert
         self._verify_https = verify_https
+        self.__cert = cert
+        self.__timeout = kwargs.get("timeout", None)
 
     @staticmethod
     def _process_response(response) -> requests.Response:
@@ -124,7 +128,7 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         request_info = self._get_request_info(headers)
-        response = requests.delete(url, **request_info)
+        response = requests.delete(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
         return response
 
@@ -139,7 +143,7 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         request_info = self._get_request_info(headers)
-        response = requests.get(url, **request_info)
+        response = requests.get(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
         return response
 
@@ -161,7 +165,7 @@ class RequestsWrapper:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.post(url, **request_info)
+        response = requests.post(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
         return response
 
@@ -181,7 +185,7 @@ class RequestsWrapper:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.put(url, **request_info)
+        response = requests.put(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
         return response
 
@@ -191,6 +195,6 @@ class RequestsWrapper:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.patch(url, **request_info)
+        response = requests.patch(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
         return response
