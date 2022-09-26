@@ -20,7 +20,7 @@ class RequestsWrapperTestCase(TestCase):
             - o resultado deve ser "http://foo.bar/acao1/id1/subacao2/id2"
         """
         base_url = "http://foo.bar"
-        wrapper = RequestsWrapper(base_url)
+        wrapper = RequestsWrapper(base_url=base_url)
 
         result = wrapper._construct_url("acao1", "id1", "subacao2", "id2")
 
@@ -39,7 +39,7 @@ class RequestsWrapperTestCase(TestCase):
             - o resultado deve ser "http://foo.bar/acao1/id1/subacao2/id2?query1=1&query2=2"  # noqa
         """
         base_url = "http://foo.bar"
-        wrapper = RequestsWrapper(base_url)
+        wrapper = RequestsWrapper(base_url=base_url)
 
         result = wrapper._construct_url(
             "acao1", "id1", "subacao2", "id2", search="query1=1&query2=2"
@@ -60,7 +60,7 @@ class RequestsWrapperTestCase(TestCase):
             - o resultado deve ser "http://foo.bar/acao1/id1/subacao2/id2?query1=1&query2=2"  # noqa
         """
         base_url = "http://foo.bar"
-        wrapper = RequestsWrapper(base_url)
+        wrapper = RequestsWrapper(base_url=base_url)
 
         result = wrapper._construct_url(
             "acao1", "id1", "subacao2", "id2", search=dict(query1=1, query2=2)

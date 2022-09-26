@@ -19,7 +19,7 @@ class RequestsWrapper:
         __cert: certificado http
     """
 
-    def __init__(self, base_url, verify_https=True, cert=None, **kwargs):
+    def __init__(self, *args, base_url, verify_https=True, cert=None, **kwargs):
         self.__base_url = base_url
         self._verify_https = verify_https
         self.__cert = cert
