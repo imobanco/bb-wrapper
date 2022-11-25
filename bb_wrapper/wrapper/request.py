@@ -1,3 +1,4 @@
+from time import sleep
 from json.decoder import JSONDecodeError
 
 import requests
@@ -117,6 +118,9 @@ class RequestsWrapper:
             cert=self.__cert,
         )
 
+    def _base_request(self):
+        sleep(0.01)
+
     def _delete(self, url, headers=None) -> requests.Response:
         """
         http delete
@@ -127,6 +131,7 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
+        self._base_request()
         request_info = self._get_request_info(headers)
         response = requests.delete(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
@@ -142,6 +147,7 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
+        self._base_request()
         request_info = self._get_request_info(headers)
         response = requests.get(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
@@ -160,6 +166,7 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
+        self._base_request()
         request_info = self._get_request_info(headers)
         if use_json:
             request_info["json"] = data
@@ -180,6 +187,7 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
+        self._base_request()
         request_info = self._get_request_info(headers)
         if use_json:
             request_info["json"] = data
@@ -190,6 +198,7 @@ class RequestsWrapper:
         return response
 
     def _patch(self, url, data, headers=None, use_json=True) -> requests.Response:
+        self._base_request()
         request_info = self._get_request_info(headers)
         if use_json:
             request_info["json"] = data
