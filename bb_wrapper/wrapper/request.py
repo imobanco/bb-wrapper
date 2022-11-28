@@ -99,12 +99,15 @@ class RequestsWrapper:
         raise NotImplementedError("Must implement auth function!")
 
     @property
+    def _authorization_header_data(self):
+        return {"Authorization": self._auth}
+
+    @property
     def _base_url(self):
         return self.__base_url
 
-    @property
-    def _authorization_header_data(self):
-        return {"Authorization": self._auth}
+    def _base_request(self):
+        sleep(0.01)
 
     def _get_request_info(self, headers=None):
         if not headers:
@@ -117,9 +120,6 @@ class RequestsWrapper:
             verify=self._verify_https,
             cert=self.__cert,
         )
-
-    def _base_request(self):
-        sleep(0.01)
 
     def _delete(self, url, headers=None) -> requests.Response:
         """
