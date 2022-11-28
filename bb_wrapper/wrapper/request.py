@@ -3,10 +3,34 @@ from json.decoder import JSONDecodeError
 
 import requests
 
+from requests import ConnectionError
+from urllib3.exceptions import ProtocolError
+
 from ..utils import _get_logger
 
 
 logger = _get_logger("requests")
+
+
+def retry_request(counter=5):
+    retry_request.counter = counter
+
+    def wrapper(http_method, *args, **kwargs):
+        from functools import wraps
+
+        @wraps(http_method)
+        def inner(self, *args, **kwargs):
+            try:
+                return http_method(self, *args, **kwargs)
+            except (ConnectionError, ConnectionResetError, ProtocolError):
+                if retry_request.counter > 0:
+                    retry_request.counter -= 1
+                    return inner(self, *args, **kwargs)
+                raise
+
+        return inner
+
+    return wrapper
 
 
 class RequestsWrapper:
@@ -121,6 +145,7 @@ class RequestsWrapper:
             cert=self.__cert,
         )
 
+    @retry_request(counter=3)
     def _delete(self, url, headers=None) -> requests.Response:
         """
         http delete
@@ -137,6 +162,7 @@ class RequestsWrapper:
         response = self._process_response(response)
         return response
 
+    @retry_request(counter=3)
     def _get(self, url, headers=None) -> requests.Response:
         """
         http get
@@ -153,6 +179,7 @@ class RequestsWrapper:
         response = self._process_response(response)
         return response
 
+    @retry_request(counter=3)
     def _post(self, url, data, headers=None, use_json=True) -> requests.Response:
         """
         http post
@@ -176,6 +203,7 @@ class RequestsWrapper:
         response = self._process_response(response)
         return response
 
+    @retry_request(counter=3)
     def _put(self, url, data, headers=None, use_json=True) -> requests.Response:
         """
         http put
@@ -197,6 +225,7 @@ class RequestsWrapper:
         response = self._process_response(response)
         return response
 
+    @retry_request(counter=3)
     def _patch(self, url, data, headers=None, use_json=True) -> requests.Response:
         self._base_request()
         request_info = self._get_request_info(headers)
