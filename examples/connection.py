@@ -9,10 +9,7 @@ def run_process():
         c = PIXCobBBWrapper()
         c.listar_pix(page=0)
 
-    threads = [
-        threading.Thread(target=run_thread)
-        for i in range(3)
-    ]
+    threads = [threading.Thread(target=run_thread) for i in range(3)]
 
     for thread in threads:
         thread.start()
@@ -22,10 +19,7 @@ def run_process():
 
 
 while True:
-    ps = [
-        Process(target=run_process)
-        for i in range(10)
-    ]
+    ps = [Process(target=run_process) for i in range(10)]
 
     for p in ps:
         p.start()
@@ -33,7 +27,7 @@ while True:
     for p in ps:
         p.join(timeout=6)
         if p.exitcode is None:
-            print('vou matar', str(p))
+            print("vou matar", str(p))
             p.kill()
 
-    print('Estou tentando novamente!')
+    print("Estou tentando novamente!")
