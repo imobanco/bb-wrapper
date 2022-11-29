@@ -15,12 +15,12 @@ logger = _get_logger("requests")
 def retry_request(counter=5):
     retry_request.counter = counter
 
-    def wrapper(func, *args, **kwargs):
-
+    def wrapper(func):
         def inner(*args, **kwargs):
             try:
+                sleep(0.01)
                 return func(*args, **kwargs)
-            except (ConnectionError, ConnectionResetError, ProtocolError):
+            except (ConnectionResetError, ConnectionError, ProtocolError):
                 retry_request.counter -= 1
                 if retry_request.counter > 0:
                     return inner(*args, **kwargs)
@@ -128,9 +128,6 @@ class RequestsWrapper:
     def _base_url(self):
         return self.__base_url
 
-    def _base_request(self):
-        sleep(0.01)
-
     def _get_request_info(self, headers=None):
         if not headers:
             headers = self._authorization_header_data
@@ -154,7 +151,6 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
-        self._base_request()
         request_info = self._get_request_info(headers)
         response = requests.delete(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
@@ -171,7 +167,6 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
-        self._base_request()
         request_info = self._get_request_info(headers)
         response = requests.get(url, timeout=self.__timeout, **request_info)
         response = self._process_response(response)
@@ -191,7 +186,6 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
-        self._base_request()
         request_info = self._get_request_info(headers)
         if use_json:
             request_info["json"] = data
@@ -213,7 +207,6 @@ class RequestsWrapper:
         Returns:
             (:class:`.requests.Response`)
         """
-        self._base_request()
         request_info = self._get_request_info(headers)
         if use_json:
             request_info["json"] = data
@@ -225,7 +218,6 @@ class RequestsWrapper:
 
     @retry_request(counter=3)
     def _patch(self, url, data, headers=None, use_json=True) -> requests.Response:
-        self._base_request()
         request_info = self._get_request_info(headers)
         if use_json:
             request_info["json"] = data
