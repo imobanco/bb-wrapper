@@ -15,17 +15,15 @@ logger = _get_logger("requests")
 def retry_request(counter=5):
     retry_request.counter = counter
 
-    def wrapper(http_method, *args, **kwargs):
-        from functools import wraps
+    def wrapper(func, *args, **kwargs):
 
-        @wraps(http_method)
-        def inner(self, *args, **kwargs):
+        def inner(*args, **kwargs):
             try:
-                return http_method(self, *args, **kwargs)
+                return func(*args, **kwargs)
             except (ConnectionError, ConnectionResetError, ProtocolError):
+                retry_request.counter -= 1
                 if retry_request.counter > 0:
-                    retry_request.counter -= 1
-                    return inner(self, *args, **kwargs)
+                    return inner(*args, **kwargs)
                 raise
 
         return inner
