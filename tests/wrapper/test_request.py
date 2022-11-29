@@ -92,3 +92,60 @@ class RequestsWrapperTestCase(TestCase):
             wrapper._get(url)
 
         self.headers_patcher.stop()
+
+    def test_retry_request(self):
+        """
+        Dado:
+            - uma requisição qualquer
+        Quando:
+            - o ConnectionResetError é lançado
+        Então:
+            - a requisição deve ocorrer com sucesso
+        """
+        self.headers_patcher = patch(
+            "bb_wrapper.wrapper.request.RequestsWrapper._get_request_info"
+        )
+        self.mocked_headers = self.headers_patcher.start()
+
+        max_retries = 3
+
+        def raise_connection_reset_error(headers=None):
+            call_count = self.mocked_headers.call_count
+            if call_count <= max_retries:
+                raise ConnectionResetError
+            else:
+                return dict()
+
+        self.mocked_headers.side_effect = raise_connection_reset_error
+
+        wrapper = RequestsWrapper(base_url="")
+        url = "https://httpstat.us/200?sleep=1"
+        wrapper._get(url)
+
+        self.headers_patcher.stop()
+
+    def test_fail_retry_request(self):
+        """
+        Dado:
+            - uma requisição qualquer
+        Quando:
+            - o ConnectionResetError é lançado
+        Então:
+            - o erro de conexão deve ser lançado
+        """
+        self.headers_patcher = patch(
+            "bb_wrapper.wrapper.request.RequestsWrapper._get_request_info"
+        )
+        self.mocked_headers = self.headers_patcher.start()
+
+        def raise_connection_reset_error(headers=None):
+            raise ConnectionResetError
+
+        self.mocked_headers.side_effect = raise_connection_reset_error
+
+        wrapper = RequestsWrapper(base_url="")
+        url = "https://httpstat.us/200?sleep=1"
+        with self.assertRaises(ConnectionResetError):
+            wrapper._get(url)
+
+        self.headers_patcher.stop()

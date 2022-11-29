@@ -12,18 +12,17 @@ from ..utils import _get_logger
 logger = _get_logger("requests")
 
 
-def retry_request(counter=5):
-    retry_request.counter = counter
-
+def retry_request(max_retries=5):
     def wrapper(func):
-        def inner(*args, **kwargs):
+        def inner(*args, counter=None, **kwargs):
+            counter = counter if counter is not None else max_retries
             try:
                 sleep(0.01)
                 return func(*args, **kwargs)
             except (ConnectionResetError, ConnectionError, ProtocolError):
-                retry_request.counter -= 1
-                if retry_request.counter > 0:
-                    return inner(*args, **kwargs)
+                if counter > 0:
+                    counter -= 1
+                    return inner(*args, counter=counter, **kwargs)
                 raise
 
         return inner
@@ -140,7 +139,7 @@ class RequestsWrapper:
             cert=self.__cert,
         )
 
-    @retry_request(counter=3)
+    @retry_request(max_retries=3)
     def _delete(self, url, headers=None) -> requests.Response:
         """
         http delete
@@ -156,7 +155,7 @@ class RequestsWrapper:
         response = self._process_response(response)
         return response
 
-    @retry_request(counter=3)
+    @retry_request(max_retries=3)
     def _get(self, url, headers=None) -> requests.Response:
         """
         http get
@@ -172,7 +171,7 @@ class RequestsWrapper:
         response = self._process_response(response)
         return response
 
-    @retry_request(counter=3)
+    @retry_request(max_retries=3)
     def _post(self, url, data, headers=None, use_json=True) -> requests.Response:
         """
         http post
@@ -195,7 +194,7 @@ class RequestsWrapper:
         response = self._process_response(response)
         return response
 
-    @retry_request(counter=3)
+    @retry_request(max_retries=3)
     def _put(self, url, data, headers=None, use_json=True) -> requests.Response:
         """
         http put
@@ -216,7 +215,7 @@ class RequestsWrapper:
         response = self._process_response(response)
         return response
 
-    @retry_request(counter=3)
+    @retry_request(max_retries=3)
     def _patch(self, url, data, headers=None, use_json=True) -> requests.Response:
         request_info = self._get_request_info(headers)
         if use_json:
