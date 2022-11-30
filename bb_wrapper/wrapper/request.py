@@ -6,7 +6,7 @@ import requests
 from requests import ConnectionError
 from urllib3.exceptions import ProtocolError
 
-from ..utils import _get_logger
+from bb_wrapper.utils import _get_logger
 
 
 logger = _get_logger("requests")
