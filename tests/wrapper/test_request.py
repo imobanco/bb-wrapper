@@ -147,5 +147,6 @@ class RequestsWrapperTestCase(TestCase):
         url = "https://httpstat.us/200?sleep=1"
         with self.assertRaises(ConnectionResetError):
             wrapper._get(url)
+        self.assertEqual(self.mocked_headers.call_count, 3)
 
         self.headers_patcher.stop()
