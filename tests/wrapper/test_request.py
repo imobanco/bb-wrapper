@@ -121,6 +121,8 @@ class RequestsWrapperTestCase(TestCase):
         wrapper = RequestsWrapper(base_url="")
         url = "https://httpstat.us/200?sleep=1"
         wrapper._get(url)
+        
+        self.assertEqual(self.mocked_headers.call_count, 3)
 
         self.headers_patcher.stop()
 
