@@ -101,6 +101,8 @@ class RequestsWrapperTestCase(TestCase):
             - o ConnectionResetError é lançado
         Então:
             - a requisição deve ocorrer com sucesso
+            - devem ter sido realizadas 4 requisições
+              (3 tentativas falhas e 1 bem sucedida)
         """
         self.headers_patcher = patch(
             "bb_wrapper.wrapper.request.RequestsWrapper._get_request_info"
@@ -122,7 +124,7 @@ class RequestsWrapperTestCase(TestCase):
         url = "https://httpstat.us/200?sleep=1"
         wrapper._get(url)
         
-        self.assertEqual(self.mocked_headers.call_count, 3)
+        self.assertEqual(self.mocked_headers.call_count, 4)
 
         self.headers_patcher.stop()
 
@@ -134,6 +136,7 @@ class RequestsWrapperTestCase(TestCase):
             - o ConnectionResetError é lançado
         Então:
             - o erro de conexão deve ser lançado
+              (4 tentativas falhas)
         """
         self.headers_patcher = patch(
             "bb_wrapper.wrapper.request.RequestsWrapper._get_request_info"
@@ -149,6 +152,7 @@ class RequestsWrapperTestCase(TestCase):
         url = "https://httpstat.us/200?sleep=1"
         with self.assertRaises(ConnectionResetError):
             wrapper._get(url)
-        self.assertEqual(self.mocked_headers.call_count, 3)
+
+        self.assertEqual(self.mocked_headers.call_count, 4)
 
         self.headers_patcher.stop()
