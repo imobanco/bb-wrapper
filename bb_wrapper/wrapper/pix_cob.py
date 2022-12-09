@@ -11,7 +11,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
     SCOPE = "cob.read cob.write pix.read pix.write"
 
-    BASE_DOMAIN = ".bb.com.br/pix/v1/pix"
+    BASE_DOMAIN = ".bb.com.br/pix/v1"
 
     def listar_pix(self, inicio=None, fim=None, page=0):
         """
@@ -30,7 +30,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
         if fim:
             search["fim"] = fim
 
-        url = self._construct_url(end_bar=True, search=search)
+        url = self._construct_url("pix", end_bar=False, search=search)
 
         response = self._get(url)
 
@@ -44,6 +44,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
             end_to_end_id: identificador end_to_end do pix
         """
         url = self._construct_url("pix", end_to_end_id)
+        print(url)
 
         response = self._get(url)
 
