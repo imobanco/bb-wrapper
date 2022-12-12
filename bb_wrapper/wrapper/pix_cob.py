@@ -44,7 +44,6 @@ class PIXCobBBWrapper(BaseBBWrapper):
             end_to_end_id: identificador end_to_end do pix
         """
         url = self._construct_url("pix", end_to_end_id)
-        print(url)
 
         response = self._get(url)
 
