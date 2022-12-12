@@ -30,7 +30,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
         if fim:
             search["fim"] = fim
 
-        url = self._construct_url(end_bar=True, search=search)
+        url = self._construct_url("pix", end_bar=False, search=search)
 
         response = self._get(url)
 

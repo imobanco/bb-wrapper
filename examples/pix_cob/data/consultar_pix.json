@@ -5,7 +5,7 @@
     "horario": "2020-11-10T11:30:56.00-03:00",
     "infoPagador": "",
     "pagador": {
-        "cnpj": "98262017315",
+        "cpf": "98262017315",
         "nome": "EPITACIO NEVES BRAGA"
     }
 }
