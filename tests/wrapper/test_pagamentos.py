@@ -449,7 +449,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
     def test_criar_transferencia_pix_chave_aleatoria(self):
         """
-        Teste para verificar a URL da requisição e dados de transferência PIX chave aleatória
+        Teste para verificar a URL da requisição 43e dados de transferência PIX chave aleatória  # noqa
         """
 
         request_url = PagamentoLoteBBWrapper()._construct_url(
