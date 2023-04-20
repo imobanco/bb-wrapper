@@ -15,8 +15,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
     """
     Wrapper da API Pagamentos em Lote
     """
-
-    SCOPE = "pagamentos-lote.lotes-requisicao pagamentos-lote.transferencias-info pagamentos-lote.transferencias-requisicao pagamentos-lote.cancelar-requisicao pagamentos-lote.devolvidos-info pagamentos-lote.lotes-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-info pagamentos-lote.pagamentos-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-requisicao pagamentos-lote.pagamentos-codigo-barras-info pagamentos-lote.boletos-requisicao pagamentos-lote.guias-codigo-barras-info pagamentos-lote.guias-codigo-barras-requisicao pagamentos-lote.transferencias-pix-info pagamentos-lote.transferencias-pix-requisicao pagamentos-lote.pix-info pagamentos-lote.boletos-info"  # noqa
+    SCOPE = "pagamentos-lote.lotes-requisicao pagamentos-lote.transferencias-info pagamentos-lote.transferencias-requisicao pagamentos-lote.cancelar-requisicao pagamentos-lote.devolvidos-info pagamentos-lote.lotes-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-info pagamentos-lote.pagamentos-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-requisicao pagamentos-lote.pagamentos-codigo-barras-info pagamentos-lote.boletos-requisicao pagamentos-lote.guias-codigo-barras-info pagamentos-lote.guias-codigo-barras-requisicao pagamentos-lote.transferencias-pix-requisicao" # noqa
     BASE_PROD_ADDITION = "-ip"
     BASE_DOMAIN = ".bb.com.br/pagamentos-lote/v1"
 
@@ -479,5 +478,122 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         url = self._construct_url("guias-codigo-barras", _id)
 
         response = self._get(url)
+
+        return response
+
+    ################
+    #     PIX      #
+    ################
+
+    def _criar_dados_transferencia_pix(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        data_transferencia,
+        valor_transferencia,
+        forma_id,
+        ddd,
+        telefone,
+        email,
+        cpf,
+        cnpj,
+        chave_aleatoria,
+        descricao,
+        tipo_pagamento,
+    ):
+        lote_data = {
+            "numeroRequisicao": n_requisicao,
+            "agenciaDebito": agencia,
+            "contaCorrenteDebito": conta,
+            "digitoVerificadorContaCorrente": dv_conta,
+            "tipoPagamento": tipo_pagamento,
+        }
+
+        transferencia_data = {
+            "data": data_transferencia,
+            "valor": valor_transferencia,
+            "formaIdentificacao": forma_id,
+            "descricaoPagamento": descricao,
+        }
+
+        if forma_id == 1:
+            transferencia_data["dddTelefone"] = ddd
+            transferencia_data["telefone"] = telefone
+        elif forma_id == 2:
+            transferencia_data["email"] = email
+        elif forma_id == 3:
+            transferencia_data["cpf"] = cpf
+            transferencia_data["cnpj"] = cnpj
+        elif forma_id == 4:
+            transferencia_data["identificacaoAleatoria"] = chave_aleatoria
+
+        return {**lote_data, "listaTransferencias": [{**transferencia_data}]}
+   
+    def criar_transferencia_pix(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        data_transferencia,
+        valor_transferencia,
+        forma_id,
+        ddd=None,
+        telefone=None,
+        email=None,
+        cpf=None,
+        cnpj=None,
+        chave_aleatoria=None,
+        descricao="",
+        tipo_pagamento=128,
+    ):
+        """
+        Efetua pagamentos em lote via tranferência PIX
+
+        Args:
+            n_requisicao: Nº da requisição a ser utilizado. Deve ser único
+            agencia: Agência da conta de origem do pagamento
+            conta: Nº da conta de origem do pagamento
+            dv_conta: DV da conta de origem do pagamento
+            tipo_pagamento: Tipo de pagamento a ser feito (126, 127 ou 128)
+            data_transferencia: Data do pagamento. No formato "ddmmyyyy"
+            valor_transferencia: Valor do pagamento
+            forma_id: Tipo de chave utilizada
+                1. Telefone
+                2. E-mail
+                3. CPF/CNPJ
+                4. Chave Aleatória
+            ddd: DDD com dígitos. Obrigatório caso forma_id seja igual 1
+            telefone: Telefone do recebedor. Obrigatório caso forma_id seja igual 1
+            email: Email do recebedor. Obrigatório caso forma_id seja igual 2
+            cpf: CPF do recebedor.
+                Opcional caso forma_id seja igual a 1 ou 2 e caso o campo cnpj não seja informado
+                Obrigatório caso forma_id seja igual a 3 ou 5 e caso o campo cnpj não seja informado
+            cnpj: CNPJ do recebedor: Tem os mesmos casos de Obrigatório e opcional do cpf
+            chave_aleatoria: Chave aleatória gerada pelo recebedor. Obrigatório caso forma_id seja igual 4
+            descricao: Campo de uso livre pelo cliente
+        """
+        data = self._criar_dados_transferencia_pix(
+            n_requisicao,
+            agencia,
+            conta,
+            dv_conta,
+            data_transferencia,
+            valor_transferencia,
+            forma_id,
+            ddd,
+            telefone,
+            email,
+            cpf,
+            cnpj,
+            chave_aleatoria,
+            descricao,
+            tipo_pagamento,
+        )
+        import pdb; pdb.set_trace()
+        url = self._construct_url("lotes-transferencias-pix")
+        response = self._post(url, data)
 
         return response
