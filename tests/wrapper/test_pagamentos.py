@@ -446,3 +446,119 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(2, self.total_requests())
         self.mock_responses.assert_call_count(request_url, 1)
+
+    def test_criar_transferencia_pix_chave_aleatoria(self):
+        """
+        Teste para verificar a URL da requisição e dados
+        """
+        
+        request_url = PagamentoLoteBBWrapper()._construct_url("lotes-transferencias-pix")
+        expected_json = {
+            "numeroRequisicao": "123",
+            "agenciaDebito": "345",
+            "contaCorrenteDebito": "678",
+            "digitoVerificadorContaCorrente": "X",
+            "tipoPagamento": 128,
+            "listaTransferencias": [
+                {
+                    "data": "19042023",
+                    "valor": "11",
+                    "descricaoPagamento": "Pagamento",
+                    "formaIdentificacao": 4,
+                    "identificacaoAleatoria": "d14d32de-b3b9-4c31-9f89-8df2cec92c50",
+                }
+            ],
+        }
+        self.mock_responses.add(
+            responses.POST,
+            request_url,
+            headers=self._build_authorization_header(1),
+            json=expected_json,
+        )
+        
+        response = PagamentoLoteBBWrapper().criar_transferencia_pix(
+            "123", "345", "678", "X", "19042023", "11", 4, None, None, None, None, None, "d14d32de-b3b9-4c31-9f89-8df2cec92c50", "Pagamento"
+        )
+
+        self.assertEqual(request_url, response.url)
+        self.assertEqual(self._get_headers(), response.headers)
+        self.assertEqual(expected_json, response.json())
+        self.assertEqual(2, self.total_requests())
+        self.mock_responses.assert_call_count(request_url, 1)
+
+    def test_criar_transferencia_pix_email(self):
+        """
+        Teste para verificar a URL da requisição e dados
+        """
+        
+        request_url = PagamentoLoteBBWrapper()._construct_url("lotes-transferencias-pix")
+        expected_json = {
+            "numeroRequisicao": "123",
+            "agenciaDebito": "345",
+            "contaCorrenteDebito": "678",
+            "digitoVerificadorContaCorrente": "X",
+            "tipoPagamento": 128,
+            "listaTransferencias": [
+                {
+                    "data": "19042023",
+                    "valor": "12",
+                    "descricaoPagamento": "Teste transfer",
+                    "formaIdentificacao": 2,
+                    "email": "testqrcode01@bb.com.br",
+                }
+            ],
+        }
+        self.mock_responses.add(
+            responses.POST,
+            request_url,
+            headers=self._build_authorization_header(1),
+            json=expected_json,
+        )
+        
+        response = PagamentoLoteBBWrapper().criar_transferencia_pix(
+            "123", "345", "678", "X", "19042023", "11", 2, None, None, "testqrcode01@bb.com.br", None, None, None, "Teste transfer")
+
+        self.assertEqual(request_url, response.url)
+        self.assertEqual(self._get_headers(), response.headers)
+        self.assertEqual(expected_json, response.json())
+        self.assertEqual(2, self.total_requests())
+        self.mock_responses.assert_call_count(request_url, 1)
+
+    def test_criar_transferencia_pix_telefone(self):
+        """
+        Teste para verificar a URL da requisição e dados
+        """
+        
+        request_url = PagamentoLoteBBWrapper()._construct_url("lotes-transferencias-pix")
+        expected_json = {
+            "numeroRequisicao": "123",
+            "agenciaDebito": "345",
+            "contaCorrenteDebito": "678",
+            "digitoVerificadorContaCorrente": "X",
+            "tipoPagamento": 128,
+            "listaTransferencias": [
+                {
+                    "data": "19042023",
+                    "ddd": "11",
+                    "telefone": "985732102",
+                    "valor": "12",
+                    "descricaoPagamento": "Teste telefone",
+                    "formaIdentificacao": 1,
+                }
+            ],
+        }
+        self.mock_responses.add(
+            responses.POST,
+            request_url,
+            headers=self._build_authorization_header(1),
+            json=expected_json,
+        )
+        
+        response = PagamentoLoteBBWrapper().criar_transferencia_pix(
+            "123", "345", "678", "X", "19042023", "11", 1, "11", "985732102", None, None, None, None, "Teste telefone")
+
+        self.assertEqual(request_url, response.url)
+        self.assertEqual(self._get_headers(), response.headers)
+        self.assertEqual(expected_json, response.json())
+        self.assertEqual(2, self.total_requests())
+        self.mock_responses.assert_call_count(request_url, 1)
