@@ -15,7 +15,8 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
     """
     Wrapper da API Pagamentos em Lote
     """
-    SCOPE = "pagamentos-lote.lotes-requisicao pagamentos-lote.transferencias-info pagamentos-lote.transferencias-requisicao pagamentos-lote.cancelar-requisicao pagamentos-lote.devolvidos-info pagamentos-lote.lotes-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-info pagamentos-lote.pagamentos-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-requisicao pagamentos-lote.pagamentos-codigo-barras-info pagamentos-lote.boletos-requisicao pagamentos-lote.guias-codigo-barras-info pagamentos-lote.guias-codigo-barras-requisicao pagamentos-lote.transferencias-pix-requisicao" # noqa
+
+    SCOPE = "pagamentos-lote.lotes-requisicao pagamentos-lote.transferencias-info pagamentos-lote.transferencias-requisicao pagamentos-lote.cancelar-requisicao pagamentos-lote.devolvidos-info pagamentos-lote.lotes-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-info pagamentos-lote.pagamentos-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-requisicao pagamentos-lote.pagamentos-codigo-barras-info pagamentos-lote.boletos-requisicao pagamentos-lote.guias-codigo-barras-info pagamentos-lote.guias-codigo-barras-requisicao pagamentos-lote.transferencias-pix-requisicao"  # noqa
     BASE_PROD_ADDITION = "-ip"
     BASE_DOMAIN = ".bb.com.br/pagamentos-lote/v1"
 
@@ -530,7 +531,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             transferencia_data["identificacaoAleatoria"] = chave_aleatoria
 
         return {**lote_data, "listaTransferencias": [{**transferencia_data}]}
-   
+
     def criar_transferencia_pix(
         self,
         n_requisicao,
@@ -592,7 +593,6 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             descricao,
             tipo_pagamento,
         )
-        import pdb; pdb.set_trace()
         url = self._construct_url("lotes-transferencias-pix")
         response = self._post(url, data)
 
