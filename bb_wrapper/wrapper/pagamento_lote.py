@@ -598,3 +598,10 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         response = self._post(url, data)
 
         return response
+
+    def consultar_transferencia_pix(self, _id):
+        url = self._construct_url("lotes-transferencias-pix", _id, "solicitacao")
+
+        response = self._get(url)
+
+        return response
