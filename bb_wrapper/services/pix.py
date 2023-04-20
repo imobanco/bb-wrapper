@@ -32,11 +32,12 @@ class PixService:
         is_document = cpfcnpj.validate(key)
 
         # 3
-        is_phone = key_len == 11 and key[2] == "9"
+        is_phone = key_len == 9 and key[0] == "9"
 
         # 4
         try:
             is_uuid = uuid.UUID(key)
+            is_uuid = True
         except ValueError:
             is_uuid = False
 

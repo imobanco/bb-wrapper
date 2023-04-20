@@ -4,6 +4,7 @@ from .qrcode import QRCodeService
 from .barcode import BarcodeService
 from .mod import ModService  # noqa: F401
 from .pixcode import PixCodeService  # noqa: F401
+from .pix import PixService # noqa: F401
 
 
 parse_unicode_to_alphanumeric = UnicodeService().parse_unicode_to_alphanumeric
