@@ -503,7 +503,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
     def test_criar_transferencia_pix_email(self):
         """
-        Teste para verificar a URL da requisição e dados
+        Teste para verificar a URL da requisição e dados de transferência PIX email
         """
 
         request_url = PagamentoLoteBBWrapper()._construct_url(
