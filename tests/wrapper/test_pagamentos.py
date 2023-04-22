@@ -96,6 +96,216 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         mocked_model.assert_called_with(**expected_kwargs_call)
 
+    @MockedRequestsTestCase.no_auth
+    def test_criar_dados_chave_aleatoria_transferencia_pix(self):
+        """
+        Teste para verificar e montar os dados da transferência pix usando chave aleatoria # noqa
+        """
+
+        expected_json = {
+            "numeroRequisicao": "123",
+            "agenciaDebito": "345",
+            "contaCorrenteDebito": "678",
+            "digitoVerificadorContaCorrente": "X",
+            "tipoPagamento": 128,
+            "listaTransferencias": [
+                {
+                    "email": None,
+                    "cnpj": None,
+                    "cpf": None,
+                    "dddTelefone": None,
+                    "telefone": None,
+                    "data": "19042023",
+                    "valor": 11.0,
+                    "descricaoPagamento": "Pagamento",
+                    "formaIdentificacao": 4,
+                    "identificacaoAleatoria": "d14d32de-b3b9-4c31-9f89-8df2cec92c50",
+                }
+            ],
+        }
+
+        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+            "123",
+            "345",
+            "678",
+            "X",
+            "19042023",
+            "11",
+            "d14d32de-b3b9-4c31-9f89-8df2cec92c50",
+            "Pagamento",
+            128,
+        )
+
+        self.assertEqual(expected_json, response)
+
+    @MockedRequestsTestCase.no_auth
+    def test_criar_dados_telefone_transferencia_pix(self):
+        """
+        Teste para verificar e montar os dados da transferência pix usando telefone como chave # noqa
+        """
+
+        expected_json = {
+            "numeroRequisicao": "123",
+            "agenciaDebito": "345",
+            "contaCorrenteDebito": "678",
+            "digitoVerificadorContaCorrente": "X",
+            "tipoPagamento": 128,
+            "listaTransferencias": [
+                {
+                    "email": None,
+                    "cnpj": None,
+                    "cpf": None,
+                    "dddTelefone": "11",
+                    "telefone": "985732102",
+                    "data": "19042023",
+                    "valor": 11.0,
+                    "descricaoPagamento": "Pagamento",
+                    "formaIdentificacao": 1,
+                    "identificacaoAleatoria": None,
+                }
+            ],
+        }
+
+        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+            "123",
+            "345",
+            "678",
+            "X",
+            "19042023",
+            "11",
+            "11985732102",
+            "Pagamento",
+            128,
+        )
+
+        self.assertEqual(expected_json, response)
+
+    @MockedRequestsTestCase.no_auth
+    def test_criar_dados_email_transferencia_pix(self):
+        """
+        Teste para verificar e montar os dados da transferência pix usando email como chave # noqa
+        """
+
+        expected_json = {
+            "numeroRequisicao": "123",
+            "agenciaDebito": "345",
+            "contaCorrenteDebito": "678",
+            "digitoVerificadorContaCorrente": "X",
+            "tipoPagamento": 128,
+            "listaTransferencias": [
+                {
+                    "email": "teste@imo.com",
+                    "cnpj": None,
+                    "cpf": None,
+                    "dddTelefone": None,
+                    "telefone": None,
+                    "data": "19042023",
+                    "valor": 11.0,
+                    "descricaoPagamento": "Pagamento",
+                    "formaIdentificacao": 2,
+                    "identificacaoAleatoria": None,
+                }
+            ],
+        }
+
+        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+            "123",
+            "345",
+            "678",
+            "X",
+            "19042023",
+            11,
+            "teste@imo.com",
+            "Pagamento",
+            128,
+        )
+
+        self.assertEqual(expected_json, response)
+
+    @MockedRequestsTestCase.no_auth
+    def test_criar_dados_cpf_transferencia_pix(self):
+        """
+        Teste para verificar e montar os dados da transferência pix usando cpf como chave # noqa
+        """
+
+        expected_json = {
+            "numeroRequisicao": "123",
+            "agenciaDebito": "345",
+            "contaCorrenteDebito": "678",
+            "digitoVerificadorContaCorrente": "X",
+            "tipoPagamento": 128,
+            "listaTransferencias": [
+                {
+                    "email": None,
+                    "cnpj": None,
+                    "cpf": "28779295827",
+                    "dddTelefone": None,
+                    "telefone": None,
+                    "data": "19042023",
+                    "valor": 11.0,
+                    "descricaoPagamento": "Pagamento",
+                    "formaIdentificacao": 3,
+                    "identificacaoAleatoria": None,
+                }
+            ],
+        }
+
+        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+            "123",
+            "345",
+            "678",
+            "X",
+            "19042023",
+            11,
+            "28779295827",
+            "Pagamento",
+            128,
+        )
+
+        self.assertEqual(expected_json, response)
+
+    @MockedRequestsTestCase.no_auth
+    def test_criar_dados_cnpj_transferencia_pix(self):
+        """
+        Teste para verificar e montar os dados da transferência pix usando cnpj como chave # noqa
+        """
+
+        expected_json = {
+            "numeroRequisicao": "123",
+            "agenciaDebito": "345",
+            "contaCorrenteDebito": "678",
+            "digitoVerificadorContaCorrente": "X",
+            "tipoPagamento": 128,
+            "listaTransferencias": [
+                {
+                    "email": None,
+                    "cnpj": "95127446000198",
+                    "cpf": None,
+                    "dddTelefone": None,
+                    "telefone": None,
+                    "data": "19042023",
+                    "valor": 11.0,
+                    "descricaoPagamento": "Pagamento",
+                    "formaIdentificacao": 3,
+                    "identificacaoAleatoria": None,
+                }
+            ],
+        }
+
+        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+            "123",
+            "345",
+            "678",
+            "X",
+            "19042023",
+            11,
+            "95127446000198",
+            "Pagamento",
+            128,
+        )
+
+        self.assertEqual(expected_json, response)
+
     def test_cancelar_pagamento_1(self):
         """
         Teste para verificar a URL da requisição e dados
@@ -485,12 +695,6 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "X",
             "19042023",
             "11",
-            4,
-            None,
-            None,
-            None,
-            None,
-            None,
             "d14d32de-b3b9-4c31-9f89-8df2cec92c50",
             "Pagamento",
         )
@@ -538,14 +742,8 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "678",
             "X",
             "19042023",
-            "11",
-            2,
-            None,
-            None,
+            12,
             "testqrcode01@bb.com.br",
-            None,
-            None,
-            None,
             "Teste transfer",
         )
 
@@ -594,13 +792,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "X",
             "19042023",
             "11",
-            1,
-            "11",
-            "985732102",
-            None,
-            None,
-            None,
-            None,
+            "11985732102",
             "Teste telefone",
         )
 
@@ -642,20 +834,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         )
 
         response = PagamentoLoteBBWrapper().criar_transferencia_pix(
-            "123",
-            "345",
-            "678",
-            "X",
-            "19042023",
-            "11",
-            3,
-            None,
-            None,
-            None,
-            "28779295827",
-            None,
-            None,
-            "Teste CPF",
+            "123", "345", "678", "X", "19042023", 12, "28779295827", "Teste CPF"
         )
 
         self.assertEqual(request_url, response.url)
@@ -696,20 +875,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         )
 
         response = PagamentoLoteBBWrapper().criar_transferencia_pix(
-            "123",
-            "345",
-            "678",
-            "X",
-            "19042023",
-            "11",
-            3,
-            None,
-            None,
-            None,
-            None,
-            "95127446000198",
-            None,
-            "Teste CPF",
+            "123", "345", "678", "X", "19042023", "11", "95127446000198", "Teste CNPJ"
         )
 
         self.assertEqual(request_url, response.url)

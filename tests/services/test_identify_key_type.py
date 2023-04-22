@@ -4,7 +4,6 @@ from bb_wrapper.services.pix import PixService
 
 
 class PixServiceTestCase(TestCase):
-
     def test_is_email(self):
         """
         Dado:
@@ -31,7 +30,7 @@ class PixServiceTestCase(TestCase):
         Então:
             - o resultado deve ser 1
         """
-        phone = "999887766"
+        phone = "11999887766"
 
         result = PixService().identify_key_type(phone)
 
@@ -106,23 +105,3 @@ class PixServiceTestCase(TestCase):
             PixService().identify_key_type(key_invalid)
 
         self.assertEqual(ctx.exception.args[0], "Tipo de chave não identificado")
-
-    def test_key_invalid(self):
-        """
-        Dado:
-            - Dado uma string 
-            - que tenha um '@'
-            - comece com '9'
-            - tenha 9 digitos
-        Quando:
-            - for chamado PixService().identify_key_type(key_invalid)
-        Então:
-            - deve ser lançado um ValueError com
-                "Tipo de chave não identificado"
-        """
-        key_invalid = "999@@7766"
-
-        with self.assertRaises(ValueError) as ctx:
-            PixService().identify_key_type(key_invalid)
-
-        self.assertEqual(ctx.exception.args[0], "A chave utilizada pode ser mais de um tipo!")
