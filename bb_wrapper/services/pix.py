@@ -32,7 +32,7 @@ class PixService:
         is_document = cpfcnpj.validate(key)
 
         # 3
-        is_phone = key_len == 9 and key[0] == "9"
+        is_phone = key_len == 11 and key[2] == "9"
 
         # 4
         try:

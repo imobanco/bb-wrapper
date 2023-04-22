@@ -56,11 +56,12 @@ class TransferenciaPIX(BaseModel):
     valor: float
     chave: str
     formaIdentificacao: Optional[TipoChavePIX]
-    dddTelefone: Optional[int]
-    telefone: Optional[int]
+    descricaoPagamento: Optional[str]
+    dddTelefone: Optional[str]
+    telefone: Optional[str]
     email: Optional[str]
-    cpf: Optional[int]
-    cnpj: Optional[int]
+    cpf: Optional[str]
+    cnpj: Optional[str]
     identificacaoAleatoria: Optional[str]
 
     # noinspection PyMethodParameters
@@ -74,23 +75,25 @@ class TransferenciaPIX(BaseModel):
         from ..services.pix import PixService
 
         key = values.get("chave")
-
         key_type = PixService().identify_key_type(key)
-        values["formaIdentificacao"] = key_type
+        values["formaIdentificacao"] = key_type.value
 
         if key_type == TipoChavePIX.telefone:
-            values["dddTelefone"] = int(key[:2])
-            values["telefone"] = int(key[2:])
+            values["dddTelefone"] = key[:2]
+            values["telefone"] = key[2:]
         elif key_type == TipoChavePIX.email:
             values["email"] = key
         elif key_type == TipoChavePIX.uuid:
             values["identificacaoAleatoria"] = key
         elif key_type == TipoChavePIX.documento:
             key_value = cpfcnpj.clear_punctuation(key)
-            if len(key_value) == 1:
-                values["cpf"] = int(key_value)
+
+            if len(key_value) == 11:
+                values["cpf"] = key_value
             else:
-                values["cnpj"] = int(key_value)
+                values["cnpj"] = key_value
+
+        values.pop("chave")
         return values
 
 
