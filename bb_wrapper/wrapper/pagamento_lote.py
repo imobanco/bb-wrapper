@@ -6,6 +6,7 @@ from ..models.pagamentos import (
     LoteData,
     LoteTransferenciaData,
     LiberarPagamentos,
+    TransferenciaPIX,
 )
 from ..services.document import DocumentoService
 from ..services.barcode import BarcodeService
@@ -495,13 +496,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         dv_conta,
         data_transferencia,
         valor_transferencia,
-        forma_id,
-        ddd,
-        telefone,
-        email,
-        cpf,
-        cnpj,
-        chave_aleatoria,
+        chave,
         descricao,
         tipo_pagamento,
     ):
@@ -516,22 +511,11 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         transferencia_data = {
             "data": data_transferencia,
             "valor": valor_transferencia,
-            "formaIdentificacao": forma_id,
             "descricaoPagamento": descricao,
+            "chave": chave,
         }
-
-        if forma_id == 1:
-            transferencia_data["dddTelefone"] = ddd
-            transferencia_data["telefone"] = telefone
-        elif forma_id == 2:
-            transferencia_data["email"] = email
-        elif forma_id == 3:
-            transferencia_data["cpf"] = cpf
-            transferencia_data["cnpj"] = cnpj
-        elif forma_id == 4:
-            transferencia_data["identificacaoAleatoria"] = chave_aleatoria
-
-        return {**lote_data, "listaTransferencias": [{**transferencia_data}]}
+        transferencia_data = TransferenciaPIX(**transferencia_data).dict()
+        return {**lote_data, "listaTransferencias": [transferencia_data]}
 
     def criar_transferencia_pix(
         self,
@@ -541,13 +525,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         dv_conta,
         data_transferencia,
         valor_transferencia,
-        forma_id,
-        ddd=None,
-        telefone=None,
-        email=None,
-        cpf=None,
-        cnpj=None,
-        chave_aleatoria=None,
+        chave,
         descricao="",
         tipo_pagamento=128,
     ):
@@ -562,19 +540,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             tipo_pagamento: Tipo de pagamento a ser feito (126, 127 ou 128)
             data_transferencia: Data do pagamento. No formato "ddmmyyyy"
             valor_transferencia: Valor do pagamento
-            forma_id: Tipo de chave utilizada
-                1. Telefone
-                2. E-mail
-                3. CPF/CNPJ
-                4. Chave Aleatória
-            ddd: DDD com dígitos. Obrigatório caso forma_id seja igual 1
-            telefone: Telefone do recebedor. Obrigatório caso forma_id seja igual 1
-            email: Email do recebedor. Obrigatório caso forma_id seja igual 2
-            cpf: CPF do recebedor.
-                Opcional caso forma_id seja igual a 1 ou 2 e caso o campo cnpj não seja informado  # noqa: E501
-                Obrigatório caso forma_id seja igual a 3 ou 5 e caso o campo cnpj não seja informado  # noqa: E501
-            cnpj: CNPJ do recebedor: Tem os mesmos casos de Obrigatório e opcional do cpf  # noqa: E501
-            chave_aleatoria: Chave aleatória gerada pelo recebedor. Obrigatório caso forma_id seja igual 4  # noqa: E501
+            chave: Valor corresponde a chave que sera usada para tranferência # noqa: E501
             descricao: Campo de uso livre pelo cliente
         """
         data = self._criar_dados_transferencia_pix(
@@ -584,13 +550,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             dv_conta,
             data_transferencia,
             valor_transferencia,
-            forma_id,
-            ddd,
-            telefone,
-            email,
-            cpf,
-            cnpj,
-            chave_aleatoria,
+            chave,
             descricao,
             tipo_pagamento,
         )
