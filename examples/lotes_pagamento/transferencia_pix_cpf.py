@@ -13,7 +13,7 @@ bb_fmt = "%d%m%Y"
 
 
 lote_data = {
-    "n_requisicao": 9221347,
+    "n_requisicao": 9222347,
     "agencia": 1607,
     "conta": 99738672,
     "dv_conta": "X",
@@ -22,9 +22,8 @@ lote_data = {
 transferencia_data = {
     "descricao": "transferencia CPF",
     "data_transferencia": today.strftime(bb_fmt),
-    "valor_transferencia":7999.99,
-    "forma_id": 3,
-    "cpf": "28779295827",
+    "valor_transferencia": 7999.99,
+    "chave": "28779295827",
 }
 
 response = c.criar_transferencia_pix(**lote_data, **transferencia_data)
