@@ -105,3 +105,33 @@ class PixServiceTestCase(TestCase):
             PixService().identify_key_type(key_invalid)
 
         self.assertEqual(ctx.exception.args[0], "Tipo de chave não identificado")
+
+    def test_email_valid(self):
+        """
+        Dado:
+            - Dado um um 'test@test.com'
+        Quando:
+            - for chamado PixService().verify_email('test@test.com')
+        Então:
+            - o resultado deve ser False
+        """
+        email = "test@test.com"
+
+        result = PixService().verify_email(email)
+
+        self.assertTrue(result)
+
+    def test_email_invalid(self):
+        """
+        Dado:
+            - Dado um um 'teste@...br'
+        Quando:
+            - for chamado PixService().verify_email('teste@...br')
+        Então:
+            - o resultado deve ser True
+        """
+        email = "teste@...br"
+
+        result = PixService().verify_email(email)
+
+        self.assertFalse(result)

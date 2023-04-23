@@ -223,6 +223,48 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response)
 
     @MockedRequestsTestCase.no_auth
+    def test_criar_dados_com_email_invalido(self):
+        """
+        Teste para verificar e montar os dados da transferência pix usando email como chave # noqa
+        """
+
+        expected_json = {
+            "numeroRequisicao": "123",
+            "agenciaDebito": "345",
+            "contaCorrenteDebito": "678",
+            "digitoVerificadorContaCorrente": "X",
+            "tipoPagamento": 128,
+            "listaTransferencias": [
+                {
+                    "email": "",
+                    "cnpj": None,
+                    "cpf": None,
+                    "dddTelefone": None,
+                    "telefone": None,
+                    "data": "19042023",
+                    "valor": 11.0,
+                    "descricaoPagamento": "Pagamento",
+                    "formaIdentificacao": 2,
+                    "identificacaoAleatoria": None,
+                }
+            ],
+        }
+
+        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+            "123",
+            "345",
+            "678",
+            "X",
+            "19042023",
+            11,
+            "teste@...",
+            "Pagamento",
+            128,
+        )
+
+        self.assertEqual(expected_json, response)
+
+    @MockedRequestsTestCase.no_auth
     def test_criar_dados_cpf_transferencia_pix(self):
         """
         Teste para verificar e montar os dados da transferência pix usando cpf como chave # noqa

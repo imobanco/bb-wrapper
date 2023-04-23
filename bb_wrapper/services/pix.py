@@ -1,4 +1,5 @@
 import uuid
+import re
 
 from pycpfcnpj import cpfcnpj
 
@@ -53,3 +54,13 @@ class PixService:
             return TipoChavePIX.uuid
         else:
             raise ValueError("Tipo de chave não identificado")
+
+    def verify_email(self, email: str):
+        regex = re.compile(
+            r"([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
+        )
+
+        if re.fullmatch(regex, email):
+            return True
+        else:
+            return False
