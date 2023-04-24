@@ -54,12 +54,13 @@ class PixService:
         else:
             raise ValueError("Tipo de chave não identificado")
 
-    def verify_email(self, email: str):
+    def verify_email(self, email: str, raise_exception=True):
         regex = re.compile(
             r"([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
         )
-
-        if re.fullmatch(regex, email):
-            return True
-        else:
-            return False
+        
+        is_email_valid = re.fullmatch(regex, email)
+        
+        if raise_exception and not is_email_valid:
+            raise ValueError("Email inválido!")
+        return is_email_valid
