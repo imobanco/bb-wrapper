@@ -37,8 +37,7 @@ class PixService:
 
         # 4
         try:
-            is_uuid = uuid.UUID(key)
-            is_uuid = True
+            is_uuid = bool(uuid.UUID(key))
         except ValueError:
             is_uuid = False
 
