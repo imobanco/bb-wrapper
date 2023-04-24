@@ -58,9 +58,9 @@ class PixService:
         regex = re.compile(
             r"([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
         )
-        
+
         is_email_valid = re.fullmatch(regex, email)
-        
+
         if raise_exception and not is_email_valid:
             raise ValueError("Email inválido!")
         return is_email_valid

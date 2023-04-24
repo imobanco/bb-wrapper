@@ -228,41 +228,22 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         Teste para verificar e montar os dados da transferência pix usando email como chave # noqa
         """
 
-        expected_json = {
-            "numeroRequisicao": "123",
-            "agenciaDebito": "345",
-            "contaCorrenteDebito": "678",
-            "digitoVerificadorContaCorrente": "X",
-            "tipoPagamento": 128,
-            "listaTransferencias": [
-                {
-                    "email": "",
-                    "cnpj": None,
-                    "cpf": None,
-                    "dddTelefone": None,
-                    "telefone": None,
-                    "data": "19042023",
-                    "valor": 11.0,
-                    "descricaoPagamento": "Pagamento",
-                    "formaIdentificacao": 2,
-                    "identificacaoAleatoria": None,
-                }
-            ],
-        }
+        with self.assertRaises(ValueError) as ctx:
+            PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+                "123",
+                "345",
+                "678",
+                "X",
+                "19042023",
+                11,
+                "teste@...",
+                "Pagamento",
+                128,
+            )
 
-        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
-            "123",
-            "345",
-            "678",
-            "X",
-            "19042023",
-            11,
-            "teste@...",
-            "Pagamento",
-            128,
-        )
-
-        self.assertEqual(expected_json, response)
+        self.assertEqual(
+            ctx.exception.args[0][0].exc.args[0], "Email inválido!"
+        )  # noqa
 
     @MockedRequestsTestCase.no_auth
     def test_criar_dados_cpf_transferencia_pix(self):

@@ -132,6 +132,7 @@ class PixServiceTestCase(TestCase):
         """
         email = "teste@...br"
 
-        result = PixService().verify_email(email)
+        with self.assertRaises(ValueError) as ctx:
+            PixService().verify_email(email)
 
-        self.assertFalse(result)
+        self.assertEqual(ctx.exception.args[0], "Email inválido!")
