@@ -88,4 +88,6 @@ class DocumentServiceTestCase(TestCase):
         with self.assertRaises(ValueError) as ctx:
             DocumentoService().identifica_tipo(invalid_document)
 
-        self.assertEqual(ctx.exception.args[0], f"CPF/CNPJ '{invalid_document}' é inválido!")  # noqa
+        self.assertEqual(
+            ctx.exception.args[0], f"CPF/CNPJ '{invalid_document}' é inválido!"
+        )  # noqa
