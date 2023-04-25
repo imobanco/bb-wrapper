@@ -125,15 +125,17 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         }
 
         response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
-            "123",
-            "345",
-            "678",
-            "X",
-            "19042023",
-            "11",
-            "d14d32de-b3b9-4c31-9f89-8df2cec92c50",
-            "Pagamento",
-            128,
+            **{
+                "n_requisicao": "123",
+                "agencia": "345",
+                "conta": "678",
+                "dv_conta": "X",
+                "data_transferencia": "19042023",
+                "valor_transferencia": "11",
+                "chave": "d14d32de-b3b9-4c31-9f89-8df2cec92c50",
+                "descricao": "Pagamento",
+                "tipo_pagamento": 128,
+            }
         )
 
         self.assertEqual(expected_json, response)
