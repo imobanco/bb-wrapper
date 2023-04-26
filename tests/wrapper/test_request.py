@@ -1,9 +1,8 @@
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from requests import Timeout
 from py_bdd_context import BDDContextTestCase
 
 from bb_wrapper.wrapper.request import RequestsWrapper
-
 
 class RequestsWrapperTestCase(BDDContextTestCase):
     maxDiff = None
@@ -120,7 +119,8 @@ class RequestsWrapperTestCase(BDDContextTestCase):
         ):
             self.headers_patcher.stop()
 
-    def test_retry_request(self):
+    @patch('bb_wrapper.wrapper.request.requests')
+    def test_retry_request(self, mock_requests):
         with self.given(
             """
             - uma requisição qualquer
@@ -130,7 +130,10 @@ class RequestsWrapperTestCase(BDDContextTestCase):
                 "bb_wrapper.wrapper.request.RequestsWrapper._get_request_info"
             )
             self.mocked_headers = self.headers_patcher.start()
-
+            mock_response = MagicMock()
+            mock_response.status_code = 200
+            mock_response.content.return_value = 'Ok'
+            mock_requests.get.return_value = mock_response
             max_retries = 3
 
             def raise_connection_reset_error(headers=None):
@@ -143,7 +146,7 @@ class RequestsWrapperTestCase(BDDContextTestCase):
             self.mocked_headers.side_effect = raise_connection_reset_error
 
             wrapper = RequestsWrapper(base_url="")
-            url = "https://httpstat.us/200?sleep=1"
+            url = "foo"
 
         with self.when(
             """
