@@ -154,7 +154,7 @@ class RequestsWrapperTestCase(
                 callback=raise_timeout,
             )
             wrapper = RequestsWrapper(base_url="", timeout=2)
-            
+
         with self.when(
             """
             - o servidor demorar X segundos para responder
