@@ -4,6 +4,7 @@ from py_bdd_context import BDDContextTestCase
 
 from bb_wrapper.wrapper.request import RequestsWrapper
 
+
 class RequestsWrapperTestCase(BDDContextTestCase):
     maxDiff = None
 
@@ -119,7 +120,7 @@ class RequestsWrapperTestCase(BDDContextTestCase):
         ):
             self.headers_patcher.stop()
 
-    @patch('bb_wrapper.wrapper.request.requests')
+    @patch("bb_wrapper.wrapper.request.requests")
     def test_retry_request(self, mock_requests):
         with self.given(
             """
@@ -132,7 +133,7 @@ class RequestsWrapperTestCase(BDDContextTestCase):
             self.mocked_headers = self.headers_patcher.start()
             mock_response = MagicMock()
             mock_response.status_code = 200
-            mock_response.content.return_value = 'Ok'
+            mock_response.content.return_value = "Ok"
             mock_requests.get.return_value = mock_response
             max_retries = 3
 
