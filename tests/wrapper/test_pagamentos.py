@@ -133,7 +133,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             valor_transferencia=11,
             chave="d14d32de-b3b9-4c31-9f89-8df2cec92c50",
             descricao="Pagamento",
-            tipo_pagamento=128
+            tipo_pagamento=128,
         )
 
         self.assertEqual(expected_json, response)
@@ -175,7 +175,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             valor_transferencia=11,
             chave="11985732102",
             descricao="Pagamento",
-            tipo_pagamento=128
+            tipo_pagamento=128,
         )
 
         self.assertEqual(expected_json, response)
@@ -217,7 +217,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             valor_transferencia=11,
             chave="teste@imo.com",
             descricao="Pagamento",
-            tipo_pagamento=128
+            tipo_pagamento=128,
         )
 
         self.assertEqual(expected_json, response)
@@ -282,7 +282,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             valor_transferencia=11,
             chave="28779295827",
             descricao="Pagamento",
-            tipo_pagamento=128
+            tipo_pagamento=128,
         )
 
         self.assertEqual(expected_json, response)
@@ -324,7 +324,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             valor_transferencia=11,
             chave="95127446000198",
             descricao="Pagamento",
-            tipo_pagamento=128
+            tipo_pagamento=128,
         )
 
         self.assertEqual(expected_json, response)
