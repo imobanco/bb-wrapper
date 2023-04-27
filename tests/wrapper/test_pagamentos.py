@@ -232,15 +232,15 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         with self.assertRaises(ValueError) as ctx:
             PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
-                "123",
-                "345",
-                "678",
-                "X",
-                "19042023",
-                11,
-                "teste@...",
-                "Pagamento",
-                128,
+                n_requisicao="123",
+                agencia="345",
+                conta="678",
+                dv_conta="X",
+                data_transferencia="19042023",
+                valor_transferencia=11,
+                chave="teste@...",
+                descricao="Pagamento",
+                tipo_pagamento=128,
             )
 
         self.assertEqual(
