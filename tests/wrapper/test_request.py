@@ -1,5 +1,6 @@
 from unittest.mock import patch
 import responses
+from time import sleep
 from requests import Timeout
 from py_bdd_context import BDDContextTestCase
 
@@ -144,6 +145,7 @@ class RequestsWrapperTestCase(
             self.mocked_headers = self.headers_patcher.start()
 
             def raise_timeout(request):
+                sleep(3)
                 return self.raise_timeout()
 
             self.mocked_headers.return_value = {}
@@ -152,7 +154,7 @@ class RequestsWrapperTestCase(
                 url,
                 callback=raise_timeout,
             )
-            wrapper = RequestsWrapper(base_url="", timeout=2)
+            wrapper = RequestsWrapper(base_url="", timeout=1)
 
         with self.when(
             """

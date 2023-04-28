@@ -1,138 +1,171 @@
-from unittest import TestCase
-
+from py_bdd_context import BDDContextTestCase
 from bb_wrapper.services.pix import PixService
 
 
-class PixServiceTestCase(TestCase):
+class PixServiceTestCase(BDDContextTestCase):
     def test_is_email(self):
-        """
-        Dado:
-            - Dado uma string 'test@test.com'
-        Quando:
-            - for chamado PixService().identify_key_type('test@test.com')
-        Então:
-            - o resultado deve ser 2
-        """
-        email = "test@test.com"
-
-        result = PixService().identify_key_type(email)
-
-        expected = 2
-
-        self.assertEqual(result, expected)
+        with self.given(
+            """
+            - Uma string 'test@test.com'
+            """
+        ):
+            email = "test@test.com"
+        with self.when(
+            """
+            - PixService().identify_key_type('test@test.com')
+            """
+        ):
+            result = PixService().identify_key_type(email)
+        with self.then(
+            """
+            - O resultado deve ser 2
+            """
+        ):
+            expected = 2
+            self.assertEqual(result, expected)
 
     def test_is_phone(self):
-        """
-        Dado:
-            - Dado uma string 'phone'
-        Quando:
-            - for chamado PixService().identify_key_type(phone)
-        Então:
-            - o resultado deve ser 1
-        """
-        phone = "11999887766"
-
-        result = PixService().identify_key_type(phone)
-
-        expected = 1
-
-        self.assertEqual(result, expected)
+        with self.given(
+            """
+            - Uma string 'phone'    
+            """
+        ):
+            phone = "11999887766"
+        with self.when(
+            """
+            - PixService().identify_key_type(phone)
+            """
+        ):
+            result = PixService().identify_key_type(phone)
+        with self.then(
+            """
+            - O resultado deve ser 1
+            """
+        ):
+            expected = 1
+            self.assertEqual(result, expected)
 
     def test_is_uuid(self):
-        """
-        Dado:
-            - Dado uma string 'uuid'
-        Quando:
-            - for chamado PixService().identify_key_type(uuid)
-        Então:
-            - o resultado deve ser 4
-        """
-        uuid = "45abb60a-6253-4f22-802b-0d84045ea76a"
-
-        result = PixService().identify_key_type(uuid)
-
-        expected = 4
-
-        self.assertEqual(result, expected)
+        with self.given(
+            """
+            - Uma string 'uuid'
+            """
+        ):
+            uuid = "45abb60a-6253-4f22-802b-0d84045ea76a"
+        with self.when(
+            """
+            - PixService().identify_key_type(uuid)
+            """
+        ):
+            result = PixService().identify_key_type(uuid)
+        with self.then(
+            """
+            - O resultado deve ser 4
+            """
+        ):
+            expected = 4
+            self.assertEqual(result, expected)
 
     def test_is_cnpj(self):
-        """
-        Dado:
-            - Dado uma string 'cnpj'
-        Quando:
-            - for chamado PixService().identify_key_type(cnpj)
-        Então:
-            - o resultado deve ser 4
-        """
-        cnpj = "03794722000153"
-
-        result = PixService().identify_key_type(cnpj)
-
-        expected = 3
-
-        self.assertEqual(result, expected)
+        with self.given(
+            """
+            - Uma string '03794722000153'
+            """
+        ):
+            cnpj = "03794722000153"
+        with self.when(
+            """
+            - PixService().identify_key_type("03794722000153")
+            """
+        ):
+            result = PixService().identify_key_type(cnpj)
+        with self.then(
+            """
+            - O resultado deve ser 4
+            """
+        ):
+            expected = 3
+            self.assertEqual(result, expected)
 
     def test_is_cpf(self):
-        """
-        Dado:
-            - Dado uma string 'cpf'
-        Quando:
-            - for chamado PixService().identify_key_type(cpf)
-        Então:
-            - o resultado deve ser 4
-        """
-        cpf = "43166663045"
-
-        result = PixService().identify_key_type(cpf)
-
-        expected = 3
-
-        self.assertEqual(result, expected)
+        with self.given(
+            """
+            - Uma string '43166663045'
+            """
+        ):
+            cpf = "43166663045"
+        with self.when(
+            """
+            - PixService().identify_key_type("43166663045")
+            """
+        ):
+            result = PixService().identify_key_type(cpf)
+        with self.then(
+            """
+            - O resultado deve ser 4
+            """
+        ):
+            expected = 3
+            self.assertEqual(result, expected)
 
     def test_is_not_key(self):
-        """
-        Dado:
-            - Dado uma string 'key_invalid'
-        Quando:
-            - for chamado PixService().identify_key_type(key_invalid)
-        Então:
-            - deve ser lançado um ValueError com
-                "Tipo de chave não identificado"
-        """
-        key_invalid = "1"
-
-        with self.assertRaises(ValueError) as ctx:
-            PixService().identify_key_type(key_invalid)
-
-        self.assertEqual(ctx.exception.args[0], "Tipo de chave não identificado")
+        with self.given(
+            """
+            -  Dado uma string '1'
+            """
+        ):
+            key_invalid = "1"
+        with self.when(
+            """
+            - PixService().identify_key_type("1")
+            """
+        ):
+            with self.assertRaises(ValueError) as ctx:
+                PixService().identify_key_type(key_invalid)
+        with self.then(
+            """
+            - Deve ser lançado um ValueError com "Tipo de chave não identificado"
+            """
+        ):
+            self.assertEqual(ctx.exception.args[0], "Tipo de chave não identificado")
 
     def test_email_valid(self):
-        """
-        Dado:
-            - Dado um um 'test@test.com'
-        Quando:
-            - for chamado PixService().verify_email('test@test.com')
-        Então:
-            - o resultado deve ser False
-        """
-        email = "test@test.com"
-
-        result = PixService().verify_email(email)
-
-        self.assertTrue(result)
+        with self.given(
+            """
+            - Uma string 'test@test.com'
+            """
+        ):
+            email = "test@test.com"
+        with self.when(
+            """
+            - PixService().verify_email('test@test.com')
+            """
+        ):
+            result = PixService().verify_email(email)
+        with self.then(
+            """
+            - O resultado deve ser True
+            """
+        ):
+            self.assertTrue(result)
 
     def test_email_invalid(self):
-        """
-        Dado:
-            - Dado um um 'teste@...br'
-        Quando:
-            - for chamado PixService().verify_email('teste@...br')
-        Então:
-            - o resultado deve ser True
-        """
-        email = "teste@...br"
-
-        with self.assertRaises(ValueError) as ctx:
-            PixService().verify_email(email)
-
-        self.assertEqual(ctx.exception.args[0], "Email inválido!")
+        with self.given(
+            """
+            - Uma string 'teste@...br'
+            """
+        ):
+            email = "teste@...br"
+        with self.when(
+            """
+            - PixService().verify_email('teste@...br')
+            """
+        ):
+            with self.assertRaises(ValueError) as ctx:
+                PixService().verify_email(email)
+        with self.then(
+            """
+            - O resultado deve ser True
+            """
+        ):
+            self.assertEqual(ctx.exception.args[0], "Email inválido!")
