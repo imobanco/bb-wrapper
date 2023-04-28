@@ -99,7 +99,6 @@ class RequestsWrapperTestCase(
 
     @MockedRequestsTestCase.no_auth
     def test_request_timeout_1(self):
-
         with self.given(
             """
             - uma requisição qualquer
