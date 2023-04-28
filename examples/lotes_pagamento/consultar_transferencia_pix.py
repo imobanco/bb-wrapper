@@ -8,9 +8,6 @@ c = PagamentoLoteBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
 
 _id = "9221347"
 
-
-response = c.consultar_transferencia_pix(
-    _id,
-)
+response = c.consultar_transferencia_pix(_id)
 
 dump_response(response, os.path.realpath(__file__))
