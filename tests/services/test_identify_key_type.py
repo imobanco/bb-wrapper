@@ -27,7 +27,7 @@ class PixServiceTestCase(BDDContextTestCase):
     def test_is_phone(self):
         with self.given(
             """
-            - Uma string 'phone'    
+            - Uma string 'phone'
             """
         ):
             phone = "11999887766"
