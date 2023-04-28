@@ -120,7 +120,6 @@ class MockedRequestsTestCase(TestCase):
         self.mock_responses.reset()
 
         def auth_request(request):
-
             call_count = self.__get_auth_request().call_count + 1
 
             never_fail = number_of_retries_to_success == 0
