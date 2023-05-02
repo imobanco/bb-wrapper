@@ -6,22 +6,24 @@ class PixServiceTestCase(BDDContextTestCase):
     def test_is_email(self):
         with self.given(
             """
-            - Uma string 'test@test.com'
+                - uma chave 'test@test.com'
             """
         ):
             email = "test@test.com"
+ 
         with self.when(
             """
-            - PixService().identify_key_type('test@test.com')
+                - for utilizado o service de PIX para identificação do tipo da chave
             """
         ):
             result = PixService().identify_key_type(email)
+
         with self.then(
             """
-            - O resultado deve ser 2
+                - o tipo da chave identificado deve ser EMAIL
             """
         ):
-            expected = 2
+            expected = PixKeyTypeEnum.EMAIL
             self.assertEqual(result, expected)
 
     def test_is_phone(self):
