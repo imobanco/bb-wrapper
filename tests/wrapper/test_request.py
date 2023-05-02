@@ -157,7 +157,7 @@ class RequestsWrapperTestCase(
 
         with self.when(
             """
-            - o servidor demorar X segundos para responder
+            - o servidor demorar tempo o suficiente para ocorrer timeout
             """
         ):
             with self.assertRaises(Timeout):
