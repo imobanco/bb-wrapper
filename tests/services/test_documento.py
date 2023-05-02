@@ -64,7 +64,7 @@ class DocumentServiceTestCase(BDDContextTestCase):
             result = DocumentoService().identifica_tipo(cnpj)
         with self.then(
             """
-            - O resultado deve ser 1
+            - O resultado deve ser 2
             """
         ):
             expected = 2
