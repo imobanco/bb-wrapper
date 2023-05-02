@@ -102,7 +102,7 @@ class PixServiceTestCase(BDDContextTestCase):
             result = PixService().identify_key_type(cpf)
         with self.then(
             """
-            - O resultado deve ser 4
+            - O resultado deve ser 3
             """
         ):
             expected = 3
