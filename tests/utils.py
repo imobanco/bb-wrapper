@@ -84,7 +84,7 @@ class MockedRequestsTestCase(TestCase):
         data = json.dumps(self.__auth_success_201_data(call_count))
         return status, headers, data
 
-    def raise_timeout(self):
+    def raise_timeout(self, request):
         raise Timeout()
 
     @staticmethod
