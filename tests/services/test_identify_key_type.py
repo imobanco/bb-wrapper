@@ -166,6 +166,7 @@ class PixServiceTestCase(BDDContextTestCase):
         ):
             with self.assertRaises(ValueError) as ctx:
                 PixService().verify_email(email)
+
         with self.then(
             """
                 - deve ser levantada uma exceção informando que o email é inválido
