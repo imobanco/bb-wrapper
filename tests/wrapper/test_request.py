@@ -148,7 +148,7 @@ class RequestsWrapperTestCase(
             self.mock_responses.add_callback(
                 responses.GET,
                 url,
-                callback=raise_timeout,
+                callback=self.raise_timeout,
             )
             wrapper = RequestsWrapper(base_url="", timeout=2)
 
