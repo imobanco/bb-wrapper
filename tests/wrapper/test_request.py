@@ -144,9 +144,6 @@ class RequestsWrapperTestCase(
             )
             self.mocked_headers = self.headers_patcher.start()
 
-            def raise_timeout(request):
-                return self.raise_timeout()
-
             self.mocked_headers.return_value = {}
             self.mock_responses.add_callback(
                 responses.GET,
