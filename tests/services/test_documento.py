@@ -59,6 +59,7 @@ class DocumentServiceTestCase(BDDContextTestCase):
             """
         ):
             cnpj = "55468100000139"
+
         with self.when(
             """
             - DocumentoService().identifica_tipo('55468100000139')
