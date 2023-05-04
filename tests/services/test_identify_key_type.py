@@ -139,6 +139,7 @@ class PixServiceTestCase(BDDContextTestCase):
             """
         ):
             email = "test@test.com"
+
         with self.when(
             """
                 - o service de PIX para verificar email for chamado
