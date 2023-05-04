@@ -34,6 +34,7 @@ class DocumentServiceTestCase(BDDContextTestCase):
             """
         ):
             cpf = "778.552.400-98"
+
         with self.when(
             """
             - DocumentoService().identifica_tipo('778.552.400-98')
