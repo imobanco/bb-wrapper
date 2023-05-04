@@ -80,6 +80,7 @@ class PixServiceTestCase(BDDContextTestCase):
             """
         ):
             cnpj = "03794722000153"
+
         with self.when(
             """
                 - for utilizado o service de PIX para identificação do tipo da chave
