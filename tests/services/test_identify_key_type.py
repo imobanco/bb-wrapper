@@ -40,6 +40,7 @@ class PixServiceTestCase(BDDContextTestCase):
             """
         ):
             result = PixService().identify_key_type(phone)
+
         with self.then(
             """
                 - o tipo da chave identificado deve ser telefone
