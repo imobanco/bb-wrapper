@@ -111,6 +111,7 @@ class DocumentServiceTestCase(BDDContextTestCase):
         ):
             with self.assertRaises(ValueError) as ctx:
                 DocumentoService().identifica_tipo(invalid_document)
+
         with self.then(
             """
             - CPF/CNPJ '554681000001' é inválido!
