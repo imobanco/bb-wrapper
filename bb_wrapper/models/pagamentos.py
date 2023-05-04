@@ -88,7 +88,6 @@ class TransferenciaPIX(BaseModel):
             values["identificacaoAleatoria"] = key
         elif key_type == TipoChavePIX.documento:
             key_value = cpfcnpj.clear_punctuation(key)
-
             if len(key_value) == 11:
                 values["cpf"] = key_value
             else:
