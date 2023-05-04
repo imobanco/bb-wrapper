@@ -56,6 +56,7 @@ class PixServiceTestCase(BDDContextTestCase):
             """
         ):
             uuid = "45abb60a-6253-4f22-802b-0d84045ea76a"
+
         with self.when(
             """
                 - for utilizado o service de PIX para identificação do tipo da chave
