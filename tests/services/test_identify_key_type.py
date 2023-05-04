@@ -34,6 +34,7 @@ class PixServiceTestCase(BDDContextTestCase):
             """
         ):
             phone = "11999887766"
+
         with self.when(
             """
                 - for utilizado o service de PIX para identificação do tipo da chave
