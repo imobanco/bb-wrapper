@@ -86,6 +86,7 @@ class PixServiceTestCase(BDDContextTestCase):
             """
         ):
             result = PixService().identify_key_type(cnpj)
+
         with self.then(
             """
                 - o tipo da chave identificado deve ser documento
