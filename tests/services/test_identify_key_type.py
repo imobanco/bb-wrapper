@@ -118,6 +118,7 @@ class PixServiceTestCase(BDDContextTestCase):
             """
         ):
             key_invalid = "1"
+
         with self.when(
             """
                 - for utilizado o service de PIX para identificação do tipo da chave
