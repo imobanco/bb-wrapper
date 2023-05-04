@@ -100,6 +100,7 @@ class PixServiceTestCase(BDDContextTestCase):
             """
         ):
             cpf = "43166663045"
+
         with self.when(
             """
                 - for utilizado o service de PIX para identificação do tipo da chave
