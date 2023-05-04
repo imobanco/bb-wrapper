@@ -19,6 +19,7 @@ class DocumentServiceTestCase(BDDContextTestCase):
             """
         ):
             result = DocumentoService().identifica_tipo(cpf)
+
         with self.then(
             """
             - O resultado deve ser 1
