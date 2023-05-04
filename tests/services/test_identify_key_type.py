@@ -126,6 +126,7 @@ class PixServiceTestCase(BDDContextTestCase):
         ):
             with self.assertRaises(ValueError) as ctx:
                 PixService().identify_key_type(key_invalid)
+
         with self.then(
             """
                 - deve ser levantada uma exceção informando que a chave informada é inválida # noqa
