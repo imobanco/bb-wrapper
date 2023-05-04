@@ -13,6 +13,7 @@ class DocumentServiceTestCase(BDDContextTestCase):
             """
         ):
             cpf = "77855240098"
+
         with self.when(
             """
             - DocumentoService().identifica_tipo('77855240098')
