@@ -105,6 +105,7 @@ class DocumentServiceTestCase(BDDContextTestCase):
             """
         ):
             invalid_document = "554681000001"
+
         with self.when(
             """
             - DocumentoService().identifica_tipo('554681000001')
