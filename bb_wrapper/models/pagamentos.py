@@ -82,8 +82,8 @@ class TransferenciaPIX(BaseModel):
             values["dddTelefone"] = key[:2]
             values["telefone"] = key[2:]
         elif key_type == TipoChavePIX.email:
-            if PixService().verify_email(key):
-                values["email"] = key
+            PixService().verify_email(key)
+            values["email"] = key
         elif key_type == TipoChavePIX.uuid:
             values["identificacaoAleatoria"] = key
         elif key_type == TipoChavePIX.documento:
