@@ -61,6 +61,7 @@ class PixServiceTestCase(BDDContextTestCase):
             """
         ):
             result = PixService().identify_key_type(uuid)
+
         with self.then(
             """
                 - o tipo da chave identificado deve ser uuid
