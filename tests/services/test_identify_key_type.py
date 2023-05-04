@@ -145,6 +145,7 @@ class PixServiceTestCase(BDDContextTestCase):
             """
         ):
             result = PixService().verify_email(email)
+
         with self.then(
             """
                 - o service deve retornar que o email informado é válido
