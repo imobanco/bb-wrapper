@@ -28,11 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          ls -al
-          make poetry.config.venv
-          make poetry.install
-          ls -al
-          ls -al ~/.cache/pypoetry
+          poetry show --tree
 
       - name: Lint code with black
         run: make fmt.check
