@@ -1,4 +1,5 @@
 from py_bdd_context import BDDContextTestCase
+from bb_wrapper.models.perfis import TipoInscricaoEnum
 
 from bb_wrapper.services.document import DocumentoService
 
@@ -9,107 +10,106 @@ class DocumentServiceTestCase(BDDContextTestCase):
     def test_identifica_tipo_pessoa_fisica(self):
         with self.given(
             """
-            - Uma string '77855240098'
+                - um CPF '77855240098'
             """
         ):
             cpf = "77855240098"
 
         with self.when(
             """
-            - DocumentoService().identifica_tipo('77855240098')
+                - utilizar o service de Documento para identificar o tipo de pessoa 
             """
         ):
             result = DocumentoService().identifica_tipo(cpf)
 
         with self.then(
             """
-            - O resultado deve ser 1
+                - o tipo de pessoa deve ser física
             """
         ):
-            expected = 1
+            expected = TipoInscricaoEnum.cpf
             self.assertEqual(result, expected)
 
     def test_identifica_tipo_pessoa_fisica_com_pontuacao(self):
         with self.given(
             """
-            - Uma string '778.552.400-98'
+                - um CPF com pontuação '778.552.400-98'
             """
         ):
             cpf = "778.552.400-98"
 
         with self.when(
             """
-            - DocumentoService().identifica_tipo('778.552.400-98')
+                - utilizar o service de Documento para identificar o tipo de pessoa 
             """
         ):
             result = DocumentoService().identifica_tipo(cpf)
 
         with self.then(
             """
-            - O resultado deve ser 1
+                - o tipo de pessoa deve ser física
             """
         ):
-            expected = 1
-
+            expected = TipoInscricaoEnum.cpf
             self.assertEqual(result, expected)
 
     def test_identifica_tipo_pessoa_juridica(self):
         with self.given(
             """
-            - Uma string '55468100000139'
+                - um CNPJ sem pontuação '55468100000139'
             """
         ):
             cnpj = "55468100000139"
 
         with self.when(
             """
-            - DocumentoService().identifica_tipo('55468100000139')
+                - utilizar o service de Documento para identificar o tipo de pessoa 
             """
         ):
             result = DocumentoService().identifica_tipo(cnpj)
 
         with self.then(
             """
-            - O resultado deve ser 2
+                - o tipo de pessoa deve ser jurídica        
             """
         ):
-            expected = 2
+            expected = TipoInscricaoEnum.cnpj
             self.assertEqual(result, expected)
 
     def test_identifica_tipo_pessoa_juridica_com_pontuacao(self):
         with self.given(
             """
-            - Uma string '18.853.097/0001-40'
+                - um CNPJ sem pontuação '18.853.097/0001-40'
             """
         ):
             cnpj = "18.853.097/0001-40"
 
         with self.when(
             """
-            - DocumentoService().identifica_tipo('18.853.097/0001-40')
+                - utilizar o service de Documento para identificar o tipo de pessoa 
             """
         ):
             result = DocumentoService().identifica_tipo(cnpj)
 
         with self.then(
             """
-            - O  resultado deve ser 2
+                - o tipo de pessoa deve ser jurídica        
             """
         ):
-            expected = 2
+            expected = TipoInscricaoEnum.cnpj
             self.assertEqual(result, expected)
 
     def test_identifica_tipo_pessoa_document_invalid(self):
         with self.given(
             """
-            - Uma string '554681000001'
+                - um valor que não corresponde a um CPF e nem CPNJ sem pontuação: '554681000001'
             """
         ):
             invalid_document = "554681000001"
 
         with self.when(
             """
-            - DocumentoService().identifica_tipo('554681000001')
+                - utilizar o service de Documento para identificar o tipo de pessoa 
             """
         ):
             with self.assertRaises(ValueError) as ctx:
@@ -117,7 +117,7 @@ class DocumentServiceTestCase(BDDContextTestCase):
 
         with self.then(
             """
-            - CPF/CNPJ '554681000001' é inválido!
+                - deverá ser levantada uma exceção informando que o CPF/CNPJ é inválido!
             """
         ):
             self.assertEqual(
