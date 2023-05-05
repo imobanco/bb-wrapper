@@ -59,7 +59,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          make poetry.config.native
+          make poetry.config.venv
           make poetry.install
 
       - name: Config env
@@ -86,7 +86,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          make poetry.config.native
+          make poetry.config.venv
           make poetry.install
 
       - name: Config env
