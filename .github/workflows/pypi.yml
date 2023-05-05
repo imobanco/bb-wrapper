@@ -23,8 +23,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        make poetry.config.venv
-        make poetry.install
+        poetry show --tree
 
     - name: build package
       run: make package.build
