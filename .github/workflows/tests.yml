@@ -28,10 +28,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          ls -al ~/.cache/pypoetry
           ls -al
           make poetry.config.venv
           make poetry.install
+          ls -al
+          ls -al ~/.cache/pypoetry
 
       - name: Lint code with black
         run: make fmt.check
