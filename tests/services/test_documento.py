@@ -17,7 +17,7 @@ class DocumentServiceTestCase(BDDContextTestCase):
 
         with self.when(
             """
-                - utilizar o service de Documento para identificar o tipo de pessoa 
+                - utilizar o service de Documento para identificar o tipo de pessoa
             """
         ):
             result = DocumentoService().identifica_tipo(cpf)
@@ -40,7 +40,7 @@ class DocumentServiceTestCase(BDDContextTestCase):
 
         with self.when(
             """
-                - utilizar o service de Documento para identificar o tipo de pessoa 
+                - utilizar o service de Documento para identificar o tipo de pessoa
             """
         ):
             result = DocumentoService().identifica_tipo(cpf)
@@ -63,14 +63,14 @@ class DocumentServiceTestCase(BDDContextTestCase):
 
         with self.when(
             """
-                - utilizar o service de Documento para identificar o tipo de pessoa 
+                - utilizar o service de Documento para identificar o tipo de pessoa
             """
         ):
             result = DocumentoService().identifica_tipo(cnpj)
 
         with self.then(
             """
-                - o tipo de pessoa deve ser jurídica        
+                - o tipo de pessoa deve ser jurídica
             """
         ):
             expected = TipoInscricaoEnum.cnpj
@@ -86,14 +86,14 @@ class DocumentServiceTestCase(BDDContextTestCase):
 
         with self.when(
             """
-                - utilizar o service de Documento para identificar o tipo de pessoa 
+                - utilizar o service de Documento para identificar o tipo de pessoa
             """
         ):
             result = DocumentoService().identifica_tipo(cnpj)
 
         with self.then(
             """
-                - o tipo de pessoa deve ser jurídica        
+                - o tipo de pessoa deve ser jurídica
             """
         ):
             expected = TipoInscricaoEnum.cnpj
@@ -102,14 +102,14 @@ class DocumentServiceTestCase(BDDContextTestCase):
     def test_identifica_tipo_pessoa_document_invalid(self):
         with self.given(
             """
-                - um valor que não corresponde a um CPF e nem CPNJ sem pontuação: '554681000001'
+                - um valor que não corresponde a um CPF e nem CPNJ sem pontuação: '554681000001' # noqa E501
             """
         ):
             invalid_document = "554681000001"
 
         with self.when(
             """
-                - utilizar o service de Documento para identificar o tipo de pessoa 
+                - utilizar o service de Documento para identificar o tipo de pessoa
             """
         ):
             with self.assertRaises(ValueError) as ctx:
