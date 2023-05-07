@@ -83,7 +83,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          make poetry.config.venv
+          make poetry.config.native
           make poetry.install
 
       - name: Config env
