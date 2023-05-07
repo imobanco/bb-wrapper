@@ -28,7 +28,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry show --tree
+          make poetry.config.native
+          make poetry.install
 
       - name: Lint code with black
         run: make fmt.check
