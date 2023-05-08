@@ -558,3 +558,12 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         response = self._post(url, data)
 
         return response
+
+    def consultar_pix(self, _id):
+        """
+        Consulta os dados de um pagamento efetuado na modalidade PIX.
+        """
+
+        url = self._construct_url("pix", _id)
+        response = self._get(url)
+        return response
