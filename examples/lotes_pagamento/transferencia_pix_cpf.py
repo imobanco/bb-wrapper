@@ -13,7 +13,7 @@ bb_fmt = "%d%m%Y"
 
 
 lote_data = {
-    "n_requisicao": 9222347,
+    "n_requisicao": 9931219,
     "agencia": 1607,
     "conta": 99738672,
     "dv_conta": "X",
