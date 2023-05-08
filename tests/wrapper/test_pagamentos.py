@@ -248,7 +248,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
     @MockedRequestsTestCase.no_auth
     def test_criar_dados_cpf_transferencia_pix(self):
         """
-        Teste para verificar e montar os dados da transferência pix usando cpf como chave # noqa
+        Teste para verificar e montar os dados da transferência pix usando CPF como chave # noqa
         """
 
         expected_json = {
@@ -290,7 +290,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
     @MockedRequestsTestCase.no_auth
     def test_criar_dados_cnpj_transferencia_pix(self):
         """
-        Teste para verificar e montar os dados da transferência pix usando cnpj como chave # noqa
+        Teste para verificar e montar os dados da transferência pix usando CNPJ como chave # noqa
         """
 
         expected_json = {
@@ -827,7 +827,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
     def test_criar_transferencia_pix_cpf(self):
         """
-        Teste para verificar a URL da requisição e dados de transferência PIX via cpf
+        Teste para verificar a URL da requisição e dados de transferência PIX via CPF
         """
 
         request_url = PagamentoLoteBBWrapper()._construct_url(
