@@ -99,7 +99,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
     @MockedRequestsTestCase.no_auth
     def test_criar_dados_chave_aleatoria_transferencia_pix(self):
         """
-        Teste para verificar e montar os dados da transferência pix usando chave aleatória # noqa
+        Teste para verificar e montar os dados da transferência PIX usando chave aleatória # noqa
         """
 
         expected_json = {
@@ -141,7 +141,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
     @MockedRequestsTestCase.no_auth
     def test_criar_dados_telefone_transferencia_pix(self):
         """
-        Teste para verificar e montar os dados da transferência pix usando telefone como chave # noqa
+        Teste para verificar e montar os dados da transferência PIX usando telefone como chave # noqa
         """
 
         expected_json = {
@@ -183,7 +183,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
     @MockedRequestsTestCase.no_auth
     def test_criar_dados_email_transferencia_pix(self):
         """
-        Teste para verificar e montar os dados da transferência pix usando email como chave # noqa
+        Teste para verificar e montar os dados da transferência PIX usando email como chave # noqa
         """
 
         expected_json = {
@@ -225,7 +225,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
     @MockedRequestsTestCase.no_auth
     def test_criar_dados_com_email_invalido(self):
         """
-        Teste para verificar e montar os dados da transferência pix usando email como chave # noqa
+        Teste para verificar e montar os dados da transferência PIX usando email como chave # noqa
         """
 
         with self.assertRaises(ValueError) as ctx:
@@ -248,7 +248,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
     @MockedRequestsTestCase.no_auth
     def test_criar_dados_cpf_transferencia_pix(self):
         """
-        Teste para verificar e montar os dados da transferência pix usando CPF como chave # noqa
+        Teste para verificar e montar os dados da transferência PIX usando CPF como chave # noqa
         """
 
         expected_json = {
@@ -290,7 +290,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
     @MockedRequestsTestCase.no_auth
     def test_criar_dados_cnpj_transferencia_pix(self):
         """
-        Teste para verificar e montar os dados da transferência pix usando CNPJ como chave # noqa
+        Teste para verificar e montar os dados da transferência PIX usando CNPJ como chave # noqa
         """
 
         expected_json = {
