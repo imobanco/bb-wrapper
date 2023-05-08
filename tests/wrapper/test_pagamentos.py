@@ -909,7 +909,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
     def test_consultar_pix(self):
         """
-            - Teste para consultar um pix de um determinado lote
+        - Teste para consultar um pix de um determinado lote
         """
         request_url = PagamentoLoteBBWrapper()._construct_url("pix", "1")
         expected_json = {}
