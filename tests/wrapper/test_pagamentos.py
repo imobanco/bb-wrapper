@@ -906,3 +906,25 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response.json())
         self.assertEqual(2, self.total_requests())
         self.mock_responses.assert_call_count(request_url, 1)
+
+    def test_consultar_pix(self):
+        """
+            - Teste para consultar um pix de um determinado lote
+        """
+        request_url = PagamentoLoteBBWrapper()._construct_url("pix", "1")
+        expected_json = {}
+        self.mock_responses.add(
+            responses.GET,
+            request_url,
+            headers=self._build_authorization_header(1),
+            json=expected_json,
+        )
+
+        response = PagamentoLoteBBWrapper().consultar_pix("1")
+
+        self.assertEqual(request_url, response.url)
+        self.assertEqual(self._get_headers(), response.headers)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(2, self.total_requests())
+        self.mock_responses.assert_call_count(request_url, 1)
