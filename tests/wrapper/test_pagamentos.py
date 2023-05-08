@@ -99,7 +99,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
     @MockedRequestsTestCase.no_auth
     def test_criar_dados_chave_aleatoria_transferencia_pix(self):
         """
-        Teste para verificar e montar os dados da transferência pix usando chave aleatoria # noqa
+        Teste para verificar e montar os dados da transferência pix usando chave aleatória # noqa
         """
 
         expected_json = {
