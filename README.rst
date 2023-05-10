@@ -50,11 +50,11 @@ API's
 ---------------------
 
 - ☑ API de Cobrança (geração de boletos)
-- ☑ API PIX (recebimento PIX) {essa API ainda está instável e incompleta no BB}
+- ☑ API PIX (recebimento PIX)
 - ☐ API Arrecadação PIX {sem previsão de implementação}
-- ☑ API Lotes de Pagamentos {essa API ainda está instável e incompleta no BB}
+- ☑ API Lotes de Pagamentos
 
-  - ☐ Transferência PIX
+  - ☑ Transferência PIX
   - ☑ Transferência Bancária
   - ☐ Pagamento GPS
   - ☐ Pagamento GRU
@@ -70,6 +70,7 @@ Recursos auxiliares
 - ☑ Geração, validação e conversão de código de barras de tributos
 - ☑ Geração de QR Code PIX
 - ☑ Validação e limpeza de CPF/CNPJ
+- ☑ Validação do tipo de chave PIX 
 
 Exemplos disponíveis
 =====================
