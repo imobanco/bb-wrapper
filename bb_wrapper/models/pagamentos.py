@@ -97,7 +97,8 @@ class TransferenciaPIX(BaseModel):
         values.pop("chave")
         return values
 
-    def verifica_documento(key, values):
+    @classmethod
+    def verifica_documento(cls, key, values):
         key_value = cpfcnpj.clear_punctuation(key)
         if len(key_value) == 11:
             values["cpf"] = key_value
