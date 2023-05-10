@@ -112,7 +112,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
                 {
                     "email": None,
                     "cnpj": None,
-                    "cpf": None,
+                    "cpf": "11122233300",
                     "dddTelefone": None,
                     "telefone": None,
                     "data": "19042023",
@@ -134,6 +134,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             chave="d14d32de-b3b9-4c31-9f89-8df2cec92c50",
             descricao="Pagamento",
             tipo_pagamento=128,
+            documento="11122233300",
         )
 
         self.assertEqual(expected_json, response)
@@ -154,7 +155,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
                 {
                     "email": None,
                     "cnpj": None,
-                    "cpf": None,
+                    "cpf": "11122233300",
                     "dddTelefone": "11",
                     "telefone": "985732102",
                     "data": "19042023",
@@ -176,6 +177,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             chave="11985732102",
             descricao="Pagamento",
             tipo_pagamento=128,
+            documento="11122233300",
         )
 
         self.assertEqual(expected_json, response)
@@ -196,7 +198,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
                 {
                     "email": "teste@imo.com",
                     "cnpj": None,
-                    "cpf": None,
+                    "cpf": "11122233300",
                     "dddTelefone": None,
                     "telefone": None,
                     "data": "19042023",
@@ -218,6 +220,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             chave="teste@imo.com",
             descricao="Pagamento",
             tipo_pagamento=128,
+            documento=11122233300,
         )
 
         self.assertEqual(expected_json, response)
@@ -239,6 +242,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
                 chave="teste@...",
                 descricao="Pagamento",
                 tipo_pagamento=128,
+                documento=11122233300,
             )
 
         self.assertEqual(
@@ -283,6 +287,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             chave="28779295827",
             descricao="Pagamento",
             tipo_pagamento=128,
+            documento="",
         )
 
         self.assertEqual(expected_json, response)
@@ -325,6 +330,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             chave="95127446000198",
             descricao="Pagamento",
             tipo_pagamento=128,
+            documento="",
         )
 
         self.assertEqual(expected_json, response)

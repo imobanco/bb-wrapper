@@ -499,6 +499,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         chave,
         descricao,
         tipo_pagamento,
+        documento,
     ):
         lote_data = {
             "numeroRequisicao": n_requisicao,
@@ -507,13 +508,14 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             "digitoVerificadorContaCorrente": dv_conta,
             "tipoPagamento": tipo_pagamento,
         }
-
         transferencia_data = {
+            "documento": documento,
             "data": data_transferencia,
             "valor": valor_transferencia,
             "descricaoPagamento": descricao,
             "chave": chave,
         }
+
         transferencia_data = TransferenciaPIX(**transferencia_data).dict()
         return {**lote_data, "listaTransferencias": [transferencia_data]}
 
@@ -528,6 +530,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         chave,
         descricao="",
         tipo_pagamento=128,
+        documento="",
     ):
         """
         Efetua pagamentos em lote via tranferência PIX
@@ -541,6 +544,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             data_transferencia: Data do pagamento. No formato "ddmmyyyy"
             valor_transferencia: Valor do pagamento
             chave: Valor corresponde a chave que sera usada para tranferência # noqa: E501
+            documento:  Valor que corresponde a o CPF/CNPJ
             descricao: Campo de uso livre pelo cliente
         """
         data = self._criar_dados_transferencia_pix(
@@ -553,6 +557,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             chave,
             descricao,
             tipo_pagamento,
+            documento,
         )
         url = self._construct_url("lotes-transferencias-pix")
         response = self._post(url, data)

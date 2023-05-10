@@ -63,6 +63,7 @@ class TransferenciaPIX(BaseModel):
     cpf: Optional[str]
     cnpj: Optional[str]
     identificacaoAleatoria: Optional[str]
+    documento: Optional[str]
 
     # noinspection PyMethodParameters
     @root_validator
@@ -86,15 +87,22 @@ class TransferenciaPIX(BaseModel):
             values["email"] = key
         elif key_type == TipoChavePIX.uuid:
             values["identificacaoAleatoria"] = key
-        elif key_type == TipoChavePIX.documento:
-            key_value = cpfcnpj.clear_punctuation(key)
-            if len(key_value) == 11:
-                values["cpf"] = key_value
-            else:
-                values["cnpj"] = key_value
+
+        documento = values.pop("documento")
+        if key_type == TipoChavePIX.documento:
+            cls.verifica_documento(key, values)
+        else:
+            cls.verifica_documento(key=documento, values=values)
 
         values.pop("chave")
         return values
+
+    def verifica_documento(key, values):
+        key_value = cpfcnpj.clear_punctuation(key)
+        if len(key_value) == 11:
+            values["cpf"] = key_value
+        else:
+            values["cnpj"] = key_value
 
 
 class TransferenciaTED(BaseModel):
