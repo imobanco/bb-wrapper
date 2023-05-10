@@ -19,17 +19,17 @@ class BaseBBWrapperTestCase(
         """
         with self.given(
             """
-                -
+                - uma instância do BaseBBWrapper
             """
         ):
-            pass
+            bb_wrapper = BaseBBWrapper()
 
         with self.when(
             """
                 - o service de autenticação do BaseBBWrapper for chamado
             """
         ):
-            result = BaseBBWrapper()._BaseBBWrapper__authenticate()
+            result = bb_wrapper._BaseBBWrapper__authenticate()
 
         with self.then(
             """
@@ -81,8 +81,7 @@ class BaseBBWrapperTestCase(
 
     def test_authentication_for_multiple_instances(self):
         """
-        Teste para verificar se o token de autenticação é utilizado
-        por instâncias diferentes.
+        - Teste para verificar se o token de autenticação é utilizado por instâncias diferentes. # noqa: E501
         """
 
         with self.given(
@@ -149,15 +148,15 @@ class BaseBBWrapperTestCase(
 
     def test_authentication_fail_and_reauthentication(self):
         """
-        Teste para verificar uma nova tentativa de autenticação
-        após uma falha na autenticação.
+        - Teste para verificar uma nova tentativa de autenticação após uma falha na autenticação. # noqa: E501
         """
 
         with self.given(
             """
-                -
+                - uma instância do BaseBBWrapper
             """
         ):
+            bb_wrapper = BaseBBWrapper()
             fail_attempts = 1
             total_requests = fail_attempts + 1
 
@@ -168,7 +167,6 @@ class BaseBBWrapperTestCase(
                 - o service de autenticação do BaseBBWrapper for chamado
             """
         ):
-            bb_wrapper = BaseBBWrapper()
             result = bb_wrapper._BaseBBWrapper__authenticate()
 
         with self.then(
@@ -183,12 +181,12 @@ class BaseBBWrapperTestCase(
 
     def test_authentication_fail_and_reauthentication_fail_after_5_attempts(self):
         """
-        Teste para verificar falhas em todas as tentativas de autenticação.
+        - Teste para verificar falhas em todas as tentativas de autenticação.
         """
 
         with self.given(
             """
-                -
+                - uma instância do BaseBBWrapper
             """
         ):
             self.set_auth(-1)
