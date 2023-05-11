@@ -40,6 +40,9 @@
             # um .venv desatualizado.
             test -f .venv/bin/activate || make poetry.install
             source .venv/bin/activate
+
+            test d certs || mkdir -v certs
+
             # Se não existir cria o .env com valores padrão
             if ! test -f .env; then
               make config.env
