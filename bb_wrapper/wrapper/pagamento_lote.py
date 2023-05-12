@@ -530,7 +530,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         chave,
         descricao="",
         tipo_pagamento=128,
-        documento="",
+        documento=None,
     ):
         """
         Efetua pagamentos em lote via tranferência PIX
