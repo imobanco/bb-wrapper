@@ -87,13 +87,12 @@ class TransferenciaPIX(BaseModel):
             values["email"] = key
         elif key_type == TipoChavePIX.uuid:
             values["identificacaoAleatoria"] = key
+        elif key_type == TipoChavePIX.documento:
+            cls.verifica_documento(key, values)
 
         documento = values.pop("documento")
-        if document is not None:
-            if key_type == TipoChavePIX.documento:
-                cls.verifica_documento(key, values)
-            else:
-                cls.verifica_documento(key=documento, values=values)
+        if documento is not None:
+            cls.verifica_documento(documento, values)
 
         values.pop("chave")
         return values
