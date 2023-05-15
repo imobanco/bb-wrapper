@@ -90,7 +90,7 @@ class TransferenciaPIX(BaseModel):
         elif key_type == TipoChavePIX.documento:
             cls.verifica_documento(key, values)
 
-        documento = values.pop("documento")
+        documento = values.pop("documento", None)
         if documento is not None:
             cls.verifica_documento(documento, values)
 
