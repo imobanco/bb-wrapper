@@ -544,7 +544,9 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             data_transferencia: Data do pagamento. No formato "ddmmyyyy"
             valor_transferencia: Valor do pagamento
             chave: Valor corresponde a chave que sera usada para tranferência # noqa: E501
-            documento:  Valor que corresponde a o CPF/CNPJ
+            documento:  Valor que corresponde ao CPF/CNPJ
+                - Opcional e serve para validar que a chave aleatória/email/telefone pertencem ao cpf/cnpj # noqa: E501
+                - Deve ser validado e contratado com o gerente BB/suporte da API
             descricao: Campo de uso livre pelo cliente
         """
         data = self._criar_dados_transferencia_pix(

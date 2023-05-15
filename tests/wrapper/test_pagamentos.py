@@ -140,6 +140,49 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(expected_json, response)
 
     @MockedRequestsTestCase.no_auth
+    def test_criar_dados_chave_aleatoria_transferencia_pix_sem_documento(self):
+        """
+        Teste para verificar e montar os dados da transferência PIX usando chave aleatória sem a chave de documento # noqa
+        """
+
+        expected_json = {
+            "numeroRequisicao": "123",
+            "agenciaDebito": "345",
+            "contaCorrenteDebito": "678",
+            "digitoVerificadorContaCorrente": "X",
+            "tipoPagamento": 128,
+            "listaTransferencias": [
+                {
+                    "email": None,
+                    "cnpj": None,
+                    "cpf": None,
+                    "dddTelefone": None,
+                    "telefone": None,
+                    "data": "19042023",
+                    "valor": 11.0,
+                    "descricaoPagamento": "Pagamento",
+                    "formaIdentificacao": 4,
+                    "identificacaoAleatoria": "d14d32de-b3b9-4c31-9f89-8df2cec92c50",
+                }
+            ],
+        }
+
+        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+            n_requisicao="123",
+            agencia="345",
+            conta="678",
+            dv_conta="X",
+            data_transferencia="19042023",
+            valor_transferencia=11,
+            chave="d14d32de-b3b9-4c31-9f89-8df2cec92c50",
+            descricao="Pagamento",
+            tipo_pagamento=128,
+            documento=None,
+        )
+
+        self.assertEqual(expected_json, response)
+
+    @MockedRequestsTestCase.no_auth
     def test_criar_dados_telefone_transferencia_pix(self):
         """
         Teste para verificar e montar os dados da transferência PIX usando telefone como chave # noqa
