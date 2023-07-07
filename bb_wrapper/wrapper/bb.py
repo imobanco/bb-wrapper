@@ -35,6 +35,9 @@ class BaseBBWrapper(RequestsWrapper):
         if is_sandbox is None:
             is_sandbox = IS_SANDBOX
 
+        if is_sandbox:
+            verify_https = False
+
         if basic_token is None:
             basic_token = BASIC_TOKEN
 
