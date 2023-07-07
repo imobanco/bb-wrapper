@@ -6,7 +6,7 @@ from bb_wrapper.wrapper import PagamentoLoteBBWrapper
 
 c = PagamentoLoteBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
 
-_id = "579175"
+_id = "579145"
 
 
 response = c.resgatar_lote_solicitacao(
