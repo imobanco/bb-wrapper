@@ -12,7 +12,7 @@ today = date.today()
 bb_fmt = "%d%m%Y"
 
 lote_data = {
-    "n_requisicao": 579174,
+    "n_requisicao": 579144,
     "agencia": 1607,
     "conta": 99738672,
     "dv_conta": "X",
@@ -22,7 +22,7 @@ transferencia_data = {
     "agencia_destino": 18,
     "conta_destino": 3066,
     "dv_conta_destino": "X",
-    "documento": 99391916180,
+    "documento": "99391916180",
     "data_transferencia": today.strftime(bb_fmt),
     "valor_transferencia": 15.50,
     "descricao": "string",

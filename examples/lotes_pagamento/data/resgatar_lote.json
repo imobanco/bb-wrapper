@@ -1,14 +1,60 @@
-{
+{ // TRIBUTO
     "indice": 1,
-    "estadoRequisicao": 7,
+    "estadoRequisicao": 1,
     "tipoPagamento": 128,
-    "dataRequisicao": 11022022,
+    "dataRequisicao": 7072023,
     "quantidadePagamentos": 1,
     "valorPagamentos": 15.5,
     "pagamentos": [
         {
-            "identificadorPagamento": "90579175731030001",
-            "dataPagamento": 11022022,
+            "identificadorPagamento": "90579143731030001",
+            "dataPagamento": 7072023,
+            "valorPagamento": 15.5,
+            "tipoCredito": 13,
+            "tipoBeneficiario": 0,
+            "cpfCnpjBeneficiario": 0,
+            "nomeBeneficiario": "DAS - SIMPLES NACIONAL",
+            "estadoPagamento": "CONSISTENTE",
+            "descricaoPagamento": "string",
+            "erros": []
+        }
+    ]
+}
+
+{  // TED
+    "indice": 1,
+    "estadoRequisicao": 1,
+    "tipoPagamento": 128,
+    "dataRequisicao": 7072023,
+    "quantidadePagamentos": 1,
+    "valorPagamentos": 15.5,
+    "pagamentos": [
+        {
+            "identificadorPagamento": "90579144731030001",
+            "dataPagamento": 7072023,
+            "valorPagamento": 15.5,
+            "tipoCredito": 1,
+            "tipoBeneficiario": 1,
+            "cpfCnpjBeneficiario": 99391916180,
+            "nomeBeneficiario": "LUIZ NILO REIS",
+            "estadoPagamento": "CONSISTENTE",
+            "descricaoPagamento": "string",
+            "erros": []
+        }
+    ]
+}
+
+{ // BOLETO
+    "indice": 1,
+    "estadoRequisicao": 7,
+    "tipoPagamento": 128,
+    "dataRequisicao": 6072023,
+    "quantidadePagamentos": 1,
+    "valorPagamentos": 15.5,
+    "pagamentos": [
+        {
+            "identificadorPagamento": "90579145731030001",
+            "dataPagamento": 6072023,
             "valorPagamento": 15.5,
             "tipoCredito": 0,
             "tipoBeneficiario": 2,
