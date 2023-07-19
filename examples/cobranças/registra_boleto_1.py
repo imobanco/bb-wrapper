@@ -7,7 +7,7 @@ from bb_wrapper.wrapper.cobrancas import CobrancasBBWrapper
 
 wrapper = CobrancasBBWrapper()
 
-number = 9999999983
+number = 9999999952
 today = date.today()
 bb_fmt = "%d.%m.%Y"
 
@@ -18,6 +18,7 @@ data = wrapper.create_boleto_data_with_defaults(
         "numeroDiasLimiteRecebimento": 15,
         "valorOriginal": 3.1,
         "numeroTituloBeneficiario": number,
+        "campoUtilizacaoBeneficiario": "1c23f3gv".upper(),
         "numeroTituloCliente": wrapper.build_our_number(number),
         "pagador": {
             "tipoInscricao": 1,
