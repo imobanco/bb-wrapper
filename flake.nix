@@ -38,7 +38,7 @@
             # ativa o .venv.
             # Notar que pode haver dessincronia por conta de
             # um .venv desatualizado.
-            test -f .venv/bin/activate || make poetry.install
+            test -f .venv/bin/activate || make poetry.config.venv && make poetry.install
             source .venv/bin/activate
             # Se não existir cria o .env com valores padrão
             if ! test -f .env; then
