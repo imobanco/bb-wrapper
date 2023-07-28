@@ -84,6 +84,10 @@ Certifique-se que o ambiente está ativado, se não estiver execute:
 
 .. code-block:: bash
 
+    nix develop
+
+.. code-block:: bash
+
     nix flake clone 'github:imobanco/bb-wrapper' --dest bb-wrapper \
     && cd bb-wrapper 1>/dev/null 2>/dev/null \
     && (direnv --version 1>/dev/null 2>/dev/null && direnv allow) \
