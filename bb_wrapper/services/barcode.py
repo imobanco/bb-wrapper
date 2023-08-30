@@ -98,24 +98,10 @@ class BarcodeService:
         barcode = instance.barcode
 
         # 2
-        if isinstance(instance, BarcodeCobranca):
-            return {
-                "valid": True,
-                "barcode_number": barcode,
-                "code_line": instance.code_line,
-                "type": "Comercial",
-                "bank": barcode[:3],
-                "amount": int(barcode[9:19]),
-                "due_date": BarcodeCobrancaService().calculate_due_date(barcode[5:9]),
-            }
-
-        if isinstance(instance, BarcodeTributo):
-            return {
-                "vallid": True,
-                "barcode_number": barcode,
-                "code_line": instance.code_line,
-                "type": "Tributo",
-                "amount": int(barcode[4:15]),
-            }
-
-        raise ValidationError("tipo de boleto não identificado")
+        strategy_mapping = {
+            BarcodeCobranca: BarcodeCobrancaService().get_info_from_barcode
+            BarcodeTributo: BarcodeTributoService().get_info_from_barcode
+        }
+        action = strategy_mapping[instance.__class__]
+        
+        return action(instance)
