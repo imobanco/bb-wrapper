@@ -93,10 +93,7 @@ class BarcodeService:
 
         """
         # 1
-        try:
-            instance = self.identify(number)
-        except (ValueError, ValidationError):
-            return {"valid": False}
+        instance = self.identify(number)
 
         barcode = instance.barcode
 
