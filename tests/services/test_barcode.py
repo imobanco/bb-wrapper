@@ -119,7 +119,7 @@ class BarcodeTestCase(BarcodeAndCodeLineTestCase):
             result = BarcodeService().get_infos_from_barcode_or_code_line(code_line)
 
             expected = {
-                "vallid": True,
+                "valid": True,
                 "barcode_number": barcode,
                 "code_line": code_line,
                 "type": "Tributo",
@@ -135,9 +135,9 @@ class BarcodeTestCase(BarcodeAndCodeLineTestCase):
         Quando:
             - BarcodeService().get_infos_from_barcode_or_code_line(number)
         Então:
-            - Deve ser retornado um dict com valid = False
+            - Deve ser retornado um ValueError com "Tipo não identificado!"
         """
         number = "12398523356"
-        result = BarcodeService().get_infos_from_barcode_or_code_line(number)
-        expected = {"valid": False}
-        self.assertEqual(result, expected)
+        with self.assertRaises(ValueError) as ctx:
+            BarcodeService().get_infos_from_barcode_or_code_line(number)
+        self.assertEqual(str(ctx.exception), "Tipo não identificado!")

@@ -9,6 +9,7 @@ from pydantic import ValidationError
 from .b64 import Base64Service
 from ..models.barcode import BarcodeCobranca, BarcodeTributo
 from bb_wrapper.services.barcode_cobranca import BarcodeCobrancaService
+from bb_wrapper.services.barcode_tributo import BarcodeTributoService
 
 
 class BarcodeService:
@@ -76,32 +77,19 @@ class BarcodeService:
 
         raise ValueError("Tipo não identificado!")
 
-    def get_infos_from_barcode_or_code_line(
-        self, number: str
-    ):
+    def get_infos_from_barcode_or_code_line(self, number: str):
         """
         1. Identificar boleto
         2. Retornar informações
-
-        valid: informação validada?
-        barcode_number: código de barras
-        code_line: linha digitável
-        type: comercial ou tributo?
-        bank: banco em que o boleto foi registrado (apenas para comercial)
-        amount: valor identificado na linha digitável (apenas para comercial)
-        due_date: vencimento (apenas para comercial)
-
         """
         # 1
         instance = self.identify(number)
 
-        barcode = instance.barcode
-
         # 2
         strategy_mapping = {
-            BarcodeCobranca: BarcodeCobrancaService().get_info_from_barcode
-            BarcodeTributo: BarcodeTributoService().get_info_from_barcode
+            BarcodeCobranca: BarcodeCobrancaService().get_infos_from_barcode_or_code_line,  # noqa
+            BarcodeTributo: BarcodeTributoService().get_infos_from_barcode_or_code_line,  # noqa
         }
         action = strategy_mapping[instance.__class__]
-        
+
         return action(instance)
