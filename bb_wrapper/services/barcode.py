@@ -78,7 +78,7 @@ class BarcodeService:
 
     def get_infos_from_barcode_or_code_line(
         self, number: str
-    ) -> Union[BarcodeCobranca, BarcodeTributo]:
+    ):
         """
         1. Identificar boleto
         2. Retornar informações
