@@ -158,7 +158,8 @@ class BarcodeCobrancaService:
 
     def calculate_due_date(self, number):
         """
-        Calcula data de vencimento com base no Fator de Vencimento
+        Calcula data de vencimento com base no Fator de Vencimento.
+        https://www.boletobancario-codigodebarras.com/2018/04/data-de-vencimento-e-valor.html
         """
 
         base = datetime.strptime("1997-10-07", "%Y-%m-%d")
