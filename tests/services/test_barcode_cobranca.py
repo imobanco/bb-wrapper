@@ -58,3 +58,17 @@ class BarcodeCobrancaTestCase(BarcodeAndCodeLineTestCase):
                 result = BarcodeCobrancaService().code_line_to_barcode(code_line)
 
                 self.assertEqual(result, barcode)
+
+    def test_calculate_due_date(self):
+        """
+        Dado:
+            - Um Fator de Vencimento fv.
+        Quando:
+            - BarcodeCobrancaService().calculate_due_date(fv)
+        Então:
+            - Deve ser retonado 31/12/2007
+        """
+
+        fv = "3737"
+        result = BarcodeCobrancaService().calculate_due_date(fv)
+        self.assertEqual(str(result), "2007-12-31 00:00:00")

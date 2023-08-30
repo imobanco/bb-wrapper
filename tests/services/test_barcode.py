@@ -1,6 +1,6 @@
 from bb_wrapper.services import BarcodeService
+from bb_wrapper.services.barcode_cobranca import BarcodeCobrancaService
 from bb_wrapper.models.barcode import BarcodeCobranca, BarcodeTributo
-
 from ..utils import BarcodeAndCodeLineTestCase
 
 
@@ -82,3 +82,62 @@ class BarcodeTestCase(BarcodeAndCodeLineTestCase):
                     instance.barcode_image,
                     BarcodeService().generate_barcode_b64image(barcode),
                 )
+
+    def test_get_infos_from_comercial_barcode(self):
+        """
+        Dado:
+            - Uma lista de boletos comerciais
+        Quando:
+            - BarcodeService().get_infos_from_barcode_or_code_line(barcode)
+        Então:
+            - Deve ser retornado um dict com informações igual a expected
+        """
+        for barcode, code_line in self.cobrancas_barcodes_to_code_lines.items():
+            result = BarcodeService().get_infos_from_barcode_or_code_line(barcode)
+
+            expected = {
+                "valid": True,
+                "barcode_number": barcode,
+                "code_line": code_line,
+                "type": "Comercial",
+                "bank": barcode[:3],
+                "amount": int(barcode[9:19]),
+                "due_date": BarcodeCobrancaService().calculate_due_date(barcode[5:9]),
+            }
+            self.assertEqual(result, expected)
+
+    def test_get_infos_from_tributo_code_line(self):
+        """
+        Dado:
+            - Uma lista de boletos tributários
+        Quando:
+            - BarcodeService().get_infos_from_barcode_or_code_line(code_line)
+        Então:
+            - Deve ser retornado um dict com informações igual a expected
+        """
+        for barcode, code_line in self.tributos_barcodes_to_code_lines.items():
+            result = BarcodeService().get_infos_from_barcode_or_code_line(code_line)
+
+            expected = {
+                "vallid": True,
+                "barcode_number": barcode,
+                "code_line": code_line,
+                "type": "Tributo",
+                "amount": int(barcode[4:15]),
+            }
+
+            self.assertEqual(result, expected)
+
+    def test_get_infos_from_a_wrong_barcode_or_code_line(self):
+        """
+        Dado:
+            - Um codigo errado
+        Quando:
+            - BarcodeService().get_infos_from_barcode_or_code_line(number)
+        Então:
+            - Deve ser retornado um dict com valid = False
+        """
+        number = "12398523356"
+        result = BarcodeService().get_infos_from_barcode_or_code_line(number)
+        expected = {"valid": False}
+        self.assertEqual(result, expected)

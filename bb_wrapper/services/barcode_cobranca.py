@@ -1,4 +1,5 @@
 from .dac import DACService
+from datetime import datetime, timedelta
 
 
 class BarcodeCobrancaService:
@@ -154,3 +155,11 @@ class BarcodeCobrancaService:
             + code_line[10:20]
             + code_line[21:31]
         )
+
+    def calculate_due_date(self, number):
+        """
+        Calcula data de vencimento com base no Fator de Vencimento
+        """
+
+        base = datetime.strptime("1997-10-07", "%Y-%m-%d")
+        return base + timedelta(days=int(number))

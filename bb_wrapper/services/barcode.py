@@ -8,6 +8,7 @@ from pydantic import ValidationError
 
 from .b64 import Base64Service
 from ..models.barcode import BarcodeCobranca, BarcodeTributo
+from bb_wrapper.services.barcode_cobranca import BarcodeCobrancaService
 
 
 class BarcodeService:
@@ -74,3 +75,50 @@ class BarcodeService:
             pass
 
         raise ValueError("Tipo não identificado!")
+
+    def get_infos_from_barcode_or_code_line(
+        self, number: str
+    ) -> Union[BarcodeCobranca, BarcodeTributo]:
+        """
+        1. Identificar boleto
+        2. Retornar informações
+
+        valid: informação validada?
+        barcode_number: código de barras
+        code_line: linha digitável
+        type: comercial ou tributo?
+        bank: banco em que o boleto foi registrado (apenas para comercial)
+        amount: valor identificado na linha digitável (apenas para comercial)
+        due_date: vencimento (apenas para comercial)
+
+        """
+        # 1
+        try:
+            instance = self.identify(number)
+        except (ValueError, ValidationError):
+            return {"valid": False}
+
+        barcode = instance.barcode
+
+        # 2
+        if isinstance(instance, BarcodeCobranca):
+            return {
+                "valid": True,
+                "barcode_number": barcode,
+                "code_line": instance.code_line,
+                "type": "Comercial",
+                "bank": barcode[:3],
+                "amount": int(barcode[9:19]),
+                "due_date": BarcodeCobrancaService().calculate_due_date(barcode[5:9]),
+            }
+
+        if isinstance(instance, BarcodeTributo):
+            return {
+                "vallid": True,
+                "barcode_number": barcode,
+                "code_line": instance.code_line,
+                "type": "Tributo",
+                "amount": int(barcode[4:15]),
+            }
+
+        raise ValidationError("tipo de boleto não identificado")
