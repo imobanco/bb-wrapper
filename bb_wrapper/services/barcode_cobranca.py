@@ -165,8 +165,9 @@ class BarcodeCobrancaService:
         base = datetime.strptime("1997-10-07", "%Y-%m-%d")
         return base + timedelta(days=int(number))
 
-    def get_infos_from_barcode_or_code_line(self, instance):
+    def get_infos_from_instance(self, instance):
         return {
+            "instance": instance,
             "valid": True,
             "barcode_number": instance.barcode,
             "code_line": instance.code_line,
