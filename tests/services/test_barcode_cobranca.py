@@ -105,7 +105,7 @@ class BarcodeCobrancaTestCase(BarcodeAndCodeLineTestCase):
         Dado:
             - Um Fator de Vencimento fv = 1000
         Quando:
-            - É dia 1902/2025
+            - É dia 19/02/2025
             - BarcodeCobrancaService().calculate_due_date(fv)
         Então:
             - Deve ser retonado 22/02/2025
