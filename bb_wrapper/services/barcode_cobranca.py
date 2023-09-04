@@ -1,5 +1,5 @@
 from .dac import DACService
-from datetime import datetime, timedelta
+from datetime import *
 
 
 class BarcodeCobrancaService:
@@ -160,10 +160,20 @@ class BarcodeCobrancaService:
         """
         Calcula data de vencimento com base no Fator de Vencimento.
         https://www.boletobancario-codigodebarras.com/2018/04/data-de-vencimento-e-valor.html
-        """
 
-        base = datetime.strptime("1997-10-07", "%Y-%m-%d")
-        return base + timedelta(days=int(number))
+        1. Se a data_base + fator de vencimento der uma data com mais 10 anos atrás
+        deve ser utilizada a nova data base de 2025.
+        """
+        base_date = datetime.strptime("1997-10-07", "%Y-%m-%d")
+        limit_date = datetime.today() - timedelta(days=10*365+3)
+        fv = timedelta(days=int(number))
+
+        # 1
+        if (base_date + fv) < limit_date:
+            base_date = datetime.strptime("2025-02-22", "%Y-%m-%d")
+            fv = fv - 1000
+
+        return base_date + fv
 
     def get_infos_from_barcode_or_code_line(self, instance):
         return {

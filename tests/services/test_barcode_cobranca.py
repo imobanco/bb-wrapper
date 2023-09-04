@@ -1,5 +1,7 @@
 from bb_wrapper.services.barcode_cobranca import BarcodeCobrancaService
 from ..utils import BarcodeAndCodeLineTestCase
+from datetime import datetime, timedelta, date
+from freezegun import freeze_time
 
 
 class BarcodeCobrancaTestCase(BarcodeAndCodeLineTestCase):
@@ -59,16 +61,80 @@ class BarcodeCobrancaTestCase(BarcodeAndCodeLineTestCase):
 
                 self.assertEqual(result, barcode)
 
-    def test_calculate_due_date(self):
+    def test_calculate_due_date_1(self):
         """
         Dado:
-            - Um Fator de Vencimento fv.
+            - Um Fator de Vencimento fv = 1009
         Quando:
+            - É dia 12/02/2025
             - BarcodeCobrancaService().calculate_due_date(fv)
         Então:
-            - Deve ser retonado 31/12/2007
+            - Deve ser retonado 03/03/2025
         """
 
-        fv = "3737"
-        result = BarcodeCobrancaService().calculate_due_date(fv)
-        self.assertEqual(str(result), "2007-12-31 00:00:00")
+        fv = "1009"
+
+        date = datetime.strptime("2025-02-12", "%Y-%m-%d")
+
+        with freeze_time(date):
+            result = BarcodeCobrancaService().calculate_due_date(fv)
+
+        self.assertEqual(str(result), "2025-03-03 00:00:00")
+
+    def test_calculate_due_date_2(self):
+        """
+        Dado:
+            - Um Fator de Vencimento fv = 1000
+        Quando:
+            - É dia 22/02/2025
+            - BarcodeCobrancaService().calculate_due_date(fv)
+        Então:
+            - Deve ser retonado 22/02/2025
+        """
+        fv = "1000"
+
+        date = datetime.strptime("2025-02-22", "%Y-%m-%d")
+
+        with freeze_time(date):
+            result = BarcodeCobrancaService().calculate_due_date(fv)
+
+        self.assertEqual(str(result), "2025-02-22 00:00:00")
+
+    def test_calculate_due_date_3(self):
+        """
+        Dado:
+            - Um Fator de Vencimento fv = 1000
+        Quando:
+            - É dia 1902/2025
+            - BarcodeCobrancaService().calculate_due_date(fv)
+        Então:
+            - Deve ser retonado 22/02/2025
+        """
+        fv = "1000"
+
+        date = datetime.strptime("2025-02-19", "%Y-%m-%d")
+
+        with freeze_time(date):
+            result = BarcodeCobrancaService().calculate_due_date(fv)
+
+        self.assertEqual(str(result), "2025-02-22 00:00:00")
+
+    def test_calculate_due_date_4(self):
+        """
+        Dado:
+            - Um Fator de Vencimento fv = 9999
+        Quando:
+            - É dia 22/02/2025
+            - BarcodeCobrancaService().calculate_due_date(fv)
+        Então:
+            - Deve ser retonado 21/02/2025
+        """
+
+        fv = "9999"
+
+        date = datetime.strptime("2025-02-22", "%Y-%m-%d")
+
+        with freeze_time(date):
+            result = BarcodeCobrancaService().calculate_due_date(fv)
+
+        self.assertEqual(str(result), "2025-02-21 00:00:00")
