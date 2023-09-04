@@ -87,8 +87,8 @@ class BarcodeService:
 
         # 2
         strategy_mapping = {
-            BarcodeCobranca: BarcodeCobrancaService().get_infos_from_barcode_or_code_line,  # noqa
-            BarcodeTributo: BarcodeTributoService().get_infos_from_barcode_or_code_line,  # noqa
+            BarcodeCobranca: BarcodeCobrancaService().get_infos_from_instance,  # noqa
+            BarcodeTributo: BarcodeTributoService().get_infos_from_instance,  # noqa
         }
         action = strategy_mapping[instance.__class__]
 

@@ -96,6 +96,7 @@ class BarcodeTestCase(BarcodeAndCodeLineTestCase):
             result = BarcodeService().get_infos_from_barcode_or_code_line(barcode)
 
             expected = {
+                "instance": BarcodeService().identify(barcode),
                 "valid": True,
                 "barcode_number": barcode,
                 "code_line": code_line,
@@ -119,6 +120,7 @@ class BarcodeTestCase(BarcodeAndCodeLineTestCase):
             result = BarcodeService().get_infos_from_barcode_or_code_line(code_line)
 
             expected = {
+                "instance": BarcodeService().identify(barcode),
                 "valid": True,
                 "barcode_number": barcode,
                 "code_line": code_line,
