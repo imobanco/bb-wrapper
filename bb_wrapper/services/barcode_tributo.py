@@ -214,8 +214,9 @@ class BarcodeTributoService:
 
         return code_line[0:11] + code_line[12:23] + code_line[24:35] + code_line[36:47]
 
-    def get_infos_from_barcode_or_code_line(self, instance):
+    def get_infos_from_instance(self, instance):
         return {
+            "instance": instance,
             "valid": True,
             "barcode_number": instance.barcode,
             "code_line": instance.code_line,

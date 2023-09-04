@@ -175,8 +175,9 @@ class BarcodeCobrancaService:
 
         return base_date + fv
 
-    def get_infos_from_barcode_or_code_line(self, instance):
+    def get_infos_from_instance(self, instance):
         return {
+            "instance": instance,
             "valid": True,
             "barcode_number": instance.barcode,
             "code_line": instance.code_line,
