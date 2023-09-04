@@ -1,6 +1,6 @@
 from bb_wrapper.services.barcode_cobranca import BarcodeCobrancaService
 from ..utils import BarcodeAndCodeLineTestCase
-from datetime import datetime, timedelta, date
+from datetime import datetime
 from freezegun import freeze_time
 
 

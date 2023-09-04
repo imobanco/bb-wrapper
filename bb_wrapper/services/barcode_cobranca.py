@@ -1,5 +1,5 @@
 from .dac import DACService
-from datetime import *
+from datetime import datetime, timedelta
 
 
 class BarcodeCobrancaService:
@@ -143,7 +143,7 @@ class BarcodeCobrancaService:
         """
         Método para converter uma linha digitável em código de barras.
 
-        Os slices presentes nesse método estão documentados na docstring do service!
+        Os slices presentes nesse método estão documentad os na docstring do service!
         """
         if validate:
             self.validate_code_line(code_line)
@@ -165,13 +165,13 @@ class BarcodeCobrancaService:
         deve ser utilizada a nova data base de 2025.
         """
         base_date = datetime.strptime("1997-10-07", "%Y-%m-%d")
-        limit_date = datetime.today() - timedelta(days=10*365+3)
+        limit_date = datetime.today() - timedelta(days=10 * 365 + 3)
         fv = timedelta(days=int(number))
 
         # 1
         if (base_date + fv) < limit_date:
             base_date = datetime.strptime("2025-02-22", "%Y-%m-%d")
-            fv = fv - 1000
+            fv = fv - timedelta(days=int(1000))
 
         return base_date + fv
 
