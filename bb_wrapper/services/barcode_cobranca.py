@@ -183,6 +183,6 @@ class BarcodeCobrancaService:
             "code_line": instance.code_line,
             "type": "Comercial",
             "bank": instance.barcode[:3],
-            "amount": int(instance.barcode[9:19]),
+            "amount": int(instance.barcode[9:19])/100,
             "due_date": self.calculate_due_date(instance.barcode[5:9]),
         }
