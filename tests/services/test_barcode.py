@@ -102,7 +102,7 @@ class BarcodeTestCase(BarcodeAndCodeLineTestCase):
                 "code_line": code_line,
                 "type": "Comercial",
                 "bank": barcode[:3],
-                "amount": int(barcode[9:19]),
+                "amount": int(barcode[9:19]) / 100,
                 "due_date": BarcodeCobrancaService().calculate_due_date(barcode[5:9]),
             }
             self.assertEqual(result, expected)
@@ -125,7 +125,7 @@ class BarcodeTestCase(BarcodeAndCodeLineTestCase):
                 "barcode_number": barcode,
                 "code_line": code_line,
                 "type": "Tributo",
-                "amount": int(barcode[4:15]),
+                "amount": int(barcode[4:15]) / 100,
             }
 
             self.assertEqual(result, expected)

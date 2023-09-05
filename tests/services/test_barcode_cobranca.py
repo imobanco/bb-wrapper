@@ -98,7 +98,7 @@ class BarcodeCobrancaTestCase(BarcodeAndCodeLineTestCase):
         with freeze_time(date):
             result = BarcodeCobrancaService().calculate_due_date(fv)
 
-        self.assertEqual(str(result), "2025-02-22 00:00:00")
+        self.assertEqual(str(result), "2025-02-22")
 
     def test_calculate_due_date_3(self):
         """
@@ -117,7 +117,7 @@ class BarcodeCobrancaTestCase(BarcodeAndCodeLineTestCase):
         with freeze_time(date):
             result = BarcodeCobrancaService().calculate_due_date(fv)
 
-        self.assertEqual(str(result), "2025-02-22 00:00:00")
+        self.assertEqual(str(result), "2025-02-22")
 
     def test_calculate_due_date_4(self):
         """
@@ -137,4 +137,4 @@ class BarcodeCobrancaTestCase(BarcodeAndCodeLineTestCase):
         with freeze_time(date):
             result = BarcodeCobrancaService().calculate_due_date(fv)
 
-        self.assertEqual(str(result), "2025-02-21 00:00:00")
+        self.assertEqual(str(result), "2025-02-21")

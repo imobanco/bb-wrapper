@@ -172,8 +172,7 @@ class BarcodeCobrancaService:
         if (base_date + fv) < limit_date:
             base_date = datetime.strptime("2025-02-22", "%Y-%m-%d")
             fv = fv - timedelta(days=int(1000))
-
-        return base_date + fv
+        return (base_date + fv).date()
 
     def get_infos_from_instance(self, instance):
         return {
@@ -183,6 +182,6 @@ class BarcodeCobrancaService:
             "code_line": instance.code_line,
             "type": "Comercial",
             "bank": instance.barcode[:3],
-            "amount": int(instance.barcode[9:19])/100,
+            "amount": int(instance.barcode[9:19]) / 100,
             "due_date": self.calculate_due_date(instance.barcode[5:9]),
         }

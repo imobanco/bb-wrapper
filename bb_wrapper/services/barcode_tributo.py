@@ -221,5 +221,5 @@ class BarcodeTributoService:
             "barcode_number": instance.barcode,
             "code_line": instance.code_line,
             "type": "Tributo",
-            "amount": int(instance.barcode[4:15])/100,
+            "amount": int(instance.barcode[4:15]) / 100,
         }
