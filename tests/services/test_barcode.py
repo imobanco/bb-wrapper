@@ -142,4 +142,6 @@ class BarcodeTestCase(BarcodeAndCodeLineTestCase):
         number = "12398523356"
         with self.assertRaises(ValueError) as ctx:
             BarcodeService().get_infos_from_barcode_or_code_line(number)
-        self.assertEqual(str(ctx.exception), "Código de barras ou linha digitável inválida!")
+        self.assertEqual(
+            str(ctx.exception), "Código de barras ou linha digitável inválida!"
+        )
