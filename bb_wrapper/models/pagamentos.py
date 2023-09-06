@@ -241,7 +241,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     15: {
         "codigo": 15,
         "texto_cliente": "",
-        "texto_tecnico": "Digito da conta de crédito inválido.",
+        "texto_tecnico": "Dígito da conta de crédito inválido.",
     },
     16: {
         "codigo": 16,
@@ -256,7 +256,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     18: {
         "codigo": 18,
         "texto_cliente": "",
-        "texto_tecnico": "Digito do CPF inválido. Verifique o dado informado.",
+        "texto_tecnico": "Dígito do CPF inválido. Verifique o dado informado.",
     },
     19: {
         "codigo": 19,
@@ -381,32 +381,32 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     43: {
         "codigo": 43,
         "texto_cliente": "",
-        "texto_tecnico": "Digito do CPF para o pagador inválido. Verifique o nº correto.",
+        "texto_tecnico": "Dígito do CPF para o pagador inválido. Verifique o número correto.",
     },
     44: {
         "codigo": 44,
         "texto_cliente": "",
-        "texto_tecnico": "Digito do CPF para o beneficiário inválido. Verifique o nº correto.",
+        "texto_tecnico": "Dígito do CPF para o beneficiário inválido. Verifique o número correto.",
     },
     45: {
         "codigo": 45,
         "texto_cliente": "",
-        "texto_tecnico": "Digito do CPF para o avalista inválido. Verifique o nº correto.",
+        "texto_tecnico": "Dígito do CPF para o avalista inválido. Verifique o número correto.",
     },
     46: {
         "codigo": 46,
         "texto_cliente": "",
-        "texto_tecnico": "Digito do CNPJ para o pagador inválido. Verifique o nº correto.",
+        "texto_tecnico": "Dígito do CNPJ para o pagador inválido. Verifique o número correto.",
     },
     47: {
         "codigo": 47,
         "texto_cliente": "",
-        "texto_tecnico": "Digito do CNPJ para o beneficiário inválido. Verifique o nº correto.",
+        "texto_tecnico": "Dígito do CNPJ para o beneficiário inválido. Verifique o número correto.",
     },
     48: {
         "codigo": 48,
         "texto_cliente": "",
-        "texto_tecnico": "Digito do CNPJ para o avalista inválido. Verifique o nº correto.",
+        "texto_tecnico": "Dígito do CNPJ para o avalista inválido. Verifique o número correto.",
     },
     49: {
         "codigo": 49,
@@ -501,7 +501,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     67: {
         "codigo": 67,
         "texto_cliente": "",
-        "texto_tecnico": "Numero de Referência não informado.",
+        "texto_tecnico": "Número de Referência não informado.",
     },
     68: {
         "codigo": 68,
@@ -566,7 +566,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     80: {
         "codigo": 80,
         "texto_cliente": "",
-        "texto_tecnico": "Conta de crédito inválida. Informe o numero sem o 45 do início.",
+        "texto_tecnico": "Conta de crédito inválida. Informe o número sem o 45 do início.",
     },
     81: {
         "codigo": 81,
@@ -621,27 +621,27 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     94: {
         "codigo": 94,
         "texto_cliente": "",
-        "texto_tecnico": "DDD do cliente do Pix não foi informado.",
+        "texto_tecnico": "DDD do cliente do PIX não foi informado.",
     },
     95: {
         "codigo": 95,
         "texto_cliente": "",
-        "texto_tecnico": "Telefone do Cliente do Pix não foi informado.",
+        "texto_tecnico": "Telefone do Cliente do PIX não foi informado.",
     },
     96: {
         "codigo": 96,
         "texto_cliente": "",
-        "texto_tecnico": "Email do cliente do Pix não foi informado.",
+        "texto_tecnico": "Email do cliente do PIX não foi informado.",
     },
     97: {
         "codigo": 97,
         "texto_cliente": "",
-        "texto_tecnico": "Chave Aleatória do Cliente do Pix não foi informado.",
+        "texto_tecnico": "Chave Aleatória do Cliente do PIX não foi informado.",
     },
     98: {
         "codigo": 98,
         "texto_cliente": "",
-        "texto_tecnico": "Código de tipo de conta do Cliente do Pix não foi informado.",
+        "texto_tecnico": "Código de tipo de conta do Cliente do PIX não foi informado.",
     },
     99: {
         "codigo": 99,
@@ -1461,7 +1461,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     335: {
         "codigo": 335,
         "texto_cliente": "",
-        "texto_tecnico": "Pix não efetivado.",
+        "texto_tecnico": "PIX não efetivado.",
     },
     336: {
         "codigo": 336,
