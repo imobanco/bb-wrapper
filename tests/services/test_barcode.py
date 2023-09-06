@@ -137,7 +137,8 @@ class BarcodeTestCase(BarcodeAndCodeLineTestCase):
         Quando:
             - BarcodeService().get_infos_from_barcode_or_code_line(number)
         Então:
-            - Deve ser retornado um ValueError com ""Código de barras ou linha digitável inválida!""
+            - Deve ser retornado um ValueError com
+            ""Código de barras ou linha digitável inválida!""
         """
         number = "12398523356"
         with self.assertRaises(ValueError) as ctx:
