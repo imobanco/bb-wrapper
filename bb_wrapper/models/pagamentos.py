@@ -171,7 +171,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     1: {
         "codigo": 1,
         "texto_cliente": "",
-        "texto_tecnico": "Agência de crédito igual a zero. Informe o nº da Agência de Crédito.",
+        "texto_tecnico": "Agência de crédito igual a zero. Informe o número da Agência de Crédito.",  # noqa
     },
     2: {
         "codigo": 2,
@@ -196,22 +196,22 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     6: {
         "codigo": 6,
         "texto_cliente": "",
-        "texto_tecnico": "Data do pagamento igual a zeros. Informe a data do pagamento.",
+        "texto_tecnico": "Data do pagamento igual a zeros. Informe a data do pagamento.",  # noqa
     },
     7: {
         "codigo": 7,
         "texto_cliente": "",
-        "texto_tecnico": "Data do pagamento inválida. Informe uma data de pagamento válida.",
+        "texto_tecnico": "Data do pagamento inválida. Informe uma data de pagamento válida.",  # noqa
     },
     8: {
         "codigo": 8,
         "texto_cliente": "",
-        "texto_tecnico": "Valor do pagamento não é númerico. Informe apenas números.",
+        "texto_tecnico": "Valor do pagamento não é númerico. Informe apenas números.",  # noqa
     },
     9: {
         "codigo": 9,
         "texto_cliente": "",
-        "texto_tecnico": "Valor do pagamento igual a zeros. Informe o valor do pagamento.",
+        "texto_tecnico": "Valor do pagamento igual a zeros. Informe o valor do pagamento.",  # noqa
     },
     10: {
         "codigo": 10,
@@ -251,7 +251,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     17: {
         "codigo": 17,
         "texto_cliente": "",
-        "texto_tecnico": "Ambos os campos CPF e CNPJ estão zerados. Informe um dos campos.",
+        "texto_tecnico": "Ambos os campos CPF e CNPJ estão zerados. Informe um dos campos.",  # noqa
     },
     18: {
         "codigo": 18,
@@ -261,42 +261,42 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     19: {
         "codigo": 19,
         "texto_cliente": "",
-        "texto_tecnico": "Dígito do CNPJ inválido. Verifique o dado informado.",
+        "texto_tecnico": "Dígito do CNPJ inválido. Verifique o dado informado.",  # noqa
     },
     20: {
         "codigo": 20,
         "texto_cliente": "",
-        "texto_tecnico": "Agência e conta de crédito estão iguais a de débito. Opção não permitida.",
+        "texto_tecnico": "Agência e conta de crédito estão iguais a de débito. Opção não permitida.",  # noqa
     },
     21: {
         "codigo": 21,
         "texto_cliente": "",
-        "texto_tecnico": "Número Compensação inválido. Verifique o dado informado.",
+        "texto_tecnico": "Número Compensação inválido. Verifique o dado informado.",  # noqa
     },
     22: {
         "codigo": 22,
         "texto_cliente": "",
-        "texto_tecnico": "Número ISPB diferente de zeros. Não informe o nº ISPB.",
+        "texto_tecnico": "Número ISPB diferente de zeros. Não informe o número ISPB.",  # noqa
     },
     23: {
         "codigo": 23,
         "texto_cliente": "",
-        "texto_tecnico": "Conta de crédito igual a zeros. Informe o número da conta de crédito.",
+        "texto_tecnico": "Conta de crédito igual a zeros. Informe o número da conta de crédito.",  # noqa
     },
     24: {
         "codigo": 24,
         "texto_cliente": "",
-        "texto_tecnico": "CPF igual a zeros. Obrigatório informar o nº do CPF.",
+        "texto_tecnico": "CPF igual a zeros. Obrigatório informar o número do CPF.",  # noqa
     },
     25: {
         "codigo": 25,
         "texto_cliente": "",
-        "texto_tecnico": "CNPJ diferente de zeros. Não permitido informar CNPJ.",
+        "texto_tecnico": "CNPJ diferente de zeros. Não permitido informar CNPJ.",  # noqa
     },
     26: {
         "codigo": 26,
         "texto_cliente": "",
-        "texto_tecnico": "Conta de crédito diferente de zeros. Não permitido informar Conta de crédito."  # noqa,
+        "texto_tecnico": "Conta de crédito diferente de zeros. Não permitido informar Conta de crédito.",  # noqa,
     },
     27: {
         "codigo": 27,
@@ -306,27 +306,27 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     28: {
         "codigo": 28,
         "texto_cliente": "",
-        "texto_tecnico": "Finalidade DOC diferente de zeros. Não informar finalidade DOC.",
+        "texto_tecnico": "Finalidade DOC diferente de zeros. Não informar finalidade DOC.",  # noqa
     },
     29: {
         "codigo": 29,
         "texto_cliente": "",
-        "texto_tecnico": "Finalidade TED diferente de zeros. Não informar finalidade TED.",
+        "texto_tecnico": "Finalidade TED diferente de zeros. Não informar finalidade TED.",  # noqa
     },
     30: {
         "codigo": 30,
         "texto_cliente": "",
-        "texto_tecnico": "Número Depósito Judicial diferente de espaços. Não informar finalidade Depósito Judicial.", # noqa
+        "texto_tecnico": "Número Depósito Judicial diferente de espaços. Não informar finalidade Depósito Judicial.",  # noqa
     },
     31: {
         "codigo": 31,
         "texto_cliente": "",
-        "texto_tecnico": "Número do documento de crédito não é numérico. Informar números.",
+        "texto_tecnico": "Número do documento de crédito não é numérico. Informar números.",  # noqa
     },
     32: {
         "codigo": 32,
         "texto_cliente": "",
-        "texto_tecnico": "Número do documento de débito não é numérico. Informar números.",
+        "texto_tecnico": "Número do documento de débito não é numérico. Informar números.",  # noqa
     },
     33: {
         "codigo": 33,
@@ -341,7 +341,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     35: {
         "codigo": 35,
         "texto_cliente": "",
-        "texto_tecnico": "Conta de poupança não permitido. Para creditar poupança utilize Código Produto igual a 128 - Pagamentos Diversos.", # noqa
+        "texto_tecnico": "Conta de poupança não permitido. Para creditar poupança utilize Código Produto igual a 128 - Pagamentos Diversos.",  # noqa
     },
     36: {
         "codigo": 36,
@@ -366,47 +366,47 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     40: {
         "codigo": 40,
         "texto_cliente": "",
-        "texto_tecnico": "Número de inscrição do pagador não é numérico. Informar números.",
+        "texto_tecnico": "Número de inscrição do pagador não é numérico. Informar números.",  # noqa
     },
     41: {
         "codigo": 41,
         "texto_cliente": "",
-        "texto_tecnico": "Número de inscrição do beneficiário não é numérico. Informar números.",
+        "texto_tecnico": "Número de inscrição do beneficiário não é numérico. Informar números.",  # noqa
     },
     42: {
         "codigo": 42,
         "texto_cliente": "",
-        "texto_tecnico": "Número de inscrição do avalista não é numérico. Informar números.",
+        "texto_tecnico": "Número de inscrição do avalista não é numérico. Informar números.",  # noqa
     },
     43: {
         "codigo": 43,
         "texto_cliente": "",
-        "texto_tecnico": "Dígito do CPF para o pagador inválido. Verifique o número correto.",
+        "texto_tecnico": "Dígito do CPF para o pagador inválido. Verifique o número correto.",  # noqa
     },
     44: {
         "codigo": 44,
         "texto_cliente": "",
-        "texto_tecnico": "Dígito do CPF para o beneficiário inválido. Verifique o número correto.",
+        "texto_tecnico": "Dígito do CPF para o beneficiário inválido. Verifique o número correto.",  # noqa
     },
     45: {
         "codigo": 45,
         "texto_cliente": "",
-        "texto_tecnico": "Dígito do CPF para o avalista inválido. Verifique o número correto.",
+        "texto_tecnico": "Dígito do CPF para o avalista inválido. Verifique o número correto.",  # noqa
     },
     46: {
         "codigo": 46,
         "texto_cliente": "",
-        "texto_tecnico": "Dígito do CNPJ para o pagador inválido. Verifique o número correto.",
+        "texto_tecnico": "Dígito do CNPJ para o pagador inválido. Verifique o número correto.",  # noqa
     },
     47: {
         "codigo": 47,
         "texto_cliente": "",
-        "texto_tecnico": "Dígito do CNPJ para o beneficiário inválido. Verifique o número correto.",
+        "texto_tecnico": "Dígito do CNPJ para o beneficiário inválido. Verifique o número correto.",  # noqa
     },
     48: {
         "codigo": 48,
         "texto_cliente": "",
-        "texto_tecnico": "Dígito do CNPJ para o avalista inválido. Verifique o número correto.",
+        "texto_tecnico": "Dígito do CNPJ para o avalista inválido. Verifique o número correto.",  # noqa
     },
     49: {
         "codigo": 49,
@@ -431,7 +431,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     53: {
         "codigo": 53,
         "texto_cliente": "",
-        "texto_tecnico": "Data do pagamento deve ser maior ou igual ao dia atual.",
+        "texto_tecnico": "Data do pagamento deve ser maior ou igual ao dia atual.",  # noqa
     },
     54: {
         "codigo": 54,
@@ -441,7 +441,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     55: {
         "codigo": 55,
         "texto_cliente": "",
-        "texto_tecnico": "Data do vencimento igual a zeros. Informar data de vencimento.",
+        "texto_tecnico": "Data do vencimento igual a zeros. Informar data de vencimento.",  # noqa
     },
     56: {
         "codigo": 56,
@@ -456,7 +456,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     58: {
         "codigo": 58,
         "texto_cliente": "",
-        "texto_tecnico": "Conta pagamento diferente de espaços. Não informar conta pagamento.",
+        "texto_tecnico": "Conta pagamento diferente de espaços. Não informar conta pagamento.",  # noqa
     },
     59: {
         "codigo": 59,
@@ -476,7 +476,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     62: {
         "codigo": 62,
         "texto_cliente": "",
-        "texto_tecnico": "Tipo de Identificação do Contribuinte não informado.",
+        "texto_tecnico": "Tipo de Identificação do Contribuinte não informado.",  # noqa
     },
     63: {
         "codigo": 63,
@@ -566,7 +566,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     80: {
         "codigo": 80,
         "texto_cliente": "",
-        "texto_tecnico": "Conta de crédito inválida. Informe o número sem o 45 do início.",
+        "texto_tecnico": "Conta de crédito inválida. Informe o número sem o 45 do início.",  # noqa
     },
     81: {
         "codigo": 81,
@@ -591,12 +591,12 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     85: {
         "codigo": 85,
         "texto_cliente": "",
-        "texto_tecnico": "Conta não permite crédito de salário. Informe outra conta.",
+        "texto_tecnico": "Conta não permite crédito de salário. Informe outra conta.",  # noqa
     },
     86: {
         "codigo": 86,
         "texto_cliente": "",
-        "texto_tecnico": "Ambos os campos agência de crédito e conta pagamento foram informados.",
+        "texto_tecnico": "Ambos os campos agência de crédito e conta pagamento foram informados.",  # noqa
     },
     90: {
         "codigo": 90,
@@ -616,7 +616,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     93: {
         "codigo": 93,
         "texto_cliente": "",
-        "texto_tecnico": "Código da forma de identificação do cliente não foi informado.",
+        "texto_tecnico": "Código da forma de identificação do cliente não foi informado.",  # noqa
     },
     94: {
         "codigo": 94,
@@ -636,12 +636,12 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     97: {
         "codigo": 97,
         "texto_cliente": "",
-        "texto_tecnico": "Chave Aleatória do Cliente do PIX não foi informado.",
+        "texto_tecnico": "Chave Aleatória do Cliente do PIX não foi informado.",  # noqa
     },
     98: {
         "codigo": 98,
         "texto_cliente": "",
-        "texto_tecnico": "Código de tipo de conta do Cliente do PIX não foi informado.",
+        "texto_tecnico": "Código de tipo de conta do Cliente do PIX não foi informado.",  # noqa
     },
     99: {
         "codigo": 99,
@@ -656,7 +656,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     101: {
         "codigo": 101,
         "texto_cliente": "",
-        "texto_tecnico": "Email do cliente do PIX não deve conter caractere especial.",
+        "texto_tecnico": "Email do cliente do PIX não deve conter caractere especial.",  # noqa
     },
     102: {
         "codigo": 102,
@@ -676,7 +676,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     105: {
         "codigo": 105,
         "texto_cliente": "",
-        "texto_tecnico": "Conta de crédito inválida. Informe um número de conta válido.",
+        "texto_tecnico": "Conta de crédito inválida. Informe um número de conta válido.",  # noqa
     },
     106: {
         "codigo": 106,
@@ -691,17 +691,17 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     108: {
         "codigo": 108,
         "texto_cliente": "",
-        "texto_tecnico": "Número do documento de crédito inválido. Informe um número válido.",
+        "texto_tecnico": "Número do documento de crédito inválido. Informe um número válido.",  # noqa
     },
     109: {
         "codigo": 109,
         "texto_cliente": "",
-        "texto_tecnico": "Número do documento de débito inválido. Informe um número válido.",
+        "texto_tecnico": "Número do documento de débito inválido. Informe um número válido.",  # noqa
     },
     110: {
         "codigo": 110,
         "texto_cliente": "",
-        "texto_tecnico": "Valor do pagamento inválido. Informe um valor válido.",
+        "texto_tecnico": "Valor do pagamento inválido. Informe um valor válido.",  # noqa
     },
     111: {
         "codigo": 111,
@@ -711,7 +711,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     112: {
         "codigo": 112,
         "texto_cliente": "",
-        "texto_tecnico": "Valor de desconto inválido. Informe um valor válido.",
+        "texto_tecnico": "Valor de desconto inválido. Informe um valor válido.",  # noqa
     },
     113: {
         "codigo": 113,
@@ -721,17 +721,17 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     114: {
         "codigo": 114,
         "texto_cliente": "",
-        "texto_tecnico": "Número de inscrição do beneficiário inválido. Informe um número válido.",
+        "texto_tecnico": "Número de inscrição do beneficiário inválido. Informe um número válido.",  # noqa
     },
     115: {
         "codigo": 115,
         "texto_cliente": "",
-        "texto_tecnico": "Número de inscrição do pagador inválido. Informe um número válido.",
+        "texto_tecnico": "Número de inscrição do pagador inválido. Informe um número válido.",  # noqa
     },
     116: {
         "codigo": 116,
         "texto_cliente": "",
-        "texto_tecnico": "Número de inscrição do avalista inválido. Informe um número válido.",
+        "texto_tecnico": "Número de inscrição do avalista inválido. Informe um número válido.",  # noqa
     },
     117: {
         "codigo": 117,
@@ -741,7 +741,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     118: {
         "codigo": 118,
         "texto_cliente": "",
-        "texto_tecnico": "Número de referência inválido. Informe um número válido.",
+        "texto_tecnico": "Número de referência inválido. Informe um número válido.",  # noqa
     },
     119: {
         "codigo": 119,
@@ -756,7 +756,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     121: {
         "codigo": 121,
         "texto_cliente": "",
-        "texto_tecnico": "Valor dos juros/encargos inválido. Informe um valor válido.",
+        "texto_tecnico": "Valor dos juros/encargos inválido. Informe um valor válido.",  # noqa
     },
     122: {
         "codigo": 122,
@@ -766,22 +766,22 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     123: {
         "codigo": 123,
         "texto_cliente": "",
-        "texto_tecnico": "Valor previsto do pagamento do INSS inválido. Informe um valor válido.",
+        "texto_tecnico": "Valor previsto do pagamento do INSS inválido. Informe um valor válido.",  # noqa
     },
     124: {
         "codigo": 124,
         "texto_cliente": "",
-        "texto_tecnico": "Valor de outras entidades inválido. Informe um valor válido.",
+        "texto_tecnico": "Valor de outras entidades inválido. Informe um valor válido.",  # noqa
     },
     125: {
         "codigo": 125,
         "texto_cliente": "",
-        "texto_tecnico": "Valor de atualização monetária inválido. Informe um valor válido.",
+        "texto_tecnico": "Valor de atualização monetária inválido. Informe um valor válido.",  # noqa
     },
     126: {
         "codigo": 126,
         "texto_cliente": "",
-        "texto_tecnico": "Valor de desconto GRU inválido. Informe um valor válido.",
+        "texto_tecnico": "Valor de desconto GRU inválido. Informe um valor válido.",  # noqa
     },
     200: {
         "codigo": 200,
@@ -821,7 +821,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     207: {
         "codigo": 207,
         "texto_cliente": "",
-        "texto_tecnico": "Tipo/Número de Inscrição Inválido. CPF ou CNPJ inválido.",
+        "texto_tecnico": "Tipo/Número de Inscrição Inválido. CPF ou CNPJ inválido.",  # noqa
     },
     208: {
         "codigo": 208,
@@ -856,17 +856,17 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     214: {
         "codigo": 214,
         "texto_cliente": "",
-        "texto_tecnico": "Nº do ISPB Banco, Instituição de Pagamento para crédito Inválido.",
+        "texto_tecnico": "Nº do ISPB Banco, Instituição de Pagamento para crédito Inválido.",  # noqa
     },
     215: {
         "codigo": 215,
         "texto_cliente": "",
-        "texto_tecnico": "Agência Mantenedora da Conta Corrente do Favorecido Inválida.",
+        "texto_tecnico": "Agência Mantenedora da Conta Corrente do Favorecido Inválida.",  # noqa
     },
     216: {
         "codigo": 216,
         "texto_cliente": "",
-        "texto_tecnico": "Conta Corrente/DV/Conta de Pagamento do Favorecido Inválido.",
+        "texto_tecnico": "Conta Corrente/DV/Conta de Pagamento do Favorecido Inválido.",  # noqa
     },
     217: {
         "codigo": 217,
@@ -966,7 +966,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     236: {
         "codigo": 236,
         "texto_cliente": "",
-        "texto_tecnico": "Empresa não pagou salário. Conta de crédito só aceita pagamento de salário.",
+        "texto_tecnico": "Empresa não pagou salário. Conta de crédito só aceita pagamento de salário.",  # noqa
     },
     237: {
         "codigo": 237,
@@ -1036,7 +1036,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     250: {
         "codigo": 250,
         "texto_cliente": "",
-        "texto_tecnico": "Código de Barras - Dígito Verificador Geral Inválido.",
+        "texto_tecnico": "Código de Barras - Dígito Verificador Geral Inválido.",  # noqa
     },
     251: {
         "codigo": 251,
@@ -1121,7 +1121,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     267: {
         "codigo": 267,
         "texto_cliente": "",
-        "texto_tecnico": "Agência/Conta Corrente da Empresa Inexistente/Inválido para o Contrato.",
+        "texto_tecnico": "Agência/Conta Corrente da Empresa Inexistente/Inválido para o Contrato.",  # noqa
     },
     268: {
         "codigo": 268,
@@ -1216,7 +1216,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     286: {
         "codigo": 286,
         "texto_cliente": "",
-        "texto_tecnico": "Margem consignável excedida para o mutuário dentro do prazo do contrato.",
+        "texto_tecnico": "Margem consignável excedida para o mutuário dentro do prazo do contrato.",  # noqa
     },
     287: {
         "codigo": 287,
@@ -1266,7 +1266,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     296: {
         "codigo": 296,
         "texto_cliente": "",
-        "texto_tecnico": "Margem consignável excedida para o mutuário acima do prazo do contrato.",
+        "texto_tecnico": "Margem consignável excedida para o mutuário acima do prazo do contrato.",  # noqa
     },
     297: {
         "codigo": 297,
@@ -1331,7 +1331,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     309: {
         "codigo": 309,
         "texto_cliente": "",
-        "texto_tecnico": "Benefício cessado: estatutário transferido para órgão de origem.",
+        "texto_tecnico": "Benefício cessado: estatutário transferido para órgão de origem.",  # noqa
     },
     310: {
         "codigo": 310,
@@ -1356,7 +1356,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     314: {
         "codigo": 314,
         "texto_cliente": "",
-        "texto_tecnico": "Fim do empréstimo ocorreu durante período de suspensão ou concessão.",
+        "texto_tecnico": "Fim do empréstimo ocorreu durante período de suspensão ou concessão.",  # noqa
     },
     315: {
         "codigo": 315,
@@ -1481,7 +1481,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     339: {
         "codigo": 339,
         "texto_cliente": "",
-        "texto_tecnico": "Tipo de transação não é suportado/autorizado na conta transacional especificada.",
+        "texto_tecnico": "Tipo de transação não é suportado/autorizado na conta transacional especificada.",  # noqa
     },
     340: {
         "codigo": 340,
