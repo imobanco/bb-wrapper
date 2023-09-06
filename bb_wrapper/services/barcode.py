@@ -61,7 +61,7 @@ class BarcodeService:
         elif length == 44:
             data = {"barcode": number}
         else:
-            raise ValueError("Código de barras ou linha digitável inválida!")
+            data = {}
 
         try:
             instance = BarcodeCobranca(**data)
