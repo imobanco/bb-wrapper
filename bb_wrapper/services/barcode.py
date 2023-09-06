@@ -61,7 +61,7 @@ class BarcodeService:
         elif length == 44:
             data = {"barcode": number}
         else:
-            raise ValueError("Tipo não identificado!")
+            raise ValueError("Código de barras ou linha digitável inválida!")
 
         try:
             instance = BarcodeCobranca(**data)
@@ -75,7 +75,7 @@ class BarcodeService:
         except ValidationError:
             pass
 
-        raise ValueError("Tipo não identificado!")
+        raise ValueError("Código de barras ou linha digitável inválida!")
 
     def get_infos_from_barcode_or_code_line(self, number: str):
         """
