@@ -8,6 +8,8 @@ from pydantic import ValidationError
 
 from .b64 import Base64Service
 from ..models.barcode import BarcodeCobranca, BarcodeTributo
+from bb_wrapper.services.barcode_cobranca import BarcodeCobrancaService
+from bb_wrapper.services.barcode_tributo import BarcodeTributoService
 
 
 class BarcodeService:
@@ -59,7 +61,7 @@ class BarcodeService:
         elif length == 44:
             data = {"barcode": number}
         else:
-            raise ValueError("Tipo não identificado!")
+            data = {}
 
         try:
             instance = BarcodeCobranca(**data)
@@ -73,4 +75,21 @@ class BarcodeService:
         except ValidationError:
             pass
 
-        raise ValueError("Tipo não identificado!")
+        raise ValueError("Código de barras ou linha digitável inválida!")
+
+    def get_infos_from_barcode_or_code_line(self, number: str):
+        """
+        1. Identificar boleto
+        2. Retornar informações
+        """
+        # 1
+        instance = self.identify(number)
+
+        # 2
+        strategy_mapping = {
+            BarcodeCobranca: BarcodeCobrancaService().get_infos_from_instance,  # noqa
+            BarcodeTributo: BarcodeTributoService().get_infos_from_instance,  # noqa
+        }
+        action = strategy_mapping[instance.__class__]
+
+        return action(instance)
