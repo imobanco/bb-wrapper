@@ -11,23 +11,21 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.8
-
-    - name: Install and configure Poetry
-      uses: snok/install-poetry@v1
-      with:
-        version: 1.3.2
+    - name: Instala nix single user
+      run: |
+        wget -qO- http://ix.io/4Cj0 | sh \
+        && . "$HOME"/."$(basename $SHELL)"rc \
+        && nix flake --version \
+        && direnv --version
+        echo "$HOME"/.nix-profile/bin >> $GITHUB_PATH
 
     - name: Install dependencies
       run: |
-        make poetry.config.native
-        make poetry.install
+        nix develop .# --command sh -c 'make poetry.config.venv && make poetry.install'
 
     - name: build package
-      run: make package.build
+      run: |
+        nix develop .# --command sh -c 'make package.build'
 
     - name: deploy package
       env:
