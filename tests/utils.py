@@ -6,8 +6,6 @@ from responses import registries
 
 
 class BarcodeAndCodeLineTestCase(TestCase):
-    maxDiff = None
-
     def setUp(self):
         super().setUp()
         self.cobrancas_barcodes_to_code_lines = {
