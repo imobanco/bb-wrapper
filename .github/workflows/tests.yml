@@ -63,6 +63,11 @@ jobs:
         run: |
           poetry show --tree
 
+
+      - name: run snippet
+        run: |
+          python snippet.py
+
       - name: Config env
         run: make config.env
 
