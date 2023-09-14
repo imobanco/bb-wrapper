@@ -86,6 +86,10 @@ jobs:
           make poetry.config.native
           make poetry.install
 
+      - name: Show dependencies
+        run: |
+          poetry show
+
       - name: Config env
         run: make config.env
 
