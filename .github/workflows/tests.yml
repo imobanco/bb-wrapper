@@ -61,7 +61,7 @@ jobs:
 
       - name: Show dependencies
         run: |
-          poetry show
+          poetry show --tree
 
       - name: Config env
         run: make config.env
