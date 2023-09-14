@@ -53,11 +53,6 @@ jobs:
         run: |
           nix develop .# --command sh -c 'python --version && poetry show --tree'
 
-
-      - name: run snippet
-        run: |
-          nix develop .# --command sh -c 'python snippet.py'
-
       - name: Config env
         run: nix develop .# --command sh -c 'make config.env'
 
