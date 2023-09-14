@@ -25,7 +25,7 @@
           buildInputs = with pkgsAllowUnfree; [
             gnumake            
             poetry
-            python3
+            python39
           ];
 
           shellHook = ''

@@ -16,54 +16,48 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8
-
-      - name: Install and configure Poetry
-        uses: snok/install-poetry@v1
-        with:
-          version: 1.3.2
+      - name: Instala nix single user
+        run: |
+          wget -qO- http://ix.io/4Cj0 | sh \
+          && . "$HOME"/."$(basename $SHELL)"rc \
+          && nix flake --version \
+          && direnv --version
+          echo "$HOME"/.nix-profile/bin >> $GITHUB_PATH
 
       - name: Install dependencies
         run: |
-          make poetry.config.native
-          make poetry.install
+          nix develop .# --command sh -c 'make poetry.config.venv && make poetry.install'
 
       - name: Lint code with black
-        run: make fmt.check
+        run: |
+          nix develop .# --command sh -c 'make fmt.check'
 
   test:
-    name: test [${{ matrix.os }}] (${{ matrix.python }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-22.04]
-        python: [3.8, 3.9]
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: ${{ matrix.python }}
-
-      - name: Install and configure Poetry
-        uses: snok/install-poetry@v1
-        with:
-          version: 1.3.2
+      - name: Instala nix single user
+        run: |
+          wget -qO- http://ix.io/4Cj0 | sh \
+          && . "$HOME"/."$(basename $SHELL)"rc \
+          && nix flake --version \
+          && direnv --version
+          echo "$HOME"/.nix-profile/bin >> $GITHUB_PATH
 
       - name: Install dependencies
         run: |
-          make poetry.config.native
-          make poetry.install
+          nix develop .# --command sh -c 'make poetry.config.venv && make poetry.install'
+
+      - name: Show dependencies
+        run: |
+          nix develop .# --command sh -c 'python --version && poetry show --tree'
 
       - name: Config env
-        run: make config.env
+        run: nix develop .# --command sh -c 'make config.env'
 
       - name: Test with pytest
-        run: make test
+        run: nix develop .# --command sh -c 'make test'
 
   coverage:
     runs-on: ubuntu-22.04
@@ -71,28 +65,26 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8
-
-      - name: Install and configure Poetry
-        uses: snok/install-poetry@v1
-        with:
-          version: 1.3.2
+      - name: Instala nix single user
+        run: |
+          wget -qO- http://ix.io/4Cj0 | sh \
+          && . "$HOME"/."$(basename $SHELL)"rc \
+          && nix flake --version \
+          && direnv --version
+          echo "$HOME"/.nix-profile/bin >> $GITHUB_PATH
 
       - name: Install dependencies
         run: |
-          make poetry.config.native
-          make poetry.install
+          nix develop .# --command sh -c 'make poetry.config.venv && make poetry.install'
 
       - name: Config env
-        run: make config.env
+        run: |
+          nix develop .# --command sh -c 'make config.env'
 
       - name: make coverage
-        run: make coverage
+        run: |
+          nix develop .# --command sh -c 'make coverage'
 
       - uses: codecov/codecov-action@v1
         with:
           file: ./coverage.xml # optional
-          
