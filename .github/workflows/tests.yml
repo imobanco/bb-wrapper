@@ -16,10 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8
+      - name: Instala nix single user
+        run: |
+          wget -qO- http://ix.io/4Cj0 | sh \
+          && . "$HOME"/."$(basename $SHELL)"rc \
+          && nix flake --version \
+          && direnv --version
+          echo "$HOME"/.nix-profile/bin >> $GITHUB_PATH
 
       - name: Install and configure Poetry
         uses: snok/install-poetry@v1
@@ -28,11 +31,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          make poetry.config.native
-          make poetry.install
+          nix develop .# --command sh -c 'make poetry.config.venv && make poetry.install'
 
       - name: Lint code with black
-        run: make fmt.check
+        run: |
+          nix develop .# --command sh -c 'make fmt.check'
 
   test:
     name: test [${{ matrix.os }}] (${{ matrix.python }})
