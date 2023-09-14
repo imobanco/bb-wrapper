@@ -33,6 +33,7 @@ jobs:
           nix develop .# --command sh -c 'make fmt.check'
 
   test:
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
 
