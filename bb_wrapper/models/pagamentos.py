@@ -178,7 +178,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     3: {
         "codigo": 3,
-        "texto_tecnico": "Dígito conta de crédito igual a espaços. Informe o DV da conta de crédito.",  # noqa
+        "texto_tecnico": "Dígito da conta de crédito igual a espaços. Informe o DV da conta de crédito.",  # noqa
     },
     4: {
         "codigo": 4,
@@ -498,7 +498,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     83: {
         "codigo": 83,
-        "texto_tecnico": "Agência e Conta incorretos.",
+        "texto_tecnico": "Agência e Conta incorretas.",
     },
     84: {
         "codigo": 84,
@@ -542,7 +542,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     97: {
         "codigo": 97,
-        "texto_tecnico": "Chave Aleatória do Cliente do PIX não foi informado.",  # noqa
+        "texto_tecnico": "Chave Aleatória do Cliente do PIX não foi informada.",  # noqa
     },
     98: {
         "codigo": 98,
@@ -734,7 +734,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     218: {
         "codigo": 218,
-        "texto_tecnico": "Data Lançamento Inválido.",
+        "texto_tecnico": "Data de Lançamento Inválida.",
     },
     219: {
         "codigo": 219,
@@ -930,7 +930,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     267: {
         "codigo": 267,
-        "texto_tecnico": "Agência/Conta Corrente da Empresa Inexistente/Inválido para o Contrato.",  # noqa
+        "texto_tecnico": "Agência/Conta Corrente da Empresa Inexistente/Inválida para o Contrato.",  # noqa
     },
     268: {
         "codigo": 268,
