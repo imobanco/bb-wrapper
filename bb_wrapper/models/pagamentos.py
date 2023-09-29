@@ -622,7 +622,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     117: {
         "codigo": 117,
-        "texto_tecnico": "Número de identifiação do contribuinte DARF inválido. Informe um número válido.",  # noqa
+        "texto_tecnico": "Número de identifiação do contribuinte DARF (Documento de Arrecadação de Receitas Federais) inválido. Informe um número válido.",  # noqa
     },
     118: {
         "codigo": 118,
@@ -642,7 +642,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     122: {
         "codigo": 122,
-        "texto_tecnico": "Número de identificação do contribuinte GPS inválido. Informe um número válido.",  # noqa
+        "texto_tecnico": "Número de identificação do contribuinte GPS (Guia da Previdência Social) inválido. Informe um número válido.",  # noqa
     },
     123: {
         "codigo": 123,
