@@ -718,7 +718,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     214: {
         "codigo": 214,
-        "texto_tecnico": "Número do ISPB Banco, Instituição de Pagamento para crédito Inválido.",  # noqa
+        "texto_tecnico": "Número do ISPB (Identificador de Sistema de Pagamentos Brasileiro) Banco, Instituição de Pagamento para crédito Inválido.",  # noqa
     },
     215: {
         "codigo": 215,
