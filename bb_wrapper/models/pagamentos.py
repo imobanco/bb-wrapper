@@ -714,7 +714,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     213: {
         "codigo": 213,
-        "texto_tecnico": "Número Compensação do Banco para crédito Inválido.",
+        "texto_tecnico": "Número COMPE do Banco para crédito Inválido.",
     },
     214: {
         "codigo": 214,
