@@ -178,7 +178,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     3: {
         "codigo": 3,
-        "texto_tecnico": "Dígito conta de crédito igual a espaços. Informe o DV da conta de crédito.",  # noqa
+        "texto_tecnico": "Dígito da conta de crédito igual a espaços. Informe o DV da conta de crédito.",  # noqa
     },
     4: {
         "codigo": 4,
@@ -418,11 +418,11 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     63: {
         "codigo": 63,
-        "texto_tecnico": "Nº de Identificação do Contribuinte não informado.",
+        "texto_tecnico": "Número de Identificação do Contribuinte não informado.",
     },
     64: {
         "codigo": 64,
-        "texto_tecnico": "Nº de Identificação do Contribuinte não numérico.",
+        "texto_tecnico": "Número de Identificação do Contribuinte não numérico.",
     },
     65: {
         "codigo": 65,
@@ -498,7 +498,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     83: {
         "codigo": 83,
-        "texto_tecnico": "Agência e Conta incorretos.",
+        "texto_tecnico": "Agência e Conta incorretas.",
     },
     84: {
         "codigo": 84,
@@ -542,7 +542,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     97: {
         "codigo": 97,
-        "texto_tecnico": "Chave Aleatória do Cliente do PIX não foi informado.",  # noqa
+        "texto_tecnico": "Chave Aleatória do Cliente do PIX não foi informada.",  # noqa
     },
     98: {
         "codigo": 98,
@@ -622,7 +622,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     117: {
         "codigo": 117,
-        "texto_tecnico": "Nº de identifiação do contribuinte DARF inválido. Informe um número válido.",  # noqa
+        "texto_tecnico": "Número de identifiação do contribuinte DARF (Documento de Arrecadação de Receitas Federais) inválido. Informe um número válido.",  # noqa
     },
     118: {
         "codigo": 118,
@@ -642,7 +642,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     122: {
         "codigo": 122,
-        "texto_tecnico": "Nº de identificação do contribuinte GPS inválido. Informe um número válido.",  # noqa
+        "texto_tecnico": "Número de identificação do contribuinte GPS (Guia da Previdência Social) inválido. Informe um número válido.",  # noqa
     },
     123: {
         "codigo": 123,
@@ -702,7 +702,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     210: {
         "codigo": 210,
-        "texto_tecnico": "Nº Seqüencial do Registro no Lote Inválido.",
+        "texto_tecnico": "Número Sequencial do Registro no Lote Inválido.",
     },
     211: {
         "codigo": 211,
@@ -714,11 +714,11 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     213: {
         "codigo": 213,
-        "texto_tecnico": "Nº Compe do Banco para crédito Inválido.",
+        "texto_tecnico": "Número COMPE do Banco para crédito Inválido.",
     },
     214: {
         "codigo": 214,
-        "texto_tecnico": "Nº do ISPB Banco, Instituição de Pagamento para crédito Inválido.",  # noqa
+        "texto_tecnico": "Número do ISPB (Identificador de Sistema de Pagamentos Brasileiro) Banco, Instituição de Pagamento para crédito Inválido.",  # noqa
     },
     215: {
         "codigo": 215,
@@ -734,7 +734,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     218: {
         "codigo": 218,
-        "texto_tecnico": "Data Lançamento Inválido.",
+        "texto_tecnico": "Data de Lançamento Inválida.",
     },
     219: {
         "codigo": 219,
@@ -758,7 +758,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     224: {
         "codigo": 224,
-        "texto_tecnico": "Nº do Local do Favorecido Não Informado.",
+        "texto_tecnico": "Número do Local do Favorecido Não Informado.",
     },
     225: {
         "codigo": 225,
@@ -774,7 +774,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     228: {
         "codigo": 228,
-        "texto_tecnico": "Nº do Banco para crédito Inválido.",
+        "texto_tecnico": "Número do Banco para crédito Inválido.",
     },
     229: {
         "codigo": 229,
@@ -930,7 +930,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     267: {
         "codigo": 267,
-        "texto_tecnico": "Agência/Conta Corrente da Empresa Inexistente/Inválido para o Contrato.",  # noqa
+        "texto_tecnico": "Agência/Conta Corrente da Empresa Inexistente/Inválida para o Contrato.",  # noqa
     },
     268: {
         "codigo": 268,
@@ -942,7 +942,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     270: {
         "codigo": 270,
-        "texto_tecnico": "Lote de Serviço Fora de Seqüência.",
+        "texto_tecnico": "Lote de Serviço Fora de Sequência.",
     },
     271: {
         "codigo": 271,
@@ -958,7 +958,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     274: {
         "codigo": 274,
-        "texto_tecnico": "Código Remessa / Retorno Inválido.",
+        "texto_tecnico": "Código Remessa/Retorno Inválido.",
     },
     275: {
         "codigo": 275,
@@ -1158,7 +1158,7 @@ ERROS_VALIDACAO_PAGAMENTO_DICT = {
     },
     324: {
         "codigo": 324,
-        "texto_tecnico": "Agência / Conta do Favorecido Substituída.",
+        "texto_tecnico": "Agência/Conta do Favorecido Substituída.",
     },
     325: {
         "codigo": 325,
