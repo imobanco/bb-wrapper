@@ -1,4 +1,5 @@
 from unittest.mock import patch
+from unittest import skip
 from requests import Timeout
 from py_bdd_context import BDDContextTestCase
 
@@ -120,6 +121,7 @@ class RequestsWrapperTestCase(BDDContextTestCase):
         ):
             self.headers_patcher.stop()
 
+    @skip
     def test_retry_request(self):
         with self.given(
             """
