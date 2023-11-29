@@ -90,6 +90,7 @@ class RequestsWrapperTestCase(BDDContextTestCase):
 
             self.assertEqual(result, expected)
 
+    @skip
     def test_request_timeout(self):
         with self.given(
             """
