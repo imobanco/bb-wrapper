@@ -196,8 +196,6 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
                 "contaCorrenteCredito": conta_destino,
                 "digitoVerificadorContaCorrente": dv_conta_destino,
             }
-        else:
-            raise ValueError("Conta de Pagamento OU dados de conta corrente precisam ser informados")!
 
             if int(codigo_banco) != 1:
                 """
@@ -207,6 +205,10 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
                 O código do BB é 1!
                 """
                 pagamento_data["codigoFinalidadeTED"] = finalidade_ted
+        else:
+            raise ValueError(
+                "Conta de Pagamento OU dados de conta corrente precisam ser informados!"
+            )
 
         if documento_tipo == 1:
             pagamento_data["cpfBeneficiario"] = documento
