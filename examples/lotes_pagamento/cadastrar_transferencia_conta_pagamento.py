@@ -7,18 +7,20 @@ from bb_wrapper.wrapper import PagamentoLoteBBWrapper
 
 c = PagamentoLoteBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
 
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 today = date.today()
 bb_fmt = "%d%m%Y"
 
 lote_data = {
-    "n_requisicao": 580000,
+    "n_requisicao": 579497,
     "agencia": 1607,
     "conta": 99738672,
     "dv_conta": "X",
 }
 transferencia_data = {
-    "codigo_banco": 1,
+    "codigo_banco": 290,
     "conta_pagamento_destino": 3066,
     "documento": "99391916180",
     "data_transferencia": today.strftime(bb_fmt),

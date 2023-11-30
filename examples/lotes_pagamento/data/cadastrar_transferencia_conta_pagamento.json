@@ -1,13 +1,13 @@
 {
-    "estadoRequisicao": 3,
+    "estadoRequisicao": 1,
     "quantidadeTransferencias": 1,
     "totalTransferencias": 15.5,
-    "quantidadeTransferenciasValidas": 0,
-    "totalTransferenciasValidas": 0,
+    "quantidadeTransferenciasValidas": 1,
+    "totalTransferenciasValidas": 15.5,
     "transferencias": [
         {
-            "identificadorTransferencia": "90580000731030001",
-            "numeroCOMPE": 1,
+            "identificadorTransferencia": "90579497731030001",
+            "numeroCOMPE": 290,
             "numeroISPB": 0,
             "agenciaCredito": 0,
             "contaCorrenteCredito": 0,
@@ -18,15 +18,13 @@
             "valorTransferencia": 15.5,
             "documentoDebito": 0,
             "documentoCredito": 0,
-            "tipoCredito": 1,
+            "tipoCredito": 3,
             "codigoFinalidadeDOC": "",
-            "codigoFinalidadeTED": "",
+            "codigoFinalidadeTED": "1",
             "numeroDepositoJudicial": "",
             "descricaoTransferencia": "string",
-            "indicadorAceite": "N",
-            "erros": [
-                23
-            ]
+            "indicadorAceite": "S",
+            "erros": []
         }
     ]
 }

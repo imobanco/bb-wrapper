@@ -197,18 +197,19 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
                 "digitoVerificadorContaCorrente": dv_conta_destino,
             }
 
-            if int(codigo_banco) != 1:
-                """
-                Só é utilizado finalidade TED para outros bancos
-                que não sejam o BB!
-
-                O código do BB é 1!
-                """
-                pagamento_data["codigoFinalidadeTED"] = finalidade_ted
         else:
             raise ValueError(
                 "Conta de Pagamento OU dados de conta corrente precisam ser informados!"
             )
+
+        if int(codigo_banco) != 1:
+            """
+            Só é utilizado finalidade TED para outros bancos
+            que não sejam o BB!
+
+            O código do BB é 1!
+            """
+            pagamento_data["codigoFinalidadeTED"] = finalidade_ted
 
         if documento_tipo == 1:
             pagamento_data["cpfBeneficiario"] = documento
