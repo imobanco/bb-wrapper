@@ -189,13 +189,15 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
                 **pagamento_data,
                 "contaPagamentoCredito": conta_pagamento_destino,
             }
-        else:
+        elif None not in [agencia_destino, conta_destino, dv_conta_destino]:
             pagamento_data = {
                 **pagamento_data,
                 "agenciaCredito": agencia_destino,
                 "contaCorrenteCredito": conta_destino,
                 "digitoVerificadorContaCorrente": dv_conta_destino,
             }
+        else:
+            raise ValueError("Conta de Pagamento OU dados de conta corrente precisam ser informados")!
 
             if int(codigo_banco) != 1:
                 """
