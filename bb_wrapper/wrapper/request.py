@@ -70,6 +70,11 @@ class RequestsWrapper:
         except JSONDecodeError:
             response.data = {}
         response.reason = response.data
+        logger.debug(
+            f"Requisição {response.request.method} {response.request.url}\n"
+            f"{response.request.body=}\n"
+            f"{response.data=}"
+        )
         response.raise_for_status()
         return response
 
