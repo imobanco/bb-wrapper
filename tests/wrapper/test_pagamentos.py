@@ -347,6 +347,31 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(2, self.total_requests())
         self.mock_responses.assert_call_count(request_url, 1)
 
+    def test_cadastrar_transferencia_3_vazio(self):
+        """
+        Teste para verificar a URL da requisição e dados
+        """
+        self.mock_responses.reset()
+
+        request_url = PagamentoLoteBBWrapper()._construct_url("lotes-transferencias")
+
+        with self.assertRaises(ValueError) as ctx:
+            PagamentoLoteBBWrapper().cadastrar_transferencia(
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "99391916180",
+                "6",
+                "7",
+                "8",
+                tipo_pagamento=128,
+            )
+
+        self.assertEqual(0, self.total_requests())
+        self.mock_responses.assert_call_count(request_url, 0)
+
     def test_consultar_transferencia_1(self):
         """
         Teste para verificar a URL da requisição e dados

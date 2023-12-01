@@ -1,4 +1,5 @@
 import os
+import logging
 from datetime import date
 
 from examples.utils import dump_response
@@ -7,7 +8,6 @@ from bb_wrapper.wrapper import PagamentoLoteBBWrapper
 
 c = PagamentoLoteBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
 
-import logging
 logging.basicConfig(level=logging.DEBUG)
 
 today = date.today()
