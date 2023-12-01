@@ -1,8 +1,11 @@
+import logging
 import os
 
 from examples.utils import dump_response
 
 from bb_wrapper.wrapper import PagamentoLoteBBWrapper
+
+logging.basicConfig(level=logging.DEBUG)
 
 c = PagamentoLoteBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
 
