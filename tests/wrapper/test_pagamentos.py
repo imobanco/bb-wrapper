@@ -315,6 +315,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
                     "valorTransferencia": "7",
                     "descricaoTransferencia": "8",
                     "contaPagamentoCredito": "9",
+                    "finalidade_ted": 1,
                     "cpfBeneficiario": "99391916180",
                 }
             ],
@@ -371,7 +372,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(
             ctx.exception.args[0],
-            "Conta de Pagamento OU dados de conta corrente precisam ser informados!",
+            "Conta de Pagamento OU dados de Conta Corrente precisam ser informados!",
         )
         self.assertEqual(0, self.total_requests())
         self.mock_responses.assert_call_count(request_url, 0)

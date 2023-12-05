@@ -199,7 +199,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
 
         else:
             raise ValueError(
-                "Conta de Pagamento OU dados de conta corrente precisam ser informados!"
+                "Conta de Pagamento OU dados de Conta Corrente precisam ser informados!"
             )
 
         if int(codigo_banco) != 1:
