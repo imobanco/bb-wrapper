@@ -87,3 +87,14 @@ Certifique-se que o ambiente está ativado, se não estiver execute:
 
     nix develop
 
+.. code-block:: bash
+
+    nix flake clone 'github:imobanco/bb-wrapper' --dest bb-wrapper \
+    && cd bb-wrapper 1>/dev/null 2>/dev/null \
+    && (direnv --version 1>/dev/null 2>/dev/null && direnv allow) \
+    || nix develop --command sh -c 'make poetry.config.venv && make poetry.install && python -c "import requests"'
+
+    git remote set-url origin $(git remote show origin \
+        | grep "Fetch URL" \
+        | sed 's/ *Fetch URL: //' \
+        | sed 's/https:\/\/github.com\//git@github.com:/')

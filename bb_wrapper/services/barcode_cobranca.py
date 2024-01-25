@@ -1,4 +1,5 @@
 from .dac import DACService
+from datetime import datetime, timedelta
 
 
 class BarcodeCobrancaService:
@@ -154,3 +155,33 @@ class BarcodeCobrancaService:
             + code_line[10:20]
             + code_line[21:31]
         )
+
+    def calculate_due_date(self, number):
+        """
+        Calcula data de vencimento com base no Fator de Vencimento.
+        https://www.boletobancario-codigodebarras.com/2018/04/data-de-vencimento-e-valor.html
+
+        1. Se a data_base + fator de vencimento der uma data com mais 10 anos atrás
+        deve ser utilizada a nova data base de 2025.
+        """
+        base_date = datetime.strptime("1997-10-07", "%Y-%m-%d")
+        limit_date = datetime.today() - timedelta(days=10 * 365 + 3)
+        fv = timedelta(days=int(number))
+
+        # 1
+        if (base_date + fv) < limit_date:
+            base_date = datetime.strptime("2025-02-22", "%Y-%m-%d")
+            fv = fv - timedelta(days=int(1000))
+        return (base_date + fv).date()
+
+    def get_infos_from_instance(self, instance):
+        return {
+            "instance": instance,
+            "valid": True,
+            "barcode_number": instance.barcode,
+            "code_line": instance.code_line,
+            "type": "Comercial",
+            "bank": instance.barcode[:3],
+            "amount": int(instance.barcode[9:19]) / 100,
+            "due_date": self.calculate_due_date(instance.barcode[5:9]),
+        }

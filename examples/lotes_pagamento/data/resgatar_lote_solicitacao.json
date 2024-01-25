@@ -1,0 +1,31 @@
+{
+    "estadoRequisicao": 1,
+    "quantidadePagamentos": 1,
+    "valorPagamentos": 15.5,
+    "quantidadePagamentosValidos": 1,
+    "valorPagamentosValidos": 15.5,
+    "pagamentos": [
+        {
+            "identificadorPagamento": "90579145731030001",
+            "numeroCOMPE": 0,
+            "numeroISPB": 0,
+            "agenciaCredito": 0,
+            "contaCorrenteCredito": 0,
+            "digitoVerificadorContaCorrente": "",
+            "contaPagamentoCredito": "",
+            "cpfBeneficiario": 99391916180,
+            "cnpjBeneficiario": 0,
+            "dataPagamento": 6072023,
+            "valorPagamento": 15.5,
+            "documentoDebito": 0,
+            "documentoCredito": 0,
+            "tipoCredito": 30,
+            "codigoFinalidadeDOC": "",
+            "codigoFinalidadeTED": "",
+            "numeroDepositoJudicial": "",
+            "descricaoPagamento": "string",
+            "indicadorAceite": "S",
+            "erros": []
+        }
+    ]
+}

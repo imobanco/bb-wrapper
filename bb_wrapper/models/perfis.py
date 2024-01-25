@@ -16,7 +16,7 @@ class TipoInscricaoEnum(IntEnum):
 
 class Pessoa(BaseModel):
     tipoInscricao: TipoInscricaoEnum
-    numeroInscricao: constr(max_length=14, min_length=11)
+    numeroInscricao: int
     nome: constr(max_length=30)
 
 
