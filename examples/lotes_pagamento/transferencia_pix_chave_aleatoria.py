@@ -26,5 +26,5 @@ transferencia_data = {
     "chave": "d14d32de-b3b9-4c31-9f89-8df2cec92c50",
 }
 
-response = c.criar_transferencia_pix(**lote_data, **transferencia_data)
+response = c.criar_transferencia_por_chave_pix(**lote_data, **transferencia_data)
 dump_response(response, os.path.realpath(__file__))

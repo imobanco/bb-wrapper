@@ -51,7 +51,7 @@ class FinalidadeTED(IntEnum):
     poupanca = 11
 
 
-class TransferenciaPIX(BaseModel):
+class TransferenciaChavePIX(BaseModel):
     data: str
     valor: float
     chave: str

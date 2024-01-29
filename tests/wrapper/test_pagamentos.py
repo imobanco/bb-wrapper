@@ -124,7 +124,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             ],
         }
 
-        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_chave_pix(
             n_requisicao="123",
             agencia="345",
             conta="678",
@@ -167,7 +167,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             ],
         }
 
-        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_chave_pix(
             n_requisicao="123",
             agencia="345",
             conta="678",
@@ -210,7 +210,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             ],
         }
 
-        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_chave_pix(
             n_requisicao="123",
             agencia="345",
             conta="678",
@@ -253,7 +253,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             ],
         }
 
-        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_chave_pix(
             n_requisicao="123",
             agencia="345",
             conta="678",
@@ -275,7 +275,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         """
 
         with self.assertRaises(ValueError) as ctx:
-            PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+            PagamentoLoteBBWrapper()._criar_dados_transferencia_chave_pix(
                 n_requisicao="123",
                 agencia="345",
                 conta="678",
@@ -320,7 +320,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             ],
         }
 
-        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_chave_pix(
             n_requisicao="123",
             agencia="345",
             conta="678",
@@ -363,7 +363,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             ],
         }
 
-        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_pix(
+        response = PagamentoLoteBBWrapper()._criar_dados_transferencia_chave_pix(
             n_requisicao="123",
             agencia="345",
             conta="678",
@@ -760,7 +760,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             json=expected_json,
         )
 
-        response = PagamentoLoteBBWrapper().criar_transferencia_pix(
+        response = PagamentoLoteBBWrapper().criar_transferencia_por_chave_pix(
             "123",
             "345",
             "678",
@@ -808,7 +808,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             json=expected_json,
         )
 
-        response = PagamentoLoteBBWrapper().criar_transferencia_pix(
+        response = PagamentoLoteBBWrapper().criar_transferencia_por_chave_pix(
             "123",
             "345",
             "678",
@@ -857,7 +857,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             json=expected_json,
         )
 
-        response = PagamentoLoteBBWrapper().criar_transferencia_pix(
+        response = PagamentoLoteBBWrapper().criar_transferencia_por_chave_pix(
             "123",
             "345",
             "678",
@@ -905,7 +905,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             json=expected_json,
         )
 
-        response = PagamentoLoteBBWrapper().criar_transferencia_pix(
+        response = PagamentoLoteBBWrapper().criar_transferencia_por_chave_pix(
             "123", "345", "678", "X", "19042023", 12, "28779295827", "Teste CPF"
         )
 
@@ -946,7 +946,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             json=expected_json,
         )
 
-        response = PagamentoLoteBBWrapper().criar_transferencia_pix(
+        response = PagamentoLoteBBWrapper().criar_transferencia_por_chave_pix(
             "123", "345", "678", "X", "19042023", "11", "95127446000198", "Teste CNPJ"
         )
 

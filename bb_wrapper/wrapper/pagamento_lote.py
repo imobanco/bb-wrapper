@@ -6,7 +6,7 @@ from ..models.pagamentos import (
     LoteData,
     LoteTransferenciaData,
     LiberarPagamentos,
-    TransferenciaPIX,
+    TransferenciaChavePIX,
 )
 from ..services.document import DocumentoService
 from ..services.barcode import BarcodeService
@@ -488,7 +488,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
     #     PIX      #
     ################
 
-    def _criar_dados_transferencia_pix(
+    def _criar_dados_transferencia_chave_pix(
         self,
         n_requisicao,
         agencia,
@@ -516,10 +516,10 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             "chave": chave,
         }
 
-        transferencia_data = TransferenciaPIX(**transferencia_data).dict()
+        transferencia_data = TransferenciaChavePIX(**transferencia_data).dict()
         return {**lote_data, "listaTransferencias": [transferencia_data]}
 
-    def criar_transferencia_pix(
+    def criar_transferencia_por_chave_pix(
         self,
         n_requisicao,
         agencia,
@@ -549,7 +549,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
                 - Deve ser validado e contratado com o gerente BB/suporte da API
             descricao: Campo de uso livre pelo cliente
         """
-        data = self._criar_dados_transferencia_pix(
+        data = self._criar_dados_transferencia_chave_pix(
             n_requisicao,
             agencia,
             conta,
