@@ -30,7 +30,6 @@ class TipoChavePIX(IntEnum):
     2: Chave Pix tipo Email
     3: Chave Pix tipo CPF/CNPJ
     4: Chave Aleatória
-    5: Dados Bancários
     """
 
     telefone = 1
