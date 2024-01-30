@@ -113,15 +113,15 @@ class TransferenciaDadosBancariosPIX(BaseModel):
     valor: float
     documento: str
     tipoConta: TipoContaPIX
-    agencia: Optional[str]
-    conta: Optional[str]
+    agencia: Optional[int]
+    conta: Optional[int]
     digitoVerificadorConta: Optional[str]
-    formaIdentificacao: Optional[str]
+    formaIdentificacao: TipoFormaIdentificacao[int]
     descricaoPagamento: Optional[str]
-    cpf: Optional[str]
-    cnpj: Optional[str]
+    cpf: Optional[int]
+    cnpj: Optional[int]
     contaPagamento: Optional[str]
-    numeroISPB: Optional[str]
+    numeroISPB: int
 
     # noinspection PyMethodParameters
     @root_validator
@@ -133,7 +133,7 @@ class TransferenciaDadosBancariosPIX(BaseModel):
         """
         from ..services.pix import PixService
 
-        values["formaIdentificacao"] = "5"
+        values["formaIdentificacao"] = 5
 
         documento = values.pop("documento", None)
         if documento is not None:

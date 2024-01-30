@@ -578,12 +578,12 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         tipo_conta_favorecido,
         agencia_favorecido,
         conta_favorecido,
-        digito_verificador_conta,
-        conta_pagamento,
+        digito_verificador_conta_favorecido,
+        conta_pagamento_favorecido,
         descricao,
         tipo_pagamento,
-        documento,
-        numero_ispb,
+        documento_favorecido,
+        numero_ispb_favorecido,
     ):
         lote_data = {
             "numeroRequisicao": n_requisicao,
