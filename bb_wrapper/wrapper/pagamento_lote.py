@@ -7,6 +7,7 @@ from ..models.pagamentos import (
     LoteTransferenciaData,
     LiberarPagamentos,
     TransferenciaChavePIX,
+    TransferenciaDadosBancariosPIX,
 )
 from ..services.document import DocumentoService
 from ..services.barcode import BarcodeService
@@ -557,6 +558,106 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             data_transferencia,
             valor_transferencia,
             chave,
+            descricao,
+            tipo_pagamento,
+            documento,
+        )
+        url = self._construct_url("lotes-transferencias-pix")
+        response = self._post(url, data)
+
+        return response
+
+    def _criar_dados_transferencia_dados_bancarios_pix(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        data_transferencia,
+        valor_transferencia,
+        tipo_conta_favorecido,
+        agencia_favorecido,
+        conta_favorecido,
+        digito_verificador_conta,
+        conta_pagamento,
+        descricao,
+        tipo_pagamento,
+        documento,
+    ):
+        lote_data = {
+            "numeroRequisicao": n_requisicao,
+            "agenciaDebito": agencia,
+            "contaCorrenteDebito": conta,
+            "digitoVerificadorContaCorrente": dv_conta,
+            "tipoPagamento": tipo_pagamento,
+        }
+        transferencia_data = {
+            "documento": documento,
+            "data": data_transferencia,
+            "valor": valor_transferencia,
+            "descricaoPagamento": descricao,
+            "tipoConta": tipo_conta_favorecido,
+            "agencia": agencia_favorecido,
+            "conta": conta_favorecido,
+            "digitoVerificadorConta": digito_verificador_conta,
+            "contaPagamento": conta_pagamento,
+        }
+
+        transferencia_data = TransferenciaDadosBancariosPIX(**transferencia_data).dict()
+        return {**lote_data, "listaTransferencias": [transferencia_data]}
+
+    def criar_transferencia_por_dados_bancarios_pix(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        data_transferencia,
+        valor_transferencia,
+        tipo_conta_favorecido,
+        agencia_favorecido,
+        conta_favorecido,
+        digito_verificador_conta,
+        conta_pagamento=None,
+        descricao="",
+        tipo_pagamento=128,
+        documento=None,
+    ):
+        """
+        Efetua pagamentos em lote via tranferência PIX
+
+        Args:
+            n_requisicao: Nº da requisição a ser utilizado. Deve ser único
+            agencia: Agência da conta de origem do pagamento
+            conta: Nº da conta de origem do pagamento
+            dv_conta: DV da conta de origem do pagamento
+            tipo_pagamento: Tipo de pagamento a ser feito (126, 127 ou 128)
+            data_transferencia: Data do pagamento. No formato "ddmmyyyy"
+            valor_transferencia: Valor do pagamento
+            tipo_conta_favorecido: Tipo de conta de crédito do favorecido
+                - 1 Conta Corrente
+                - 2 Conta Pagamento
+                - 3 Conta Poupança
+            agencia_favorecido: Número da agência da conta de crédito do favorecido.
+            conta_favorecido: Número da conta de crédito do favorecido
+            digito_verificador_conta: Dígito verificador da agência da conta de crédito do favorecido   # noqa: E501
+            conta_pagamento: Número da conta pagamento do favorecido
+            descricao: Campo de uso livre pelo cliente
+            documento:  Valor que corresponde ao CPF/CNPJ
+                - Obrigatório e serve para validar que os dados bancários pertencem ao cpf/cnpj # noqa: E501
+        """
+        data = self._criar_dados_transferencia_dados_bancarios_pix(
+            n_requisicao,
+            agencia,
+            conta,
+            dv_conta,
+            data_transferencia,
+            valor_transferencia,
+            tipo_conta_favorecido,
+            agencia_favorecido,
+            conta_favorecido,
+            digito_verificador_conta,
+            conta_pagamento,
             descricao,
             tipo_pagamento,
             documento,
