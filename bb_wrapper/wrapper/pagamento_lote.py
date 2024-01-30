@@ -593,16 +593,16 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             "tipoPagamento": tipo_pagamento,
         }
         transferencia_data = {
-            "documento": documento,
+            "documento": documento_favorecido,
             "data": data_transferencia,
             "valor": valor_transferencia,
             "descricaoPagamento": descricao,
             "tipoConta": tipo_conta_favorecido,
             "agencia": agencia_favorecido,
             "conta": conta_favorecido,
-            "digitoVerificadorConta": digito_verificador_conta,
-            "contaPagamento": conta_pagamento,
-            "numeroISPB": numero_ispb,
+            "digitoVerificadorConta": digito_verificador_conta_favorecido,
+            "contaPagamento": conta_pagamento_favorecido,
+            "numeroISPB": numero_ispb_favorecido,
         }
 
         transferencia_data = TransferenciaDadosBancariosPIX(**transferencia_data).dict()

@@ -45,7 +45,7 @@ class TipoContaPIX(IntEnum):
     """
 
     conta_corrente = 1
-    conta_pagamento = 3
+    conta_pagamento = 2
     conta_poupanca = 3
 
 
@@ -116,7 +116,7 @@ class TransferenciaDadosBancariosPIX(BaseModel):
     agencia: Optional[int]
     conta: Optional[int]
     digitoVerificadorConta: Optional[str]
-    formaIdentificacao: TipoFormaIdentificacao[int]
+    formaIdentificacao: Optional[int]
     descricaoPagamento: Optional[str]
     cpf: Optional[int]
     cnpj: Optional[int]
@@ -134,6 +134,14 @@ class TransferenciaDadosBancariosPIX(BaseModel):
         from ..services.pix import PixService
 
         values["formaIdentificacao"] = 5
+
+        tipo_conta = values.get("tipo_conta_favorecido")
+        if TipoContaPIX.conta_pagamento == tipo_conta:
+            values.pop("agencia")
+            values.pop("conta")
+            values.pop("digitoVerificadorConta")
+        else:
+            values.pop("contaPagamento")
 
         documento = values.pop("documento", None)
         if documento is not None:
