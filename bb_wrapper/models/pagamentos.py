@@ -109,6 +109,7 @@ class TransferenciaDadosBancariosPIX(BaseModel):
     cpf: Optional[str]
     cnpj: Optional[str]
     contaPagamento: Optional[str]
+    numeroISPB: Optional[str]
 
     # noinspection PyMethodParameters
     @root_validator

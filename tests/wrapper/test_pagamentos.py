@@ -982,6 +982,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
                     "agencia": 1234,
                     "conta": 12345,
                     "digitoVerificadorConta": "X",
+                    "numeroISPB": "360305",
                     "cpf": "28779295827",
                 }
             ],
@@ -1006,6 +1007,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             conta_favorecido=12345,
             digito_verificador_conta="X",
             conta_pagamento=None,
+            numero_ispb="360305",
             descricao="Uma transferência via dados bancários",
             documento="28779295827",
         )

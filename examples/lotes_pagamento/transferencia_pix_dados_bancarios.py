@@ -27,6 +27,7 @@ transferencia_data = {
     "agencia_favorecido": 1234,
     "conta_favorecido": 12345,
     "digito_verificador_conta": "X",
+    "numeroISPB": "360305",
     "documento": "28779295827",
 }
 

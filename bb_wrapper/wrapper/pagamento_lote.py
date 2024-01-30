@@ -583,6 +583,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         descricao,
         tipo_pagamento,
         documento,
+        numero_ispb,
     ):
         lote_data = {
             "numeroRequisicao": n_requisicao,
@@ -601,6 +602,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             "conta": conta_favorecido,
             "digitoVerificadorConta": digito_verificador_conta,
             "contaPagamento": conta_pagamento,
+            "numeroISPB": numero_ispb,
         }
 
         transferencia_data = TransferenciaDadosBancariosPIX(**transferencia_data).dict()
@@ -618,6 +620,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         agencia_favorecido,
         conta_favorecido,
         digito_verificador_conta,
+        numero_ispb,
         conta_pagamento=None,
         descricao="",
         tipo_pagamento=128,
@@ -641,6 +644,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             agencia_favorecido: Número da agência da conta de crédito do favorecido.
             conta_favorecido: Número da conta de crédito do favorecido
             digito_verificador_conta: Dígito verificador da agência da conta de crédito do favorecido   # noqa: E501
+            numero_ispb: Identificador de Sistema de Pagamento Brasileiro
             conta_pagamento: Número da conta pagamento do favorecido
             descricao: Campo de uso livre pelo cliente
             documento:  Valor que corresponde ao CPF/CNPJ
@@ -661,6 +665,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             descricao,
             tipo_pagamento,
             documento,
+            numero_ispb,
         )
         url = self._construct_url("lotes-transferencias-pix")
         response = self._post(url, data)
