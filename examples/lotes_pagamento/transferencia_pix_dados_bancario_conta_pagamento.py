@@ -13,7 +13,7 @@ bb_fmt = "%d%m%Y"
 
 
 lote_data = {
-    "n_requisicao": 11489,
+    "n_requisicao": 11488,
     "agencia": 1607,
     "conta": 99738672,
     "dv_conta": "X",
@@ -24,10 +24,8 @@ transferencia_data = {
     "valor_transferencia": 15.50,
     "descricao": "Uma transferência via dados bancários",
     "tipo_conta_favorecido": 1,
-    "agencia_favorecido": 1234,
-    "conta_favorecido": 12345,
-    "digito_verificador_conta": "X",
     "numero_ispb": "360305",
+    "conta_pagamento": 12345678,
     "documento": "28779295827",
 }
 
