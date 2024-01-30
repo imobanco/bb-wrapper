@@ -37,6 +37,18 @@ class TipoChavePIX(IntEnum):
     uuid = 4
 
 
+class TipoContaPIX(IntEnum):
+    """
+    1: Conta do tipo corrente
+    2: Conta do tipo pagamento
+    3: Conta do tipo poupança
+    """
+
+    conta_corrente = 1
+    conta_pagamento = 3
+    conta_poupanca = 3
+
+
 class FinalidadeTED(IntEnum):
     """
     1: Conta corrente outros bancos
@@ -100,10 +112,10 @@ class TransferenciaDadosBancariosPIX(BaseModel):
     data: str
     valor: float
     documento: str
-    tipoConta: str
-    agencia: str
-    conta: str
-    digitoVerificadorConta: str
+    tipoConta: TipoContaPIX
+    agencia: Optional[str]
+    conta: Optional[str]
+    digitoVerificadorConta: Optional[str]
     formaIdentificacao: Optional[str]
     descricaoPagamento: Optional[str]
     cpf: Optional[str]
