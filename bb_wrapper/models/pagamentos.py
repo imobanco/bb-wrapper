@@ -2,7 +2,6 @@ from typing import Optional
 from enum import IntEnum, Enum
 
 from pydantic import BaseModel, root_validator
-from pycpfcnpj import cpfcnpj
 
 from .perfis import TipoInscricaoEnum
 
@@ -87,22 +86,47 @@ class TransferenciaChavePIX(BaseModel):
         elif key_type == TipoChavePIX.uuid:
             values["identificacaoAleatoria"] = key
         elif key_type == TipoChavePIX.documento:
-            cls.verifica_documento(key, values)
+            PixService().verify_document(key, values)
 
         documento = values.pop("documento", None)
         if documento is not None:
-            cls.verifica_documento(documento, values)
+            PixService().verify_document(documento, values)
 
         values.pop("chave")
         return values
 
-    @classmethod
-    def verifica_documento(cls, key, values):
-        key_value = cpfcnpj.clear_punctuation(key)
-        if len(key_value) == 11:
-            values["cpf"] = key_value
-        else:
-            values["cnpj"] = key_value
+
+class TransferenciaDadosBancariosPIX(BaseModel):
+    data: str
+    valor: float
+    documento: str
+    tipoConta: str
+    agencia: str
+    conta: str
+    digitoVerificadorConta: str
+    formaIdentificacao: Optional[str]
+    descricaoPagamento: Optional[str]
+    cpf: Optional[str]
+    cnpj: Optional[str]
+    contaPagamento: Optional[str]
+
+    # noinspection PyMethodParameters
+    @root_validator
+    def _set_data(cls, values):
+        """
+        Esse método realiza o processamento em cima do valor 'chave'
+        identificando que tipo de chave é e configurando-a corretamente
+        no objeto.
+        """
+        from ..services.pix import PixService
+
+        values["formaIdentificacao"] = "5"
+
+        documento = values.pop("documento", None)
+        if documento is not None:
+            PixService().verify_document(documento, values)
+
+        return values
 
 
 class TransferenciaTED(BaseModel):
