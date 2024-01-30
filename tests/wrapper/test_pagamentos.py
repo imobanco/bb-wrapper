@@ -956,6 +956,66 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         self.assertEqual(2, self.total_requests())
         self.mock_responses.assert_call_count(request_url, 1)
 
+    def test_criar_transferencia_pix_dados_bancarios(self):
+        """
+        Teste para verificar a URL da requisição e
+        dados de transferência PIX por dados bancarios
+        """
+
+        request_url = PagamentoLoteBBWrapper()._construct_url(
+            "lotes-transferencias-pix"
+        )
+
+        expected_json = {
+            "numeroRequisicao": "123",
+            "agenciaDebito": "345",
+            "contaCorrenteDebito": "678",
+            "digitoVerificadorContaCorrente": "X",
+            "tipoPagamento": 128,
+            "listaTransferencias": [
+                {
+                    "data": "19042023",
+                    "valor": "50",
+                    "descricaoPagamento": "Uma transferência via dados bancários",
+                    "formaIdentificacao": 5,
+                    "tipoConta": 1,
+                    "agencia": 1234,
+                    "conta": 12345,
+                    "digitoVerificadorConta": "X",
+                    "cpf": "28779295827",
+                }
+            ],
+        }
+
+        self.mock_responses.add(
+            responses.POST,
+            request_url,
+            headers=self._build_authorization_header(1),
+            json=expected_json,
+        )
+
+        response = PagamentoLoteBBWrapper().criar_transferencia_por_dados_bancarios_pix(
+            n_requisicao="123",
+            agencia="345",
+            conta="678",
+            dv_conta="X",
+            data_transferencia="19042023",
+            valor_transferencia=12,
+            tipo_conta_favorecido=1,
+            agencia_favorecido=1234,
+            conta_favorecido=12345,
+            digito_verificador_conta="X",
+            conta_pagamento=None,
+            descricao="Uma transferência via dados bancários",
+            documento="28779295827",
+        )
+
+        self.assertEqual(request_url, response.url)
+        self.assertEqual(self._get_headers(), response.headers)
+        self.assertEqual(expected_json, response.json())
+        self.assertEqual(2, self.total_requests())
+        self.mock_responses.assert_call_count(request_url, 1)
+
     def test_consultar_pix(self):
         """
         - Teste para consultar um pix de um determinado lote
