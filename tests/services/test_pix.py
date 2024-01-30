@@ -186,3 +186,55 @@ class PixServiceTestCase(BDDContextTestCase):
             """
         ):
             self.assertEqual(ctx.exception.args[0], "Email inválido!")
+
+    def test_verify_document_cpf(self):
+        with self.given(
+            """
+                - uma chave '43166663045'
+            """
+        ):
+            cpf = "43166663045"
+
+        with self.when(
+            """
+                - for utilizado o service de PIX para verificar
+                    qual documento está sendo utilizado
+            """
+        ):
+            data = {}
+            PixService().verify_document(cpf, data)
+
+        with self.then(
+            """
+                - o valor esperado deve ser igual ao data
+            """
+        ):
+
+            expected = {"cpf": cpf}
+            self.assertEqual(data, expected)
+
+    def test_verify_document_cnpj(self):
+        with self.given(
+            """
+                - uma chave '03794722000153'
+            """
+        ):
+            cnpj = "03794722000153"
+
+        with self.when(
+            """
+                - for utilizado o service de PIX para verificar
+                    qual documento está sendo utilizado
+            """
+        ):
+            data = {}
+            PixService().verify_document(cnpj, data)
+
+        with self.then(
+            """
+                - o valor esperado deve ser igual ao data
+            """
+        ):
+
+            expected = {"cnpj": cnpj}
+            self.assertEqual(data, expected)

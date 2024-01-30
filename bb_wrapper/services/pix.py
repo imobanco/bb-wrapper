@@ -64,3 +64,10 @@ class PixService:
         if raise_exception and not is_email_valid:
             raise ValueError("Email inválido!")
         return is_email_valid
+
+    def verify_document(self, key, values):
+        key_value = cpfcnpj.clear_punctuation(key)
+        if len(key_value) == 11:
+            values["cpf"] = key_value
+        else:
+            values["cnpj"] = key_value
