@@ -66,8 +66,8 @@ class PixService:
         return is_email_valid
 
     def verify_document(self, key, values):
-        key_value = cpfcnpj.clear_punctuation(key)
+        key_value = cpfcnpj.clear_punctuation(str(key))
         if len(key_value) == 11:
-            values["cpf"] = key_value
+            values["cpf"] = int(key_value)
         else:
-            values["cnpj"] = key_value
+            values["cnpj"] = int(key_value)

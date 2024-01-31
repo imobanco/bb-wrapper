@@ -193,7 +193,7 @@ class PixServiceTestCase(BDDContextTestCase):
                 - uma chave '43166663045'
             """
         ):
-            cpf = "43166663045"
+            cpf = 43166663045
 
         with self.when(
             """
@@ -236,5 +236,5 @@ class PixServiceTestCase(BDDContextTestCase):
             """
         ):
 
-            expected = {"cnpj": cnpj}
+            expected = {"cnpj": 3794722000153}
             self.assertEqual(data, expected)
