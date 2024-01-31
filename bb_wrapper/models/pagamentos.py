@@ -62,18 +62,18 @@ class FinalidadeTED(IntEnum):
 
 
 class TransferenciaChavePIX(BaseModel):
-    data: str
+    data: int
     valor: float
     chave: str
     formaIdentificacao: Optional[TipoChavePIX]
     descricaoPagamento: Optional[str]
-    dddTelefone: Optional[str]
-    telefone: Optional[str]
+    dddTelefone: Optional[int]
+    telefone: Optional[int]
     email: Optional[str]
-    cpf: Optional[str]
-    cnpj: Optional[str]
+    cpf: Optional[int]
+    cnpj: Optional[int]
     identificacaoAleatoria: Optional[str]
-    documento: Optional[str]
+    documento: Optional[int]
 
     # noinspection PyMethodParameters
     @root_validator
@@ -90,8 +90,8 @@ class TransferenciaChavePIX(BaseModel):
         values["formaIdentificacao"] = key_type.value
 
         if key_type == TipoChavePIX.telefone:
-            values["dddTelefone"] = key[:2]
-            values["telefone"] = key[2:]
+            values["dddTelefone"] = int(key[:2])
+            values["telefone"] = int(key[2:])
         elif key_type == TipoChavePIX.email:
             PixService().verify_email(key)
             values["email"] = key
@@ -109,9 +109,9 @@ class TransferenciaChavePIX(BaseModel):
 
 
 class TransferenciaDadosBancariosPIX(BaseModel):
-    data: str
+    data: int
     valor: float
-    documento: str
+    documento: int
     tipoConta: TipoContaPIX
     agencia: Optional[int]
     conta: Optional[int]
