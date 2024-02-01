@@ -2,8 +2,12 @@ import os
 from datetime import date
 
 from examples.utils import dump_response
+import logging
 
 from bb_wrapper.wrapper import PagamentoLoteBBWrapper
+
+
+logging.basicConfig(level=logging.DEBUG)
 
 c = PagamentoLoteBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
 
@@ -13,7 +17,7 @@ bb_fmt = "%d%m%Y"
 
 
 lote_data = {
-    "n_requisicao": 11489,
+    "n_requisicao": 9499946,
     "agencia": 1607,
     "conta": 99738672,
     "dv_conta": "X",
@@ -34,4 +38,5 @@ transferencia_data = {
 response = c.criar_transferencia_por_dados_bancarios_pix(
     **lote_data, **transferencia_data
 )
+
 dump_response(response, os.path.realpath(__file__))

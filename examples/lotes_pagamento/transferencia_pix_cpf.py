@@ -2,8 +2,13 @@ import os
 from datetime import date
 
 from examples.utils import dump_response
+import logging
+
 
 from bb_wrapper.wrapper import PagamentoLoteBBWrapper
+
+logging.basicConfig(level=logging.DEBUG)
+
 
 c = PagamentoLoteBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
 
@@ -13,7 +18,7 @@ bb_fmt = "%d%m%Y"
 
 
 lote_data = {
-    "n_requisicao": 9931219,
+    "n_requisicao": 9499944,
     "agencia": 1607,
     "conta": 99738672,
     "dv_conta": "X",
