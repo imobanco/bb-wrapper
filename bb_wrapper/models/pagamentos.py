@@ -103,6 +103,10 @@ class TransferenciaChavePIX(BaseModel):
         documento = values.pop("documento", None)
         if documento is not None:
             PixService().verify_document(documento, values)
+            if values.get("cpf") is None:
+                del values["cpf"]
+            if values.get("cnpj") is None:
+                del values["cnpj"]
 
         values.pop("chave")
         return values
@@ -146,6 +150,10 @@ class TransferenciaDadosBancariosPIX(BaseModel):
         documento = values.pop("documento", None)
         if documento is not None:
             PixService().verify_document(documento, values)
+            if values.get("cpf") is None:
+                del values["cpf"]
+            if values.get("cnpj") is None:
+                del values["cnpj"]
 
         return values
 

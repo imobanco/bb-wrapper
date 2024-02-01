@@ -111,7 +111,6 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "listaTransferencias": [
                 {
                     "email": None,
-                    "cnpj": None,
                     "cpf": 11122233300,
                     "dddTelefone": None,
                     "telefone": None,
@@ -197,7 +196,6 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "listaTransferencias": [
                 {
                     "email": None,
-                    "cnpj": None,
                     "cpf": 11122233300,
                     "dddTelefone": 11,
                     "telefone": 985732102,
@@ -240,7 +238,6 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "listaTransferencias": [
                 {
                     "email": "teste@imo.com",
-                    "cnpj": None,
                     "cpf": 11122233300,
                     "dddTelefone": None,
                     "telefone": None,
