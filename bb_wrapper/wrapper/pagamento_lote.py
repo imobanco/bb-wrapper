@@ -500,7 +500,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         chave,
         descricao,
         tipo_pagamento,
-        documento,
+        documento=None,
     ):
         lote_data = {
             "numeroRequisicao": n_requisicao,

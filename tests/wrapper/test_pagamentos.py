@@ -110,10 +110,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "tipoPagamento": 128,
             "listaTransferencias": [
                 {
-                    "email": None,
                     "cpf": 11122233300,
-                    "dddTelefone": None,
-                    "telefone": None,
                     "data": 19042023,
                     "valor": 11.0,
                     "descricaoPagamento": "Pagamento",
@@ -152,11 +149,6 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "tipoPagamento": 128,
             "listaTransferencias": [
                 {
-                    "email": None,
-                    "cnpj": None,
-                    "cpf": None,
-                    "dddTelefone": None,
-                    "telefone": None,
                     "data": 19042023,
                     "valor": 11.0,
                     "descricaoPagamento": "Pagamento",
@@ -176,7 +168,6 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             chave="d14d32de-b3b9-4c31-9f89-8df2cec92c50",
             descricao="Pagamento",
             tipo_pagamento=128,
-            documento=None,
         )
 
         self.assertEqual(expected_json, response)
@@ -195,7 +186,6 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "tipoPagamento": 128,
             "listaTransferencias": [
                 {
-                    "email": None,
                     "cpf": 11122233300,
                     "dddTelefone": 11,
                     "telefone": 985732102,
@@ -203,7 +193,6 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
                     "valor": 11.0,
                     "descricaoPagamento": "Pagamento",
                     "formaIdentificacao": 1,
-                    "identificacaoAleatoria": None,
                 }
             ],
         }
@@ -239,13 +228,10 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
                 {
                     "email": "teste@imo.com",
                     "cpf": 11122233300,
-                    "dddTelefone": None,
-                    "telefone": None,
                     "data": 19042023,
                     "valor": 11.0,
                     "descricaoPagamento": "Pagamento",
                     "formaIdentificacao": 2,
-                    "identificacaoAleatoria": None,
                 }
             ],
         }
@@ -303,16 +289,11 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "tipoPagamento": 128,
             "listaTransferencias": [
                 {
-                    "email": None,
-                    "cnpj": None,
                     "cpf": 28779295827,
-                    "dddTelefone": None,
-                    "telefone": None,
                     "data": 19042023,
                     "valor": 11.0,
                     "descricaoPagamento": "Pagamento",
                     "formaIdentificacao": 3,
-                    "identificacaoAleatoria": None,
                 }
             ],
         }
@@ -327,7 +308,6 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             chave="28779295827",
             descricao="Pagamento",
             tipo_pagamento=128,
-            documento=None,
         )
 
         self.assertEqual(expected_json, response)
@@ -346,16 +326,11 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
             "tipoPagamento": 128,
             "listaTransferencias": [
                 {
-                    "email": None,
                     "cnpj": 95127446000198,
-                    "cpf": None,
-                    "dddTelefone": None,
-                    "telefone": None,
                     "data": 19042023,
                     "valor": 11.0,
                     "descricaoPagamento": "Pagamento",
                     "formaIdentificacao": 3,
-                    "identificacaoAleatoria": None,
                 }
             ],
         }

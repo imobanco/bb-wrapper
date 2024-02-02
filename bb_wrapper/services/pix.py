@@ -65,9 +65,14 @@ class PixService:
             raise ValueError("Email inválido!")
         return is_email_valid
 
-    def verify_document(self, key, values):
+    def verify_document(self, key, values: dict):
         key_value = cpfcnpj.clear_punctuation(str(key))
         if len(key_value) == 11:
             values["cpf"] = int(key_value)
         else:
             values["cnpj"] = int(key_value)
+
+    def remove_null_values(self, values: dict):
+        keys_to_remove = [k for k, v in values.items() if v is None]
+        for key in keys_to_remove:
+            del values[key]
