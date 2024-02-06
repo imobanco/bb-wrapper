@@ -1,0 +1,37 @@
+{
+    "numeroRequisicao": 11489,
+    "estadoRequisicao": 3,
+    "quantidadeTransferencias": 1,
+    "valorTransferencias": 15.5,
+    "quantidadeTransferenciasValidas": 0,
+    "valorTransferenciasValidas": 0,
+    "listaTransferencias": [
+        {
+            "identificadorPagamento": 90011489731030000,
+            "data": 30012024,
+            "valor": 15.5,
+            "documentoDebito": 0,
+            "documentoCredito": 0,
+            "descricaoPagamento": "Uma transfer\u00fdncia via dados banc\u00fdrios",
+            "descricaoPagamentoInstantaneo": "",
+            "formaIdentificacao": 5,
+            "dddTelefone": 0,
+            "telefone": 0,
+            "email": "",
+            "cpf": 28779295827,
+            "cnpj": 0,
+            "identificacaoAleatoria": "",
+            "numeroCOMPE": 0,
+            "numeroISPB": 0,
+            "tipoConta": 1,
+            "agencia": 1234,
+            "conta": 12345,
+            "digitoVerificadorConta": "X",
+            "contaPagamento": "",
+            "indicadorMovimentoAceito": "N",
+            "erros": [
+                10
+            ]
+        }
+    ]
+}

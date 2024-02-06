@@ -15,7 +15,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
     def listar_pix(self, inicio=None, fim=None, page=0):
         """
-        Método para consultar todos os pix recebidos.
+        Método para consultar todos os PIX recebidos.
 
         Args:
             inicio: filtro de data inicio. Respeita o formato definido na RFC 3339
@@ -38,10 +38,10 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
     def consultar_pix(self, end_to_end_id):
         """
-        Método para consultar um pix recebido.
+        Método para consultar um PIX recebido.
 
         Args:
-            end_to_end_id: identificador end_to_end do pix
+            end_to_end_id: identificador end_to_end do PIX
         """
         url = self._construct_url("pix", end_to_end_id)
 
@@ -51,10 +51,10 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
     def devolver_pix(self, end_to_end_id, valor, txid):
         """
-        Método para devolver uma quantia de um pix recebido.
+        Método para devolver uma quantia de um PIX recebido.
 
         Args:
-            end_to_end_id: identificador end_to_end do pix
+            end_to_end_id: identificador end_to_end do PIX
             valor: valor a ser devolvido (formato float vulgo 10.00 para R$ 10,00)
             txid: identificador único da devolução
         """
@@ -69,7 +69,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
         Método para consultar uma devolução feita.
 
         Args:
-            end_to_end_id: identificador end_to_end do pix
+            end_to_end_id: identificador end_to_end do PIX
             txid: identificador único da devolução
         """
         url = self._construct_url("pix", end_to_end_id, "devolucao", txid)

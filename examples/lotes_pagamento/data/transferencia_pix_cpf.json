@@ -1,0 +1,35 @@
+{
+    "numeroRequisicao": 9931219,
+    "estadoRequisicao": 1,
+    "quantidadeTransferencias": 1,
+    "valorTransferencias": 7999.99,
+    "quantidadeTransferenciasValidas": 1,
+    "valorTransferenciasValidas": 7999.99,
+    "listaTransferencias": [
+        {
+            "identificadorPagamento": 99931219731030000,
+            "data": 8052023,
+            "valor": 7999.99,
+            "documentoDebito": 0,
+            "documentoCredito": 0,
+            "descricaoPagamento": "transferencia CPF",
+            "descricaoPagamentoInstantaneo": "",
+            "formaIdentificacao": 3,
+            "dddTelefone": 0,
+            "telefone": 0,
+            "email": "",
+            "cpf": 28779295827,
+            "cnpj": 0,
+            "identificacaoAleatoria": "",
+            "numeroCOMPE": 0,
+            "numeroISPB": 0,
+            "tipoConta": 0,
+            "agencia": 0,
+            "conta": 0,
+            "digitoVerificadorConta": "",
+            "contaPagamento": "",
+            "indicadorMovimentoAceito": "S",
+            "erros": []
+        }
+    ]
+}

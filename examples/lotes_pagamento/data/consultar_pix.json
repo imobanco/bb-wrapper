@@ -1,0 +1,39 @@
+{
+    "id": "99931219731030001",
+    "estadoPagamento": "CONSISTENTE",
+    "agenciaDebito": 1607,
+    "contaDebito": 99738672,
+    "digitoContaDebito": "X",
+    "numeroCartaoInicio": 0,
+    "numeroCartaoFim": 0,
+    "requisicaoPagamento": 9931219,
+    "arquivoPagamento": "",
+    "dataPagamento": 8052023,
+    "valorPagamento": 7999.99,
+    "numeroDocumentoDebito": 0,
+    "descricaoPagamento": "transferencia CPF",
+    "autenticacaoPagamento": "",
+    "quantidadeOcorrenciaPix": 1,
+    "listaPix": [
+        {
+            "numeroCOMPE": 0,
+            "numeroISPB": 0,
+            "agenciaCredito": 0,
+            "contaCorrenteCredito": 0,
+            "digitoVerificadorContaCorrente": "",
+            "numeroContaPagamentoCredito": "",
+            "tipoBeneficiario": 1,
+            "cpfCnpjBeneficiario": 28779295827,
+            "nomeBeneficiario": "ALAN GUIACHERO BUENO",
+            "documentoCredito": 0,
+            "descricaoPagamentoInstantaneo": "0000",
+            "tipoConta": 0,
+            "formaIdentificacao": 3,
+            "dddTelefone": 0,
+            "telefone": 0,
+            "email": "",
+            "identificacaoAleatoria": "",
+            "textoPix": ""
+        }
+    ]
+}
