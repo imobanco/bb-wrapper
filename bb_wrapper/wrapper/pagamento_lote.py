@@ -593,7 +593,6 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             "tipoPagamento": tipo_pagamento,
         }
         transferencia_data = {
-            "documento": documento_favorecido,
             "data": data_transferencia,
             "valor": valor_transferencia,
             "descricaoPagamento": descricao,
@@ -602,8 +601,15 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             "conta": conta_favorecido,
             "digitoVerificadorConta": digito_verificador_conta_favorecido,
             "contaPagamento": conta_pagamento_favorecido,
-            "numeroISPB": numero_ispb_favorecido,
+            "numeroCOMPE": numero_ispb_favorecido,
         }
+
+        from bb_wrapper.services.document import DocumentoService, TipoInscricaoEnum
+        tipo_documento = DocumentoService().identifica_tipo(documento_favorecido)
+        if tipo_documento == TipoInscricaoEnum.cpf:
+            transferencia_data['cpf'] = documento_favorecido
+        else:
+            transferencia_data['cnpj'] = documento_favorecido
 
         transferencia_data = TransferenciaDadosBancariosPIX(**transferencia_data).dict()
         return {**lote_data, "listaTransferencias": [transferencia_data]}

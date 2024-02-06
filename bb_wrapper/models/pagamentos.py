@@ -113,7 +113,8 @@ class TransferenciaChavePIX(BaseModel):
 class TransferenciaDadosBancariosPIX(BaseModel):
     data: int
     valor: float
-    documento: int
+    cpf: Optional[int]
+    cnpj: Optional[int]
     tipoConta: TipoContaPIX
     agencia: Optional[int]
     conta: Optional[int]
@@ -123,7 +124,7 @@ class TransferenciaDadosBancariosPIX(BaseModel):
     cpf: Optional[int]
     cnpj: Optional[int]
     contaPagamento: Optional[str]
-    numeroISPB: int
+    numeroCOMPE: int
 
     # noinspection PyMethodParameters
     @root_validator
@@ -145,11 +146,9 @@ class TransferenciaDadosBancariosPIX(BaseModel):
         else:
             values.pop("contaPagamento")
 
-        documento = values.pop("documento", None)
-        if documento is not None:
-            PixService().verify_document(documento, values)
-
         PixService().remove_null_values(values)
+        if "cnpj" not in values and "cpf" not in values:
+            raise ValueError("É necessário inserir o CNPj ou CPF")
 
         return values
 
