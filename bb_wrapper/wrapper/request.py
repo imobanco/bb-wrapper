@@ -69,7 +69,14 @@ class RequestsWrapper:
             response.data = response.json(strict=False)
         except JSONDecodeError:
             response.data = {}
-        response.reason = response.data
+        response_content = response.data if response.data else response.content
+        response.reason = response_content
+        request_body = response.request.body
+        logger.debug(
+            f"Requisição {response.request.method} {response.request.url}\n"
+            f"\t{request_body=}\n"
+            f"\t{response_content=}"
+        )
         response.raise_for_status()
         return response
 

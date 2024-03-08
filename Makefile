@@ -55,4 +55,5 @@ install.test:
 	pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ bb-wrapper==$(V)
 
 config.certs.fake:
+	-mkdir certs
 	openssl req -subj '/CN=imobanco.com.br/O=Imobanco Pagamentos S.A./C=BR' -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout certs/key.pem -out certs/cert.pem

@@ -96,13 +96,14 @@ class TransferenciaPIX(BaseModel):
 
 class TransferenciaTED(BaseModel):
     numeroCOMPE: int
-    agenciaCredito: int
-    contaCorrenteCredito: int
-    digitoVerificadorContaCorrente: str
     cpfBeneficiario: Optional[int]
     cnpjBeneficiario: Optional[int]
     dataTransferencia: str
     valorTransferencia: float
+    contaPagamentoCredito: Optional[str]
+    agenciaCredito: Optional[int]
+    contaCorrenteCredito: Optional[int]
+    digitoVerificadorContaCorrente: Optional[str]
     codigoFinalidadeTED: Optional[FinalidadeTED]
 
 
