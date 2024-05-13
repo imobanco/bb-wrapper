@@ -10,7 +10,7 @@ from urllib3.exceptions import ProtocolError
 from bb_wrapper.utils import _get_logger
 
 
-logger = _get_logger("requests")
+logger = _get_logger("request")
 
 
 def retry_request(max_retries=5):
@@ -50,7 +50,7 @@ class RequestsWrapper:
         self.__timeout = kwargs.get("timeout", None)
 
     @staticmethod
-    def _process_response(response) -> requests.Response:
+    def _process_response(response: requests.Response) -> requests.Response:
         """
         Processa a resposta.
 
@@ -70,6 +70,13 @@ class RequestsWrapper:
         except JSONDecodeError:
             response.data = {}
         response.reason = response.data
+        response_content = response.data if response.data else response.content
+        request_body = response.request.body
+        logger.debug(
+            f"Requisição {response.request.method} {response.request.url}\n"
+            f"\t{request_body=}\n"
+            f"\t{response_content=}"
+        )
         response.raise_for_status()
         return response
 
