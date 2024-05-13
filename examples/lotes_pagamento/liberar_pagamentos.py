@@ -4,9 +4,15 @@ from examples.utils import dump_response
 
 from bb_wrapper.wrapper import PagamentoLoteBBWrapper
 
-c = PagamentoLoteBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
+import logging
 
-number = "579175"
+logging.basicConfig(level=logging.DEBUG)
+
+c = PagamentoLoteBBWrapper(
+    cert=("./certs/imobanco_cert.pem", "./certs/imobanco_key.pem")
+)
+
+number = "9999986"
 
 
 response = c.liberar_pagamentos(number)

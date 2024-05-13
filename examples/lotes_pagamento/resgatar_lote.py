@@ -3,15 +3,19 @@ import os
 from examples.utils import dump_response
 
 from bb_wrapper.wrapper import PagamentoLoteBBWrapper
+import logging
 
-c = PagamentoLoteBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
+logging.basicConfig(level=logging.DEBUG)
 
-_id = "579145"  # BOLETO
-# _id = "579144"  # TED
-# _id = "579143"  # TRIBUTO
+c = PagamentoLoteBBWrapper(
+    cert=("./certs/imobanco_cert.pem", "./certs/imobanco_key.pem")
+)
+
+_id = "9999988"
 
 response = c.resgatar_lote(
     _id,
 )
+print(response.data)
 
 dump_response(response, os.path.realpath(__file__))

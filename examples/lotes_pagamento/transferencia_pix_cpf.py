@@ -10,7 +10,9 @@ from bb_wrapper.wrapper import PagamentoLoteBBWrapper
 logging.basicConfig(level=logging.DEBUG)
 
 
-c = PagamentoLoteBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
+c = PagamentoLoteBBWrapper(
+    cert=("./certs/imobanco_cert.pem", "./certs/imobanco_key.pem")
+)
 
 
 today = date.today()
