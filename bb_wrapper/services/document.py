@@ -1,4 +1,5 @@
 from pycpfcnpj import cpfcnpj
+from bb_wrapper.models.perfis import TipoInscricaoEnum
 
 
 class DocumentoService:
@@ -12,9 +13,9 @@ class DocumentoService:
         """
         documento = self.valida(documento)
         if len(documento) == 11:
-            return 1
+            return TipoInscricaoEnum.cpf
         else:
-            return 2
+            return TipoInscricaoEnum.cnpj
 
     def valida(self, documento):
         """

@@ -5,10 +5,15 @@ from py_bdd_context import BDDContextTestCase
 
 from bb_wrapper.wrapper.request import RequestsWrapper
 
+from tests.utils import MockedRequestsTestCase, IsolatedEnvTestCase
 
-class RequestsWrapperTestCase(BDDContextTestCase):
+
+class RequestsWrapperTestCase(
+    BDDContextTestCase, MockedRequestsTestCase, IsolatedEnvTestCase
+):
     maxDiff = None
 
+    @MockedRequestsTestCase.no_auth
     def test_contruct_url_1(self):
         with self.given(
             """
@@ -35,6 +40,7 @@ class RequestsWrapperTestCase(BDDContextTestCase):
 
             self.assertEqual(result, expected)
 
+    @MockedRequestsTestCase.no_auth
     def test_contruct_url_2(self):
         with self.given(
             """
@@ -62,6 +68,7 @@ class RequestsWrapperTestCase(BDDContextTestCase):
 
             self.assertEqual(result, expected)
 
+    @MockedRequestsTestCase.no_auth
     def test_contruct_url_3(self):
         with self.given(
             """
@@ -167,6 +174,7 @@ class RequestsWrapperTestCase(BDDContextTestCase):
 
             self.headers_patcher.stop()
 
+    @MockedRequestsTestCase.no_auth
     def test_fail_retry_request(self):
         with self.given(
             """

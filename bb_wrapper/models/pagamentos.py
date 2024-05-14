@@ -2,7 +2,6 @@ from typing import Optional
 from enum import IntEnum, Enum
 
 from pydantic import BaseModel, root_validator
-from pycpfcnpj import cpfcnpj
 
 from .perfis import TipoInscricaoEnum
 
@@ -30,13 +29,24 @@ class TipoChavePIX(IntEnum):
     2: Chave Pix tipo Email
     3: Chave Pix tipo CPF/CNPJ
     4: Chave Aleatória
-    5: Dados Bancários
     """
 
     telefone = 1
     email = 2
     documento = 3
     uuid = 4
+
+
+class TipoContaPIX(IntEnum):
+    """
+    1: Conta do tipo corrente
+    2: Conta do tipo pagamento
+    3: Conta do tipo poupança
+    """
+
+    conta_corrente = 1
+    conta_pagamento = 2
+    conta_poupanca = 3
 
 
 class FinalidadeTED(IntEnum):
@@ -51,17 +61,19 @@ class FinalidadeTED(IntEnum):
     poupanca = 11
 
 
-class TransferenciaPIX(BaseModel):
-    data: str
+class TransferenciaChavePIX(BaseModel):
+    data: int
     valor: float
     chave: str
     formaIdentificacao: Optional[TipoChavePIX]
+    descricaoPagamento: Optional[str]
     dddTelefone: Optional[int]
     telefone: Optional[int]
     email: Optional[str]
     cpf: Optional[int]
     cnpj: Optional[int]
     identificacaoAleatoria: Optional[str]
+    documento: Optional[int]
 
     # noinspection PyMethodParameters
     @root_validator
@@ -74,23 +86,70 @@ class TransferenciaPIX(BaseModel):
         from ..services.pix import PixService
 
         key = values.get("chave")
-
         key_type = PixService().identify_key_type(key)
-        values["formaIdentificacao"] = key_type
+        values["formaIdentificacao"] = key_type.value
 
         if key_type == TipoChavePIX.telefone:
             values["dddTelefone"] = int(key[:2])
             values["telefone"] = int(key[2:])
         elif key_type == TipoChavePIX.email:
+            PixService().verify_email(key)
             values["email"] = key
         elif key_type == TipoChavePIX.uuid:
             values["identificacaoAleatoria"] = key
         elif key_type == TipoChavePIX.documento:
-            key_value = cpfcnpj.clear_punctuation(key)
-            if len(key_value) == 1:
-                values["cpf"] = int(key_value)
-            else:
-                values["cnpj"] = int(key_value)
+            PixService().verify_document(key, values)
+
+        documento = values.pop("documento", None)
+        if documento is not None:
+            PixService().verify_document(documento, values)
+
+        PixService().remove_null_values(values)
+
+        values.pop("chave")
+        return values
+
+
+class TransferenciaDadosBancariosPIX(BaseModel):
+    data: int
+    valor: float
+    cpf: Optional[int]
+    cnpj: Optional[int]
+    tipoConta: TipoContaPIX
+    agencia: Optional[int]
+    conta: Optional[int]
+    digitoVerificadorConta: Optional[str]
+    formaIdentificacao: Optional[int]
+    descricaoPagamento: Optional[str]
+    cpf: Optional[int]
+    cnpj: Optional[int]
+    contaPagamento: Optional[str]
+    numeroCOMPE: int
+
+    # noinspection PyMethodParameters
+    @root_validator
+    def _set_data(cls, values):
+        """
+        Esse método realiza o processamento em cima do valor 'chave'
+        identificando que tipo de chave é e configurando-a corretamente
+        no objeto.
+        """
+        from ..services.pix import PixService
+
+        values["formaIdentificacao"] = 5
+
+        tipo_conta = values.get("tipo_conta_favorecido")
+        if TipoContaPIX.conta_pagamento == tipo_conta:
+            values.pop("agencia")
+            values.pop("conta")
+            values.pop("digitoVerificadorConta")
+        else:
+            values.pop("contaPagamento")
+
+        PixService().remove_null_values(values)
+        if "cnpj" not in values and "cpf" not in values:
+            raise ValueError("É necessário inserir o CNPj ou CPF")
+
         return values
 
 

@@ -6,6 +6,8 @@ from ..models.pagamentos import (
     LoteData,
     LoteTransferenciaData,
     LiberarPagamentos,
+    TransferenciaChavePIX,
+    TransferenciaDadosBancariosPIX,
 )
 from ..services.document import DocumentoService
 from ..services.barcode import BarcodeService
@@ -16,7 +18,8 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
     Wrapper da API Pagamentos em Lote
     """
 
-    SCOPE = "pagamentos-lote.lotes-requisicao pagamentos-lote.transferencias-info pagamentos-lote.transferencias-requisicao pagamentos-lote.cancelar-requisicao pagamentos-lote.devolvidos-info pagamentos-lote.lotes-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-info pagamentos-lote.pagamentos-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-requisicao pagamentos-lote.pagamentos-codigo-barras-info pagamentos-lote.boletos-requisicao pagamentos-lote.guias-codigo-barras-info pagamentos-lote.guias-codigo-barras-requisicao pagamentos-lote.transferencias-pix-info pagamentos-lote.transferencias-pix-requisicao pagamentos-lote.pix-info pagamentos-lote.boletos-info"  # noqa
+    SCOPE = "pagamentos-lote.lotes-requisicao pagamentos-lote.transferencias-info pagamentos-lote.transferencias-requisicao pagamentos-lote.cancelar-requisicao pagamentos-lote.devolvidos-info pagamentos-lote.lotes-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-info pagamentos-lote.pagamentos-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-requisicao pagamentos-lote.pagamentos-codigo-barras-info pagamentos-lote.boletos-requisicao pagamentos-lote.guias-codigo-barras-info pagamentos-lote.guias-codigo-barras-requisicao pagamentos-lote.boletos-info pagamentos-lote.transferencias-pix-requisicao pagamentos-lote.transferencias-pix-info pagamentos-lote.pix-info"  # noqa
+
     BASE_PROD_ADDITION = "-ip"
     BASE_DOMAIN = ".bb.com.br/pagamentos-lote/v1"
 
@@ -480,4 +483,206 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
 
         response = self._get(url)
 
+        return response
+
+    ################
+    #     PIX      #
+    ################
+
+    def _criar_dados_transferencia_chave_pix(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        data_transferencia,
+        valor_transferencia,
+        chave,
+        descricao,
+        tipo_pagamento,
+        documento=None,
+    ):
+        lote_data = {
+            "numeroRequisicao": n_requisicao,
+            "agenciaDebito": agencia,
+            "contaCorrenteDebito": conta,
+            "digitoVerificadorContaCorrente": dv_conta,
+            "tipoPagamento": tipo_pagamento,
+        }
+        transferencia_data = {
+            "documento": documento,
+            "data": data_transferencia,
+            "valor": valor_transferencia,
+            "descricaoPagamento": descricao,
+            "chave": chave,
+        }
+
+        transferencia_data = TransferenciaChavePIX(**transferencia_data).dict()
+        return {**lote_data, "listaTransferencias": [transferencia_data]}
+
+    def criar_transferencia_por_chave_pix(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        data_transferencia,
+        valor_transferencia,
+        chave,
+        descricao="",
+        tipo_pagamento=128,
+        documento=None,
+    ):
+        """
+        Efetua pagamentos em lote via tranferência PIX
+
+        Args:
+            n_requisicao: Nº da requisição a ser utilizado. Deve ser único
+            agencia: Agência da conta de origem do pagamento
+            conta: Nº da conta de origem do pagamento
+            dv_conta: DV da conta de origem do pagamento
+            tipo_pagamento: Tipo de pagamento a ser feito (126, 127 ou 128)
+            data_transferencia: Data do pagamento. No formato "ddmmyyyy"
+            valor_transferencia: Valor do pagamento
+            chave: Valor corresponde a chave que sera usada para tranferência # noqa: E501
+            documento:  Valor que corresponde ao CPF/CNPJ
+                - Opcional e serve para validar que a chave aleatória/email/telefone pertencem ao cpf/cnpj # noqa: E501
+                - Deve ser validado e contratado com o gerente BB/suporte da API
+            descricao: Campo de uso livre pelo cliente
+        """
+        data = self._criar_dados_transferencia_chave_pix(
+            n_requisicao,
+            agencia,
+            conta,
+            dv_conta,
+            data_transferencia,
+            valor_transferencia,
+            chave,
+            descricao,
+            tipo_pagamento,
+            documento,
+        )
+        url = self._construct_url("lotes-transferencias-pix")
+        response = self._post(url, data)
+
+        return response
+
+    def _criar_dados_transferencia_dados_bancarios_pix(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        data_transferencia,
+        valor_transferencia,
+        tipo_conta_favorecido,
+        agencia_favorecido,
+        conta_favorecido,
+        digito_verificador_conta_favorecido,
+        conta_pagamento_favorecido,
+        descricao,
+        tipo_pagamento,
+        documento_favorecido,
+        numero_ispb_favorecido,
+    ):
+        lote_data = {
+            "numeroRequisicao": n_requisicao,
+            "agenciaDebito": agencia,
+            "contaCorrenteDebito": conta,
+            "digitoVerificadorContaCorrente": dv_conta,
+            "tipoPagamento": tipo_pagamento,
+        }
+        transferencia_data = {
+            "data": data_transferencia,
+            "valor": valor_transferencia,
+            "descricaoPagamento": descricao,
+            "tipoConta": tipo_conta_favorecido,
+            "agencia": agencia_favorecido,
+            "conta": conta_favorecido,
+            "digitoVerificadorConta": digito_verificador_conta_favorecido,
+            "contaPagamento": conta_pagamento_favorecido,
+            "numeroCOMPE": numero_ispb_favorecido,
+        }
+
+        from bb_wrapper.services.document import DocumentoService, TipoInscricaoEnum
+        tipo_documento = DocumentoService().identifica_tipo(documento_favorecido)
+        if tipo_documento == TipoInscricaoEnum.cpf:
+            transferencia_data['cpf'] = documento_favorecido
+        else:
+            transferencia_data['cnpj'] = documento_favorecido
+
+        transferencia_data = TransferenciaDadosBancariosPIX(**transferencia_data).dict()
+        return {**lote_data, "listaTransferencias": [transferencia_data]}
+
+    def criar_transferencia_por_dados_bancarios_pix(
+        self,
+        n_requisicao,
+        agencia,
+        conta,
+        dv_conta,
+        data_transferencia,
+        valor_transferencia,
+        tipo_conta_favorecido,
+        numero_ispb,
+        agencia_favorecido=None,
+        conta_favorecido=None,
+        digito_verificador_conta=None,
+        conta_pagamento=None,
+        descricao="",
+        tipo_pagamento=128,
+        documento=None,
+    ):
+        """
+        Efetua pagamentos em lote via tranferência PIX
+
+        Args:
+            n_requisicao: Nº da requisição a ser utilizado. Deve ser único
+            agencia: Agência da conta de origem do pagamento
+            conta: Nº da conta de origem do pagamento
+            dv_conta: DV da conta de origem do pagamento
+            tipo_pagamento: Tipo de pagamento a ser feito (126, 127 ou 128)
+            data_transferencia: Data do pagamento. No formato "ddmmyyyy"
+            valor_transferencia: Valor do pagamento
+            tipo_conta_favorecido: Tipo de conta de crédito do favorecido
+                - 1 Conta Corrente
+                - 2 Conta Pagamento
+                - 3 Conta Poupança
+            agencia_favorecido: Número da agência da conta de crédito do favorecido.
+            conta_favorecido: Número da conta de crédito do favorecido
+            digito_verificador_conta: Dígito verificador da agência da conta de crédito do favorecido   # noqa: E501
+            numero_ispb: Identificador de Sistema de Pagamento Brasileiro
+            conta_pagamento: Número da conta pagamento do favorecido
+            descricao: Campo de uso livre pelo cliente
+            documento:  Valor que corresponde ao CPF/CNPJ
+                - Obrigatório e serve para validar que os dados bancários pertencem ao cpf/cnpj # noqa: E501
+        """
+        data = self._criar_dados_transferencia_dados_bancarios_pix(
+            n_requisicao,
+            agencia,
+            conta,
+            dv_conta,
+            data_transferencia,
+            valor_transferencia,
+            tipo_conta_favorecido,
+            agencia_favorecido,
+            conta_favorecido,
+            digito_verificador_conta,
+            conta_pagamento,
+            descricao,
+            tipo_pagamento,
+            documento,
+            numero_ispb,
+        )
+        url = self._construct_url("lotes-transferencias-pix")
+        response = self._post(url, data)
+
+        return response
+
+    def consultar_pix(self, _id):
+        """
+        - Consulta os dados de um pagamento efetuado na modalidade PIX.
+        """
+
+        url = self._construct_url("pix", _id)
+        response = self._get(url)
         return response

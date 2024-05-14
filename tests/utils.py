@@ -1,6 +1,8 @@
 from unittest import TestCase
 from unittest.mock import patch
 import json
+from requests import Timeout
+
 import responses
 from responses import registries
 
@@ -79,6 +81,9 @@ class MockedRequestsTestCase(TestCase):
         headers = self._get_headers()
         data = json.dumps(self.__auth_success_201_data(call_count))
         return status, headers, data
+
+    def raise_timeout(self, request):
+        raise Timeout()
 
     @staticmethod
     def __auth_fail_401_data(call_count):
