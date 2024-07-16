@@ -157,7 +157,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
         url = self._construct_url("cob", end_bar=True)
 
-        response = self._put(url, data)
+        response = self._post(url, data)
 
         self._injeta_qrcode_data(response, nome_recebedor)
 
