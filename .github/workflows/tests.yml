@@ -14,13 +14,21 @@ jobs:
   lint:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Instala nix single user
         run: |
-          wget -qO- http://ix.io/4Cj0 | sh \
-          && . "$HOME"/."$(basename $SHELL)"rc \
+          BASE_URL='https://raw.githubusercontent.com/ES-Nix/get-nix/' \
+          && SHA256=87fa0f1dbfdd28a1f99b39d5bd4dcc39de97bc64 \
+          && NIX_RELEASE_VERSION='2.10.2' \
+          && curl -fsSL "${BASE_URL}""$SHA256"/get-nix.sh | sh -s -- ${NIX_RELEASE_VERSION} \
+          && . "$HOME"/.nix-profile/etc/profile.d/nix.sh \
+          && . ~/."$(basename $SHELL)"rc \
+          && export TMPDIR=/tmp \
           && nix flake --version \
+          && nix registry pin nixpkgs github:NixOS/nixpkgs/ea4c80b39be4c09702b0cb3b42eab59e2ba4f24b \
+          && curl -fsSL https://raw.githubusercontent.com/ES-Nix/get-nix/"$SHA256"/install_direnv_and_nix_direnv.sh | sh \
+          && . ~/."$(basename $SHELL)"rc \
           && direnv --version
           echo "$HOME"/.nix-profile/bin >> $GITHUB_PATH
 
@@ -35,13 +43,21 @@ jobs:
   test:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Instala nix single user
         run: |
-          wget -qO- http://ix.io/4Cj0 | sh \
-          && . "$HOME"/."$(basename $SHELL)"rc \
+          BASE_URL='https://raw.githubusercontent.com/ES-Nix/get-nix/' \
+          && SHA256=87fa0f1dbfdd28a1f99b39d5bd4dcc39de97bc64 \
+          && NIX_RELEASE_VERSION='2.10.2' \
+          && curl -fsSL "${BASE_URL}""$SHA256"/get-nix.sh | sh -s -- ${NIX_RELEASE_VERSION} \
+          && . "$HOME"/.nix-profile/etc/profile.d/nix.sh \
+          && . ~/."$(basename $SHELL)"rc \
+          && export TMPDIR=/tmp \
           && nix flake --version \
+          && nix registry pin nixpkgs github:NixOS/nixpkgs/ea4c80b39be4c09702b0cb3b42eab59e2ba4f24b \
+          && curl -fsSL https://raw.githubusercontent.com/ES-Nix/get-nix/"$SHA256"/install_direnv_and_nix_direnv.sh | sh \
+          && . ~/."$(basename $SHELL)"rc \
           && direnv --version
           echo "$HOME"/.nix-profile/bin >> $GITHUB_PATH
 
@@ -63,13 +79,21 @@ jobs:
     runs-on: ubuntu-22.04
     needs: test
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Instala nix single user
         run: |
-          wget -qO- http://ix.io/4Cj0 | sh \
-          && . "$HOME"/."$(basename $SHELL)"rc \
+          BASE_URL='https://raw.githubusercontent.com/ES-Nix/get-nix/' \
+          && SHA256=87fa0f1dbfdd28a1f99b39d5bd4dcc39de97bc64 \
+          && NIX_RELEASE_VERSION='2.10.2' \
+          && curl -fsSL "${BASE_URL}""$SHA256"/get-nix.sh | sh -s -- ${NIX_RELEASE_VERSION} \
+          && . "$HOME"/.nix-profile/etc/profile.d/nix.sh \
+          && . ~/."$(basename $SHELL)"rc \
+          && export TMPDIR=/tmp \
           && nix flake --version \
+          && nix registry pin nixpkgs github:NixOS/nixpkgs/ea4c80b39be4c09702b0cb3b42eab59e2ba4f24b \
+          && curl -fsSL https://raw.githubusercontent.com/ES-Nix/get-nix/"$SHA256"/install_direnv_and_nix_direnv.sh | sh \
+          && . ~/."$(basename $SHELL)"rc \
           && direnv --version
           echo "$HOME"/.nix-profile/bin >> $GITHUB_PATH
 
@@ -85,6 +109,6 @@ jobs:
         run: |
           nix develop .# --command sh -c 'make coverage'
 
-      - uses: codecov/codecov-action@v1
+      - uses: codecov/codecov-action@v4
         with:
           file: ./coverage.xml # optional
