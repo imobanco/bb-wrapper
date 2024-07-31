@@ -28,6 +28,11 @@ jobs:
           virtualenvs-in-project: false
           virtualenvs-path: .
 
+      - name: Install dependencies
+        run: |
+          make poetry.config.native
+          make poetry.install
+
       - name: Lint code with black
         run: |
           make fmt.check
@@ -48,6 +53,11 @@ jobs:
           virtualenvs-create: false
           virtualenvs-in-project: false
           virtualenvs-path: .
+
+      - name: Install dependencies
+        run: |
+          make poetry.config.native
+          make poetry.install
 
       - name: Config env
         run: make config.env
