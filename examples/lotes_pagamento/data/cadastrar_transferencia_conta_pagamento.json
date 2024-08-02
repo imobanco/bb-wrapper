@@ -1,0 +1,30 @@
+{
+    "estadoRequisicao": 1,
+    "quantidadeTransferencias": 1,
+    "totalTransferencias": 15.5,
+    "quantidadeTransferenciasValidas": 1,
+    "totalTransferenciasValidas": 15.5,
+    "transferencias": [
+        {
+            "identificadorTransferencia": "90579497731030001",
+            "numeroCOMPE": 290,
+            "numeroISPB": 0,
+            "agenciaCredito": 0,
+            "contaCorrenteCredito": 0,
+            "digitoVerificadorContaCorrente": "X",
+            "contaPagamentoCredito": "3066",
+            "cpfBeneficiario": 99391916180,
+            "dataTransferencia": 30112023,
+            "valorTransferencia": 15.5,
+            "documentoDebito": 0,
+            "documentoCredito": 0,
+            "tipoCredito": 3,
+            "codigoFinalidadeDOC": "",
+            "codigoFinalidadeTED": "1",
+            "numeroDepositoJudicial": "",
+            "descricaoTransferencia": "string",
+            "indicadorAceite": "S",
+            "erros": []
+        }
+    ]
+}

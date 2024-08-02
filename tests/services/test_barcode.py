@@ -5,6 +5,8 @@ from ..utils import BarcodeAndCodeLineTestCase
 
 
 class BarcodeTestCase(BarcodeAndCodeLineTestCase):
+    maxDiff = None
+
     def test_generate_barcode_image_bytes_1_png(self):
         """
         Dado:
