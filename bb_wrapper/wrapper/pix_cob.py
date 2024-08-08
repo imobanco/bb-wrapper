@@ -10,7 +10,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
     """
 
     SCOPE = "cob.read cob.write pix.read pix.write"
-
+    BASE_SUBDOMAIN = "api-pix"
     BASE_DOMAIN = ".bb.com.br/pix/v2"
 
     def listar_pix(self, inicio=None, fim=None, page=0):
