@@ -274,7 +274,20 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         )
 
         response = PagamentoLoteBBWrapper().cadastrar_transferencia(
-            "1", "2", "3", "4", "5", "6", "7", "8", "99391916180", "10", "11", "12"
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "99391916180",
+            "6",
+            "7",
+            "8",
+            agencia_destino="10",
+            conta_destino="11",
+            dv_conta_destino="12",
+            finalidade_ted=1,
+            tipo_pagamento=128,
         )
 
         self.assertEqual(request_url, response.url)
@@ -283,6 +296,86 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         self.assertEqual(2, self.total_requests())
         self.mock_responses.assert_call_count(request_url, 1)
+
+    def test_cadastrar_transferencia_2_conta_pagamento(self):
+        """
+        Teste para verificar a URL da requisição e dados
+        """
+        request_url = PagamentoLoteBBWrapper()._construct_url("lotes-transferencias")
+        expected_json = {
+            "numeroRequisicao": "1",
+            "agenciaDebito": "2",
+            "contaCorrenteDebito": "3",
+            "digitoVerificadorContaCorrente": "4",
+            "tipoPagamento": 128,
+            "listaTransferencias": [
+                {
+                    "numeroCOMPE": "5",
+                    "dataTransferencia": "6",
+                    "valorTransferencia": "7",
+                    "descricaoTransferencia": "8",
+                    "contaPagamentoCredito": "9",
+                    "finalidade_ted": 1,
+                    "cpfBeneficiario": "99391916180",
+                }
+            ],
+        }
+        self.mock_responses.add(
+            responses.POST,
+            request_url,
+            headers=self._build_authorization_header(1),
+            json=expected_json,
+        )
+
+        response = PagamentoLoteBBWrapper().cadastrar_transferencia(
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "99391916180",
+            "6",
+            "7",
+            "8",
+            conta_pagamento_destino="9",
+            tipo_pagamento=128,
+        )
+
+        self.assertEqual(request_url, response.url)
+        self.assertEqual(self._get_headers(), response.headers)
+        self.assertEqual(expected_json, response.json())
+
+        self.assertEqual(2, self.total_requests())
+        self.mock_responses.assert_call_count(request_url, 1)
+
+    def test_cadastrar_transferencia_3_vazio(self):
+        """
+        Teste para verificar a URL da requisição e dados
+        """
+        self.mock_responses.reset()
+
+        request_url = PagamentoLoteBBWrapper()._construct_url("lotes-transferencias")
+
+        with self.assertRaises(ValueError) as ctx:
+            PagamentoLoteBBWrapper().cadastrar_transferencia(
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "99391916180",
+                "6",
+                "7",
+                "8",
+                tipo_pagamento=128,
+            )
+
+        self.assertEqual(
+            ctx.exception.args[0],
+            "Conta de Pagamento OU dados de Conta Corrente precisam ser informados!",
+        )
+        self.assertEqual(0, self.total_requests())
+        self.mock_responses.assert_call_count(request_url, 0)
 
     def test_consultar_transferencia_1(self):
         """

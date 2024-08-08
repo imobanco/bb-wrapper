@@ -18,12 +18,12 @@ def retry_request(max_retries=5):
         def inner(*args, counter=None, **kwargs):
             counter = counter if counter is not None else max_retries
             try:
-                sleep_time = random.randint(1, 90) / 100
-                sleep(sleep_time)
                 return func(*args, **kwargs)
             except (ConnectionResetError, ConnectionError, ProtocolError):
                 if counter > 0:
                     counter -= 1
+                    sleep_time = random.randint(1, 90) / 100
+                    sleep(sleep_time)
                     return inner(*args, counter=counter, **kwargs)
                 raise
 
