@@ -12,7 +12,7 @@ data = {
     "nome_devedor": "ÉṔçà`s Francisco da Silva Francisco da Silva Francisco da Silva Francisco da Silva Francisco da Silva",  # noqa: E501
     "valor": 130.44,
     "nome_recebedor": "Imobanco",
-    "chave": "7f6844d0-de89-47e5-9ef7-e0a35a681615",
+    "chave": "9e881f18-cc66-4fc7-8f2c-a795dbb2bfc1",
     "descricao": "Cobrança dos serviços prestados.",
     "info": [{"nome": "Sacado", "valor": "Nome do sacado aqui"}],
 }

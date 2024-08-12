@@ -4,7 +4,8 @@ from examples.utils import dump_response
 
 from bb_wrapper.wrapper import PIXCobBBWrapper
 
-c = PIXCobBBWrapper()
+c = PIXCobBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
+
 
 data = {
     "expiracao": 60 * 60,  # 60 segundos = 1 minuto. 60 minutos = 1h
