@@ -172,7 +172,7 @@ class PixCobBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         """
         result = PIXCobBBWrapper()._construct_url(end_bar=True)
 
-        expected = "https://api-pix.hm.bb.com.br/pix/v2/?gw-dev-app-key="
+        expected = "https://api-pix.hm.bb.com.br/pix/v2?gw-dev-app-key="
 
         self.assertIn(expected, result)
 
@@ -189,7 +189,6 @@ class PixCobBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
         result = PIXCobBBWrapper()._construct_url(end_bar=False)
 
         expected = "https://api-pix.hm.bb.com.br/pix/v2?gw-dev-app-key="
-
         self.assertIn(expected, result)
 
     def test_consultar_cobranca_content_bizarro(self):

@@ -16,6 +16,8 @@ class BaseBBWrapper(RequestsWrapper):
     BASE_SANDBOX_ADDITION = ".sandbox"
     BASE_PROD_ADDITION = ""
     BASE_DOMAIN = ".bb.com.br"
+    SANDBOX_BASE_URL = 'https://api-pix.hm.bb.com.br/pix/v2/'
+    BASE_URL = 'https://api-pix.bb.com.br/pix/v2/'
 
     SCOPE = ""
 
@@ -50,6 +52,11 @@ class BaseBBWrapper(RequestsWrapper):
 
         if self.__basic_token == "" or self.__gw_app_key == "":
             raise ValueError("Configure o basic_token/gw_app_key do BB!")
+
+        if self._is_sandbox:
+            self.base_url = self.SANDBOX_BASE_URL
+        else:
+            self.base_url = self.BASE_URL
 
         base_url = self._construct_base_url()
 
@@ -204,6 +211,13 @@ class BaseBBWrapper(RequestsWrapper):
             f"{BaseBBWrapper.BASE_DOMAIN}"
             f"/oauth/token"
         )
+
+    @property
+    def gw_app_key(self):
+        """
+        Propriedade para acessar o app key de forma controlada.
+        """
+        return self.__gw_app_key
 
     def __authenticate(self):
         """
