@@ -9,34 +9,31 @@ jobs:
   deploy:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Instala nix single user
-      run: |
-        BASE_URL='https://raw.githubusercontent.com/ES-Nix/get-nix/' \
-        && SHA256=87fa0f1dbfdd28a1f99b39d5bd4dcc39de97bc64 \
-        && NIX_RELEASE_VERSION='2.10.2' \
-        && curl -fsSL "${BASE_URL}""$SHA256"/get-nix.sh | sh -s -- ${NIX_RELEASE_VERSION} \
-        && . "$HOME"/.nix-profile/etc/profile.d/nix.sh \
-        && . ~/."$(basename $SHELL)"rc \
-        && export TMPDIR=/tmp \
-        && nix flake --version \
-        && nix registry pin nixpkgs github:NixOS/nixpkgs/ea4c80b39be4c09702b0cb3b42eab59e2ba4f24b \
-        && curl -fsSL https://raw.githubusercontent.com/ES-Nix/get-nix/"$SHA256"/install_direnv_and_nix_direnv.sh | sh \
-        && . ~/."$(basename $SHELL)"rc \
-        && direnv --version
-        echo "$HOME"/.nix-profile/bin >> $GITHUB_PATH
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
 
-    - name: Install dependencies
-      run: |
-        nix develop .# --command sh -c 'make poetry.config.venv && make poetry.install'
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.8.2
+          virtualenvs-create: false
+          virtualenvs-in-project: false
+          virtualenvs-path: .
 
-    - name: build package
-      run: |
-        nix develop .# --command sh -c 'make package.build'
+      - name: Install dependencies
+        run: |
+          make poetry.config.venv
+          make poetry.install
 
-    - name: deploy package
-      env:
-        PASSWORD: ${{ secrets.PYPI_TOKEN }}
-      run: nix develop .# --command sh -c 'make package.publish PASSWORD=$PASSWORD'
+      - name: build package
+        run: |
+          make package.build
+
+      - name: deploy package
+        env:
+          PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: make package.publish PASSWORD=$PASSWORD
 

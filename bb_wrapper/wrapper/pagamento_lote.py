@@ -142,13 +142,14 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         conta,
         dv_conta,
         codigo_banco,
-        agencia_destino,
-        conta_destino,
-        dv_conta_destino,
         documento,
         data_transferencia,
         valor_transferencia,
         descricao,
+        conta_pagamento_destino=None,
+        agencia_destino=None,
+        conta_destino=None,
+        dv_conta_destino=None,
         finalidade_ted=1,
         tipo_pagamento=128,
         convenio=None,
@@ -178,17 +179,29 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
 
         pagamento_data = {
             "numeroCOMPE": codigo_banco,
-            "agenciaCredito": agencia_destino,
-            "contaCorrenteCredito": conta_destino,
-            "digitoVerificadorContaCorrente": dv_conta_destino,
             "dataTransferencia": data_transferencia,
             "valorTransferencia": valor_transferencia,
             "descricaoTransferencia": descricao,
         }
-        if documento_tipo == 1:
-            pagamento_data["cpfBeneficiario"] = documento
+
+        if conta_pagamento_destino is not None:
+            pagamento_data = {
+                **pagamento_data,
+                "contaPagamentoCredito": conta_pagamento_destino,
+            }
+        elif None not in [agencia_destino, conta_destino, dv_conta_destino]:
+            pagamento_data = {
+                **pagamento_data,
+                "agenciaCredito": agencia_destino,
+                "contaCorrenteCredito": conta_destino,
+                "digitoVerificadorContaCorrente": dv_conta_destino,
+            }
+
         else:
-            pagamento_data["cnpjBeneficiario"] = documento
+            raise ValueError(
+                "Conta de Pagamento OU dados de Conta Corrente precisam ser informados!"
+            )
+
         if int(codigo_banco) != 1:
             """
             Só é utilizado finalidade TED para outros bancos
@@ -197,6 +210,11 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             O código do BB é 1!
             """
             pagamento_data["codigoFinalidadeTED"] = finalidade_ted
+
+        if documento_tipo == 1:
+            pagamento_data["cpfBeneficiario"] = documento
+        else:
+            pagamento_data["cnpjBeneficiario"] = documento
 
         TransferenciaTED(**pagamento_data)
 
@@ -209,13 +227,14 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
         conta,
         dv_conta,
         codigo_banco,
-        agencia_destino,
-        conta_destino,
-        dv_conta_destino,
         documento,
         data_transferencia,
         valor_transferencia,
         descricao,
+        conta_pagamento_destino=None,
+        agencia_destino=None,
+        conta_destino=None,
+        dv_conta_destino=None,
         finalidade_ted=1,
         tipo_pagamento=128,
         convenio=None,
@@ -246,13 +265,14 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
             conta,
             dv_conta,
             codigo_banco,
-            agencia_destino,
-            conta_destino,
-            dv_conta_destino,
             documento,
             data_transferencia,
             valor_transferencia,
             descricao,
+            conta_pagamento_destino,
+            agencia_destino,
+            conta_destino,
+            dv_conta_destino,
             finalidade_ted,
             tipo_pagamento,
             convenio,

@@ -16,99 +16,51 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Instala nix single user
-        run: |
-          BASE_URL='https://raw.githubusercontent.com/ES-Nix/get-nix/' \
-          && SHA256=87fa0f1dbfdd28a1f99b39d5bd4dcc39de97bc64 \
-          && NIX_RELEASE_VERSION='2.10.2' \
-          && curl -fsSL "${BASE_URL}""$SHA256"/get-nix.sh | sh -s -- ${NIX_RELEASE_VERSION} \
-          && . "$HOME"/.nix-profile/etc/profile.d/nix.sh \
-          && . ~/."$(basename $SHELL)"rc \
-          && export TMPDIR=/tmp \
-          && nix flake --version \
-          && nix registry pin nixpkgs github:NixOS/nixpkgs/ea4c80b39be4c09702b0cb3b42eab59e2ba4f24b \
-          && curl -fsSL https://raw.githubusercontent.com/ES-Nix/get-nix/"$SHA256"/install_direnv_and_nix_direnv.sh | sh \
-          && . ~/."$(basename $SHELL)"rc \
-          && direnv --version
-          echo "$HOME"/.nix-profile/bin >> $GITHUB_PATH
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.8.2
+          virtualenvs-create: false
+          virtualenvs-in-project: false
+          virtualenvs-path: .
 
       - name: Install dependencies
         run: |
-          nix develop .# --command sh -c 'make poetry.config.venv && make poetry.install'
+          make poetry.config.native
+          make poetry.install
 
       - name: Lint code with black
         run: |
-          nix develop .# --command sh -c 'make fmt.check'
+          make fmt.check
 
   test:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
 
-      - name: Instala nix single user
-        run: |
-          BASE_URL='https://raw.githubusercontent.com/ES-Nix/get-nix/' \
-          && SHA256=87fa0f1dbfdd28a1f99b39d5bd4dcc39de97bc64 \
-          && NIX_RELEASE_VERSION='2.10.2' \
-          && curl -fsSL "${BASE_URL}""$SHA256"/get-nix.sh | sh -s -- ${NIX_RELEASE_VERSION} \
-          && . "$HOME"/.nix-profile/etc/profile.d/nix.sh \
-          && . ~/."$(basename $SHELL)"rc \
-          && export TMPDIR=/tmp \
-          && nix flake --version \
-          && nix registry pin nixpkgs github:NixOS/nixpkgs/ea4c80b39be4c09702b0cb3b42eab59e2ba4f24b \
-          && curl -fsSL https://raw.githubusercontent.com/ES-Nix/get-nix/"$SHA256"/install_direnv_and_nix_direnv.sh | sh \
-          && . ~/."$(basename $SHELL)"rc \
-          && direnv --version
-          echo "$HOME"/.nix-profile/bin >> $GITHUB_PATH
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.8.2
+          virtualenvs-create: false
+          virtualenvs-in-project: false
+          virtualenvs-path: .
 
       - name: Install dependencies
         run: |
-          nix develop .# --command sh -c 'make poetry.config.venv && make poetry.install'
-
-      - name: Show dependencies
-        run: |
-          nix develop .# --command sh -c 'python --version && poetry show --tree'
+          make poetry.config.native
+          make poetry.install
 
       - name: Config env
-        run: nix develop .# --command sh -c 'make config.env'
+        run: make config.env
 
       - name: Test with pytest
-        run: nix develop .# --command sh -c 'make test'
-
-  coverage:
-    runs-on: ubuntu-22.04
-    needs: test
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Instala nix single user
-        run: |
-          BASE_URL='https://raw.githubusercontent.com/ES-Nix/get-nix/' \
-          && SHA256=87fa0f1dbfdd28a1f99b39d5bd4dcc39de97bc64 \
-          && NIX_RELEASE_VERSION='2.10.2' \
-          && curl -fsSL "${BASE_URL}""$SHA256"/get-nix.sh | sh -s -- ${NIX_RELEASE_VERSION} \
-          && . "$HOME"/.nix-profile/etc/profile.d/nix.sh \
-          && . ~/."$(basename $SHELL)"rc \
-          && export TMPDIR=/tmp \
-          && nix flake --version \
-          && nix registry pin nixpkgs github:NixOS/nixpkgs/ea4c80b39be4c09702b0cb3b42eab59e2ba4f24b \
-          && curl -fsSL https://raw.githubusercontent.com/ES-Nix/get-nix/"$SHA256"/install_direnv_and_nix_direnv.sh | sh \
-          && . ~/."$(basename $SHELL)"rc \
-          && direnv --version
-          echo "$HOME"/.nix-profile/bin >> $GITHUB_PATH
-
-      - name: Install dependencies
-        run: |
-          nix develop .# --command sh -c 'make poetry.config.venv && make poetry.install'
-
-      - name: Config env
-        run: |
-          nix develop .# --command sh -c 'make config.env'
-
-      - name: make coverage
-        run: |
-          nix develop .# --command sh -c 'make coverage'
-
-      - uses: codecov/codecov-action@v4
-        with:
-          file: ./coverage.xml # optional
+        run: make test
