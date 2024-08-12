@@ -31,7 +31,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
         result = PagamentoLoteBBWrapper()._construct_url(end_bar=True)
 
         expected = (
-            f"https://api-ip.sandbox.bb.com.br/pagamentos-lote/v1/"
+            f"https://api.sandbox.bb.com.br/pagamentos-lote/v1/"
             f"?gw-dev-app-key={PagamentoLoteBBWrapper()._BaseBBWrapper__gw_app_key}"
         )
 
