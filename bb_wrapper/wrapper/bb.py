@@ -16,8 +16,8 @@ class BaseBBWrapper(RequestsWrapper):
     BASE_SANDBOX_ADDITION = ".sandbox"
     BASE_PROD_ADDITION = ""
     BASE_DOMAIN = ".bb.com.br"
-    SANDBOX_BASE_URL = 'https://api-pix.hm.bb.com.br/pix/v2/'
-    BASE_URL = 'https://api-pix.bb.com.br/pix/v2/'
+    SANDBOX_BASE_URL = "https://api-pix.hm.bb.com.br/pix/v2/"
+    BASE_URL = "https://api-pix.bb.com.br/pix/v2/"
 
     SCOPE = ""
 

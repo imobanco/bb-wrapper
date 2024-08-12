@@ -12,16 +12,23 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
     SCOPE = "cob.read cob.write pix.read pix.write"
 
-    SANDBOX_BASE_URL = 'https://api-pix.hm.bb.com.br/pix/v2/'
-    BASE_URL = 'https://api-pix.bb.com.br/pix/v2/'
+    SANDBOX_BASE_URL = "https://api-pix.hm.bb.com.br/pix/v2/"
+    BASE_URL = "https://api-pix.bb.com.br/pix/v2/"
 
-    def __init__(self, basic_token=None, is_sandbox=None, gw_app_key=None, verify_https=True, cert=None):
+    def __init__(
+        self,
+        basic_token=None,
+        is_sandbox=None,
+        gw_app_key=None,
+        verify_https=True,
+        cert=None,
+    ):
         super().__init__(
             basic_token=basic_token,
             is_sandbox=is_sandbox,
             gw_app_key=gw_app_key,
             verify_https=verify_https,
-            cert=cert
+            cert=cert,
         )
         self.base_url = self.SANDBOX_BASE_URL if self._is_sandbox else self.BASE_URL
 
@@ -29,7 +36,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
         url = self.base_url
         gw_dev_app_key = f"?gw-dev-app-key={self.gw_app_key}"
 
-        url += f'{gw_dev_app_key}'
+        url += f"{gw_dev_app_key}"
         return url
 
     def listar_pix(self, inicio=None, fim=None, page=0):
