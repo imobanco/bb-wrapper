@@ -12,12 +12,12 @@ class BaseBBWrapper(RequestsWrapper):
     """
 
     BASE_SCHEMA = "https://"
-    BASE_SUBDOMAIN = "api"
-    BASE_SANDBOX_ADDITION = ".sandbox"
+    # BASE_SUBDOMAIN = "api"
+    # BASE_SANDBOX_ADDITION = ".sandbox"
     BASE_PROD_ADDITION = ""
     BASE_DOMAIN = ".bb.com.br"
-    SANDBOX_BASE_URL = "https://api-pix.hm.bb.com.br/pix/v2/"
-    BASE_URL = "https://api-pix.bb.com.br/pix/v2/"
+    SANDBOX_BASE_URL = ""
+    BASE_URL = ""
 
     SCOPE = ""
 
@@ -54,11 +54,9 @@ class BaseBBWrapper(RequestsWrapper):
             raise ValueError("Configure o basic_token/gw_app_key do BB!")
 
         if self._is_sandbox:
-            self.base_url = self.SANDBOX_BASE_URL
+            base_url = self.SANDBOX_BASE_URL
         else:
-            self.base_url = self.BASE_URL
-
-        base_url = self._construct_base_url()
+            base_url = self.BASE_URL
 
         super().__init__(
             *args,
@@ -119,19 +117,6 @@ class BaseBBWrapper(RequestsWrapper):
         de '_PIXCobBBWrapper__data'!
         """
         return getattr(self, f"_{self.__class__.__name__}__data", None)
-
-    def _construct_base_url(self):
-        if self._is_sandbox:
-            addition = self.BASE_SANDBOX_ADDITION
-        else:
-            addition = self.BASE_PROD_ADDITION
-        base_url = (
-            f"{self.BASE_SCHEMA}"
-            f"{self.BASE_SUBDOMAIN}"
-            f"{addition}"
-            f"{self.BASE_DOMAIN}"
-        )
-        return base_url
 
     def _construct_url(self, *args, **kwargs):
         url = super()._construct_url(*args, **kwargs)
