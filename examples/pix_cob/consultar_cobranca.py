@@ -4,9 +4,11 @@ from examples.utils import dump_response
 
 from bb_wrapper.wrapper import PIXCobBBWrapper
 
-c = PIXCobBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
+c = PIXCobBBWrapper(
+    cert=("./certs/cert.pem", "./certs/key.pem")
+)
 
-txid = "HUAY0i0XMbuq6W3EcGapjsGCp5V19ToaRNR"
+txid = '6lEZLwT4o1fjmg1BVW3KeIPLc0'
 
 response = c.consultar_cobranca(txid)
 

@@ -4,7 +4,9 @@ from examples.utils import dump_response
 
 from bb_wrapper.wrapper import PIXCobBBWrapper
 
-c = PIXCobBBWrapper()
+c = PIXCobBBWrapper(
+    cert=("./certs/cert.pem", "./certs/key.pem")
+)
 
 data = {
     "expiracao": 60 * 60,  # 60 segundos = 1 minuto. 60 minutos = 1h
@@ -12,7 +14,7 @@ data = {
     "nome_devedor": "Francisco da SilvaFrancisco da SilvaFrancisco da SilvaFrancisco da SilvaFrancisco da Silva",  # noqa: E501
     "valor": 130.44,
     "nome_recebedor": "Imobanco",
-    "chave": "7f6844d0-de89-47e5-9ef7-e0a35a681615",
+    "chave": "9e881f18-cc66-4fc7-8f2c-a795dbb2bfc1",
     "descricao": "Cobrança dos serviços prestados.",
     "info": [{"nome": "Sacado", "valor": "Nome do sacado aqui"}],
 }
