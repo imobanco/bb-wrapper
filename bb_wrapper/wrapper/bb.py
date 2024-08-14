@@ -11,9 +11,6 @@ class BaseBBWrapper(RequestsWrapper):
     wrapper base do BB (Banco do Brasil)
     """
 
-    BASE_SCHEMA = "https://"
-    BASE_PROD_ADDITION = ""
-    BASE_DOMAIN = ".bb.com.br"
     SANDBOX_BASE_URL = ""
     BASE_URL = ""
 
@@ -187,13 +184,10 @@ class BaseBBWrapper(RequestsWrapper):
         return is_token_missing or is_token_expired
 
     def __oauth_url(self):
-        return (
-            f"{BaseBBWrapper.BASE_SCHEMA}"
-            f"oauth"
-            f'{".sandbox" if self._is_sandbox else ""}'
-            f"{BaseBBWrapper.BASE_DOMAIN}"
-            f"/oauth/token"
-        )
+        if self._is_sandbox:
+            return "https://oauth.sandbox.bb.com.br/oauth/token"
+        else:
+            return "https://oauth.bb.com.br/oauth/token"
 
     def __authenticate(self):
         """
