@@ -197,13 +197,6 @@ class BaseBBWrapper(RequestsWrapper):
             f"/oauth/token"
         )
 
-    @property
-    def gw_app_key(self):
-        """
-        Propriedade para acessar o app key de forma controlada.
-        """
-        return self.__gw_app_key
-
     def __authenticate(self):
         """
         https://forum.developers.bb.com.br/t/status-code-415-unsupported-media-type-somente-em-producao/1123
