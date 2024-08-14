@@ -37,17 +37,17 @@ class RequestsWrapper:
     wrapper da lib requests
 
     Attributes:
-        __base_url: Url base para construir os requests
-        __timeout: Tempo máximo de espera de requests
+        _base_url: Url base para construir os requests
+        _timeout: Tempo máximo de espera de requests
         _verify_https: flag que ativa verificação https
-        __cert: certificado http
+        _cert: certificado http
     """
 
     def __init__(self, *args, base_url, verify_https=True, cert=None, **kwargs):
-        self.__base_url = base_url
+        self._base_url = base_url
         self._verify_https = verify_https
-        self.__cert = cert
-        self.__timeout = kwargs.get("timeout", None)
+        self._cert = cert
+        self._timeout = kwargs.get("timeout", None)
 
     @staticmethod
     def _process_response(response: requests.Response) -> requests.Response:
@@ -132,10 +132,6 @@ class RequestsWrapper:
     def _authorization_header_data(self):
         return {"Authorization": self._auth}
 
-    @property
-    def _base_url(self):
-        return self.__base_url
-
     def _get_request_info(self, headers=None):
         if not headers:
             headers = self._authorization_header_data
@@ -145,7 +141,7 @@ class RequestsWrapper:
         return dict(
             headers=headers,
             verify=self._verify_https,
-            cert=self.__cert,
+            cert=self._cert,
         )
 
     @retry_request(max_retries=3)
@@ -160,7 +156,7 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         request_info = self._get_request_info(headers)
-        response = requests.delete(url, timeout=self.__timeout, **request_info)
+        response = requests.delete(url, timeout=self._timeout, **request_info)
         response = self._process_response(response)
         return response
 
@@ -176,7 +172,7 @@ class RequestsWrapper:
             (:class:`.requests.Response`)
         """
         request_info = self._get_request_info(headers)
-        response = requests.get(url, timeout=self.__timeout, **request_info)
+        response = requests.get(url, timeout=self._timeout, **request_info)
         response = self._process_response(response)
         return response
 
@@ -199,7 +195,7 @@ class RequestsWrapper:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.post(url, timeout=self.__timeout, **request_info)
+        response = requests.post(url, timeout=self._timeout, **request_info)
         response = self._process_response(response)
         return response
 
@@ -220,7 +216,7 @@ class RequestsWrapper:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.put(url, timeout=self.__timeout, **request_info)
+        response = requests.put(url, timeout=self._timeout, **request_info)
         response = self._process_response(response)
         return response
 
@@ -231,6 +227,6 @@ class RequestsWrapper:
             request_info["json"] = data
         else:
             request_info["data"] = data
-        response = requests.patch(url, timeout=self.__timeout, **request_info)
+        response = requests.patch(url, timeout=self._timeout, **request_info)
         response = self._process_response(response)
         return response
