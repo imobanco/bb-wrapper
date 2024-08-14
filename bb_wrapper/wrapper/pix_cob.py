@@ -11,7 +11,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
     SCOPE = "cob.read cob.write pix.read pix.write"
 
-    SANDBOX_BASE_URL = "https://api-pix.hm.bb.com.br/pix/v2"
+    SANDBOX_BASE_URL = "https://api.hm.bb.com.br/pix/v2"
     BASE_URL = "https://api-pix.bb.com.br/pix/v2"
 
     def listar_pix(self, inicio=None, fim=None, page=0):
@@ -31,7 +31,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
         if fim:
             search["fim"] = fim
 
-        url = self._construct_url("pix", end_bar=False, search=search)
+        url = self._construct_url("pix", search=search)
 
         response = self._get(url)
 
@@ -156,44 +156,9 @@ class PIXCobBBWrapper(BaseBBWrapper):
             expiracao, chave, documento_devedor, nome_devedor, valor, descricao, info
         )
 
-        url = self._construct_url("cob", end_bar=True)
+        url = self._construct_url("cob")
 
         response = self._post(url, data)
-
-        self._injeta_qrcode_data(response, nome_recebedor)
-
-        return response
-
-    def criar_cobranca_qrcode(
-        self,
-        expiracao: int,
-        chave: str,
-        documento_devedor: str,
-        nome_devedor: str,
-        nome_recebedor: str,
-        valor: float,
-        descricao: str,
-        info: list = None,
-    ):
-        """
-        Criar uma cobrança PIX com QRCode dinâmico
-
-        Args:
-            expiracao: segundos antes da expiracao
-            chave: chave PIX
-            documento_devedor: CPF ou CNPJ
-            nome_devedor: Nome do devedor
-            nome_recebedor: Nome do recebedor
-            valor: valor da cobrança
-            descricao: descrição da cobrança
-        """
-        data = self._create_and_validate_cobranca_data(
-            expiracao, chave, documento_devedor, nome_devedor, valor, descricao, info
-        )
-
-        url = self._construct_url("cobqrcode", end_bar=True)
-
-        response = self._put(url, data)
 
         self._injeta_qrcode_data(response, nome_recebedor)
 

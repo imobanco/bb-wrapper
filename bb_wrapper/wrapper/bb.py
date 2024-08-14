@@ -41,11 +41,11 @@ class BaseBBWrapper(RequestsWrapper):
         if gw_app_key is None:
             gw_app_key = GW_APP_KEY
 
-        self.__basic_token = basic_token
-        self.__gw_app_key = gw_app_key
+        self._basic_token = basic_token
+        self._gw_app_key = gw_app_key
         self._is_sandbox = is_sandbox
 
-        if self.__basic_token == "" or self.__gw_app_key == "":
+        if self._basic_token == "" or self._gw_app_key == "":
             raise ValueError("Configure o basic_token/gw_app_key do BB!")
 
         if self._is_sandbox:
@@ -122,7 +122,7 @@ class BaseBBWrapper(RequestsWrapper):
         else:
             url += "&"
 
-        url += f"gw-dev-app-key={self.__gw_app_key}"
+        url += f"gw-dev-app-key={self._gw_app_key}"
 
         return url
 
@@ -196,7 +196,7 @@ class BaseBBWrapper(RequestsWrapper):
         O endpoint oauth recebe application/x-www-form-urlencoded!
         """
         url = self.__oauth_url()
-        header = {"Authorization": f"Basic {self.__basic_token}"}
+        header = {"Authorization": f"Basic {self._basic_token}"}
 
         data = {
             "grant_type": "client_credentials",

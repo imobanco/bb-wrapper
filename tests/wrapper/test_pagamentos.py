@@ -32,7 +32,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         expected = (
             f"https://api.sandbox.bb.com.br/pagamentos-lote/v1/"
-            f"?gw-dev-app-key={PagamentoLoteBBWrapper()._BaseBBWrapper__gw_app_key}"
+            f"?gw-dev-app-key={PagamentoLoteBBWrapper()._gw_app_key}"
         )
 
         self.assertEqual(expected, result)
@@ -53,7 +53,7 @@ class PagamentoLoteBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase
 
         expected = (
             f"https://api-ip.bb.com.br/pagamentos-lote/v1/"
-            f"?gw-dev-app-key={PagamentoLoteBBWrapper()._BaseBBWrapper__gw_app_key}"
+            f"?gw-dev-app-key={PagamentoLoteBBWrapper()._gw_app_key}"
         )
 
         self.assertEqual(expected, result)
