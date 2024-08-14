@@ -168,11 +168,11 @@ class PixCobBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
             - for chamado PIXCobBBWrapper()._construct_url(end_bar=True, search=None)
         Então:
             - o resultado deve ter pelo menos o texto
-                'https://api.hm.bb.com.br/pix/v1/?gw-dev-app-key='
+                'https://api-pix.hm.bb.com.br/pix/v2/?gw-dev-app-key=KEY'
         """
         result = PIXCobBBWrapper()._construct_url(end_bar=True)
 
-        expected = "https://api.sandbox.bb.com.br/pix/v1/?gw-dev-app-key="
+        expected = "https://api-pix.hm.bb.com.br/pix/v2/?gw-dev-app-key=KEY"
 
         self.assertIn(expected, result)
 
@@ -184,12 +184,11 @@ class PixCobBBWrapperTestCase(IsolatedEnvTestCase, MockedRequestsTestCase):
             - for chamado PIXCobBBWrapper()._construct_url(end_bar=False)
         Então:
             - o resultado deve ter pelo menos o texto
-                'https://api.hm.bb.com.br/pix/v1?gw-dev-app-key='
+                'https://api-pix.hm.bb.com.br/pix/v2?gw-dev-app-key='
         """
         result = PIXCobBBWrapper()._construct_url(end_bar=False)
 
-        expected = "https://api.sandbox.bb.com.br/pix/v1?gw-dev-app-key="
-
+        expected = "https://api-pix.hm.bb.com.br/pix/v2?gw-dev-app-key="
         self.assertIn(expected, result)
 
     def test_consultar_cobranca_content_bizarro(self):

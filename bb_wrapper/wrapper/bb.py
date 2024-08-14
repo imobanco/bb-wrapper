@@ -11,11 +11,8 @@ class BaseBBWrapper(RequestsWrapper):
     wrapper base do BB (Banco do Brasil)
     """
 
-    BASE_SCHEMA = "https://"
-    BASE_SUBDOMAIN = "api"
-    BASE_SANDBOX_ADDITION = ".sandbox"
-    BASE_PROD_ADDITION = ""
-    BASE_DOMAIN = ".bb.com.br"
+    SANDBOX_BASE_URL = ""
+    BASE_URL = ""
 
     SCOPE = ""
 
@@ -51,7 +48,10 @@ class BaseBBWrapper(RequestsWrapper):
         if self.__basic_token == "" or self.__gw_app_key == "":
             raise ValueError("Configure o basic_token/gw_app_key do BB!")
 
-        base_url = self._construct_base_url()
+        if self._is_sandbox:
+            base_url = self.SANDBOX_BASE_URL
+        else:
+            base_url = self.BASE_URL
 
         super().__init__(
             *args,
@@ -112,19 +112,6 @@ class BaseBBWrapper(RequestsWrapper):
         de '_PIXCobBBWrapper__data'!
         """
         return getattr(self, f"_{self.__class__.__name__}__data", None)
-
-    def _construct_base_url(self):
-        if self._is_sandbox:
-            addition = self.BASE_SANDBOX_ADDITION
-        else:
-            addition = self.BASE_PROD_ADDITION
-        base_url = (
-            f"{self.BASE_SCHEMA}"
-            f"{self.BASE_SUBDOMAIN}"
-            f"{addition}"
-            f"{self.BASE_DOMAIN}"
-        )
-        return base_url
 
     def _construct_url(self, *args, **kwargs):
         url = super()._construct_url(*args, **kwargs)
@@ -197,13 +184,10 @@ class BaseBBWrapper(RequestsWrapper):
         return is_token_missing or is_token_expired
 
     def __oauth_url(self):
-        return (
-            f"{BaseBBWrapper.BASE_SCHEMA}"
-            f"oauth"
-            f'{".sandbox" if self._is_sandbox else ""}'
-            f"{BaseBBWrapper.BASE_DOMAIN}"
-            f"/oauth/token"
-        )
+        if self._is_sandbox:
+            return "https://oauth.sandbox.bb.com.br/oauth/token"
+        else:
+            return "https://oauth.bb.com.br/oauth/token"
 
     def __authenticate(self):
         """

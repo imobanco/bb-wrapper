@@ -4,7 +4,7 @@ from examples.utils import dump_response
 
 from bb_wrapper.wrapper import PIXCobBBWrapper
 
-c = PIXCobBBWrapper()
+c = PIXCobBBWrapper(cert=("./certs/cert.pem", "./certs/key.pem"))
 
 txid = "HUAY0i0XMbuq6W3EcGapjsGCp5V19ToaRNR"
 

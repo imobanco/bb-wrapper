@@ -11,7 +11,8 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
     SCOPE = "cob.read cob.write pix.read pix.write"
 
-    BASE_DOMAIN = ".bb.com.br/pix/v1"
+    SANDBOX_BASE_URL = "https://api-pix.hm.bb.com.br/pix/v2"
+    BASE_URL = "https://api-pix.bb.com.br/pix/v2"
 
     def listar_pix(self, inicio=None, fim=None, page=0):
         """
@@ -157,7 +158,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
 
         url = self._construct_url("cob", end_bar=True)
 
-        response = self._put(url, data)
+        response = self._post(url, data)
 
         self._injeta_qrcode_data(response, nome_recebedor)
 
