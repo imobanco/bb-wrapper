@@ -12,8 +12,6 @@ class BaseBBWrapper(RequestsWrapper):
     """
 
     BASE_SCHEMA = "https://"
-    # BASE_SUBDOMAIN = "api"
-    # BASE_SANDBOX_ADDITION = ".sandbox"
     BASE_PROD_ADDITION = ""
     BASE_DOMAIN = ".bb.com.br"
     SANDBOX_BASE_URL = ""
