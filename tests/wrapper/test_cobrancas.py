@@ -250,7 +250,7 @@ class CobrancasBBWrapperTestCase(IsolatedEnvTestCase):
 
         expected = (
             "https://api.sandbox.bb.com.br/cobrancas/v2/boletos"
-            f"?gw-dev-app-key={wrapper._BaseBBWrapper__gw_app_key}"
+            f"?gw-dev-app-key={wrapper._gw_app_key}"
         )
 
         self.assertEqual(result, expected)
