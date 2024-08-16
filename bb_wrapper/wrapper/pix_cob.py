@@ -24,7 +24,7 @@ class PIXCobBBWrapper(BaseBBWrapper):
             page: número da página atual. Padrão 0
         """
         search = {
-            "paginaAtual": page,
+            "paginacao.paginaAtual": page,
         }
         if inicio:
             search["inicio"] = inicio
