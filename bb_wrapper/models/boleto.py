@@ -18,6 +18,38 @@ class ModalidadeEnum(IntEnum):
     vinculada = 4
 
 
+class TipoBoletoEnum(IntEnum):
+    APS = 20
+    BA = 33
+    BP = 32
+    CH = 1
+    CC = 31
+    DAE = 24
+    DAM = 25
+    DAU = 23
+    DM = 2
+    DMI = 3
+    DR = 6
+    DS = 4
+    DSI = 5
+    FAT = 18
+    LC = 7
+    ME = 21
+    NCC = 8
+    NCE = 9
+    NCI = 10
+    NCR = 11
+    ND = 19
+    NP = 12
+    NPR = 13
+    NS = 16
+    PCO = 22
+    RCO = 17
+    TM = 14
+    TS = 15
+    OUT = 99
+
+
 class ConfiguracaoBaseTipoEnum(IntEnum):
     valor = 1
     porcentagem = 2
@@ -76,7 +108,7 @@ class Boleto(BaseModel):
     quantidadeDiasProtesto: Optional[conint(ge=0)]
     quantidadeDiasNegativacao: Optional[conint(ge=0)]
     codigoAceite: Literal["A", "N"] = "N"
-    codigoTipoTitulo: Literal[4] = 4
+    codigoTipoTitulo: TipoBoletoEnum
     descricaoTipoTitulo: Optional[str]
     numeroTituloBeneficiario: Optional[str]
     textoCampoUtilizacaoBeneficiario: Optional[constr(max_length=30)]
