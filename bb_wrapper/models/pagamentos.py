@@ -1,7 +1,7 @@
-from typing import Optional
 from enum import IntEnum, Enum
 
-from pydantic import BaseModel, root_validator
+from pydantic import BaseModel
+from pydantic.functional_validators import model_validator
 from pycpfcnpj import cpfcnpj
 
 from .perfis import TipoInscricaoEnum
@@ -55,17 +55,16 @@ class TransferenciaPIX(BaseModel):
     data: str
     valor: float
     chave: str
-    formaIdentificacao: Optional[TipoChavePIX]
-    dddTelefone: Optional[int]
-    telefone: Optional[int]
-    email: Optional[str]
-    cpf: Optional[int]
-    cnpj: Optional[int]
-    identificacaoAleatoria: Optional[str]
+    formaIdentificacao: TipoChavePIX = None
+    dddTelefone: int = None
+    telefone: int = None
+    email: str = None
+    cpf: int = None
+    cnpj: int = None
+    identificacaoAleatoria: str = None
 
-    # noinspection PyMethodParameters
-    @root_validator
-    def _set_data(cls, values):
+    @model_validator(mode="after")
+    def _set_key_accordingly(self):
         """
         Esse método realiza o processamento em cima do valor 'chave'
         identificando que tipo de chave é e configurando-a corretamente
@@ -73,38 +72,38 @@ class TransferenciaPIX(BaseModel):
         """
         from ..services.pix import PixService
 
-        key = values.get("chave")
+        key = self.chave
 
         key_type = PixService().identify_key_type(key)
-        values["formaIdentificacao"] = key_type
+        self.formaIdentificacao = key_type
 
         if key_type == TipoChavePIX.telefone:
-            values["dddTelefone"] = int(key[:2])
-            values["telefone"] = int(key[2:])
+            self.dddTelefone = int(key[:2])
+            self.telefone = int(key[2:])
         elif key_type == TipoChavePIX.email:
-            values["email"] = key
+            self.email = key
         elif key_type == TipoChavePIX.uuid:
-            values["identificacaoAleatoria"] = key
+            self.identificacaoAleatoria = key
         elif key_type == TipoChavePIX.documento:
             key_value = cpfcnpj.clear_punctuation(key)
             if len(key_value) == 1:
-                values["cpf"] = int(key_value)
+                self.cpf = int(key_value)
             else:
-                values["cnpj"] = int(key_value)
-        return values
+                self.cnpj = int(key_value)
+        return self
 
 
 class TransferenciaTED(BaseModel):
     numeroCOMPE: int
-    cpfBeneficiario: Optional[int]
-    cnpjBeneficiario: Optional[int]
+    cpfBeneficiario: int = None
+    cnpjBeneficiario: int = None
     dataTransferencia: str
     valorTransferencia: float
-    contaPagamentoCredito: Optional[str]
-    agenciaCredito: Optional[int]
-    contaCorrenteCredito: Optional[int]
-    digitoVerificadorContaCorrente: Optional[str]
-    codigoFinalidadeTED: Optional[FinalidadeTED]
+    contaPagamentoCredito: str = None
+    agenciaCredito: int = None
+    contaCorrenteCredito: int = None
+    digitoVerificadorContaCorrente: str = None
+    codigoFinalidadeTED: FinalidadeTED = None
 
 
 class Boleto(BaseModel):
@@ -128,7 +127,7 @@ class LoteData(BaseModel):
     agencia: int
     conta: int
     dv_conta: str
-    convenio: Optional[int]
+    convenio: int = None
 
 
 class LoteTransferenciaData(LoteData):

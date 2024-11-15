@@ -1,5 +1,5 @@
 from enum import IntEnum
-from typing import Optional, Literal
+from typing import Literal
 
 from pydantic import BaseModel, confloat, conint, constr
 
@@ -56,8 +56,8 @@ class ConfiguracaoBaseTipoEnum(IntEnum):
 
 
 class ConfiguracaoBase(BaseModel):
-    valor: Optional[confloat(strict=True, gt=0.0)]
-    porcentagem: Optional[confloat(strict=True, gt=0.0)]
+    valor: confloat(strict=True, gt=0.0) = None
+    porcentagem: confloat(strict=True, gt=0.0) = None
 
 
 class BoletoConfiguracaoBase(ConfiguracaoBase):
@@ -94,34 +94,34 @@ class Boleto(BaseModel):
 
     dataEmissao: str
     dataVencimento: str
-    indicadorAceiteTituloVencido: Optional[Literal["S", "N"]] = "S"
-    numeroDiasLimiteRecebimento: Optional[conint(ge=0)]
+    indicadorAceiteTituloVencido: Literal["S", "N"] = "S"
+    numeroDiasLimiteRecebimento: conint(ge=0) = None
 
     valorOriginal: confloat(strict=True, gt=0.0)
-    valorAbatimento: Optional[confloat(strict=True, gt=0.0)]
+    valorAbatimento: confloat(strict=True, gt=0.0) = None
     indicadorPermissaoRecebimentoParcial: Literal["N", "S"] = "N"
 
     numeroTituloCliente: constr(max_length=20)
     pagador: PessoaComEndereco
-    beneficiarioFinal: Optional[Pessoa]
+    beneficiarioFinal: Pessoa = None
 
-    quantidadeDiasProtesto: Optional[conint(ge=0)]
-    quantidadeDiasNegativacao: Optional[conint(ge=0)]
+    quantidadeDiasProtesto: conint(ge=0) = None
+    quantidadeDiasNegativacao: conint(ge=0) = None
     codigoAceite: Literal["A", "N"] = "N"
     codigoTipoTitulo: TipoBoletoEnum
-    descricaoTipoTitulo: Optional[str]
-    numeroTituloBeneficiario: Optional[str]
-    textoCampoUtilizacaoBeneficiario: Optional[constr(max_length=30)]
-    textoMensagemBloquetoOcorrencia: Optional[constr(max_length=30)]
-    email: Optional[str]
+    descricaoTipoTitulo: str = None
+    numeroTituloBeneficiario: str = None
+    textoCampoUtilizacaoBeneficiario: constr(max_length=30) = None
+    textoMensagemBloquetoOcorrencia: constr(max_length=30) = None
+    email: str = None
 
-    jurosMora: Optional[BoletoConfiguracaoBase]
-    multa: Optional[BoletoConfiguracaoBase]
-    desconto: Optional[PrimeiroDesconto]
-    segundoDesconto: Optional[SegundoOuTerceiroDesconto]
-    terceiroDesconto: Optional[SegundoOuTerceiroDesconto]
+    jurosMora: BoletoConfiguracaoBase = None
+    multa: BoletoConfiguracaoBase = None
+    desconto: PrimeiroDesconto = None
+    segundoDesconto: SegundoOuTerceiroDesconto = None
+    terceiroDesconto: SegundoOuTerceiroDesconto = None
 
-    indicadorPix: Optional[Literal["S", "N"]]
+    indicadorPix: Literal["S", "N"] = None
 
 
 class BoletoEstadoEnum(IntEnum):
