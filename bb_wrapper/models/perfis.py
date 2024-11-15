@@ -1,4 +1,3 @@
-from typing import Optional
 from enum import IntEnum
 
 from pydantic import BaseModel, constr
@@ -26,7 +25,7 @@ class PessoaComEndereco(Pessoa):
     cidade: constr(max_length=30)
     bairro: constr(max_length=30)
     uf: constr(max_length=2, min_length=2)
-    telefone: Optional[constr(max_length=30)]
+    telefone: constr(max_length=30) = None
 
 
 class PessoaPix(BaseModel):

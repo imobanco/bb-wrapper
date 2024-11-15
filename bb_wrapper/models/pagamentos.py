@@ -1,4 +1,3 @@
-from typing import Optional
 from enum import IntEnum, Enum
 
 from pydantic import BaseModel
@@ -56,13 +55,13 @@ class TransferenciaPIX(BaseModel):
     data: str
     valor: float
     chave: str
-    formaIdentificacao: Optional[TipoChavePIX]
-    dddTelefone: Optional[int]
-    telefone: Optional[int]
-    email: Optional[str]
-    cpf: Optional[int]
-    cnpj: Optional[int]
-    identificacaoAleatoria: Optional[str]
+    formaIdentificacao: TipoChavePIX = None
+    dddTelefone: int = None
+    telefone: int = None
+    email: str = None
+    cpf: int = None
+    cnpj: int = None
+    identificacaoAleatoria: str = None
 
     @model_validator(mode="after")
     def _set_key_accordingly(self):
@@ -96,15 +95,15 @@ class TransferenciaPIX(BaseModel):
 
 class TransferenciaTED(BaseModel):
     numeroCOMPE: int
-    cpfBeneficiario: Optional[int]
-    cnpjBeneficiario: Optional[int]
+    cpfBeneficiario: int = None
+    cnpjBeneficiario: int = None
     dataTransferencia: str
     valorTransferencia: float
-    contaPagamentoCredito: Optional[str]
-    agenciaCredito: Optional[int]
-    contaCorrenteCredito: Optional[int]
-    digitoVerificadorContaCorrente: Optional[str]
-    codigoFinalidadeTED: Optional[FinalidadeTED]
+    contaPagamentoCredito: str = None
+    agenciaCredito: int = None
+    contaCorrenteCredito: int = None
+    digitoVerificadorContaCorrente: str = None
+    codigoFinalidadeTED: FinalidadeTED = None
 
 
 class Boleto(BaseModel):
@@ -128,7 +127,7 @@ class LoteData(BaseModel):
     agencia: int
     conta: int
     dv_conta: str
-    convenio: Optional[int]
+    convenio: int = None
 
 
 class LoteTransferenciaData(LoteData):

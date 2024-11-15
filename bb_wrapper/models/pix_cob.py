@@ -1,4 +1,4 @@
-from typing import Union, Optional
+from typing import Union
 
 from pydantic import BaseModel, confloat, conint, constr, conlist
 
@@ -24,4 +24,4 @@ class CobrancaPix(BaseModel):
     valor: Valor
     chave: constr(max_length=77)
     solicitacaoPagador: constr(max_length=140)
-    infoAdicionais: Optional[conlist(InfoAdicional, max_length=50)]
+    infoAdicionais: conlist(InfoAdicional, max_length=50) = None
