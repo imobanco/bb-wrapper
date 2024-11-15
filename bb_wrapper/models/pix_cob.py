@@ -24,4 +24,4 @@ class CobrancaPix(BaseModel):
     valor: Valor
     chave: constr(max_length=77)
     solicitacaoPagador: constr(max_length=140)
-    infoAdicionais: Optional[conlist(InfoAdicional, max_items=50)]
+    infoAdicionais: Optional[conlist(InfoAdicional, max_length=50)]
