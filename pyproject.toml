@@ -70,7 +70,7 @@ include = []
 python = ">= 3.8, < 3.10"
 requests = "^2.26.0"
 python-decouple = "^3.4"
-pydantic = "^1.8.2"
+pydantic = ">=2.0.0"
 python-barcode = "^0.15.1"
 Unidecode = "^1.2.0"
 qrcode = "^7.3"
@@ -85,7 +85,7 @@ coverage = {extras = ["toml"], version = "^5.5"}
 isort = "^5.9.2"
 freezegun = "^1.1.0"
 responses = "^0.21.0"
-py-bdd-context = "^0.0.2"
+py-bdd-context = ">=0.0.2"
 
 [tool.poetry.scripts]
 
