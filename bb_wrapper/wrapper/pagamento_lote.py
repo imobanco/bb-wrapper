@@ -17,7 +17,7 @@ class PagamentoLoteBBWrapper(BaseBBWrapper):
     """
 
     SCOPE = "pagamentos-lote.lotes-requisicao pagamentos-lote.transferencias-info pagamentos-lote.transferencias-requisicao pagamentos-lote.cancelar-requisicao pagamentos-lote.devolvidos-info pagamentos-lote.lotes-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-info pagamentos-lote.pagamentos-info pagamentos-lote.pagamentos-guias-sem-codigo-barras-requisicao pagamentos-lote.pagamentos-codigo-barras-info pagamentos-lote.boletos-requisicao pagamentos-lote.guias-codigo-barras-info pagamentos-lote.guias-codigo-barras-requisicao pagamentos-lote.transferencias-pix-info pagamentos-lote.transferencias-pix-requisicao pagamentos-lote.pix-info pagamentos-lote.boletos-info"  # noqa
-    SANDBOX_BASE_URL = "https://api.sandbox.bb.com.br/pagamentos-lote/v1"
+    SANDBOX_BASE_URL = "https://api.hm.bb.com.br/pagamentos-lote/v1"
     BASE_URL = "https://api-ip.bb.com.br/pagamentos-lote/v1"
 
     def _valida_lote_data(self, model, **kwargs):
