@@ -242,14 +242,14 @@ class CobrancasBBWrapperTestCase(IsolatedEnvTestCase):
             - for chamado wrapper._construct_url()
         Então:
             - o resultado deve ser
-                "https://api.sandbox.bb.com.br/cobrancas/v2/boletos"
+                "https://api.hm.bb.com.br/cobrancas/v2/boletos"
                 f"?gw-dev-app-key={GW_APP_KEY}"
         """
         wrapper = CobrancasBBWrapper()
         result = wrapper._construct_url()
 
         expected = (
-            "https://api.sandbox.bb.com.br/cobrancas/v2/boletos"
+            "https://api.hm.bb.com.br/cobrancas/v2/boletos"
             f"?gw-dev-app-key={wrapper._gw_app_key}"
         )
 
@@ -295,8 +295,6 @@ class CobrancasBBWrapperTestCase(IsolatedEnvTestCase):
         """
         result = CobrancasBBWrapper()._construct_url(end_bar=True)
 
-        expected = (
-            "https://api.sandbox.bb.com.br/cobrancas/v2/boletos/?gw-dev-app-key=KEY"
-        )
+        expected = "https://api.hm.bb.com.br/cobrancas/v2/boletos/?gw-dev-app-key=KEY"
 
         self.assertIn(expected, result)
