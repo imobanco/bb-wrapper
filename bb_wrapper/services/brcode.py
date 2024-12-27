@@ -1,4 +1,4 @@
-from crc import CrcCalculator, Configuration
+from crc import Calculator, Configuration
 
 
 class BRCodeService:
@@ -56,8 +56,8 @@ class BRCodeService:
             reverse_input=False,
             reverse_output=False,
         )
-        crc_calculator = CrcCalculator(crc_configuration)
+        crc_calculator = Calculator(crc_configuration)
         data_to_encode = bytes(data, encoding="utf-8")
-        crc_value = crc_calculator.calculate_checksum(data_to_encode)
+        crc_value = crc_calculator.checksum(data_to_encode)
         crc_value = str(hex(crc_value))[2:].upper()
         return crc_value
