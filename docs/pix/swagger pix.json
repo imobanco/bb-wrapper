@@ -550,7 +550,7 @@
         "type": "oauth2",
         "flows": {
           "clientCredentials": {
-            "tokenUrl": "https://oauth.sandbox.bb.com.br/oauth/token",
+            "tokenUrl": "https://oauth.hm.bb.com.br/oauth/token",
             "scopes": {
               "cob.write": "Permissão para alteração de cobranças",
               "cob.read": "Permissão para consulta de cobranças",
