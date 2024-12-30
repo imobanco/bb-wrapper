@@ -52,7 +52,7 @@
 							]
 						},
 						"url": {
-							"raw": "https://oauth.sandbox.bb.com.br/oauth/token?",
+							"raw": "https://oauth.hm.bb.com.br/oauth/token?",
 							"protocol": "https",
 							"host": [
 								"oauth",

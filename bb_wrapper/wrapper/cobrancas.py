@@ -7,7 +7,7 @@ from ..services import parse_unicode_to_alphanumeric, BarcodeService, QRCodeServ
 class CobrancasBBWrapper(BaseBBWrapper):
     SCOPE = "cobrancas.boletos-info cobrancas.boletos-requisicao"
 
-    SANDBOX_BASE_URL = "https://api.sandbox.bb.com.br/cobrancas/v2/boletos"
+    SANDBOX_BASE_URL = "https://api.hm.bb.com.br/cobrancas/v2/boletos"
     BASE_URL = "https://api.bb.com.br/cobrancas/v2/boletos"
 
     def __init__(
